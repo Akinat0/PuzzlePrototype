@@ -8,15 +8,12 @@ public class GameSceneManager : MonoBehaviour
     
     [SerializeField] public Player player;
     [SerializeField] public HealthManager healthManager;
+    [SerializeField] public Score score;
 
     void Awake()
     {
         Instance = this;
     }
 
-    void Update()
-    {
-        
-    }
 }
 }

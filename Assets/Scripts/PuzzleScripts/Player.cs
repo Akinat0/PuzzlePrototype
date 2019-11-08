@@ -8,15 +8,9 @@ namespace Puzzle
 {
     public class Player : MonoBehaviour
     {
-        private int health = 1000;
+        private int _health = 3;
         
-        public bool[] Sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
-        
-        // Start is called before the first frame update
-        void Start()
-        {
-            
-        }
+        public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -26,7 +20,8 @@ namespace Puzzle
 
         private void PlayerDied()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameSceneManager.Instance.score.SaveScore();
+            SceneManager.LoadScene("GameEndScene");
         }
 
 
@@ -36,8 +31,8 @@ namespace Puzzle
             {
                 GameSceneManager.Instance.healthManager.LoseHeart();
             }
-            health -= damage;
-            if (health == 0)
+            _health -= damage;
+            if (_health == 0)
             {
                 PlayerDied();
             }
@@ -46,8 +41,8 @@ namespace Puzzle
 
         public void ChangeSides()
         {
-            for (int i = 0; i < Sides.Length; i++)
-                Sides[i] = !Sides[i];
+            for (int i = 0; i < sides.Length; i++)
+                sides[i] = !sides[i];
             transform.Rotate(new Vector3(0, 0, 180));
         }
     }
