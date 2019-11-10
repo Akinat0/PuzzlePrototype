@@ -8,10 +8,13 @@ namespace Puzzle
 {
     public class Player : MonoBehaviour
     {
-        private int _health = 3;
         
+        private int _health = 3;
+        [SerializeField]private Animator _animator;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
-
+        
+        private static readonly int Shake = Animator.StringToHash("shake");
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
@@ -27,6 +30,7 @@ namespace Puzzle
 
         public void DealDamage(int damage)
         {
+            _animator.SetTrigger(Shake);
             for (int i = 0; i < damage; i++)
             {
                 GameSceneManager.Instance.healthManager.LoseHeart();

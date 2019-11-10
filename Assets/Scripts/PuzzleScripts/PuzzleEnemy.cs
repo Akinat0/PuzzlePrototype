@@ -27,10 +27,11 @@ namespace Puzzle
 
         public void Die()
         {
-            Destroy(gameObject);
-            var expl = Instantiate(explosion);
-            Destroy(expl, 1.5f);
+            var effect = Instantiate(explosion);
+            effect.transform.position = transform.position;
+            Destroy(effect, 1.5f);
             GameSceneManager.Instance.score.AddScore(15);
+            Destroy(gameObject);
         }
 
         public void Move()
@@ -62,6 +63,7 @@ namespace Puzzle
                     transform.right = Vector3.up;
                     break;
             }
+            GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV();
         }
 
 

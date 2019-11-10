@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoHelper : MonoBehaviour
+namespace Abu.Tools
 {
-    void OnDisable()
+    public class MonoHelper : MonoBehaviour
     {
-        StopAllCoroutines();
+        void OnDisable()
+        {
+            StopAllCoroutines();
+        }
     }
 }

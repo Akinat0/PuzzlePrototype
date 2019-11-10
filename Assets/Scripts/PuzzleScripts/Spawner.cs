@@ -9,9 +9,11 @@ namespace Puzzle
     {
 
         [SerializeField] private float timestep = 1;
-        [SerializeField] private float enemySpeed = 0.05f;
+        [SerializeField] private float enemySpeed = 0.02f;
         public static Spawner Instance;
-        public GameObject enemyPrefab;
+        
+        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private GameObject shitPrefab;
 
         private void Awake()
         {
@@ -31,15 +33,26 @@ namespace Puzzle
             _timer += deltatime;
             if (_timer >= timestep)
             {
+                GameObject prefabToInstantiate;
+                if (UnityEngine.Random.value > 0.0f)
+                {
+                    prefabToInstantiate = shitPrefab;
+                }
+                else
+                {
+                    prefabToInstantiate = enemyPrefab;
+                }
+
                 Side initSide;
                 initSide = (Side) Mathf.RoundToInt(UnityEngine.Random.value * 3);
-                GameObject enemy = Instantiate(enemyPrefab);
+                GameObject enemy = Instantiate(prefabToInstantiate);
                 enemy.GetComponent<IEnemy>().Instantiate(initSide, enemySpeed);
-                enemy.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV();
+                
                 _timer = 0;
             }
 
             _starttime = Time.time;
         }
     }
+
 }
