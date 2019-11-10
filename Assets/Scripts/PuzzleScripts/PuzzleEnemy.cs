@@ -78,5 +78,7 @@ namespace Puzzle
             get { return _damage; }
             set { _damage = value;}
         }
+
+        
     }
 }

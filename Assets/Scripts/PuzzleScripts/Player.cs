@@ -14,6 +14,11 @@ namespace Puzzle
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
         
         private static readonly int Shake = Animator.StringToHash("shake");
+
+        private void Start()
+        {
+            MobileInput.TouchOnTheScreen += touch => ChangeSides();
+        }
         
         private void OnTriggerEnter2D(Collider2D other)
         {
