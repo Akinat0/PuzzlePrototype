@@ -7,6 +7,7 @@ namespace Puzzle
 {
     public class PuzzleEnemy : MonoBehaviour, IEnemy
     {
+        [SerializeField] GameObject explosion;
         private float _speed = 0.05f;
         public Side side;
         private Vector3 _target;
@@ -16,7 +17,6 @@ namespace Puzzle
             if (!player.sides[side.GetHashCode()])
             {
                 Die();
-                
             } //That means everything's okay
             else
             {
@@ -28,6 +28,8 @@ namespace Puzzle
         public void Die()
         {
             Destroy(gameObject);
+            var expl = Instantiate(explosion);
+            Destroy(expl, 1.5f);
             GameSceneManager.Instance.score.AddScore(15);
         }
 
