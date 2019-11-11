@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using Abu.Tools;
 public class MenuSceneManager : MonoBehaviour
 {
+    [SerializeField] private AsyncLoader _asyncLoader;
     public void Play()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        _asyncLoader?.LoadScene("GameScene");
+       // UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
     }
 }

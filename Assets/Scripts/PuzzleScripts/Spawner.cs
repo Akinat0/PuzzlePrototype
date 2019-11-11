@@ -34,7 +34,7 @@ namespace Puzzle
             if (_timer >= timestep)
             {
                 GameObject prefabToInstantiate;
-                if (UnityEngine.Random.value > 0.0f)
+                if (UnityEngine.Random.value > 0.7f)
                 {
                     prefabToInstantiate = shitPrefab;
                 }

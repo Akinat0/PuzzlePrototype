@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
+using Abu.Tools;
 
 namespace ScreensScripts.ReplayScreen
 {
+    
     public class ReplayScreenManager : MonoBehaviour
     {
+        
+        [SerializeField] 
+        private AsyncLoader _asyncLoader;
         [SerializeField]
         private Text _endGameText;
 
@@ -16,7 +22,7 @@ namespace ScreensScripts.ReplayScreen
 
         public void Replay()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+            _asyncLoader.LoadScene("GameScene");
         }
     }
 }

@@ -14,12 +14,18 @@ namespace Puzzle
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
         
         private static readonly int Shake = Animator.StringToHash("shake");
-
+        
         private void Start()
         {
-            MobileInput.TouchOnTheScreen += touch => ChangeSides();
+            
+            MobileInput.TouchOnTheScreen += TouchOnScreen_Handler;
         }
-        
+
+        private void OnDestroy()
+        {
+            MobileInput.TouchOnTheScreen -= TouchOnScreen_Handler;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
@@ -48,6 +54,11 @@ namespace Puzzle
             
         }
 
+        private void TouchOnScreen_Handler(Touch touch)
+        {
+            ChangeSides();
+        }
+        
         public void ChangeSides()
         {
             for (int i = 0; i < sides.Length; i++)
