@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using ScreensScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,10 +8,7 @@ namespace Puzzle
     {
         
         private int _health = 3;
-        [SerializeField]private Animator _animator;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
-        
-        private static readonly int Shake = Animator.StringToHash("shake");
         
         private void Start()
         {
@@ -41,7 +36,7 @@ namespace Puzzle
 
         public void DealDamage(int damage)
         {
-            _animator.SetTrigger(Shake);
+            GameSceneManager.Instance.ShakeCamera();
             for (int i = 0; i < damage; i++)
             {
                 GameSceneManager.Instance.healthManager.LoseHeart();

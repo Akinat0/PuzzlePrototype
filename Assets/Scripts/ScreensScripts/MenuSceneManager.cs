@@ -1,11 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Abu.Tools;
-public class MenuSceneManager : MonoBehaviour
+
+namespace ScreensScripts
 {
-    [SerializeField] private AsyncLoader _asyncLoader;
-    public void Play()
+    public class MenuSceneManager : MonoBehaviour
     {
-        _asyncLoader?.LoadScene("GameScene");
-       // UnityEngine.SceneManagement.SceneManager.LoadScene("GameScene");
+        public static MenuSceneManager Instance;
+        
+        [SerializeField] private AsyncLoader _asyncLoader;
+        
+        private void Awake()
+        {
+            Instance = this;
+        }
+        public void Play()
+        {
+            _asyncLoader?.LoadScene("GameScene");
+        }
+
+      
     }
 }

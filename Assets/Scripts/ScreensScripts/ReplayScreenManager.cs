@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Abu.Tools;
 
-namespace ScreensScripts.ReplayScreen
+namespace ScreensScripts
 {
     
     public class ReplayScreenManager : MonoBehaviour
