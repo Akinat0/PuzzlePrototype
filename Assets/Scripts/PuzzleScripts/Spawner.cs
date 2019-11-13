@@ -1,6 +1,7 @@
 using System;
+using Abu.Tools;
+using UnityEditor;
 using UnityEngine;
-using Random = System.Random;
 
 namespace Puzzle
 {
@@ -8,12 +9,25 @@ namespace Puzzle
     public class Spawner : MonoBehaviour
     {
 
-        [SerializeField] private float timestep = 1;
-        [SerializeField] private float enemySpeed = 0.02f;
         public static Spawner Instance;
         
+        [SerializeField] private float spawnTimestep = 1;
+        [SerializeField] private float startEnemySpeed = 0.02f;
+        [SerializeField] private float hightestEnemySpeed = 0.1f;
+        [SerializeField] private float timeToHighComplexity = 60f;
+
+        [Tooltip("The percent which player's pazzle will take on the any screen")]
+        [SerializeField] private float partOfThePLayerOnTheScreen = 0.25f;
+        
+        [SerializeField] private GameObject playerEntity;
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject shitPrefab;
+
+        [SerializeField] private GameObject background;
+        
+        private float _gameScale;
+        
+        private float _enemySpeed;
 
         private void Awake()
         {
@@ -22,16 +36,23 @@ namespace Puzzle
 
         private void Start()
         {
-            _starttime = Time.time;
+            RescaleGame();
         }
 
-        private float _starttime;
-        private float _timer = 0;
+        private float _timeFromStart = 0;
+        private float _spawnTimer = 0;
         private void Update()
         {
-            float deltatime = Time.time - _starttime;
-            _timer += deltatime;
-            if (_timer >= timestep)
+            //Update Timers
+            _spawnTimer += Time.deltaTime;
+            _timeFromStart += Time.deltaTime;
+            
+            //Update complexity
+            float t = Mathf.Clamp01(_timeFromStart / timeToHighComplexity);
+            _enemySpeed = Mathf.Lerp(startEnemySpeed, hightestEnemySpeed, t);
+                
+            
+            if (_spawnTimer >= spawnTimestep)
             {
                 GameObject prefabToInstantiate;
                 if (UnityEngine.Random.value > 0.7f)
@@ -46,12 +67,26 @@ namespace Puzzle
                 Side initSide;
                 initSide = (Side) Mathf.RoundToInt(UnityEngine.Random.value * 3);
                 GameObject enemy = Instantiate(prefabToInstantiate);
-                enemy.GetComponent<IEnemy>().Instantiate(initSide, enemySpeed);
+                enemy.GetComponent<IEnemy>().Instantiate(initSide, _enemySpeed);
                 
-                _timer = 0;
+                _spawnTimer = 0;
             }
+        }
 
-            _starttime = Time.time;
+        private void RescaleGame()
+        {
+            Vector2 backgroundScale = ScreenScaler.ScaleToFillScreen(background.GetComponent<SpriteRenderer>());
+            background.transform.localScale = backgroundScale;
+            
+            _gameScale =
+                ScreenScaler.ScaleToFillPartOfScreen(
+                    playerEntity.GetComponent<SpriteRenderer>(),
+                    partOfThePLayerOnTheScreen);
+            
+            playerEntity.transform.localScale = Vector3.one * _gameScale;
+            enemyPrefab.transform.localScale = Vector3.one * _gameScale;
+            shitPrefab.transform.localScale = Vector3.one * _gameScale;
+
         }
     }
 

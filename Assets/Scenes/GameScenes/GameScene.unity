@@ -286,7 +286,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1165016605}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1165016607}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af7b0e44bb63f0e4bb4b0b2a66385d05, type: 3}
@@ -533,7 +533,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.9960785, g: 0.49411768, b: 0.4901961, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -759,6 +759,11 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 963194233}
+    - target: {fileID: 3381481951213167594, guid: 0760d69fcee55624b9b2212cade150e8,
+        type: 3}
+      propertyPath: _health
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5592148314577438308, guid: 0760d69fcee55624b9b2212cade150e8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -817,17 +822,17 @@ PrefabInstance:
     - target: {fileID: 5592148314577438308, guid: 0760d69fcee55624b9b2212cade150e8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.23
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592148314577438308, guid: 0760d69fcee55624b9b2212cade150e8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592148314577438308, guid: 0760d69fcee55624b9b2212cade150e8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5592148314577438310, guid: 0760d69fcee55624b9b2212cade150e8,
         type: 3}
@@ -873,6 +878,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1165016605}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1165016607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5592148314577438307, guid: 0760d69fcee55624b9b2212cade150e8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1165016605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1204572081
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +910,7 @@ Transform:
   m_GameObject: {fileID: 1204572081}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 0.8287402, y: 0.8287402, z: 0.8287402}
+  m_LocalScale: {x: 0.8287402, y: 0.859818, z: 0.8287402}
   m_Children: []
   m_Father: {fileID: 2068077344}
   m_RootOrder: 1
@@ -1195,9 +1206,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26a3e2aa8ea4af08a8e19362e2fc926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timestep: 0.9
-  enemySpeed: 0.07
+  spawnTimestep: 0.8
+  startEnemySpeed: 0.04
+  hightestEnemySpeed: 0.09
+  timeToHighComplexity: 80
+  partOfThePLayerOnTheScreen: 0.25
+  playerEntity: {fileID: 1165016607}
   enemyPrefab: {fileID: 5592148314577438307, guid: 7ed280be81f3b4947be515c5ef4ec8d6,
     type: 3}
   shitPrefab: {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709,
     type: 3}
+  background: {fileID: 1204572081}

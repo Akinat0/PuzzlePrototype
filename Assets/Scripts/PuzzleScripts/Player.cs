@@ -6,7 +6,7 @@ namespace Puzzle
 {
     public class Player : MonoBehaviour
     {
-        
+        [SerializeField]
         private int _health = 3;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
         
