@@ -8,6 +8,7 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private Animator gameCameraAnimator;
     [SerializeField] public Player player;
     [SerializeField] public HealthManager healthManager;
+    [SerializeField] public SoundManager soundManager;
     [SerializeField] public Score score;
 
     private static readonly int Shake = Animator.StringToHash("shake");
@@ -18,7 +19,7 @@ public class GameSceneManager : MonoBehaviour
     }
 
     public void ShakeCamera()
-    {
+    { 
         gameCameraAnimator.SetTrigger(Shake);
     }
 }
