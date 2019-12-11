@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Puzzle;
+﻿using Puzzle;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
@@ -31,21 +27,21 @@ public class PauseManager : MonoBehaviour
     {
         _paused = true;
         Time.timeScale = 0;
-        GameSceneManager.Instance.soundManager.PauseSounds(true);
         pauseMenu.SetActive(true);
+        GameSceneManager.Instance.InvokePauseLevel(true);
     }
 
     private void ResumeTheGame()
     {
-        Time.timeScale = 1;
         _paused = false;
-        GameSceneManager.Instance.soundManager.PauseSounds(false);
+        Time.timeScale = 1;
         pauseMenu.SetActive(false);
+        GameSceneManager.Instance.InvokePauseLevel(false);
     }
 
     public void VolumeSliderValueChanged(float value)
     {
         value = Mathf.Clamp01(value);
-        GameSceneManager.Instance.soundManager.SetVolume(value);
+        SoundManager.Instance.SetVolume(value);
     }
 }

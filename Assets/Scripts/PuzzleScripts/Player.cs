@@ -1,4 +1,5 @@
-﻿using ScreensScripts;
+﻿using System;
+using ScreensScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,49 +10,25 @@ namespace Puzzle
         [SerializeField]
         private int _health = 3;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
-        
-        private void Start()
-        {
-            
-            MobileInput.TouchOnTheScreen += TouchOnScreen_Handler;
-        }
-
-        private void OnDestroy()
-        {
-            MobileInput.TouchOnTheScreen -= TouchOnScreen_Handler;
-        }
-
+  
         private void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
             enemy.OnHitPlayer(this);
         }
 
-        private void PlayerDied()
-        {
-            GameSceneManager.Instance.score.SaveScore();
-            SceneManager.LoadScene("GameEndScene");
-        }
-
-
         public void DealDamage(int damage)
         {
             GameSceneManager.Instance.ShakeCamera();
+            _health -= damage;
             for (int i = 0; i < damage; i++)
             {
-                GameSceneManager.Instance.healthManager.LoseHeart();
+                GameSceneManager.Instance.InvokePlayerLosedHp(_health);
             }
-            _health -= damage;
             if (_health == 0)
             {
-                PlayerDied();
+                GameSceneManager.Instance.InvokePlayerDied();
             }
-            
-        }
-
-        private void TouchOnScreen_Handler(Touch touch)
-        {
-            ChangeSides();
         }
         
         public void ChangeSides()
@@ -59,6 +36,28 @@ namespace Puzzle
             for (int i = 0; i < sides.Length; i++)
                 sides[i] = !sides[i];
             transform.Rotate(new Vector3(0, 0, 180));
+        }
+
+        private void OnEnable()
+        {
+            GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+            MobileInput.TouchOnTheScreen += TouchOnScreen_Handler;
+
+        }
+
+        private void OnDisable()
+        {
+            GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+            MobileInput.TouchOnTheScreen -= TouchOnScreen_Handler;
+        }
+
+        void ResetLevelEvent_Handler()
+        {
+            _health = 3;
+        }
+        void TouchOnScreen_Handler(Touch touch)
+        {
+            ChangeSides();
         }
     }
     

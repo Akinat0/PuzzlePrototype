@@ -1,5 +1,7 @@
-﻿using UnityEngine.UI;
+﻿using System;
+using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Puzzle
 {
@@ -15,15 +17,45 @@ namespace Puzzle
             AddScore(0);
         }
 
-        public void AddScore(int score)
+        void AddScore(int score)
         {
             _score += score;
             _scoreText.text = "Score: " + _score;
         }
 
-        public void SaveScore()
+        void SaveScore()
         {
             PlayerPrefs.SetInt("score", _score);
+        }
+
+        private void OnEnable()
+        {
+            GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+            GameSceneManager.PlayerDiedEvent += PlayerDiedEvent_Handler;
+            GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
+        }
+
+        private void OnDisable()
+        {
+            GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+            GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
+            GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
+        }
+        
+        void ResetLevelEvent_Handler()
+        {
+            _score = 0;
+            AddScore(_score);
+        }
+
+        void PlayerDiedEvent_Handler()
+        {
+            SaveScore();
+        }
+
+        void EnemyDiedEvent_Handler(int score)
+        {
+            AddScore(score);
         }
     }
 }

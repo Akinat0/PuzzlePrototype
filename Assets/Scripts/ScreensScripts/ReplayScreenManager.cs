@@ -2,27 +2,32 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Abu.Tools;
+using Puzzle;
 
 namespace ScreensScripts
 {
     
     public class ReplayScreenManager : MonoBehaviour
     {
-        
-        [SerializeField] 
-        private AsyncLoader _asyncLoader;
-        [SerializeField]
-        private Text _endGameText;
+    
+        [SerializeField] private Text endGameText;
 
-        void Start()
+        private void Start()
         {
-            int score = PlayerPrefs.GetInt("score", 0);
-            _endGameText.text += " " + score;
+            gameObject.SetActive(false);
         }
 
         public void Replay()
         {
-            _asyncLoader.LoadScene("GameScene");
+            GameSceneManager.Instance.InvokeGameStarted();
+            gameObject.SetActive(false);
+        }
+
+        public void CreateReplyScreen()
+        {
+            gameObject.SetActive(true);
+            int score = PlayerPrefs.GetInt("score", 0);
+            endGameText.text = "Score " + score;
         }
     }
 }

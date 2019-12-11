@@ -6,19 +6,12 @@ namespace ScreensScripts
 {
     public class MenuSceneManager : MonoBehaviour
     {
-        public static MenuSceneManager Instance;
+        [SerializeField] private AsyncLoader asyncLoader;
         
-        [SerializeField] private AsyncLoader _asyncLoader;
-        
-        private void Awake()
-        {
-            Instance = this;
-        }
         public void Play()
         {
-            _asyncLoader?.LoadScene("GameScene");
+            asyncLoader?.LoadScene("GameScene");
         }
 
-      
     }
 }

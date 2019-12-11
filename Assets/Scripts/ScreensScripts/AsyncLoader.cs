@@ -27,7 +27,7 @@ namespace Abu.Tools
 
         IEnumerator AsyncSceneLoading(string scene)
         {
-            AsyncOperation levelLoader = SceneManager.LoadSceneAsync(scene);
+            AsyncOperation levelLoader = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 
             while (!levelLoader.isDone)
             {

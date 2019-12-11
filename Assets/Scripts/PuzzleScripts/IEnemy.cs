@@ -10,7 +10,5 @@
         void Instantiate(Side side, float? speed = null);
         int Damage { get; set; }
 
-
-
     }
 }

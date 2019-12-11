@@ -1,16 +1,15 @@
 using System;
+using System.Collections.Generic;
 using Abu.Tools;
 using UnityEditor;
 using UnityEngine;
 
 namespace Puzzle
 {
-    public enum Side {Left = 0, Up = 1, Right = 2, Down = 3 }
+    public enum Side {Left =
+        0, Up = 1, Right = 2, Down = 3 }
     public class Spawner : MonoBehaviour
     {
-
-        public static Spawner Instance;
-        
         [SerializeField] private float spawnTimestep = 1;
         [SerializeField] private float startEnemySpeed = 0.02f;
         [SerializeField] private float hightestEnemySpeed = 0.1f;
@@ -26,14 +25,9 @@ namespace Puzzle
         [SerializeField] private GameObject background;
         
         private float _gameScale;
-        
         private float _enemySpeed;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
-
+        public bool _spawn = false;
+        
         private void Start()
         {
             RescaleGame();
@@ -43,6 +37,9 @@ namespace Puzzle
         private float _spawnTimer = 0;
         private void Update()
         {
+            if (!_spawn)
+                return;
+                
             //Update Timers
             _spawnTimer += Time.deltaTime;
             _timeFromStart += Time.deltaTime;
@@ -87,6 +84,31 @@ namespace Puzzle
             enemyPrefab.transform.localScale = Vector3.one * _gameScale;
             shitPrefab.transform.localScale = Vector3.one * _gameScale;
 
+        }
+
+        private void OnEnable()
+        {
+            GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+            GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+        }
+
+        private void OnDisable()
+        {
+            GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+            GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+
+        }
+        
+        void ResetLevelEvent_Handler()
+        {
+            _enemySpeed = startEnemySpeed;
+            _timeFromStart = 0;
+            _spawnTimer = 0;
+        }
+
+        void PauseLevelEvent_Handler(bool pause)
+        {
+            _spawn = !pause;
         }
     }
 
