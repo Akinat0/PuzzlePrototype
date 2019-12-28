@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using Puzzle;
+using ScreensScripts;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -10,14 +11,15 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager Instance;
     
-    [SerializeField] private AudioClip mainThemeClip;
+    [SerializeField] public AudioClip launcherTheme;
+    [SerializeField] public AudioClip levelThemeClip;
 
-    private AudioSource mainThemeSource;
+    private AudioSource currentThemeSource;
     private AudioSource oneShotPlayer;
     private void Start()
     {
         Instance = this;
-        PlayMainTheme();
+        PlayTheme(launcherTheme);
         oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
     }
 
@@ -31,45 +33,51 @@ public class SoundManager : MonoBehaviour
         AudioListener.volume = volume;
     }
     
-    private void PlayMainTheme()
+    private void PlayTheme(AudioClip clip)
     {
-        if(mainThemeSource != null) 
-            Destroy(mainThemeSource.gameObject);
+        if(currentThemeSource != null) 
+            Destroy(currentThemeSource.gameObject);
         
-        mainThemeSource = new GameObject("MainTheme " + mainThemeClip.name).AddComponent<AudioSource>();
-        mainThemeSource.clip = mainThemeClip;
-        mainThemeSource.Play();
+        currentThemeSource = new GameObject("Theme " + clip.name).AddComponent<AudioSource>();
+        currentThemeSource.clip = clip;
+        currentThemeSource.Play();
     }
 
     public void PauseSounds(bool pause)
     {
         AudioListener.pause = pause;
     }
-    public void PauseMainTheme()
+    public void PauseTheme()
     {
-        mainThemeSource.Pause();
+        currentThemeSource.Pause();
     }
 
     private void OnEnable()
     {
+        LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler; 
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
     private void OnDisable()
     {
+        LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
-
     }
 
     void ResetLevelEvent_Handler()
     {
-        PlayMainTheme();
+        PlayTheme(levelThemeClip);
     }
 
     void PauseLevelEvent_Handler(bool pause)
     {
         PauseSounds(pause);
+    }
+
+    void PlayLauncherEvent_Handler()
+    {
+        PauseTheme();   
     }
 }

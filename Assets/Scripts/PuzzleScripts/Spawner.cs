@@ -17,8 +17,9 @@ namespace Puzzle
 
         [Tooltip("The percent which player's pazzle will take on the any screen")]
         [SerializeField] private float partOfThePLayerOnTheScreen = 0.25f;
+
         
-        [SerializeField] private GameObject playerEntity;
+        [NonSerialized] public GameObject playerEntity;
         [SerializeField] private GameObject enemyPrefab;
         [SerializeField] private GameObject shitPrefab;
 
@@ -27,14 +28,10 @@ namespace Puzzle
         private float _gameScale;
         private float _enemySpeed;
         public bool _spawn = false;
-        
-        private void Start()
-        {
-            RescaleGame();
-        }
 
         private float _timeFromStart = 0;
         private float _spawnTimer = 0;
+        
         private void Update()
         {
             if (!_spawn)
@@ -90,13 +87,14 @@ namespace Puzzle
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+            GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         }
 
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
-
+            GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         }
         
         void ResetLevelEvent_Handler()
@@ -109,6 +107,11 @@ namespace Puzzle
         void PauseLevelEvent_Handler(bool pause)
         {
             _spawn = !pause;
+        }
+
+        void GameStartedEvent_Handler()
+        {
+            RescaleGame();
         }
     }
 

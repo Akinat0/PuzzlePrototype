@@ -30,7 +30,7 @@ namespace Puzzle
                 GameSceneManager.Instance.InvokePlayerDied();
             }
         }
-        
+         
         public void ChangeSides()
         {
             for (int i = 0; i < sides.Length; i++)

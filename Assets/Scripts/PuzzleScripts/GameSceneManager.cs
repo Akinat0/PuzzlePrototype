@@ -13,7 +13,6 @@ public class GameSceneManager : MonoBehaviour
     public static event Action PlayerDiedEvent;
     public static event Action<int> PlayerLosedHpEvent;
     public static event Action<int> EnemyDiedEvent;
-
     
     [SerializeField] private Animator gameCameraAnimator;
 
@@ -25,12 +24,21 @@ public class GameSceneManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void ShakeCamera()
     { 
         gameCameraAnimator.SetTrigger(Shake);
+    }
+
+    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot)
+    {
+        player = _player.AddComponent<Player>();
+        _player.AddComponent<PlayerInput>();
+        FindObjectOfType<Spawner>().playerEntity = _player;
+        // TO-DO  actions with background and gameRoot
+        ResetLevelEvent?.Invoke();
+        InvokeGameStarted();
     }
 
     public Vector3 GetPlayerPos()
