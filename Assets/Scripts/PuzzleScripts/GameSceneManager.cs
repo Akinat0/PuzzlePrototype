@@ -13,12 +13,13 @@ public class GameSceneManager : MonoBehaviour
     public static event Action PlayerDiedEvent;
     public static event Action<int> PlayerLosedHpEvent;
     public static event Action<int> EnemyDiedEvent;
-    
-    [SerializeField] private Animator gameCameraAnimator;
 
-    [SerializeField] private Player player;
+    [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
     [SerializeField] private ReplayScreenManager replayScreenManager;
-
+    
+    
+    private Player _player;
+    private Animator _gameCameraAnimator;
     private static readonly int Shake = Animator.StringToHash("shake");
     
     void Awake()
@@ -28,14 +29,24 @@ public class GameSceneManager : MonoBehaviour
 
     public void ShakeCamera()
     { 
-        gameCameraAnimator.SetTrigger(Shake);
+        _gameCameraAnimator.SetTrigger(Shake);
     }
 
     public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot)
     {
-        player = _player.AddComponent<Player>();
+        this._player = _player.AddComponent<Player>();
         _player.AddComponent<PlayerInput>();
         FindObjectOfType<Spawner>().playerEntity = _player;
+        if (Camera.main != null)
+        {
+            _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
+            _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
+        }
+        else
+        {
+            Debug.LogError("Camera is null");
+        }
+
         // TO-DO  actions with background and gameRoot
         ResetLevelEvent?.Invoke();
         InvokeGameStarted();
@@ -43,7 +54,7 @@ public class GameSceneManager : MonoBehaviour
 
     public Vector3 GetPlayerPos()
     {
-        return player.transform.position;
+        return _player.transform.position;
     }
     void CallEndgameMenu()
     {
