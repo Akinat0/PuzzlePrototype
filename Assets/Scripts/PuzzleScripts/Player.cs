@@ -7,10 +7,18 @@ namespace Puzzle
 {
     public class Player : MonoBehaviour
     {
+        private PlayerView _view;
+        
         [SerializeField]
         private int _health = 3;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
   
+        
+        void Start()
+        {
+            _view = GetComponent<PlayerView>();
+        }
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
@@ -35,7 +43,7 @@ namespace Puzzle
         {
             for (int i = 0; i < sides.Length; i++)
                 sides[i] = !sides[i];
-            transform.Rotate(new Vector3(0, 0, 180));
+            _view.ChangeSides();
         }
 
         private void OnEnable()
@@ -59,6 +67,8 @@ namespace Puzzle
         {
             ChangeSides();
         }
+        
+        
     }
     
 }

@@ -37,7 +37,7 @@ namespace ScreensScripts
         {
             float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(  
-                    playerEntity.GetComponent<SpriteRenderer>(),
+                    playerEntity.GetComponent<PlayerView>().shape.GetComponent<SpriteRenderer>(),
                     partOfThePlayerOnTheScreen);
             playerEntity.localScale = Vector3.one * playerScale;
         }

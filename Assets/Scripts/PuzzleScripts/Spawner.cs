@@ -25,7 +25,6 @@ namespace Puzzle
 
         [SerializeField] private GameObject background;
         
-        private float _gameScale;
         private float _enemySpeed;
         public bool _spawn = false;
 
@@ -72,14 +71,19 @@ namespace Puzzle
             Vector2 backgroundScale = ScreenScaler.ScaleToFillScreen(background.GetComponent<SpriteRenderer>());
             background.transform.localScale = backgroundScale;
             
-            _gameScale =
+            float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(
-                    playerEntity.GetComponent<SpriteRenderer>(),
+                    playerEntity.GetComponent<PlayerView>().shape.GetComponent<SpriteRenderer>(),
                     partOfThePLayerOnTheScreen);
             
-            playerEntity.transform.localScale = Vector3.one * _gameScale;
-            enemyPrefab.transform.localScale = Vector3.one * _gameScale;
-            shitPrefab.transform.localScale = Vector3.one * _gameScale;
+            float enemyScale = ScreenScaler.ScaleToFillPartOfScreen(
+                enemyPrefab.GetComponent<SpriteRenderer>(),
+                partOfThePLayerOnTheScreen);
+            
+            
+            playerEntity.transform.localScale = Vector3.one * playerScale;
+            enemyPrefab.transform.localScale = Vector3.one * enemyScale;
+            shitPrefab.transform.localScale = Vector3.one * enemyScale;
 
         }
 

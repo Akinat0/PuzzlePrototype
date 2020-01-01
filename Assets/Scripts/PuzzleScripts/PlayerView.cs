@@ -7,7 +7,7 @@ public class PlayerView : MonoBehaviour
 {
     
     [SerializeField] private float _partOfScreen = 0.25f;
-
+    [SerializeField] public Transform shape;
 
     void Start()
     {
@@ -18,7 +18,12 @@ public class PlayerView : MonoBehaviour
     {
         transform.localScale = Vector3.one * 
             ScreenScaler.ScaleToFillPartOfScreen(
-                gameObject.GetComponent<SpriteRenderer>(),
+                shape.gameObject.GetComponent<SpriteRenderer>(),
                 partOfScreen);
+    }
+
+    public void ChangeSides()
+    {
+        shape.Rotate(0, 0, 180);
     }
 }

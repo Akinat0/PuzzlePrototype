@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using JetBrains.Annotations;
 using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +39,7 @@ namespace Abu.Tools
             GameSceneManager gameSceneManager = GameSceneManager.Instance;
 
             if (gameSceneManager == null)
-                Debug.LogError("There's no GameManagers in the scene");
+                Debug.LogError("There's no GameManager in the scene");
 
             _onSceneLoaded?.Invoke(gameSceneManager);
         }

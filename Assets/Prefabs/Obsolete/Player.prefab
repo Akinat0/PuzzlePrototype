@@ -60,6 +60,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 6, y: 5.99}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &5592148314577438309
@@ -121,7 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7b0e44bb63f0e4bb4b0b2a66385d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sides: 00000101
+  _health: 3
+  sides: 00000101
 --- !u!50 &386839861
 Rigidbody2D:
   serializedVersion: 4
