@@ -11,8 +11,10 @@ public class SoundManager : MonoBehaviour
 
     public static SoundManager Instance;
     
-    [SerializeField] public AudioClip launcherTheme;
-    [SerializeField] public AudioClip levelThemeClip;
+    [SerializeField] private AudioClip launcherTheme;
+    [SerializeField] private AudioClip levelThemeClip;
+
+    public AudioClip LevelThemeClip { set => levelThemeClip = value; }
 
     private AudioSource currentThemeSource;
     private AudioSource oneShotPlayer;

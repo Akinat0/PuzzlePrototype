@@ -856,6 +856,7 @@ MonoBehaviour:
   cameraAnimatorController: {fileID: 9100000, guid: 865d4b065d96c7a4c9b1cf9e10da9831,
     type: 2}
   replayScreenManager: {fileID: 942671665}
+  theme: {fileID: 8300000, guid: b2ba2ee848d8edd4a943fec5d4dda60e, type: 3}
 --- !u!1 &1204572081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,16 +1657,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26a3e2aa8ea4af08a8e19362e2fc926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefab:
+  - {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709, type: 3}
+  - {fileID: 5592148314577438307, guid: 7ed280be81f3b4947be515c5ef4ec8d6, type: 3}
+  partOfThePLayerOnTheScreen: 0.25
+  background: {fileID: 1204572081}
   spawnTimestep: 0.8
   startEnemySpeed: 0.04
   hightestEnemySpeed: 0.09
   timeToHighComplexity: 80
-  partOfThePLayerOnTheScreen: 0.25
-  enemyPrefab: {fileID: 5592148314577438307, guid: 7ed280be81f3b4947be515c5ef4ec8d6,
-    type: 3}
-  shitPrefab: {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709,
-    type: 3}
-  background: {fileID: 1204572081}
   _spawn: 1
 --- !u!114 &2068077348
 MonoBehaviour:
@@ -1716,5 +1716,11 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: -3868825590289930790, guid: 5a2e68d1c511cff4592788c5d9c13f49, type: 2}
     value: {fileID: 2068077349}
+  - key: {fileID: -4034360187750591363, guid: 5a2e68d1c511cff4592788c5d9c13f49, type: 2}
+    value: {fileID: 2068077349}
+  - key: {fileID: -5639735552470169588, guid: 5a2e68d1c511cff4592788c5d9c13f49, type: 2}
+    value: {fileID: 2068077343}
+  - key: {fileID: 8176126235590183056, guid: 5a2e68d1c511cff4592788c5d9c13f49, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []

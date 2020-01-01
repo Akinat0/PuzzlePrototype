@@ -1,4 +1,5 @@
 ﻿using System;
+using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
 
@@ -13,10 +14,11 @@ public class GameSceneManager : MonoBehaviour
     public static event Action PlayerDiedEvent;
     public static event Action<int> PlayerLosedHpEvent;
     public static event Action<int> EnemyDiedEvent;
+    public static event Action<EnemyParams> CreateEnemyEvent; 
 
     [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
     [SerializeField] private ReplayScreenManager replayScreenManager;
-    
+    [SerializeField] private AudioClip theme;
     
     private Player _player;
     private Animator _gameCameraAnimator;
@@ -31,12 +33,12 @@ public class GameSceneManager : MonoBehaviour
     { 
         _gameCameraAnimator.SetTrigger(Shake);
     }
-
+    
     public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot)
     {
         this._player = _player.AddComponent<Player>();
         _player.AddComponent<PlayerInput>();
-        FindObjectOfType<Spawner>().playerEntity = _player;
+        FindObjectOfType<SpawnerBase>().playerEntity = _player;
         if (Camera.main != null)
         {
             _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
@@ -47,6 +49,8 @@ public class GameSceneManager : MonoBehaviour
             Debug.LogError("Camera is null");
         }
 
+        SoundManager.Instance.LevelThemeClip = theme;
+        
         // TO-DO  actions with background and gameRoot
         ResetLevelEvent?.Invoke();
         InvokeGameStarted();
@@ -56,6 +60,7 @@ public class GameSceneManager : MonoBehaviour
     {
         return _player.transform.position;
     }
+
     void CallEndgameMenu()
     {
         replayScreenManager.CreateReplyScreen();
@@ -98,5 +103,10 @@ public class GameSceneManager : MonoBehaviour
         GameStartedEvent?.Invoke();
         InvokePauseLevel(false); //Unpausing
     }
+
+    public void InvokeCreateEnemy(EnemyParams @params)
+    {
+        CreateEnemyEvent?.Invoke(@params);
+    } 
 }
 }

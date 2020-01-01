@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using PuzzleScripts;
+using UnityEngine;
 
 namespace Puzzle
 {
