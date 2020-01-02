@@ -106,6 +106,7 @@ public class GameSceneManager : MonoBehaviour
 
     public void InvokeCreateEnemy(EnemyParams @params)
     {
+        Debug.Log("CreateEnemy Invoked");
         CreateEnemyEvent?.Invoke(@params);
     } 
 }

@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
     {
         AudioListener.volume = volume;
     }
-    
+
     private void PlayTheme(AudioClip clip)
     {
         if(currentThemeSource != null) 
@@ -70,7 +70,7 @@ public class SoundManager : MonoBehaviour
 
     void ResetLevelEvent_Handler()
     {
-        PlayTheme(levelThemeClip);
+        //PlayTheme(levelThemeClip);
     }
 
     void PauseLevelEvent_Handler(bool pause)

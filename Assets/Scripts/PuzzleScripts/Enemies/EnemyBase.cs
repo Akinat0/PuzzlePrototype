@@ -12,6 +12,8 @@ namespace PuzzleScripts
 
     public class EnemyBase : MonoBehaviour, IEnemy, ITouchProcessor
     {
+        public static readonly float Distance = 10f; //Distance to target
+        
         [SerializeField] private GameObject vfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
@@ -63,19 +65,19 @@ namespace PuzzleScripts
             switch (side)
             {
                 case Side.Right:
-                    transform.position = _target + Vector3.right * 10f;
+                    transform.position = _target + Vector3.right * Distance;
                     transform.right = Vector3.left;
                     break;
                 case Side.Left:
-                    transform.position = _target + Vector3.left * 10f;
+                    transform.position = _target + Vector3.left * Distance;
                     transform.right = Vector3.right;
                     break;
                 case Side.Up:
-                    transform.position = _target + Vector3.up * 10f;
+                    transform.position = _target + Vector3.up * Distance;
                     transform.right = Vector3.down;
                     break;
                 case Side.Down:
-                    transform.position = _target + Vector3.down * 10f;
+                    transform.position = _target + Vector3.down * Distance;
                     transform.right = Vector3.up;
                     break;
             }

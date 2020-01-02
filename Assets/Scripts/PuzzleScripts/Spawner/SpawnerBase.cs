@@ -58,7 +58,7 @@ namespace Puzzle
         }
 
 
-        public EnemyBase CreateEnemy(EnemyParams @params)
+        protected EnemyBase CreateEnemy(EnemyParams @params)
         {
             GameObject prefabToInstantiate = 
                 enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
