@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
 
+#if UNITY_EDITOR
 public class PuzzleMenu : EditorWindow
 {
     
@@ -32,5 +33,5 @@ public class PuzzleMenu : EditorWindow
         }
     }
 }
-
+#endif
 

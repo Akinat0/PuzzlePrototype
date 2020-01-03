@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
+#if UNITY_EDITOR
 public static class TimelineProcessor
 {
     public static void GenerateNewTimeline(TimelineAsset t)
@@ -14,10 +15,8 @@ public static class TimelineProcessor
             EnemyMarker marker = output as EnemyMarker;
             
             if (marker == null)
-            {
-                Debug.Log("fuck");
                 continue;
-            }
+            
 
             double deltaTime = EnemyBase.Distance * marker.enemyParams.speed;  
             double creationTime = marker.time - deltaTime;
@@ -68,4 +67,5 @@ public class EnemyNotificationMarker : Marker, INotification
 
     public PropertyName id { get; }
 }
+#endif
 
