@@ -42,8 +42,8 @@ public static class TimelineProcessor
                 continue;
             }
     
-            double deltaTime = EnemyBase.Distance * marker.enemyParams.speed;  
-            double creationTime = marker.time - deltaTime - 0.05f;
+            double deltaTime = EnemyBase.Distance / marker.enemyParams.speed;  
+            double creationTime = marker.time - deltaTime + 0.1f;
     
             EnemyNotificationMarker copyMarker = dstTimeline.markerTrack.CreateMarker(typeof(EnemyNotificationMarker), creationTime) as EnemyNotificationMarker;
             copyMarker.enemyParams = marker.enemyParams;

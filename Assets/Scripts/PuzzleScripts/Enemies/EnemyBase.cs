@@ -18,10 +18,19 @@ namespace PuzzleScripts
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
         
-        private float _speed = 0.05f;
+        private float _speed = 0.5f;
         private Vector3 _target;
     
         private int _damage = 1;
+
+
+        private float time = 0;
+        private float dist = 0;
+
+        private void Update()
+        {
+            Move();
+        }
 
         public EnemyType Type { get { return type; } }
 
@@ -29,11 +38,6 @@ namespace PuzzleScripts
         {
             get { return _damage; }
             set { _damage = value;}
-        }
-    
-        private void FixedUpdate()
-        {
-            Move();
         }
 
         public virtual void OnHitPlayer(Player player)
@@ -53,7 +57,7 @@ namespace PuzzleScripts
 
         public void Move()
         {
-            transform.Translate(new Vector3(_speed, 0), Space.Self);
+            transform.Translate(new Vector3(_speed * Time.deltaTime, 0), Space.Self);
         }
 
         public virtual void Instantiate(Side side, float? speed = null)
