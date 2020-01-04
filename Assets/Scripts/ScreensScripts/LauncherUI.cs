@@ -20,13 +20,13 @@ namespace ScreensScripts
 
         // ReSharper disable once InconsistentNaming
         private GameSceneManager GameSceneManager;
-        
+
         void Play()
         {
             if (asyncLoader.gameObject != null)
                 asyncLoader.LoadScene("GameScene", InvokeGameSceneLoaded);
         }
-
+ 
         void HideUi()
         {
             launcherCanvas.gameObject.SetActive(false);
@@ -35,6 +35,8 @@ namespace ScreensScripts
         
         private void Start()
         {
+            Screen.fullScreen = true;
+            
             float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(  
                     playerEntity.GetComponent<PlayerView>().shape.GetComponent<SpriteRenderer>(),

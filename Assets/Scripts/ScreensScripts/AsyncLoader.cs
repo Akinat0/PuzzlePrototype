@@ -9,19 +9,18 @@ namespace Abu.Tools
 {
     public class AsyncLoader : MonoBehaviour
     {
-        [SerializeField] private Slider progressBar;
+        [SerializeField] private GameObject loadingIndicator;
 
         private Action<GameSceneManager> _onSceneLoaded;
         
         private void Awake()
         {
-            progressBar.gameObject.SetActive(false);
+            loadingIndicator.gameObject.SetActive(false);
         }
 
         public void LoadScene(string scene, Action<GameSceneManager> onSceneLoaded)
         {
             _onSceneLoaded = onSceneLoaded;
-            progressBar.gameObject.SetActive(true);
             StartCoroutine(AsyncSceneLoading(scene));
         }
 
@@ -29,12 +28,15 @@ namespace Abu.Tools
         {
             AsyncOperation levelLoader = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 
+            loadingIndicator.gameObject.SetActive(true);
             
             while (!levelLoader.isDone)
             {
-                progressBar.value = levelLoader.progress;
+                //progressBar.value = levelLoader.progress;
                 yield return null;
             }
+            
+            loadingIndicator.gameObject.SetActive(false);
             
             GameSceneManager gameSceneManager = GameSceneManager.Instance;
 

@@ -85,6 +85,23 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 3
+--- !u!114 &-7430682101073072640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
+  m_Time: 97.1
+  enemyParams:
+    enemyType: 1
+    side: 2
+    speed: 3
 --- !u!114 &-7304723392677302948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -504,6 +521,23 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 3
+--- !u!114 &-3322990926685553438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
+  m_Time: 95.48333333333333
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 3
 --- !u!114 &-2882960222998109135
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -612,6 +646,23 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 1
+    speed: 3
+--- !u!114 &-1497436721922696265
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
+  m_Time: 96.16666666666667
+  enemyParams:
+    enemyType: 0
+    side: 2
     speed: 3
 --- !u!114 &-988879092147430874
 MonoBehaviour:
@@ -888,6 +939,23 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 2
+    speed: 3
+--- !u!114 &1641550159867480594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
+  m_Time: 95.05
+  enemyParams:
+    enemyType: 0
+    side: 1
     speed: 3
 --- !u!114 &1839292012107085053
 MonoBehaviour:
@@ -1200,6 +1268,11 @@ MonoBehaviour:
     - {fileID: -988879092147430874}
     - {fileID: 129097757302948595}
     - {fileID: -619415521402912611}
+    - {fileID: 1641550159867480594}
+    - {fileID: -3322990926685553438}
+    - {fileID: 6683762477349416432}
+    - {fileID: -1497436721922696265}
+    - {fileID: -7430682101073072640}
 --- !u!114 &4633265873331239800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1352,6 +1425,23 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 0
+    speed: 3
+--- !u!114 &6683762477349416432
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
+  m_Time: 95.83333333333333
+  enemyParams:
+    enemyType: 0
+    side: 3
     speed: 3
 --- !u!114 &6902061140337537664
 MonoBehaviour:

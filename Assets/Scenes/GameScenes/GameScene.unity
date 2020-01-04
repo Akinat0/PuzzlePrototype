@@ -1595,6 +1595,7 @@ GameObject:
   - component: {fileID: 2068077350}
   - component: {fileID: 2068077349}
   - component: {fileID: 2068077347}
+  - component: {fileID: 2068077352}
   m_Layer: 0
   m_Name: GameContainer
   m_TagString: Untagged
@@ -1699,7 +1700,7 @@ PlayableDirector:
   m_GameObject: {fileID: 2068077343}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 48496c6ec0830d3498763c121a9c569a, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 75d26be619fea3f4e9f6b98f66a0575d, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -1795,6 +1796,18 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: -4020282461027728124, guid: 48496c6ec0830d3498763c121a9c569a, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -2553467702996215427, guid: 1b4a9610e93153b429163e9881cdb0a3, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4020282461027728124, guid: 1b4a9610e93153b429163e9881cdb0a3, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2553467702996215427, guid: 1bfdbdc3676ce974ba0046919a8e17e8, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4020282461027728124, guid: 1bfdbdc3676ce974ba0046919a8e17e8, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2553467702996215427, guid: 010c2ffac147b4948b6c2b83b8483d76, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4020282461027728124, guid: 010c2ffac147b4948b6c2b83b8483d76, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &2068077351
@@ -1814,3 +1827,32 @@ MonoBehaviour:
   - {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709, type: 3}
   partOfThePLayerOnTheScreen: 0.25
   background: {fileID: 1204572081}
+--- !u!114 &2068077352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068077343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 0}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1033927277}
+          m_MethodName: InvokeEnemyDied
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
