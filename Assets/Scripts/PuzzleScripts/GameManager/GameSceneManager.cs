@@ -2,29 +2,34 @@
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Puzzle{
-public class GameSceneManager : MonoBehaviour
-{
-    public static GameSceneManager Instance;
+    public class GameSceneManager : MonoBehaviour
+    {
+        public static GameSceneManager Instance;
 
-    public static event Action GameStartedEvent;
-    public static event Action ResetLevelEvent;
-    public static event Action<bool> PauseLevelEvent;
-    public static event Action PlayerDiedEvent;
-    public static event Action<int> PlayerLosedHpEvent;
-    public static event Action<int> EnemyDiedEvent;
-    public static event Action<EnemyParams> CreateEnemyEvent; 
+        public static event Action GameStartedEvent;
+        public static event Action ResetLevelEvent;
+        public static event Action<bool> PauseLevelEvent;
+        public static event Action PlayerDiedEvent;
+        public static event Action<int> PlayerLosedHpEvent;
+        public static event Action<int> EnemyDiedEvent;
+        public static event Action<EnemyParams> CreateEnemyEvent;
+        public static event Action LevelClosedEvent;
 
-    [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
-    [SerializeField] private ReplayScreenManager replayScreenManager;
-    [SerializeField] private AudioClip theme;
-    
-    private Player _player;
-    private Animator _gameCameraAnimator;
-    private static readonly int Shake = Animator.StringToHash("shake");
-    
-    void Awake()
+        [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
+        [SerializeField] private ReplayScreenManager replayScreenManager;
+        [SerializeField] private AudioClip theme;
+        [SerializeField] private Transform gameSceneRoot;
+
+        public Transform GameSceneRoot => gameSceneRoot;
+
+        private Player _player;
+        private Animator _gameCameraAnimator;
+        private static readonly int Shake = Animator.StringToHash("shake");
+        
+        void Awake()
     {
         Instance = this;
     }
@@ -56,6 +61,14 @@ public class GameSceneManager : MonoBehaviour
         InvokeGameStarted();
     }
 
+    void UnloadScene()
+    {
+        Destroy(_player.GetComponent<PlayerInput>());
+        Destroy(_player.GetComponent<Player>());
+        Destroy(_gameCameraAnimator);
+        SceneManager.UnloadSceneAsync(gameObject.scene);
+    }
+
     public Vector3 GetPlayerPos()
     {
         return _player.transform.position;
@@ -84,7 +97,7 @@ public class GameSceneManager : MonoBehaviour
     {
         InvokePauseLevel(true);
         PlayerDiedEvent?.Invoke();
-        CallEndgameMenu();
+        CallEndgameMenu(); 
         InvokeResetLevel();
     }
 
@@ -108,6 +121,15 @@ public class GameSceneManager : MonoBehaviour
     {
         Debug.Log("CreateEnemy Invoked");
         CreateEnemyEvent?.Invoke(@params);
-    } 
+    }
+    
+    public void InvokeLevelClosed()
+    {
+        InvokePauseLevel(true);
+        Debug.Log("Event Closed Invoked");
+        LevelClosedEvent?.Invoke();
+        UnloadScene();
+        LauncherUI.Instance.InvokeGameSceneUnloaded();
+    }
 }
 }

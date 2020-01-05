@@ -10,7 +10,7 @@ namespace PuzzleScripts
         Shit
     }
 
-    public class EnemyBase : MonoBehaviour, IEnemy, ITouchProcessor
+    public class EnemyBase : MonoBehaviour, IEnemy
     {
         public static readonly float Distance = 10f; //Distance to target
         
@@ -49,7 +49,7 @@ namespace PuzzleScripts
 
         public void Die()
         {
-            GameObject effect = Instantiate(vfx);
+            GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
             effect.transform.position = transform.position;
             GameSceneManager.Instance.InvokeEnemyDied(score);
             Destroy(gameObject);
@@ -100,11 +100,6 @@ namespace PuzzleScripts
         void ResetLevelEvent_Handler()
         {
             Destroy(gameObject);
-        }
-    
-        public void OnTouch(Touch touch)
-        {
-            Die();
         }
     }
 
