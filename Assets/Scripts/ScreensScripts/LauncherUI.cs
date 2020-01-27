@@ -7,19 +7,19 @@ using Debug = UnityEngine.Debug;
 
 namespace ScreensScripts
 {
-
     public class LauncherUI : MonoBehaviour
     {
         public static LauncherUI Instance;
         
-        public static event Action PlayLauncherEvent;
+        public static event Action<PlayLauncherEventArgs> PlayLauncherEvent;
         public static event Action<GameSceneManager> GameSceneLoadedEvent;
         public static event Action GameSceneUnloadedEvent;
+        public static event Action<LevelChangedEventArgs> LevelChangedEvent;
+         
            
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject background;
-        [SerializeField] private float partOfThePlayerOnTheScreen;
         [SerializeField] private Canvas launcherCanvas;
         [SerializeField] private GameObject playButton;
         
@@ -34,18 +34,12 @@ namespace ScreensScripts
         private void Start()
         {
             Screen.fullScreen = true;
-            
-            float playerScale =
-                ScreenScaler.ScaleToFillPartOfScreen(  
-                    playerEntity.GetComponent<PlayerView>().shape.GetComponent<SpriteRenderer>(),
-                    partOfThePlayerOnTheScreen);
-            playerEntity.localScale = Vector3.one * playerScale;
         }
 
-        void Play()
+        void PlayLevel(LevelConfig _Config)
         {
-            if (asyncLoader.gameObject != null)
-                asyncLoader.LoadScene("GameScene", InvokeGameSceneLoaded);
+            if (asyncLoader.gameObject != null && _Config != null && !string.IsNullOrEmpty(_Config.SceneID))
+                asyncLoader.LoadScene(_Config.SceneID, InvokeGameSceneLoaded);
         }
 
         void HidePlayButton()
@@ -66,12 +60,12 @@ namespace ScreensScripts
             background.SetActive(true);
         }
         
-        public void InvokePlayLauncher()
+        public void InvokePlayLauncher(PlayLauncherEventArgs _Args)
         {
             Debug.Log("PlayLauncher Invoked");
             HidePlayButton();
-            Play();
-            PlayLauncherEvent?.Invoke();
+            PlayLevel(_Args.LevelConfig);
+            PlayLauncherEvent?.Invoke(_Args);
         }
         
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
@@ -88,7 +82,13 @@ namespace ScreensScripts
             ShowUi();
             GameSceneUnloadedEvent?.Invoke();
         }
-        
+
+        public void InvokeLevelChanged(LevelChangedEventArgs _Args)
+        {
+            Debug.Log("LevelChanged Invoked");
+            playerEntity = _Args.PlayerView.transform;
+            LevelChangedEvent?.Invoke(_Args);
+        }
         
     }
 }

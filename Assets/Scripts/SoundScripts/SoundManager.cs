@@ -78,7 +78,7 @@ public class SoundManager : MonoBehaviour
         PauseSounds(pause);
     }
 
-    void PlayLauncherEvent_Handler()
+    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         PauseTheme();   
     }
