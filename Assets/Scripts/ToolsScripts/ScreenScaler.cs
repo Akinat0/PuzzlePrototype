@@ -7,6 +7,21 @@ namespace Abu.Tools
 {
     public static class ScreenScaler
     {
+
+        public static Vector2 CameraSize()
+        {
+            Camera camera = Camera.main;
+            if (camera == null)
+            {
+                Debug.LogError("Main Camera is null");
+                return Vector2.one;
+            }
+            float width = camera.aspect * 2f * camera.orthographicSize;
+            float height = 2f * camera.orthographicSize;
+            
+            return new Vector2(width, height);
+        }
+        
         public static float BestFit(SpriteRenderer spriteRenderer)
         {
             float horizontalScale = FitHorizontal(spriteRenderer);

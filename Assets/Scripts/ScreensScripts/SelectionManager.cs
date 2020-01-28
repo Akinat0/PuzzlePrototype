@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Abu.Tools;
 using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
-
+using DG.Tweening;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -39,17 +39,17 @@ public class SelectionManager : MonoBehaviour
     public void OnRightBtnClick()
     {
         ItemNumber++;
-        DisplayItem(ItemNumber);
+        DisplayItem(ItemNumber, -1);
     }
     
     //Called when left btn clicks
     public void OnLeftBtnClick()
     {
         ItemNumber--;
-        DisplayItem(ItemNumber);
+        DisplayItem(ItemNumber, 1);
     }
 
-    private void DisplayItem(int index)
+    private void DisplayItem(int _Index, int _Direction = 0)
     {
         if (_Selection.Length == 0) //If nothing remains in shop 
         {
@@ -58,18 +58,18 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        CurrentItem = _Selection[index];
+        CurrentItem = _Selection[_Index];
 
-        PlayerView playerView = DisplayPlayer();
+        PlayerView playerView = DisplayPlayer(_Direction);
         DisplayBackground();
 
         InteractBtnText.text = CurrentItem.Name;
         
         //Managing right button
-        RightBtn.SetActive(index + 1 != _Selection.Length);
+        RightBtn.SetActive(_Index + 1 != _Selection.Length);
 
         //Managing left button
-        LeftBtn.SetActive(index != 0);
+        LeftBtn.SetActive(_Index != 0);
         
         LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(playerView, CurrentItem));
         
@@ -81,20 +81,31 @@ public class SelectionManager : MonoBehaviour
         
     }
 
-    PlayerView DisplayPlayer()
+    PlayerView DisplayPlayer(int _Direction)
     {
+        Vector2 camSize = ScreenScaler.CameraSize();
+        
         //Delete old prefab
-        foreach (Transform child in PlayerContainer.GetComponentInChildren<Transform>())
-        {
-            if (child != null)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-        //Create new prefab
-        PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
 
-        return playerView;
+        PlayerView oldPrefab = PlayerContainer.GetComponentInChildren<PlayerView>();
+        if (oldPrefab != null && _Direction != 0)
+        {
+            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.5f).onComplete = () => Destroy(oldPrefab.gameObject);
+
+            //Create new prefab
+            PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
+
+            playerView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
+            playerView.transform.DOMove(Vector3.zero, 0.5f);
+
+            return playerView;
+        }
+        else
+        {
+            //Create new prefab
+            PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
+            return playerView;
+        }
     }
 
     void DisplayBackground()
@@ -113,14 +124,33 @@ public class SelectionManager : MonoBehaviour
 
     void HideUI()
     {
-        RightBtn.SetActive(false);
-        LeftBtn.SetActive(false);
-        InteractBtn.SetActive(false);
+        RectTransform rightBtnRect = RightBtn.GetComponent<RectTransform>();
+        RectTransform interactBtnRect = InteractBtn.GetComponent<RectTransform>();
+        RectTransform leftBtnRect = LeftBtn.GetComponent<RectTransform>();
+
+        rightBtnRect.DOAnchorPos(new Vector2(210, 0), 0.3f).onComplete = () => RightBtn.SetActive(false);
+        leftBtnRect.DOAnchorPos(new Vector2(-210, 0), 0.3f).onComplete = () => LeftBtn.SetActive(false);
+        
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, -290), 0.3f);
+        interactBtnTweener.onPlay = () => InteractBtn.GetComponent<Button>().interactable = false;
+        interactBtnTweener.onComplete = () => InteractBtn.SetActive(false);
     }
 
     void ShowUI()
     {
-        InteractBtn.SetActive(true);
+        RectTransform rightBtnRect = RightBtn.GetComponent<RectTransform>();
+        RectTransform interactBtnRect = InteractBtn.GetComponent<RectTransform>();
+        RectTransform leftBtnRect = LeftBtn.GetComponent<RectTransform>();
+
+        rightBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
+        leftBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
+        
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
+        interactBtnTweener.onPlay = () =>
+        {
+            InteractBtn.GetComponent<Button>().interactable = true;
+            InteractBtn.SetActive(true);
+        };
         DisplayItem(ItemNumber);
     }
 
