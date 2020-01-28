@@ -7,8 +7,7 @@ using DG.Tweening;
 public class SelectionManager : MonoBehaviour
 {
 
-    [Header("UI elements"), SerializeField, Tooltip("Canvas representing selector")]
-    private GameObject SelectorCanvas; //Canvas representing shop
+    [Header("UI elements"),]
 
     [SerializeField] private Transform PlayerContainer;
 
