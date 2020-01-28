@@ -61,7 +61,7 @@ public class SelectionManager : MonoBehaviour
         CurrentItem = _Selection[_Index];
 
         PlayerView playerView = DisplayPlayer(_Direction);
-        DisplayBackground();
+        DisplayBackground(_Direction);
 
         InteractBtnText.text = CurrentItem.Name;
         
@@ -85,9 +85,8 @@ public class SelectionManager : MonoBehaviour
     {
         Vector2 camSize = ScreenScaler.CameraSize();
         
-        //Delete old prefab
-
         PlayerView oldPrefab = PlayerContainer.GetComponentInChildren<PlayerView>();
+
         if (oldPrefab != null && _Direction != 0)
         {
             oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.5f).onComplete = () => Destroy(oldPrefab.gameObject);
@@ -108,18 +107,28 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    void DisplayBackground()
+    void DisplayBackground(int _Direction)
     {
-        //Delete old container
-        foreach (Transform child in BackgroundContainer.GetComponentInChildren<Transform>())
+        Vector2 camSize = ScreenScaler.CameraSize();
+        
+        BackgroundView oldPrefab = BackgroundContainer.GetComponentInChildren<BackgroundView>();
+
+        if (oldPrefab != null && _Direction != 0)
         {
-            if (child != null)
-            {
-                Destroy(child.gameObject);
-            }
+            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.25f).onComplete = () => Destroy(oldPrefab.gameObject);
+            
+            //Create new prefab
+            BackgroundView backgroundView = Instantiate(CurrentItem.BackgroundPrefab, BackgroundContainer).GetComponent<BackgroundView>();
+
+            
+            backgroundView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
+            backgroundView.transform.DOMove(Vector3.zero, 0.25f);
         }
-        //Create new Background
-        Instantiate(CurrentItem.BackgroundPrefab, BackgroundContainer);
+        else
+        {
+            //Create new prefab
+            BackgroundView backgroundView = Instantiate(CurrentItem.BackgroundPrefab, BackgroundContainer).GetComponent<BackgroundView>();
+        }
     }
 
     void HideUI()
