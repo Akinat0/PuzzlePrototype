@@ -8,8 +8,7 @@ using UnityEngine;
 
 namespace Puzzle
 {
-    public enum Side {Left =
-        0, Up = 1, Right = 2, Down = 3 }
+    
     public class InfiniteSpawner : SpawnerBase
     {
         [SerializeField] private float spawnTimestep = 1;

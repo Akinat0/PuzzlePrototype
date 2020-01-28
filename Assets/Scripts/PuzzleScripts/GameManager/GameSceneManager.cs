@@ -43,7 +43,7 @@ namespace Puzzle{
     {
         this._player = _player.AddComponent<Player>();
         _player.AddComponent<PlayerInput>();
-        FindObjectOfType<SpawnerBase>().playerEntity = _player;
+        FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
         if (Camera.main != null)
         {
             _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
@@ -69,9 +69,9 @@ namespace Puzzle{
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
-    public Vector3 GetPlayerPos()
+    public Player GetPlayer()
     {
-        return _player.transform.position;
+        return _player;
     }
 
     void CallEndgameMenu()

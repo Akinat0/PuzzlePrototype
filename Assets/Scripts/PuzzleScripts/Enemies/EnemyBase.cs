@@ -19,7 +19,6 @@ namespace PuzzleScripts
         [SerializeField] private EnemyType type;
         
         private float _speed = 0.5f;
-        private Vector3 _target;
     
         private int _damage = 1;
 
@@ -65,23 +64,33 @@ namespace PuzzleScripts
             if (speed != null)
                 _speed = (float) speed;
             transform.Rotate(new Vector3(0, 0, 90 * side.GetHashCode()));
-            _target = GameSceneManager.Instance.GetPlayerPos();
+            Player player = GameSceneManager.Instance.GetPlayer();
+            PlayerView playerView = player.GetComponent<PlayerView>();
+            
+            if(playerView == null)
+            {
+                Debug.LogError("PlayerView is missing");
+                return;
+            }
+
+            Vector3 target = playerView.GetSidePosition(side);
+            
             switch (side)
             {
                 case Side.Right:
-                    transform.position = _target + Vector3.right * Distance;
+                    transform.position = target + Vector3.right * Distance;
                     transform.right = Vector3.left;
                     break;
                 case Side.Left:
-                    transform.position = _target + Vector3.left * Distance;
+                    transform.position = target + Vector3.left * Distance;
                     transform.right = Vector3.right;
                     break;
                 case Side.Up:
-                    transform.position = _target + Vector3.up * Distance;
+                    transform.position = target + Vector3.up * Distance;
                     transform.right = Vector3.down;
                     break;
                 case Side.Down:
-                    transform.position = _target + Vector3.down * Distance;
+                    transform.position = target + Vector3.down * Distance;
                     transform.right = Vector3.up;
                     break;
             }
