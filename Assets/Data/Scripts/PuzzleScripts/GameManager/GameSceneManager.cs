@@ -86,6 +86,7 @@ namespace Puzzle{
     public void InvokeResetLevel()
     {
         ResetLevelEvent?.Invoke();
+        InvokePauseLevel(false);
     }
 
     public void InvokePauseLevel(bool pause)
@@ -99,6 +100,7 @@ namespace Puzzle{
         PlayerDiedEvent?.Invoke();
         CallEndgameMenu(); 
         InvokeResetLevel();
+        InvokePauseLevel(true);
     }
 
     public void InvokePlayerLosedHp(int hp)
