@@ -159,6 +159,8 @@ public class SelectionManager : MonoBehaviour
             InteractBtn.GetComponent<Button>().interactable = true;
             InteractBtn.SetActive(true);
         };
+
+        ClearContainers();
         DisplayItem(ItemNumber);
     }
 
@@ -166,7 +168,15 @@ public class SelectionManager : MonoBehaviour
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(CurrentItem));
     }
-    
+
+    private void ClearContainers()
+    {
+        foreach (Transform child in BackgroundContainer.transform)
+            Destroy(child.gameObject, 0);
+
+        foreach (Transform child in PlayerContainer.transform)
+            Destroy(child.gameObject, 0);
+    }
     private void OnEnable()
     {
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
@@ -188,4 +198,6 @@ public class SelectionManager : MonoBehaviour
     {
         ShowUI();   
     }
+
+   
 }
