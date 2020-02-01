@@ -1,4 +1,5 @@
 ﻿using PuzzleScripts;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -7,10 +8,17 @@ using UnityEngine.Timeline;
 #if UNITY_EDITOR
 public static class TimelineProcessor
 {
-    public static void GenerateNewTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline)
+     public static void GenerateNewTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline)
     {
+        dstTimeline.DeleteTrack(dstTimeline.markerTrack);
         dstTimeline.CreateMarkerTrack();
-        
+
+        //Clean old timeline
+        for (int i=0; i < dstTimeline.markerTrack.GetMarkerCount(); i++)
+        {
+            dstTimeline.markerTrack.DeleteMarker(dstTimeline.markerTrack.GetMarker(i));
+        };
+            
         foreach (IMarker output in  originTimeline.markerTrack.GetMarkers())
         {
             EnemyMarker marker = output as EnemyMarker;

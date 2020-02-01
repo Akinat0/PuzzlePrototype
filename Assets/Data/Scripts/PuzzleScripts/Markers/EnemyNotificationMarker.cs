@@ -6,7 +6,6 @@ using UnityEngine.Timeline;
 
 //Kind of crutch
 [Serializable]
-[CustomStyle("TimelineAction")]
 public class EnemyNotificationMarker : Marker, INotification
 {
     [SerializeField] public EnemyParams enemyParams;

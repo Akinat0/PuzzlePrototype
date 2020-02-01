@@ -25,6 +25,9 @@ namespace Puzzle
             stickOut = @params.stickOut;
             base.Instantiate(@params);
             GetComponent<SpriteRenderer>().color = stickOut ? Color.red : Color.blue;
+
+            if (!stickOut)
+                GetComponent<SpriteRenderer>().flipX = true;
         }
         
     }

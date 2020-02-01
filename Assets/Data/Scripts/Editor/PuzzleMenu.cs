@@ -25,11 +25,15 @@ public class PuzzleMenu : EditorWindow
             }
 
             string processedPath = "Assets/Timelines/ProcessedTimelines/_" + oldTimeline.name + ".playable";
-            
-            AssetDatabase.CopyAsset(AssetDatabase.GUIDToAssetPath(guid), processedPath);
-            
+
             TimelineAsset newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
 
+            if (newTimeline == null) {
+
+                AssetDatabase.CopyAsset(AssetDatabase.GUIDToAssetPath(guid), processedPath);
+                newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
+            }
+            
             TimelineProcessor.GenerateNewTimeline(oldTimeline, newTimeline);
         } 
     }
