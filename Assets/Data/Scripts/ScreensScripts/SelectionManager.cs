@@ -88,7 +88,19 @@ public class SelectionManager : MonoBehaviour
 
         if (oldPrefab != null && _Direction != 0)
         {
-            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.5f).onComplete = () => Destroy(oldPrefab.gameObject);
+            var tweenerPlayer = oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.5f);
+            tweenerPlayer.onPlay = () =>
+            {
+                RightBtn.GetComponent<Button>().interactable = false;
+                LeftBtn.GetComponent<Button>().interactable = false;
+            };
+
+            tweenerPlayer.onComplete = () =>
+            {
+                Destroy(oldPrefab.gameObject);
+                RightBtn.GetComponent<Button>().interactable = true;
+                LeftBtn.GetComponent<Button>().interactable = true;
+            };
 
             //Create new prefab
             PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
@@ -171,12 +183,15 @@ public class SelectionManager : MonoBehaviour
 
     private void ClearContainers()
     {
-        foreach (Transform child in BackgroundContainer.transform)
-            Destroy(child.gameObject, 0);
+        foreach (Transform go in BackgroundContainer.transform)
+            Destroy(go.gameObject, 0);
 
         foreach (Transform child in PlayerContainer.transform)
+        {
             Destroy(child.gameObject, 0);
+        }
     }
+
     private void OnEnable()
     {
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
