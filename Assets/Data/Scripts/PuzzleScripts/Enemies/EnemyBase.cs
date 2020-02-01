@@ -7,7 +7,8 @@ namespace PuzzleScripts
     public enum EnemyType
     {
         Puzzle, 
-        Shit
+        Shit,
+        Virus
     }
 
     public class EnemyBase : MonoBehaviour, IEnemy
@@ -21,7 +22,6 @@ namespace PuzzleScripts
         private float _speed = 0.5f;
     
         private int _damage = 1;
-
 
         private float time = 0;
         private float dist = 0;
