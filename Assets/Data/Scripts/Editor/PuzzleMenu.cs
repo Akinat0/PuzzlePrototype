@@ -31,7 +31,7 @@ public class PuzzleMenu : EditorWindow
             TimelineAsset newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
 
             TimelineProcessor.GenerateNewTimeline(oldTimeline, newTimeline);
-        }
+        } 
     }
 }
 #endif

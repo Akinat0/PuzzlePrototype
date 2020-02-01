@@ -59,11 +59,11 @@ namespace PuzzleScripts
             transform.Translate(new Vector3(_speed * Time.deltaTime, 0), Space.Self);
         }
 
-        public virtual void Instantiate(Side side, float? speed = null)
+        public virtual void Instantiate(EnemyParams @params)
         {
-            if (speed != null)
-                _speed = (float) speed;
-            transform.Rotate(new Vector3(0, 0, 90 * side.GetHashCode()));
+            _speed =  @params.speed;
+            
+            transform.Rotate(new Vector3(0, 0, 90 * @params.side.GetHashCode()));
             Player player = GameSceneManager.Instance.GetPlayer();
             PlayerView playerView = player.GetComponent<PlayerView>();
             
@@ -73,9 +73,9 @@ namespace PuzzleScripts
                 return;
             }
 
-            Vector3 target = playerView.GetSidePosition(side);
+            Vector3 target = playerView.GetSidePosition(@params.side);
             
-            switch (side)
+            switch (@params.side)
             {
                 case Side.Right:
                     transform.position = target + Vector3.right * Distance;
@@ -118,5 +118,7 @@ namespace PuzzleScripts
         public EnemyType enemyType;
         public Side side;
         public float speed;
+        public bool stickOut;
+        [Range(0, 359)] public float radialPosition;
     }
 }

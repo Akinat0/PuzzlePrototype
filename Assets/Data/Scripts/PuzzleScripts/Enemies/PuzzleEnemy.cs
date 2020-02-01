@@ -5,12 +5,12 @@ namespace Puzzle
 {
     public class PuzzleEnemy : EnemyBase
     {
-        [HideInInspector]
-        public Side side;
+        [HideInInspector] public Side side;
+        [HideInInspector] public bool stickOut;
         
         public override void OnHitPlayer(Player player)
         {
-            if (!player.sides[side.GetHashCode()])
+            if (player.sides[side.GetHashCode()] != stickOut) //Sides shouldn't be equal
             {
                 Die();
             } //That means everything's okay
@@ -19,11 +19,12 @@ namespace Puzzle
                 base.OnHitPlayer(player);
             }
         }
-        public override void Instantiate(Side side, float? speed = null)
+        public override void Instantiate(EnemyParams @params)//Side side, float? speed = null)
         {
-            this.side = side;
-            base.Instantiate(side, speed);
-            GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV();
+            side = @params.side;
+            stickOut = @params.stickOut;
+            base.Instantiate(@params);
+            GetComponent<SpriteRenderer>().color = stickOut ? Color.red : Color.blue;
         }
         
     }

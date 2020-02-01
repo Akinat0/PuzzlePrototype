@@ -1,4 +1,6 @@
-﻿namespace Puzzle
+﻿using PuzzleScripts;
+
+namespace Puzzle
 {
     public interface IEnemy
     {
@@ -7,7 +9,7 @@
         void Die();
 
         void Move();
-        void Instantiate(Side side, float? speed = null);
+        void Instantiate(EnemyParams @params);
         int Damage { get; set; }
 
     }

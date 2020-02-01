@@ -51,7 +51,6 @@ namespace ScreensScripts
         
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
-           // HideUi();
             Debug.Log("GameSceneLoaded Invoked");
             gameSceneManager.SetupScene(playerEntity.gameObject, background, gameObject); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
@@ -60,7 +59,6 @@ namespace ScreensScripts
         public void InvokeGameSceneUnloaded()
         {
             Debug.Log("GameSceneUnloaded Invoked");
-            //ShowUi();
             GameSceneUnloadedEvent?.Invoke();
         }
 

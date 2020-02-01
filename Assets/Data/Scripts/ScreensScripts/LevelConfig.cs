@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PuzzleData", menuName = "Puzzle/CreatePuzzleData", order = 51)]
+[CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
 public class LevelConfig : ScriptableObject
 {
     [SerializeField] private string m_LevelName;

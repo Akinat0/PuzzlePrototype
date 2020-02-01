@@ -62,7 +62,7 @@ namespace Puzzle
             GameObject prefabToInstantiate = 
                 enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
             GameObject enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
-            enemy.GetComponent<IEnemy>().Instantiate(@params.side, @params.speed);
+            enemy.GetComponent<IEnemy>().Instantiate(@params);
             
             return enemy.GetComponent<IEnemy>() as EnemyBase;
         }
