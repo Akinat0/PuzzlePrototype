@@ -32,6 +32,9 @@ public class HealthManager : MonoBehaviour
         Debug.Log("ASD:");
         if (phase < 5)
         {
+            phase = 0;
+        }
+        
             damagableSprites = GameObject.FindGameObjectsWithTag("DamagableView");
             for (int i = 0; i < damagableSprites.Length; i++)
             {
@@ -39,7 +42,7 @@ public class HealthManager : MonoBehaviour
                 damagableSprites[i].GetComponent<SkinContainer>().IncrementPhase();
             }
             phase++;
-        }
+        
     }
 
 
