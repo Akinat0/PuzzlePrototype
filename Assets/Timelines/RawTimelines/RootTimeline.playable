@@ -95,25 +95,6 @@ MonoBehaviour:
     speed: 3
     stickOut: 0
     radialPosition: 0
---- !u!114 &-7430682101073072640
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
-  m_Time: 97.1
-  enemyParams:
-    enemyType: 1
-    side: 2
-    speed: 3
-    stickOut: 0
-    radialPosition: 0
 --- !u!114 &-7304723392677302948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,10 +383,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 4.983333333333333
+    m_Start: 3.5833333333333335
     m_ClipIn: 0
-    m_Asset: {fileID: 8274616624459677572}
-    m_Duration: 306.494693877551
+    m_Asset: {fileID: -520490235833051762}
+    m_Duration: 157.6490022675737
     m_TimeScale: 1
     m_ParentTrack: {fileID: -4020282461027728124}
     m_EaseInDuration: 0
@@ -469,7 +450,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: MEUTE - You & Me
+    m_DisplayName: Natural_editedRV01
   m_Markers:
     m_Objects: []
   m_TrackProperties:
@@ -568,25 +549,6 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 2
-    speed: 3
-    stickOut: 0
-    radialPosition: 0
---- !u!114 &-3322990926685553438
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
-  m_Time: 95.48333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
     speed: 3
     stickOut: 0
     radialPosition: 0
@@ -707,25 +669,6 @@ MonoBehaviour:
     speed: 3
     stickOut: 0
     radialPosition: 0
---- !u!114 &-1497436721922696265
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
-  m_Time: 96.16666666666667
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 3
-    stickOut: 0
-    radialPosition: 0
 --- !u!114 &-988879092147430874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -802,6 +745,23 @@ MonoBehaviour:
     speed: 3
     stickOut: 0
     radialPosition: 0
+--- !u!114 &-520490235833051762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 0019d8f06f4e90046a60378f38d135ec, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
+  m_ClipProperties:
+    volume: 1
 --- !u!114 &-402275668271514617
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1029,25 +989,6 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 2
-    speed: 3
-    stickOut: 0
-    radialPosition: 0
---- !u!114 &1641550159867480594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
-  m_Time: 95.05
-  enemyParams:
-    enemyType: 0
-    side: 1
     speed: 3
     stickOut: 0
     radialPosition: 0
@@ -1279,6 +1220,25 @@ MonoBehaviour:
     speed: 3
     stickOut: 0
     radialPosition: 0
+--- !u!114 &4061260408247983578
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 16.866666666666667
+  enemyParams:
+    enemyType: 2
+    side: 1
+    speed: 0
+    stickOut: 0
+    radialPosition: 0
 --- !u!114 &4195577182610794909
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1386,11 +1346,7 @@ MonoBehaviour:
     - {fileID: -988879092147430874}
     - {fileID: 129097757302948595}
     - {fileID: -619415521402912611}
-    - {fileID: 1641550159867480594}
-    - {fileID: -3322990926685553438}
-    - {fileID: 6683762477349416432}
-    - {fileID: -1497436721922696265}
-    - {fileID: -7430682101073072640}
+    - {fileID: 4061260408247983578}
 --- !u!114 &4633265873331239800
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1559,25 +1515,6 @@ MonoBehaviour:
   enemyParams:
     enemyType: 0
     side: 0
-    speed: 3
-    stickOut: 0
-    radialPosition: 0
---- !u!114 &6683762477349416432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMarker
-  m_Time: 95.83333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
     speed: 3
     stickOut: 0
     radialPosition: 0
@@ -1847,23 +1784,6 @@ MonoBehaviour:
     speed: 3
     stickOut: 0
     radialPosition: 0
---- !u!114 &8274616624459677572
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
-  m_Name: AudioPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: b2ba2ee848d8edd4a943fec5d4dda60e, type: 3}
-  m_Loop: 0
-  m_bufferingTime: 0.1
-  m_ClipProperties:
-    volume: 1
 --- !u!114 &8287930941392214149
 MonoBehaviour:
   m_ObjectHideFlags: 1
