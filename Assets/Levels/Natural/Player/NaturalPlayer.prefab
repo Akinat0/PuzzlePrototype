@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7111585653384370487}
   - component: {fileID: 3119375411415043026}
+  - component: {fileID: 5069743898593493555}
   m_Layer: 0
   m_Name: Core
-  m_TagString: Untagged
+  m_TagString: DamagableView
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,6 +81,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5069743898593493555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132630803680321022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce0c805fa25cc043aaa0595156e0577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: c40196bbc219a024c9449260b9ba398d, type: 3}
+  - {fileID: 21300000, guid: 992ca05cba818b74ab78c3c8b9599acd, type: 3}
+  - {fileID: 21300000, guid: d5cd4a9a295d08040ae8aa47b9c364a7, type: 3}
+  - {fileID: 21300000, guid: c616376828481064d820c493ceba776e, type: 3}
+  - {fileID: 21300000, guid: 80e1f1945faeef74a9b3970a62aebf05, type: 3}
 --- !u!1 &519085652210852557
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,9 +504,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5176168562646035759}
   - component: {fileID: 593447243670306959}
+  - component: {fileID: 6483042016809923517}
   m_Layer: 0
   m_Name: Shape
-  m_TagString: Untagged
+  m_TagString: DamagableView
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -559,6 +579,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6483042016809923517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3842958785870243051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce0c805fa25cc043aaa0595156e0577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: af3aa1c328b3e2744a2cf6d1ebafdab3, type: 3}
+  - {fileID: 21300000, guid: 6e7654e9a6f39f343816e996fc4a2878, type: 3}
+  - {fileID: 21300000, guid: 150da0b909500d74b9e0c2c5545850c1, type: 3}
+  - {fileID: 21300000, guid: 5e50a90b5d513a0448496c827718c092, type: 3}
+  - {fileID: 21300000, guid: 52be4072913c61f44bb695c0651fe7eb, type: 3}
 --- !u!1 &4870891936801128361
 GameObject:
   m_ObjectHideFlags: 0

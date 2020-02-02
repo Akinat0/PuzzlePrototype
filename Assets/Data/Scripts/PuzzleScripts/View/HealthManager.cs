@@ -8,23 +8,38 @@ public class HealthManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject[] hearts;
+    [SerializeField] private GameObject[] damagableSprites;
 
-    private int _lastHeart; 
+    private int _lastHeart;
+
+    private int phase;
 
     private void Start()
     {
+        phase = 0;
         _lastHeart = hearts.Length - 1;
     }
 
     void LoseHeart()
     {
-        if (_lastHeart < 0)
+        //if (_lastHeart < 0)
+        //{
+        //  Debug.LogError("LastHeart is " + _lastHeart);
+        //   return;
+        //}
+        //hearts[_lastHeart].SetActive(false);
+        //_lastHeart--;
+        Debug.Log("ASD:");
+        if (phase < 5)
         {
-            Debug.LogError("LastHeart is " + _lastHeart);
-            return;
+            damagableSprites = GameObject.FindGameObjectsWithTag("DamagableView");
+            for (int i = 0; i < damagableSprites.Length; i++)
+            {
+                Debug.Log("LENGTH OF DAMAGABLE = " + damagableSprites.Length);
+                damagableSprites[i].GetComponent<SkinContainer>().IncrementPhase();
+            }
+            phase++;
         }
-        hearts[_lastHeart].SetActive(false);
-        _lastHeart--;
     }
 
 
