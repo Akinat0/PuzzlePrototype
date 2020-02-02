@@ -24,10 +24,10 @@ namespace Puzzle
             side = @params.side;
             stickOut = @params.stickOut;
             base.Instantiate(@params);
-            GetComponent<SpriteRenderer>().color = stickOut ? Color.red : Color.blue;
+            GetComponent<SpriteRenderer>().sprite = stickOut ? GetComponent<SkinContainer>().sprites [0]: GetComponent<SkinContainer>().sprites[1];
 
-            if (!stickOut)
-                GetComponent<SpriteRenderer>().flipX = true;
+            //if (!stickOut)
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         
     }

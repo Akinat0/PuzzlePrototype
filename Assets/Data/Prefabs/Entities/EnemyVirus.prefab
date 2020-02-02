@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5592148314577438308}
   - component: {fileID: 5592148314577438310}
   - component: {fileID: 2310159257380425238}
+  - component: {fileID: 8952879947393768614}
   - component: {fileID: -6163954933464782960}
   m_Layer: 0
   m_Name: EnemyVirus
@@ -71,8 +72,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 24a3ea88c526f75488d62aea964fb6d0, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.024693727, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ca93dcbbf40a6254b8c6ba9ff6f6c526, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -97,7 +98,26 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4.1999993
+  m_Radius: 189.05
+--- !u!114 &8952879947393768614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592148314577438307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb29bd9f2304d34a9cb374e537c80d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Skins:
+  - {fileID: 21300000, guid: 8820c3e2bd5fae94191c3cdd8393727f, type: 3}
+  - {fileID: 21300000, guid: 6584b9884345768489d765d0117c1cbc, type: 3}
+  - {fileID: 21300000, guid: 760a56622147b044ca5fa934d747a896, type: 3}
+  - {fileID: 21300000, guid: b940a23a8cc1baf46ac450689640850f, type: 3}
+  - {fileID: 21300000, guid: ca93dcbbf40a6254b8c6ba9ff6f6c526, type: 3}
+  - {fileID: 21300000, guid: 31c16edfe8a21694cb86982b6ccb3624, type: 3}
 --- !u!114 &-6163954933464782960
 MonoBehaviour:
   m_ObjectHideFlags: 0
