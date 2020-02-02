@@ -23,6 +23,12 @@ namespace ScreensScripts
             gameObject.SetActive(false);
         }
 
+        public void ToMenue()
+        {
+            GameSceneManager.Instance.InvokeLevelClosed();
+            gameObject.SetActive(false);
+        }
+
         public void CreateReplyScreen()
         {
             gameObject.SetActive(true);
