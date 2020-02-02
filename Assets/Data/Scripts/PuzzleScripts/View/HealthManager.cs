@@ -61,10 +61,9 @@ public class HealthManager : MonoBehaviour
 
     void ResetLevelEvent_Handler()
     {
-        foreach (var heart in  hearts)
+        foreach (var heart in  damagableSprites)
         {
-            heart.SetActive(true);
-            Start();
+            heart.GetComponent<SkinContainer>().Restart();
         }
     }
     

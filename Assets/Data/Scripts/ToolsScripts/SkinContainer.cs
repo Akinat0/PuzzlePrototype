@@ -16,4 +16,10 @@ public class SkinContainer : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = sprites[index];
         }
     }
+
+    public void Restart()
+    {
+        GetComponent<SpriteRenderer>().sprite = sprites[0];
+        index = 0;
+    }
 }
