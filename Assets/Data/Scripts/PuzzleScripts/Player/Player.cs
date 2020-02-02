@@ -12,8 +12,7 @@ namespace Puzzle
         private bool _immuneFramesEnabled;
         private float _immuneTime = 0.2f;
 
-        [SerializeField]
-        private int _health = 3;
+        private int _health = 6;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
   
         
@@ -75,7 +74,7 @@ namespace Puzzle
 
         void ResetLevelEvent_Handler()
         {
-            _health = 3;
+            _health = 6;
         }
         void TouchOnScreen_Handler(Touch touch)
         {
