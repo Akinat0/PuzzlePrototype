@@ -37,9 +37,6 @@ namespace Puzzle
 
         protected virtual void RescaleGame()
         {
-            Vector2 backgroundScale = ScreenScaler.ScaleToFillScreen(background.GetComponent<SpriteRenderer>());
-            background.transform.localScale = backgroundScale;
-            
             float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(
                     m_PlayerView.shape.GetComponent<SpriteRenderer>(),
