@@ -1,25 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SkinContainer : MonoBehaviour
+public class SkinContainer : SkinContainerBase
 {
-    public Sprite[] sprites;
-
     private int index = 0;
+    private SpriteRenderer _spriteRenderer;
     
-    public void IncrementPhase()
+    public int Length => _Sprites.Length;
+
+    public int Skin
     {
-        index++;
-        if(index < sprites.Length)
+        get => index;
+        set
         {
-            GetComponent<SpriteRenderer>().sprite = sprites[index];
+            if (value < Length)
+                index = value;
+            else
+                Debug.LogError("Try to get unavailable skin");
+            UpdateSkin();
         }
     }
 
-    public void Restart()
+    private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = sprites[0];
-        index = 0;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void UpdateSkin()
+    {
+        _spriteRenderer.sprite = _Sprites[index];
     }
 }

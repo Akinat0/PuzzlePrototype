@@ -24,9 +24,7 @@ namespace Puzzle
             side = @params.side;
             stickOut = @params.stickOut;
             base.Instantiate(@params);
-            GetComponent<SpriteRenderer>().sprite = stickOut ? GetComponent<SkinContainer>().sprites [0]: GetComponent<SkinContainer>().sprites[1];
-
-            //if (!stickOut)
+            GetComponent<SkinContainer>().Skin = stickOut ? 0 : 1;
             GetComponent<SpriteRenderer>().flipX = true;
         }
         
