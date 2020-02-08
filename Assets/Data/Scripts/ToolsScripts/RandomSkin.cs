@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
-public class RandomSkin : MonoBehaviour
+public class RandomSkin : SkinContainerBase
 {
-    [SerializeField] Sprite[] Skins; 
-
-    void Start()
+    protected override void Start()
     {
-        int skinNumber = Random.Range(0, Skins.Length);
-        GetComponent<SpriteRenderer>().sprite = Skins[skinNumber];
+        base.Start();
+        SetRandomSkin();
+    }
+
+    public void SetRandomSkin()
+    {
+        index = Random.Range(0, _Sprites.Length);
+        _SpriteRenderer.sprite = _Sprites[index];
     }
 
 }
