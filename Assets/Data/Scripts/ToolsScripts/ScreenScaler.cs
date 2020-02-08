@@ -33,7 +33,7 @@ namespace Abu.Tools
         public static float FitHorizontal(SpriteRenderer spriteRenderer)
         {
             Sprite sprite = spriteRenderer.sprite;
-            return ScaleToFillHeight(sprite.rect.width, sprite.pixelsPerUnit);
+            return ScaleToFillWidth(sprite.rect.width, sprite.pixelsPerUnit);
         }
         
         public static float FitVertical(SpriteRenderer spriteRenderer)

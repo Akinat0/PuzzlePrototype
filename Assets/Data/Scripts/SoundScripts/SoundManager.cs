@@ -51,7 +51,8 @@ public class SoundManager : MonoBehaviour
     }
     public void PauseTheme()
     {
-        currentThemeSource.Pause();
+        if(currentThemeSource != null)
+            currentThemeSource.Pause();
     }
 
     private void OnEnable()

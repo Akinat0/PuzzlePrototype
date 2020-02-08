@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Abu.Tools;
+﻿using Abu.Tools;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class BackgroundView : MonoBehaviour
 {
     private SpriteRenderer m_SpriteRenderer;
-   // private SpriteMask m_ClippingZone;
+
     void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = 
-            Vector3.one * ScreenScaler.BestFit(m_SpriteRenderer);
-    //    CreateClippingZone();
+            Vector3.one * ScreenScaler.FitHorizontal(m_SpriteRenderer);
+        
     }
 /*
     void CreateClippingZone()
@@ -37,6 +35,4 @@ public class BackgroundView : MonoBehaviour
         
         m_ClippingZone.sprite = sprite;
     }*/
-        
-
 }
