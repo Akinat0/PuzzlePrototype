@@ -2,9 +2,6 @@
 
 public class SkinContainer : SkinContainerBase
 {
-    private int index = 0;
-    private SpriteRenderer _spriteRenderer;
-    
     public int Length => _Sprites.Length;
 
     public int Skin
@@ -12,21 +9,29 @@ public class SkinContainer : SkinContainerBase
         get => index;
         set
         {
-            if (value < Length)
+            if (value < Length && value >= 0)
+            {
                 index = value;
+                UpdateSkin();
+            }
             else
-                Debug.LogError("Try to get unavailable skin");
-            UpdateSkin();
+                Debug.LogError("Try to get unavailable skin " + value);
+            
         }
-    }
-
-    private void Start()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void UpdateSkin()
     {
-        _spriteRenderer.sprite = _Sprites[index];
+        if (_SpriteRenderer == null)
+            _SpriteRenderer = GetComponent<SpriteRenderer>();
+
+        try
+        {
+            _SpriteRenderer.sprite = _Sprites[index];
+        }
+        catch
+        {
+            Debug.LogError("Index " + index);
+        }
     }
 }

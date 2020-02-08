@@ -12,10 +12,10 @@ namespace Puzzle
         private bool _immuneFramesEnabled;
         private float _immuneTime = 0.2f;
 
-        private int _health = 5;
+        public const int DEFAULT_HP = 5;
+        private int _health = DEFAULT_HP;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
-  
-        
+
         void Start()
         {
             _view = GetComponent<PlayerView>();
@@ -43,15 +43,14 @@ namespace Puzzle
                 }
             }
             _immuneFramesEnabled = true;
-            Invoke( "DisableImmune", _immuneTime);
+            Invoke(nameof(DisableImmune), _immuneTime);
         }
 
         private void DisableImmune()
         {
             _immuneFramesEnabled = false;
         }
-        
-         
+
         public void ChangeSides()
         {
             for (int i = 0; i < sides.Length; i++)
@@ -74,7 +73,7 @@ namespace Puzzle
 
         void ResetLevelEvent_Handler()
         {
-            _health = 5;
+            _health = DEFAULT_HP;
         }
         void TouchOnScreen_Handler(Touch touch)
         {

@@ -85,17 +85,20 @@ namespace Puzzle{
     
     public void InvokeResetLevel()
     {
+        Debug.Log("ResetLevel Invoked");
         ResetLevelEvent?.Invoke();
         InvokePauseLevel(false);
     }
 
     public void InvokePauseLevel(bool pause)
     {
+        Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
         PauseLevelEvent?.Invoke(pause);
     }
 
     public void InvokePlayerDied()
     {
+        Debug.Log("PlayerDied Invoked");
         InvokePauseLevel(true);
         PlayerDiedEvent?.Invoke();
         CallEndgameMenu(); 
@@ -105,16 +108,19 @@ namespace Puzzle{
 
     public void InvokePlayerLosedHp(int hp)
     {
+        Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
         PlayerLosedHpEvent?.Invoke(hp);
     }
 
     public void InvokeEnemyDied(int score)
     {
+        Debug.Log("EnemyDied Invoked");
         EnemyDiedEvent?.Invoke(score);
     }
     
     public void InvokeGameStarted()
     {
+        Debug.Log("GameStarted Invoked");
         GameStartedEvent?.Invoke();
         InvokePauseLevel(false); //Unpausing
     }

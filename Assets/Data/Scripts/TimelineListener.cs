@@ -18,14 +18,14 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 
         if (notification is EnemyNotificationMarker enemyMarker)
         {
-            Debug.Log("Notification received " + time + " type: " + enemyMarker.enemyParams.enemyType);
+            //Debug.Log("Notification received " + time + " type: " + enemyMarker.enemyParams.enemyType);
             GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
             return;
         }
         
         if (notification is LevelEndMarker)
         {
-            Debug.Log("Notification received " + time + " type: level end marker");
+            //Debug.Log("Notification received " + time + " type: level end marker");
             GameSceneManager.Instance.InvokeLevelClosed();
             return;
         }

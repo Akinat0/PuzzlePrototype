@@ -4,13 +4,11 @@ using UnityEngine;
 
 public abstract class HealthManagerBase : MonoBehaviour
 {
-
     
     protected int Hp { get; set; }
     protected abstract void LoseHeart(int _Hp);
     protected abstract void Reset();
-
-
+    
     protected virtual void OnEnable()
     {
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
@@ -21,7 +19,6 @@ public abstract class HealthManagerBase : MonoBehaviour
     {
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
-
     }
 
     protected virtual void ResetLevelEvent_Handler()

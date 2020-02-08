@@ -6,13 +6,14 @@ public class DamagableView : MonoBehaviour
 {
     [SerializeField] private SkinContainer[] _skinContainers;
 
-    public bool SetSkinsPhase(int _Phase)
+    public void SetSkinsPhase(int _Phase)
     {
         foreach (SkinContainer skin in _skinContainers)
         {
-            //TODO merge skin container refactoring
+            if (skin.Length <= _Phase && _Phase < 0)
+                continue;
+            
+            skin.Skin = _Phase;
         }
-
-        return false;
     }
 }
