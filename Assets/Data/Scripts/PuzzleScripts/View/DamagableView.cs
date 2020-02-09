@@ -10,7 +10,7 @@ public class DamagableView : MonoBehaviour
     {
         foreach (SkinContainer skin in _skinContainers)
         {
-            if (skin.Length <= _Phase && _Phase < 0)
+            if (_Phase >= skin.Length || _Phase < 0)
                 continue;
             
             skin.Skin = _Phase;

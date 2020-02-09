@@ -54,7 +54,7 @@ public class MobileInput : MonoBehaviour
     void ProcessCollider(Collider2D _collider, Touch _touch)
     {
         ITouchProcessor touchProcessor = _collider.GetComponent<ITouchProcessor>();
-        touchProcessor?.OnTouch(_touch);
+
         if (touchProcessor != null)
         {
             touchProcessor.OnTouch(_touch);

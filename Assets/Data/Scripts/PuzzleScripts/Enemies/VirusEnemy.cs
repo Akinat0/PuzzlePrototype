@@ -7,7 +7,7 @@ namespace Puzzle
     {
         [HideInInspector] public float radialPosition;
 
-        public override void Instantiate(EnemyParams @params)//Side side, float? speed = null)
+        public override void Instantiate(EnemyParams @params)
         {
             radialPosition = @params.radialPosition;
             base.Instantiate(@params);
