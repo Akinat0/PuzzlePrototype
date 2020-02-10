@@ -7,7 +7,7 @@ using Puzzle;
 public class AttemptManager : MonoBehaviour
 {
 
-    private int _attemptNumper;
+    private int _attemptNumber;
 
     [SerializeField]
     private Text _textPlaceholder;
@@ -21,26 +21,26 @@ public class AttemptManager : MonoBehaviour
     [SerializeField]
     private string _textOfNotification = "Attempt #";
 
-    void Start()
+    void Awake()
     {
-        _attemptNumper = 0;
+        _attemptNumber = 0;
     }
 
     private void OnEnable()
     {
-        GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+        GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
     }
 
     private void OnDisable()
     {
-        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+        GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
 
     }
 
-    void ResetLevelEvent_Handler()
+    void GameStartedEvent_Handler()
     {
-        _attemptNumper++;
-        _textPlaceholder.text = "Attempt #" + _attemptNumper;
+        _attemptNumber++;
+        _textPlaceholder.text = _textOfNotification + _attemptNumber;
         StartCoroutine(FadeText());
     }
 
