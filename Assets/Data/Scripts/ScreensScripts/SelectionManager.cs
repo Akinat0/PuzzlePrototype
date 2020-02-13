@@ -8,10 +8,8 @@ public class SelectionManager : MonoBehaviour
 {
 
     [Header("UI elements"),]
-
-    [SerializeField] private Transform PlayerContainer;
-
-    [SerializeField] private Transform BackgroundContainer;
+    
+    [SerializeField] private Transform LevelContainer;
 
     [SerializeField] private Text InteractBtnText;
     
@@ -26,6 +24,9 @@ public class SelectionManager : MonoBehaviour
 
     public LevelConfig CurrentItem{ get; private set;}
 
+
+    private PlayerView m_PlayerView;
+    private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
     
     public void Start()
@@ -52,15 +53,14 @@ public class SelectionManager : MonoBehaviour
     {
         if (_Selection.Length == 0) //If nothing remains in shop 
         {
-            PlayerContainer.gameObject.SetActive(false);
+            LevelContainer.gameObject.SetActive(false);
             InteractBtn.SetActive(false);
             return;
         }
 
         CurrentItem = _Selection[_Index];
 
-        PlayerView playerView = DisplayPlayer(_Direction);
-        DisplayBackground(_Direction);
+        DisplayLevel(_Direction);
 
         InteractBtnText.text = CurrentItem.Name;
         
@@ -70,7 +70,7 @@ public class SelectionManager : MonoBehaviour
         //Managing left button
         LeftBtn.SetActive(_Index != 0);
         
-        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(playerView, CurrentItem));
+        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, CurrentItem));
         
         if (_Selection.Length == 0)
         {
@@ -80,13 +80,36 @@ public class SelectionManager : MonoBehaviour
         
     }
 
-    PlayerView DisplayPlayer(int _Direction)
+    LevelRootView DisplayLevel(int _Direction)
+    {
+        LevelRootView oldPrefab = LevelContainer.GetComponentInChildren<LevelRootView>();
+
+        if (oldPrefab != null && _Direction != 0)
+        {
+            LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
+            m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject, oldPrefab.transform);
+            m_BackgroundView = DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject, oldPrefab.transform);
+            return levelRootView;
+        }
+        else
+        {
+            LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
+            m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject);
+            m_BackgroundView = DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject);
+            return levelRootView;
+        }
+    }
+
+    PlayerView DisplayPlayer(int _Direction, GameObject _PlayerPrefab, Transform _OldLevelView = null)
     {
         Vector2 camSize = ScreenScaler.CameraSize();
         
-        PlayerView oldPrefab = PlayerContainer.GetComponentInChildren<PlayerView>();
+        PlayerView oldPrefab = null;
 
-        if (oldPrefab != null && _Direction != 0)
+        if(_OldLevelView != null)
+            oldPrefab = _OldLevelView.GetComponentInChildren<PlayerView>();
+
+        if (_Direction != 0 && oldPrefab != null)
         {
             var tweenerPlayer = oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.5f);
             tweenerPlayer.onPlay = () =>
@@ -97,13 +120,16 @@ public class SelectionManager : MonoBehaviour
 
             tweenerPlayer.onComplete = () =>
             {
-                Destroy(oldPrefab.gameObject);
+                // It takes a bit more time for player to finish animation,
+                // so we will destroy old level prefab in player's finish animation code
+                if(_OldLevelView != null)
+                    Destroy(_OldLevelView.gameObject); 
                 RightBtn.GetComponent<Button>().interactable = true;
                 LeftBtn.GetComponent<Button>().interactable = true;
             };
 
             //Create new prefab
-            PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
+            PlayerView playerView = _PlayerPrefab.GetComponent<PlayerView>();
 
             playerView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
             playerView.transform.DOMove(Vector3.zero, 0.5f);
@@ -112,33 +138,34 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-            //Create new prefab
-            PlayerView playerView = Instantiate(CurrentItem.PlayerPrefab, PlayerContainer).GetComponent<PlayerView>();
-            return playerView;
+            return _PlayerPrefab.GetComponent<PlayerView>();;
         }
     }
 
-    void DisplayBackground(int _Direction)
+    BackgroundView DisplayBackground(int _Direction, GameObject _BackgroundPrefab, Transform _OldLevelView = null)
     {
         Vector2 camSize = ScreenScaler.CameraSize();
         
-        BackgroundView oldPrefab = BackgroundContainer.GetComponentInChildren<BackgroundView>();
+        BackgroundView oldPrefab = null;
 
-        if (oldPrefab != null && _Direction != 0)
+        if(_OldLevelView != null)
+            oldPrefab = _OldLevelView.GetComponentInChildren<BackgroundView>();
+        
+        if (_Direction != 0 && oldPrefab != null)
         {
-            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.25f).onComplete = () => Destroy(oldPrefab.gameObject);
-            
-            //Create new prefab
-            BackgroundView backgroundView = Instantiate(CurrentItem.BackgroundPrefab, BackgroundContainer).GetComponent<BackgroundView>();
 
-            
+            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.25f);
+            BackgroundView backgroundView = _BackgroundPrefab.GetComponent<BackgroundView>();
+
             backgroundView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
             backgroundView.transform.DOMove(Vector3.zero, 0.25f);
+
+            return backgroundView;
         }
         else
         {
             //Create new prefab
-            BackgroundView backgroundView = Instantiate(CurrentItem.BackgroundPrefab, BackgroundContainer).GetComponent<BackgroundView>();
+            return _BackgroundPrefab.GetComponent<BackgroundView>();
         }
     }
 
@@ -183,13 +210,8 @@ public class SelectionManager : MonoBehaviour
 
     private void ClearContainers()
     {
-        foreach (Transform go in BackgroundContainer.transform)
+        foreach (Transform go in LevelContainer.transform)
             Destroy(go.gameObject, 0);
-
-        foreach (Transform child in PlayerContainer.transform)
-        {
-            Destroy(child.gameObject, 0);
-        }
     }
 
     private void OnEnable()
