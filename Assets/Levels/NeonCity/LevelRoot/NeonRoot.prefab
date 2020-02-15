@@ -44,7 +44,7 @@ PlayableDirector:
   m_GameObject: {fileID: 4396439755969541175}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: b73f30efd97ed455e82742436a1828b2, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -59,6 +59,10 @@ PlayableDirector:
   - key: {fileID: -358701913501755738, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
     value: {fileID: 0}
   - key: {fileID: -6529725823784387233, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -878579858447237753, guid: bf022006068f24abc823cb8db7d7748d, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -878579858447237753, guid: b73f30efd97ed455e82742436a1828b2, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
@@ -168,6 +172,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4396439755969541174}
     m_Modifications:
+    - target: {fileID: 5880578822815770889, guid: 59e492d33ca064dffb901c5fff405e42,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6b8a90bbff8e94dceb3251ebf97666e5,
+        type: 3}
+    - target: {fileID: 5880578822815770889, guid: 59e492d33ca064dffb901c5fff405e42,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880578822815770889, guid: 59e492d33ca064dffb901c5fff405e42,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5880578822815770889, guid: 59e492d33ca064dffb901c5fff405e42,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6068697764657417907, guid: 59e492d33ca064dffb901c5fff405e42,
         type: 3}
       propertyPath: m_Name
