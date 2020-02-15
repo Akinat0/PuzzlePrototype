@@ -49,7 +49,6 @@ public class PuzzleMenu : EditorWindow
             string folderName;
             folderName = Path.GetFileName(folder);
             int bpm = Int32.Parse(folderName);
-            Debug.LogError("bpm = " + bpm);
             string[] guids = AssetDatabase.FindAssets("Timeline", new[] { "Assets/Timelines/RawTimelines/bpm/" + folderName });
             foreach(var guid in guids)
             {
@@ -59,7 +58,6 @@ public class PuzzleMenu : EditorWindow
                     Debug.LogError("Asset " + AssetDatabase.GUIDToAssetPath(guid) + " is not timeline");
                     continue;
                 }
-                Debug.LogError("Find old timeline");
                 string processedPath = "Assets/Timelines/RawTimelines/bpm/" + folderName + "/bpm_" + oldTimeline.name + ".playable";
 
                 TimelineAsset newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
@@ -71,7 +69,7 @@ public class PuzzleMenu : EditorWindow
                     newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
                 }
 
-                Debug.LogError("Create new timeline");
+
                 TimelineProcessor.GenerateBpmTimeline(oldTimeline, newTimeline, bpm);
             }
         }

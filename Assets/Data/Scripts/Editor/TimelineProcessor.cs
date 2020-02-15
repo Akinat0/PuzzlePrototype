@@ -45,13 +45,11 @@ public static class TimelineProcessor
         
         float currentTime = 0f;
         float stepTime = 60.0f / bpm;
-
-        Debug.LogError("Current time = " + currentTime + ", step time = " + stepTime + ", bpm = " + bpm + ", duration = " + dstTimeline.duration);
+        
         while (currentTime < dstTimeline.duration)
         {
             dstTimeline.markerTrack.CreateMarker(typeof(BpmMarker), currentTime);
             currentTime += stepTime;
-            Debug.LogError("Current time = " + currentTime + ", step time = " + stepTime);
         }
     }
 
