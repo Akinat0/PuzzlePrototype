@@ -8,7 +8,7 @@ using UnityEngine.Timeline;
 #if UNITY_EDITOR
 public static class TimelineProcessor
 {
-     public static void GenerateNewTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline)
+    public static void GenerateNewTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline)
     {
         dstTimeline.DeleteTrack(dstTimeline.markerTrack);
         dstTimeline.CreateMarkerTrack();
@@ -40,7 +40,21 @@ public static class TimelineProcessor
             
         }
     }
-    
+    public static void GenerateBpmTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline, int bpm)
+    {
+        
+        float currentTime = 0f;
+        float stepTime = 60.0f / bpm;
+
+        Debug.LogError("Current time = " + currentTime + ", step time = " + stepTime + ", bpm = " + bpm + ", duration = " + dstTimeline.duration);
+        while (currentTime < dstTimeline.duration)
+        {
+            dstTimeline.markerTrack.CreateMarker(typeof(BpmMarker), currentTime);
+            currentTime += stepTime;
+            Debug.LogError("Current time = " + currentTime + ", step time = " + stepTime);
+        }
+    }
+
 }
 #endif
 
