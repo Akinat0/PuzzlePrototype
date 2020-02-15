@@ -49,15 +49,13 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
             _playableDirector.Pause();
 
         if (!paused && _playableDirector.state == PlayState.Paused)
-            _playableDirector.Resume();
-        
-        Debug.Log("TimeLine time " + _playableDirector.time);
+            _playableDirector.Play();
     }
     
     private void ResetLevelEvent_Handler()
     {
         _playableDirector.Stop();
         _playableDirector.time = 0;
-        _playableDirector.Play();
+       // _playableDirector.Play();
     }
 }

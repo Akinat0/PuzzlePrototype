@@ -56,7 +56,7 @@ namespace Puzzle{
 
         SoundManager.Instance.LevelThemeClip = theme;
         
-        // TO-DO  actions with background and gameRoot
+        // TODO  actions with background and gameRoot
         ResetLevelEvent?.Invoke();
         InvokeGameStarted();
     }
@@ -87,7 +87,6 @@ namespace Puzzle{
     {
         Debug.Log("ResetLevel Invoked");
         ResetLevelEvent?.Invoke();
-        InvokePauseLevel(false);
     }
 
     public void InvokePauseLevel(bool pause)
@@ -101,9 +100,8 @@ namespace Puzzle{
         Debug.Log("PlayerDied Invoked");
         InvokePauseLevel(true);
         PlayerDiedEvent?.Invoke();
-        CallEndgameMenu(); 
+        CallEndgameMenu(); //TODO it should be event subscriber
         InvokeResetLevel();
-        InvokePauseLevel(true);
     }
 
     public void InvokePlayerLosedHp(int hp)

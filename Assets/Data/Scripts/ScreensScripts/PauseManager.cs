@@ -26,7 +26,7 @@ public class PauseManager : MonoBehaviour
     private void PauseTheGame()
     {
         _paused = true;
-        Time.timeScale = 0;
+        Time.timeScale = 0;  //Inline into event invoke
         pauseMenu.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
