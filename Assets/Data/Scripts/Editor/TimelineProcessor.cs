@@ -40,7 +40,7 @@ public static class TimelineProcessor
             
         }
     }
-    public static void GenerateBpmTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline, int bpm)
+    public static void GenerateBpmTimeline(TimelineAsset dstTimeline, int bpm)
     {
         
         float currentTime = 0f;

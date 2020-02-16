@@ -44,6 +44,13 @@ public class PuzzleMenu : EditorWindow
     public static void GenearteBpmMarkers()
     {
         string[] folders = AssetDatabase.GetSubFolders("Assets/Timelines/RawTimelines/bpm");
+
+        if (folders.Length == 0)
+        {
+            Debug.LogError("There's no bpm folders");
+            return;
+        }
+
         foreach(string folder in folders)
         {
             string folderName;
@@ -70,7 +77,7 @@ public class PuzzleMenu : EditorWindow
                 }
 
 
-                TimelineProcessor.GenerateBpmTimeline(oldTimeline, newTimeline, bpm);
+                TimelineProcessor.GenerateBpmTimeline(newTimeline, bpm);
             }
         }
     }
