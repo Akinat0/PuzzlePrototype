@@ -91,16 +91,17 @@ namespace Puzzle{
 
     public void InvokePauseLevel(bool pause)
     {
+        Time.timeScale = pause ? 0 : 1;
         Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
         PauseLevelEvent?.Invoke(pause);
     }
 
     public void InvokePlayerDied()
     {
-        Debug.Log("PlayerDied Invoked");
         InvokePauseLevel(true);
+        Debug.Log("PlayerDied Invoked");
         PlayerDiedEvent?.Invoke();
-        CallEndgameMenu(); //TODO it should be event subscriber
+        CallEndgameMenu(); 
         InvokeResetLevel();
     }
 
