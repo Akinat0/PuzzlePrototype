@@ -12,6 +12,7 @@ namespace Puzzle{
         public static event Action GameStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
+        public static event Action PlayerRiviveEvent;
         public static event Action PlayerDiedEvent;
         public static event Action<int> PlayerLosedHpEvent;
         public static event Action<int> EnemyDiedEvent;
@@ -87,6 +88,8 @@ namespace Puzzle{
     {
         Debug.Log("ResetLevel Invoked");
         ResetLevelEvent?.Invoke();
+        GameStartedEvent?.Invoke();
+        InvokePauseLevel(false); //Unpausing
     }
 
     public void InvokePauseLevel(bool pause)
@@ -101,7 +104,6 @@ namespace Puzzle{
         InvokePauseLevel(true);
         PlayerDiedEvent?.Invoke();
         CallEndgameMenu(); //TODO it should be event subscriber
-        InvokeResetLevel();
     }
 
     public void InvokePlayerLosedHp(int hp)
@@ -121,6 +123,13 @@ namespace Puzzle{
         Debug.Log("GameStarted Invoked");
         GameStartedEvent?.Invoke();
         InvokePauseLevel(false); //Unpausing
+    }
+
+    public void InvokeRevive()
+    {
+        Debug.Log("Player Revive");
+        PlayerRiviveEvent?.Invoke();
+        InvokePauseLevel(false);
     }
 
     public void InvokeCreateEnemy(EnemyParams @params)

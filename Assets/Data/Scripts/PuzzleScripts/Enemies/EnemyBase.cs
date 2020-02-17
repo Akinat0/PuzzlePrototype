@@ -23,11 +23,15 @@ namespace PuzzleScripts
     
         private int _damage = 1;
 
+        private bool _motion = true;
+
         private float time = 0;
         private float dist = 0;
 
         private void Update()
         {
+            if (!_motion)
+                return;
             Move();
         }
 
@@ -99,16 +103,23 @@ namespace PuzzleScripts
         private void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+            GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         }
 
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+            GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         }
         
         void ResetLevelEvent_Handler()
         {
             Destroy(gameObject);
+        }
+        
+        void PauseLevelEvent_Handler(bool paused)
+        {
+            _motion = !paused;
         }
     }
 

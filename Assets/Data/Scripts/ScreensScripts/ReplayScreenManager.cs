@@ -19,7 +19,13 @@ namespace ScreensScripts
 
         public void Replay()
         {
-            GameSceneManager.Instance.InvokeGameStarted();
+            GameSceneManager.Instance.InvokeResetLevel();
+            gameObject.SetActive(false);
+        }
+        
+        public void Revive()
+        {
+            GameSceneManager.Instance.InvokeRevive();
             gameObject.SetActive(false);
         }
 
@@ -32,8 +38,6 @@ namespace ScreensScripts
         public void CreateReplyScreen()
         {
             gameObject.SetActive(true);
-            int score = PlayerPrefs.GetInt("score", 0);
-            endGameText.text = "Score " + score;
         }
     }
 }

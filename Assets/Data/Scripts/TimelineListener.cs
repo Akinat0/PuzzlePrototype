@@ -33,29 +33,33 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 
     private void OnEnable()
     {
+        GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
     }
 
     private void OnDisable()
     {
+        GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+    }
+    
+    private void GameStartedEvent_Handler()
+    {
+        _playableDirector.Play();
     }
 
     private void PauseLevelEvent_Handler(bool paused)
     {
-        if (paused && _playableDirector.state != PlayState.Paused)
-            _playableDirector.Pause();
-
-        if (!paused && _playableDirector.state == PlayState.Paused)
-            _playableDirector.Play();
+        if (!_playableDirector.playableGraph.IsValid()) 
+            return;
+        _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
     
     private void ResetLevelEvent_Handler()
     {
         _playableDirector.Stop();
         _playableDirector.time = 0;
-       // _playableDirector.Play();
     }
 }
