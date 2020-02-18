@@ -19,13 +19,11 @@ namespace Puzzle
                 base.OnHitPlayer(player);
             }
         }
-        public override void Instantiate(EnemyParams @params)//Side side, float? speed = null)
+        public override void Instantiate(EnemyParams @params)
         {
             side = @params.side;
             stickOut = @params.stickOut;
             base.Instantiate(@params);
-//            GetComponent<SkinContainer>().Skin = stickOut ? 1 : 0;
-//            GetComponent<SpriteRenderer>().flipX = true;
         }
         
     }
