@@ -109,7 +109,7 @@ namespace PuzzleScripts
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-            GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+            GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         }
         
         void ResetLevelEvent_Handler()

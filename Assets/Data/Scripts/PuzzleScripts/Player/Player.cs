@@ -82,10 +82,12 @@ namespace Puzzle
         {
             ResetHp();
         }
+        
         void PlayerRiviveEvent_Handler()
         {
             ResetHp();
         }
+        
         void TouchOnScreen_Handler(Touch touch)
         {
             ChangeSides();

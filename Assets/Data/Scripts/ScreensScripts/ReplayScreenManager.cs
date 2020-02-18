@@ -25,7 +25,7 @@ namespace ScreensScripts
         
         public void Revive()
         {
-            GameSceneManager.Instance.InvokeRevive();
+            GameSceneManager.Instance.InvokePlayerRevive();
             gameObject.SetActive(false);
         }
 

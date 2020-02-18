@@ -125,9 +125,9 @@ namespace Puzzle{
         InvokePauseLevel(false); //Unpausing
     }
 
-    public void InvokeRevive()
+    public void InvokePlayerRevive()
     {
-        Debug.Log("Player Revive");
+        Debug.Log("PlayerRevive Invoked");
         PlayerRiviveEvent?.Invoke();
         InvokePauseLevel(false);
     }
