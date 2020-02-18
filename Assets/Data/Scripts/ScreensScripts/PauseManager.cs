@@ -26,7 +26,6 @@ public class PauseManager : MonoBehaviour
     private void PauseTheGame()
     {
         _paused = true;
-        Time.timeScale = 0;  //Inline into event invoke
         pauseMenu.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
@@ -34,7 +33,6 @@ public class PauseManager : MonoBehaviour
     private void ResumeTheGame()
     {
         _paused = false;
-        Time.timeScale = 1;
         pauseMenu.SetActive(false);
         GameSceneManager.Instance.InvokePauseLevel(false);
     }

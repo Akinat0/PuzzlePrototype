@@ -58,9 +58,15 @@ namespace Puzzle
             _view.ChangeSides();
         }
 
+        private void ResetHp()
+        {
+            _health = DEFAULT_HP;
+        }
+
         private void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+            GameSceneManager.PlayerRiviveEvent += PlayerRiviveEvent_Handler;
             MobileInput.TouchOnTheScreen += TouchOnScreen_Handler;
 
         }
@@ -68,13 +74,20 @@ namespace Puzzle
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+            GameSceneManager.PlayerRiviveEvent -= PlayerRiviveEvent_Handler;
             MobileInput.TouchOnTheScreen -= TouchOnScreen_Handler;
         }
 
         void ResetLevelEvent_Handler()
         {
-            _health = DEFAULT_HP;
+            ResetHp();
         }
+        
+        void PlayerRiviveEvent_Handler()
+        {
+            ResetHp();
+        }
+        
         void TouchOnScreen_Handler(Touch touch)
         {
             ChangeSides();
