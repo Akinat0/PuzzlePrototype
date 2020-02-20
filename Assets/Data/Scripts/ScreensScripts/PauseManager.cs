@@ -22,6 +22,12 @@ public class PauseManager : MonoBehaviour
             ResumeTheGame();
         }
     }
+    
+    public void Replay()
+    {
+        pauseMenu.SetActive(false);
+        GameSceneManager.Instance.InvokeResetLevel();
+    }
 
     private void PauseTheGame()
     {
