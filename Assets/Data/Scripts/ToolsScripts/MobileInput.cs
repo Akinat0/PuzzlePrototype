@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Puzzle;
 using UnityEngine;
+using System;
 
 public interface ITouchProcessor
 {
@@ -9,10 +9,15 @@ public interface ITouchProcessor
 }
 public class MobileInput : MonoBehaviour
 {
-    public static System.Action<Touch> TouchOnTheScreen;
+    public static Action<Touch> TouchOnTheScreen;
+
+    public bool Condition = true;
     
     void Update()
     {
+        if (!Condition)
+            return;
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -48,7 +53,7 @@ public class MobileInput : MonoBehaviour
                 
         }    
 #endif
-    
+        
     }
 
     void ProcessCollider(Collider2D _collider, Touch _touch)
@@ -63,5 +68,20 @@ public class MobileInput : MonoBehaviour
         {
             TouchOnTheScreen?.Invoke(_touch);
         }
+    }
+    
+    private void OnEnable()
+    {
+        GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+    }
+
+    private void OnDisable()
+    {
+        GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+    }
+
+    void PauseLevelEvent_Handler(bool _Pause)
+    {
+        Condition = !_Pause;
     }
 }
