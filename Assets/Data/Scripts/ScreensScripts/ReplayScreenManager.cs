@@ -29,7 +29,7 @@ namespace ScreensScripts
             gameObject.SetActive(false);
         }
 
-        public void ToMenue()
+        public void ToMenu()
         {
             GameSceneManager.Instance.InvokeLevelClosed();
             gameObject.SetActive(false);

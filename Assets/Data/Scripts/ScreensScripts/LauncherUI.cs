@@ -60,6 +60,7 @@ namespace ScreensScripts
         {
             Debug.Log("GameSceneUnloaded Invoked");
             GameSceneUnloadedEvent?.Invoke();
+            Time.timeScale = 1;
         }
 
         public void InvokeLevelChanged(LevelChangedEventArgs _Args)
