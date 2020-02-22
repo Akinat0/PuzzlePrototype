@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8118029681548628605
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3ccee78a4edad442a23879985397732, type: 3}
-  m_Name: Level End Marker
-  m_EditorClassIdentifier: 
-  m_Time: 21.25
 --- !u!114 &-2599622170092055856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35,28 +22,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Markers:
-    m_Objects:
-    - {fileID: -1216959110624919857}
-    - {fileID: -8118029681548628605}
---- !u!114 &-1216959110624919857
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 10.4
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 4
-    stickOut: 1
-    radialPosition: 0
+    m_Objects: []
 --- !u!114 &-878579858447237753
 MonoBehaviour:
   m_ObjectHideFlags: 1
