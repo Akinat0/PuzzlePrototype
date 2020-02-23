@@ -1,9 +1,13 @@
 ﻿using Puzzle;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button menuButton;
     
     private bool _paused = false;
     public bool Paused => _paused;
@@ -21,6 +25,18 @@ public class PauseManager : MonoBehaviour
         {
             ResumeTheGame();
         }
+    }
+    
+    public void VolumeSliderValueChanged(float value)
+    {
+        value = Mathf.Clamp01(value);
+        SoundManager.Instance.SetVolume(value);
+    }
+
+    public void ToMenu()
+    {
+        GameSceneManager.Instance.InvokeLevelClosed();
+        pauseMenu.SetActive(false);
     }
     
     public void Replay()
@@ -43,9 +59,20 @@ public class PauseManager : MonoBehaviour
         GameSceneManager.Instance.InvokePauseLevel(false);
     }
 
-    public void VolumeSliderValueChanged(float value)
+
+    private void OnEnable()
     {
-        value = Mathf.Clamp01(value);
-        SoundManager.Instance.SetVolume(value);
+        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
+    }
+    private void OnDisable()
+    {
+        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
+    }
+
+    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    {
+        levelColorScheme.SetButtonColor(continueButton);
+        levelColorScheme.SetButtonColor(restartButton);
+        levelColorScheme.SetButtonColor(menuButton);
     }
 }

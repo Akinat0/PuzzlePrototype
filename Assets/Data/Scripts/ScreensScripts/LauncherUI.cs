@@ -19,11 +19,13 @@ namespace ScreensScripts
            
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
-        [SerializeField] private GameObject background;
+        [SerializeField] private GameObject backgroundContainer;
         [SerializeField] private Canvas launcherCanvas;
-        
+
         // ReSharper disable once InconsistentNaming
         private GameSceneManager GameSceneManager;
+
+        private LevelConfig _levelConfig;
 
         private void Awake()
         {
@@ -41,10 +43,10 @@ namespace ScreensScripts
                 asyncLoader.LoadScene(_Config.SceneID, InvokeGameSceneLoaded);
         }
 
-        
         public void InvokePlayLauncher(PlayLauncherEventArgs _Args)
         {
             Debug.Log("PlayLauncher Invoked");
+            _levelConfig = _Args.LevelConfig;
             PlayLevel(_Args.LevelConfig);
             PlayLauncherEvent?.Invoke(_Args);
         }
@@ -52,7 +54,7 @@ namespace ScreensScripts
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameSceneLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, background, gameObject); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, backgroundContainer, gameObject, _levelConfig.ColorScheme); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
         }
 
