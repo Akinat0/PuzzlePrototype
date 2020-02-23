@@ -1,4 +1,5 @@
 ﻿using System;
+using Data.Scripts.ScreensScripts;
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
@@ -18,8 +19,10 @@ namespace Puzzle{
         public static event Action<int> EnemyDiedEvent;
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action LevelClosedEvent;
+        public static event Action LevelCompleteEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
+        [SerializeField] private CompleteScreenManager completeScreenManager;
         [SerializeField] private ReplayScreenManager replayScreenManager;
         [SerializeField] private AudioClip theme;
         [SerializeField] private Transform gameSceneRoot;
@@ -78,6 +81,11 @@ namespace Puzzle{
     void CallEndgameMenu()
     {
         replayScreenManager.CreateReplyScreen();
+    }
+    
+    void CallCompleteMenu()
+    {
+        completeScreenManager.CreateReplyScreen();
     }
 
     //////////////////
@@ -146,6 +154,14 @@ namespace Puzzle{
         LevelClosedEvent?.Invoke();
         UnloadScene();
         LauncherUI.Instance.InvokeGameSceneUnloaded();
+    }
+
+    public void InvokeLevelComplete()
+    {
+        InvokePauseLevel(true); 
+        Debug.Log("Event Complete Invoked");
+        LevelCompleteEvent?.Invoke();
+        CallCompleteMenu();
     }
 }
 }
