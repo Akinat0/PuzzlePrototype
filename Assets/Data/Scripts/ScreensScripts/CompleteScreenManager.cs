@@ -1,23 +1,19 @@
+using System;
 using Puzzle;
 using UnityEngine;
 
 
     public class CompleteScreenManager : MonoBehaviour
     {
+        public static event Action CompleteLevelEvent;
         private void Start()
         {
             gameObject.SetActive(false);
         }
 
-        public void Replay()
+        public void Complete()
         {
-            GameSceneManager.Instance.InvokeResetLevel();
-            gameObject.SetActive(false);
-        }
-        
-        public void Revive()
-        {
-            GameSceneManager.Instance.InvokePlayerRevive();
+            CompleteLevelEvent?.Invoke();
             gameObject.SetActive(false);
         }
 

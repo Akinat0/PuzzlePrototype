@@ -218,22 +218,29 @@ public class SelectionManager : MonoBehaviour
     {
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        CompleteScreenManager.CompleteLevelEvent += CompleteLevelEvent_Handler;
     }
 
     private void OnDisable()
     {
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        CompleteScreenManager.CompleteLevelEvent -= CompleteLevelEvent_Handler;
     }
 
     private void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         HideUI();
-    }    
+    }
 
     private void GameSceneUnloadedEvent_Handler()
     {
         ShowUI();   
+    }
+
+    private void CompleteLevelEvent_Handler()
+    {
+        OnRightBtnClick();
     }
 
    
