@@ -159,7 +159,6 @@ namespace Puzzle{
     {
         InvokePauseLevel(true); 
         Debug.Log("Event Complete Invoked");
-        LevelCompleteEvent?.Invoke();
         CallCompleteMenu();
     }
 }

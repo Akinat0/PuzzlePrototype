@@ -11,12 +11,6 @@ using UnityEngine;
             gameObject.SetActive(false);
         }
 
-        public void Complete()
-        {
-            CompleteLevelEvent?.Invoke();
-            gameObject.SetActive(false);
-        }
-
         public void ToMenu()
         {
             GameSceneManager.Instance.InvokeLevelClosed();
