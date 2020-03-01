@@ -8,6 +8,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private Button continueButton;
     [SerializeField] private Button restartButton;
     [SerializeField] private Button menuButton;
+    [SerializeField] private Button pauseButton;
     
     private bool _paused = false;
     public bool Paused => _paused;
@@ -63,10 +64,12 @@ public class PauseManager : MonoBehaviour
     private void OnEnable()
     {
         GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
+        GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
     private void OnDisable()
     {
         GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
+        GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
     }
 
     void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
@@ -74,5 +77,11 @@ public class PauseManager : MonoBehaviour
         levelColorScheme.SetButtonColor(continueButton);
         levelColorScheme.SetButtonColor(restartButton);
         levelColorScheme.SetButtonColor(menuButton);
+        levelColorScheme.SetButtonColor(pauseButton);
+    }
+
+    void LevelCompletedEvent_Handler()
+    {
+        pauseButton.gameObject.SetActive(false);
     }
 }

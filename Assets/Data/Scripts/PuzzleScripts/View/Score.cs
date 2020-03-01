@@ -31,6 +31,8 @@ namespace Puzzle
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent += PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
+            GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
+
         }
 
         private void OnDisable()
@@ -38,6 +40,8 @@ namespace Puzzle
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
+            GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
+
         }
         
         void ResetLevelEvent_Handler()
@@ -54,6 +58,11 @@ namespace Puzzle
         void EnemyDiedEvent_Handler(int score)
         {
             AddScore(score);
+        }
+        
+        void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+        {
+            _scoreText.color = levelColorScheme.TextColor2;
         }
     }
 }

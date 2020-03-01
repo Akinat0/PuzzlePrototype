@@ -26,7 +26,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         if (notification is LevelEndMarker)
         {
             Debug.Log("Notification received " + time + " type: level end marker");
-            GameSceneManager.Instance.InvokeLevelComplete();
+            GameSceneManager.Instance.InvokeLevelCompleted();
             return;
         }
     }

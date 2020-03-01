@@ -29,12 +29,13 @@ public class AttemptManager : MonoBehaviour
     private void OnEnable()
     {
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
+        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
     }
 
     private void OnDisable()
     {
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
-
+        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
     }
 
     void GameStartedEvent_Handler()
@@ -42,6 +43,11 @@ public class AttemptManager : MonoBehaviour
         _attemptNumber++;
         _textPlaceholder.text = _textOfNotification + _attemptNumber;
         StartCoroutine(FadeText());
+    }
+
+    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    {
+        _textPlaceholder.color = levelColorScheme.TextColor2;
     }
 
     private IEnumerator FadeText()
@@ -55,6 +61,5 @@ public class AttemptManager : MonoBehaviour
             yield return null;
         }
         _textPlaceholder.gameObject.SetActive(false);
-
     }
 }

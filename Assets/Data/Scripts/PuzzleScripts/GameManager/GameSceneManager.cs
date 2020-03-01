@@ -19,7 +19,7 @@ namespace Puzzle{
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
-        public static event Action LevelCompleteEvent;
+        public static event Action LevelCompletedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -160,16 +160,17 @@ namespace Puzzle{
     public void InvokeLevelClosed()
     {
         InvokePauseLevel(true);
-        Debug.Log("Event Closed Invoked");
+        Debug.Log("LevelClosed Invoked");
         LevelClosedEvent?.Invoke();
         UnloadScene();
         LauncherUI.Instance.InvokeGameSceneUnloaded();
     }
 
-    public void InvokeLevelComplete()
+    public void InvokeLevelCompleted()
     {
         InvokePauseLevel(true); 
-        Debug.Log("Event Complete Invoked");
+        Debug.Log("LevelComplete Invoked");
+        LevelCompletedEvent?.Invoke();
         CallCompleteMenu();
     }
 }

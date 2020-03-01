@@ -1,24 +1,39 @@
-using System;
 using Puzzle;
 using UnityEngine;
+using UnityEngine.UI;
 
-
-    public class CompleteScreenManager : MonoBehaviour
+public class CompleteScreenManager : MonoBehaviour
+{
+    [SerializeField] private GameObject CompleteScreen;
+    [SerializeField] private Button menuButton;
+    
+    private void Start() 
     {
-        public static event Action CompleteLevelEvent;
-        private void Start()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void ToMenu()
-        {
-            GameSceneManager.Instance.InvokeLevelClosed();
-            gameObject.SetActive(false);
-        }
-
-        public void CreateReplyScreen()
-        {
-            gameObject.SetActive(true);
-        }
+        CompleteScreen.SetActive(false);
     }
+
+    public void ToMenu() 
+    {
+        GameSceneManager.Instance.InvokeLevelClosed();
+        CompleteScreen.SetActive(false);
+    }
+
+    public void CreateReplyScreen() 
+    {
+        CompleteScreen.SetActive(true);
+    }
+    
+    private void OnEnable()
+    {
+        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
+    }
+    private void OnDisable()
+    {
+        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
+    }
+
+    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    {
+        levelColorScheme.SetButtonColor(menuButton);
+    }
+}
