@@ -8,7 +8,7 @@ namespace Puzzle{
     public class GameSceneManager : MonoBehaviour
     {
         public static GameSceneManager Instance;
-
+        
         public static event Action GameStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
@@ -17,6 +17,7 @@ namespace Puzzle{
         public static event Action<int> PlayerLosedHpEvent;
         public static event Action<int> EnemyDiedEvent;
         public static event Action<EnemyParams> CreateEnemyEvent;
+        public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
         public static event Action LevelCompleteEvent;
 
@@ -42,7 +43,7 @@ namespace Puzzle{
         _gameCameraAnimator.SetTrigger(Shake);
     }
     
-    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot)
+    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelColorScheme colorScheme)
     {
         this._player = _player.AddComponent<Player>();
         _player.AddComponent<PlayerInput>();
@@ -58,10 +59,14 @@ namespace Puzzle{
         }
 
         SoundManager.Instance.LevelThemeClip = theme;
+
+        if (colorScheme != null)
+        {
+            InvokeSetupLevel(colorScheme);
+        }
         
         // TODO  actions with background and gameRoot
-        ResetLevelEvent?.Invoke();
-        InvokeGameStarted();
+        InvokeResetLevel();
     }
 
     void UnloadScene()
@@ -90,6 +95,12 @@ namespace Puzzle{
     //////////////////
     //Event Invokers//
     //////////////////
+
+    public void InvokeSetupLevel(LevelColorScheme colorScheme)
+    {
+        Debug.Log("SetupLevel Invoked");
+        SetupLevelEvent?.Invoke(colorScheme);
+    }
     
     public void InvokeResetLevel()
     {

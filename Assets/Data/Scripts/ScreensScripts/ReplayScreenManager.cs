@@ -1,43 +1,59 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using Abu.Tools;
 using Puzzle;
 
 namespace ScreensScripts
 {
-    
     public class ReplayScreenManager : MonoBehaviour
     {
-    
-        [SerializeField] private Text endGameText;
+        [SerializeField] private GameObject replayScreen;
+        [SerializeField] private Button reviveButton;
+        [SerializeField] private Button replayButton;
+        [SerializeField] private Button menuButton;
+        
 
         private void Start()
         {
-            gameObject.SetActive(false);
+            replayScreen.SetActive(false);
         }
 
         public void Replay()
         {
             GameSceneManager.Instance.InvokeResetLevel();
-            gameObject.SetActive(false);
+            replayScreen.SetActive(false);
         }
         
         public void Revive()
         {
             GameSceneManager.Instance.InvokePlayerRevive();
-            gameObject.SetActive(false);
+            replayScreen.SetActive(false);
         }
 
         public void ToMenu()
         {
             GameSceneManager.Instance.InvokeLevelClosed();
-            gameObject.SetActive(false);
+            replayScreen.SetActive(false);
         }
 
         public void CreateReplyScreen()
         {
-            gameObject.SetActive(true);
+            replayScreen.SetActive(true);
+        }
+
+        private void OnEnable()
+        {
+            GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
+        }
+        private void OnDisable()
+        {
+            GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
+        }
+
+        void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+        {
+            levelColorScheme.SetButtonColor(replayButton);
+            levelColorScheme.SetButtonColor(reviveButton);
+            levelColorScheme.SetButtonColor(menuButton);
         }
     }
 }

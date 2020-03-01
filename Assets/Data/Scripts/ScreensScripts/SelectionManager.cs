@@ -24,7 +24,6 @@ public class SelectionManager : MonoBehaviour
 
     public LevelConfig CurrentItem{ get; private set;}
 
-
     private PlayerView m_PlayerView;
     private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
@@ -60,6 +59,9 @@ public class SelectionManager : MonoBehaviour
 
         CurrentItem = _Selection[_Index];
 
+        if(_Direction == 0)
+            SetupColors();
+        
         DisplayLevel(_Direction);
 
         InteractBtnText.text = CurrentItem.Name;
@@ -134,6 +136,8 @@ public class SelectionManager : MonoBehaviour
             playerView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
             playerView.transform.DOMove(Vector3.zero, 0.5f);
 
+            SetupColors(0.5f);
+            
             return playerView;
         }
         else
@@ -208,6 +212,36 @@ public class SelectionManager : MonoBehaviour
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(CurrentItem));
     }
 
+    private void SetupColors(float _Duration = 0)
+    {
+        LevelColorScheme colorScheme = CurrentItem.ColorScheme;
+
+        if (_Duration > 0)
+        {
+            Image leftBtnImage = LeftBtn.GetComponent<Image>();
+            DOTween.To(() => leftBtnImage.color,
+                x => leftBtnImage.color = x, colorScheme.ArrowColor, _Duration);
+
+            Image rightBtnImage = RightBtn.GetComponent<Image>();
+            DOTween.To(() => rightBtnImage.color,
+                x => rightBtnImage.color = x, colorScheme.ArrowColor, _Duration);
+
+            Image interactBtnImage = InteractBtn.GetComponent<Image>();
+            DOTween.To(() => interactBtnImage.color,
+                x => interactBtnImage.color = x, colorScheme.ButtonColor, _Duration);
+            
+            Text interactBtnText = InteractBtnText.GetComponent<Text>();
+            DOTween.To(() => interactBtnText.color,
+                x => interactBtnText.color = x, colorScheme.TextColor, _Duration);
+        }
+        else
+        {
+            LeftBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
+            RightBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
+            InteractBtn.GetComponent<Image>().color = colorScheme.ButtonColor;
+            InteractBtnText.GetComponent<Text>().color = colorScheme.TextColor;
+        }
+    }
     private void ClearContainers()
     {
         foreach (Transform go in LevelContainer.transform)
