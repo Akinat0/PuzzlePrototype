@@ -18,7 +18,7 @@ public class PlayerView : MonoBehaviour
     
     private static readonly int Damaged = Animator.StringToHash("Damaged");
 
-    void Start()
+    protected virtual void Start()
     {
         _animator = GetComponent<Animator>();
         SetScale(_partOfScreen);
@@ -50,7 +50,7 @@ public class PlayerView : MonoBehaviour
         }
     }
     
-    public void ChangeSides()
+    public virtual void ChangeSides()
     {
         shape.Rotate(0, 0, 180);
     }
