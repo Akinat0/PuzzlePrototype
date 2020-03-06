@@ -39,7 +39,6 @@ public class SelectionManager : MonoBehaviour
     {
         ItemNumber++;
         DisplayItem(ItemNumber, -1);
-        //Debug.Break();
     }
     
     //Called when left btn clicks

@@ -3,6 +3,7 @@ using Puzzle;
 using UnityEngine;
 using UnityEngine.Playables;
 
+[RequireComponent(typeof(PlayableDirector))]
 public class TimelineListener : MonoBehaviour, INotificationReceiver
 {
     private PlayableDirector _playableDirector;
