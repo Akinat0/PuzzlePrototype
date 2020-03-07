@@ -13,7 +13,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         _playableDirector = GetComponent<PlayableDirector>();
     }
 
-    public void OnNotify(Playable origin, INotification notification, object context)
+    public virtual void OnNotify(Playable origin, INotification notification, object context)
     {
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
 
@@ -46,7 +46,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
     
-    private void GameStartedEvent_Handler()
+    protected virtual void GameStartedEvent_Handler()
     {
         _playableDirector.Play();
     }

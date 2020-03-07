@@ -4,18 +4,28 @@ using UnityEngine.Playables;
 
 public class TutorialTimelineManager : MonoBehaviour
 {
-    [SerializeField] private PlayableDirector _director1;
-    [SerializeField] private PlayableDirector _director2;
-
+    [SerializeField] private PlayableDirector[] _directors;
+    private int _curDir;
 
     private void Start()
     {
-        Invoke(nameof(GoTo), 5);
+        Debug.LogError("START");
+        _curDir = 0;
     }
 
-    private void GoTo()
+    public void Govno()
     {
-        _director1.Pause();
-        _director2.Play();
+        _directors[_curDir].Play();
+    }
+
+    public void GoToNext()
+    {
+        Debug.LogError("GOTO");
+        _directors[_curDir].Pause();
+        _curDir++;
+        if(_curDir < _directors.Length)
+        {
+            _directors[_curDir].Play();
+        }
     }
 }
