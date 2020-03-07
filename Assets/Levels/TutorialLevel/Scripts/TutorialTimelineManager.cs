@@ -1,4 +1,5 @@
 ﻿using System;
+using Puzzle;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -9,23 +10,43 @@ public class TutorialTimelineManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.LogError("START");
         _curDir = 0;
     }
 
-    public void Govno()
+    public void StartFirstDirector()
     {
         _directors[_curDir].Play();
     }
 
     public void GoToNext()
     {
-        Debug.LogError("GOTO");
         _directors[_curDir].Pause();
         _curDir++;
         if(_curDir < _directors.Length)
         {
             _directors[_curDir].Play();
         }
+    }
+
+    public void Restart()
+    {
+        _directors[_curDir].Stop();
+        _directors[_curDir].Play();
+    }
+
+    private void OnEnable()
+    {
+        GameSceneManager.PlayerLosedHpEvent += TutorialTakeDamageAction_handler;
+    }
+
+    private void OnDisable()
+    {
+        GameSceneManager.PlayerLosedHpEvent -= TutorialTakeDamageAction_handler;
+    }
+
+    private void TutorialTakeDamageAction_handler(int hp)
+    {
+        Debug.LogError("RESTART");
+        Restart();
     }
 }

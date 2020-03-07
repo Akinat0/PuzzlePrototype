@@ -11,7 +11,6 @@ public class TutorialTimelineListener : TimelineListener
 
     public override void OnNotify(Playable origin, INotification notification, object context)
     {
-        Debug.LogError("ON NOTIFY");
         base.OnNotify(origin, notification, context);
         if(notification is GotoMarker)
         {
@@ -21,7 +20,7 @@ public class TutorialTimelineListener : TimelineListener
 
     protected override void GameStartedEvent_Handler()
     {
-        _manager.Govno();
+        _manager.StartFirstDirector();
     }
 
 

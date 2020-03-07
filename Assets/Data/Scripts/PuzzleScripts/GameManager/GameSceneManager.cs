@@ -29,7 +29,7 @@ namespace Puzzle{
 
         public Transform GameSceneRoot => gameSceneRoot;
 
-        private Player _player;
+        protected Player _player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         
@@ -43,9 +43,9 @@ namespace Puzzle{
         _gameCameraAnimator.SetTrigger(Shake);
     }
     
-    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelColorScheme colorScheme)
+    public virtual void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelColorScheme colorScheme)
     {
-        this._player = _player.AddComponent<Player>();
+        SetupPlayer(_player);
         _player.AddComponent<PlayerInput>();
         FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
         if (Camera.main != null)
@@ -67,6 +67,11 @@ namespace Puzzle{
         
         // TODO  actions with background and gameRoot
         InvokeResetLevel();
+    }
+
+    protected virtual void SetupPlayer(GameObject _player)
+    {
+        this._player = _player.AddComponent<Player>();
     }
 
     void UnloadScene()
@@ -125,7 +130,7 @@ namespace Puzzle{
         CallEndgameMenu();
     }
 
-    public void InvokePlayerLosedHp(int hp)
+    public virtual void InvokePlayerLosedHp(int hp)
     {
         Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
         PlayerLosedHpEvent?.Invoke(hp);
