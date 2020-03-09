@@ -6,6 +6,8 @@ public class Account : MonoBehaviour
 {
     private static Account instance;
 
+    public static Action<int> BalanceChangedEvent;
+    
     [SerializeField] private WalletManager WalletManager;
 
     private void Start()
@@ -16,6 +18,13 @@ public class Account : MonoBehaviour
     public static void AddCoins(int amount)
     {
         instance.WalletManager.AddCoins(amount);
+        InvokeBalanceChanged(instance.WalletManager.Coins);
+    }
+
+    private static void InvokeBalanceChanged(int balance)
+    {
+        Debug.Log($"[Account] BalanceChangedEvent invoked. New balance is {balance}.");
+        BalanceChangedEvent?.Invoke(balance);
     }
     
 }
