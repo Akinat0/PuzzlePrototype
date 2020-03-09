@@ -3,13 +3,22 @@ using System.Linq;
 using Abu.Tools;
 using PuzzleScripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Puzzle
 {
     public enum Side {Left = 0, Up = 1, Right = 2, Down = 3 }
     public  class SpawnerBase : MonoBehaviour
     {
+        [Header("Coins params")]
+        [SerializeField] private bool spawnCoins = true;
         
+        [Range(0,1)]
+        [SerializeField] private float coinProbability = 0.2f;
+
+        [SerializeField] private int costOfEnemy = 1;
+        
+        [Header("Enemy params")]
         [SerializeField] protected GameObject[] enemyPrefab;
         
         [Tooltip("The percent which player's pazzle will take on the any screen")]
@@ -19,6 +28,11 @@ namespace Puzzle
         private GameObject m_PlayerEntity;
         private PlayerView m_PlayerView;
         private Player m_Player;
+
+        public bool SpawnCoins => spawnCoins;
+        public float CoinProbability => coinProbability;
+        public int CostOfEnemy => costOfEnemy;
+        
         
         public GameObject PlayerEntity
         {
@@ -60,10 +74,18 @@ namespace Puzzle
                 enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
             GameObject enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
             enemy.GetComponent<IEnemy>().Instantiate(@params);
-            
+
+            if (Random.Range(0.0f, 1.0f) < coinProbability)
+                SetCoinHolder(enemy);
+
             return enemy.GetComponent<IEnemy>() as EnemyBase;
         }
         
+        private void SetCoinHolder(GameObject holder)
+        {
+            holder.AddComponent<CoinHolder>().SetupCoinHolder(CostOfEnemy);
+        }
+
         protected virtual void OnEnable()
         {
             GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
@@ -79,7 +101,5 @@ namespace Puzzle
         {
             RescaleGame();
         }
-        
-        
     }
 }

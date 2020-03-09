@@ -34,8 +34,7 @@ namespace PuzzleScripts
                 return;
             Move();
         }
-
-        public EnemyType Type { get { return type; } }
+        public EnemyType Type => type;
 
         public int Damage
         {
@@ -55,9 +54,14 @@ namespace PuzzleScripts
             GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
             effect.transform.position = transform.position;
             GameSceneManager.Instance.InvokeEnemyDied(score);
+
+            CoinHolder coinHolder = GetComponent<CoinHolder>();
+            if (coinHolder != null)
+               Account.AddCoins(coinHolder.Coins); 
+            
             Destroy(gameObject);
         }
-
+        
         public void Move()
         {
             transform.Translate(new Vector3(_speed * Time.deltaTime, 0), Space.Self);

@@ -1094,6 +1094,8 @@ GameObject:
   - component: {fileID: 1911391891}
   - component: {fileID: 1911391892}
   - component: {fileID: 1911391893}
+  - component: {fileID: 1911391894}
+  - component: {fileID: 1911391895}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -1147,6 +1149,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   launcherTheme: {fileID: 8300000, guid: 1cef5395cd952414e844286a9ef1221e, type: 3}
   levelThemeClip: {fileID: 8300000, guid: 1cef5395cd952414e844286a9ef1221e, type: 3}
+--- !u!114 &1911391894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911391890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd4528436ec2d44ac87122e2b2a0b166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalletManager: {fileID: 1911391895}
+--- !u!114 &1911391895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911391890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf40eafe9d534f3bb827840d021a173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalletData: {fileID: 11400000, guid: bda4bf52dd30d47cfbe9cd600a5de4fd, type: 2}
 --- !u!1 &2113529049
 GameObject:
   m_ObjectHideFlags: 0
