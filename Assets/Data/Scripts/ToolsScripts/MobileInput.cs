@@ -1,6 +1,7 @@
 ﻿using Puzzle;
 using UnityEngine;
 using System;
+using UnityEngine.EventSystems;
 
 public interface ITouchProcessor
 {
@@ -11,8 +12,8 @@ public class MobileInput : MonoBehaviour
 {
     public static Action<Touch> TouchOnTheScreen;
 
-    public bool Condition = true;
-    
+    public bool Condition { get; private set; }
+
     void Update()
     {
         if (!Condition)
@@ -25,6 +26,11 @@ public class MobileInput : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
+                
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    //Touch on UI element
+                    return;
+
                 Collider2D touchedCollider = Physics2D.OverlapPoint(touchPosition);
                 if (touchedCollider != null)
                 {
@@ -39,9 +45,13 @@ public class MobileInput : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                //Mouse on UI element
+                return;
+            
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-         
+
             if (hit.collider != null)
             {
                 ProcessCollider(hit.collider, new Touch {position = Input.mousePosition});
