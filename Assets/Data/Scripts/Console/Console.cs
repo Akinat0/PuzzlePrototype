@@ -13,7 +13,8 @@ namespace Abu.Console
             Commands = new List<IConsoleCommand>
             {
                 new HelpConsoleCommand(),
-                new ClearConsoleCommand()
+                new ClearConsoleCommand(),
+                new WalletConsoleCommand()
             };
         }
 

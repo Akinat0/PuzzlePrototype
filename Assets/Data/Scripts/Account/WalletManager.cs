@@ -6,8 +6,7 @@ using UnityEngine.Rendering;
 
 public class WalletManager : MonoBehaviour
 {
-    [SerializeField] private WalletData WalletData;
-
+    [SerializeField, Obsolete("Use it only for console or tests")] public WalletData WalletData;
 
     public int Coins => WalletData.Coins;
 
@@ -16,7 +15,6 @@ public class WalletManager : MonoBehaviour
         WalletData.AddCoins(amount);
     }
     
-
     private void Start()
     {
         WalletData.LoadSettings();

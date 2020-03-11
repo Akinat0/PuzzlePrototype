@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new WalletData", menuName = "Account/WalletData", order = 51)]
 public class WalletData : SaveableScriptableObject
 {
-    [SerializeField] private int coins = 0;
+    [SerializeField, Obsolete("Use it only for console or tests")] public int coins = 0;
     
     public int Coins => coins;
 
