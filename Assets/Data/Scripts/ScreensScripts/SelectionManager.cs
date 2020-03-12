@@ -27,11 +27,14 @@ public class SelectionManager : MonoBehaviour
     private PlayerView m_PlayerView;
     private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
+
+    private MobileSwipeInputComponent MobileSwipeInputComponent;
     
     public void Start()
     {
         ItemNumber = 0;
         DisplayItem(ItemNumber);
+        MobileSwipeInputComponent = GetComponent<MobileSwipeInputComponent>();
     }
     
     //Called when right btn clicks
@@ -250,16 +253,33 @@ public class SelectionManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (MobileSwipeInputComponent != null)
+            MobileSwipeInputComponent.OnSwipe += MobileSwipeEvent_handler;
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
     }
 
     private void OnDisable()
     {
+        if (MobileSwipeInputComponent != null)
+            MobileSwipeInputComponent.OnSwipe -= MobileSwipeEvent_handler;
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
     }
 
+    private void MobileSwipeEvent_handler(SwipeType swipe)
+    {
+        switch (swipe)
+        {
+            case SwipeType.Left:
+                OnLeftBtnClick();
+                break;
+            case SwipeType.Right:
+                OnRightBtnClick();
+                break;
+        }
+    }
+    
     private void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         HideUI();

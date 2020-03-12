@@ -8,7 +8,7 @@ public interface ITouchProcessor
     void OnTouch(Touch touch);
 
 }
-public class MobileInput : MonoBehaviour
+public class MobileGameInput : MonoBehaviour
 {
     public static Action<Touch> TouchOnTheScreen;
 
