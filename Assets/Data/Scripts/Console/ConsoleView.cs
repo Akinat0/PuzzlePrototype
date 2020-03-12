@@ -50,7 +50,7 @@ namespace Abu.Console
 
         public void Process()
         {
-            output.text += inputField.text + Environment.NewLine;
+            output.text = output.text + inputField.text + Environment.NewLine;
             output.text += Console.Process(inputField.text) + Environment.NewLine;
             inputField.text = "";
         }

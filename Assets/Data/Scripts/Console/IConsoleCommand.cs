@@ -38,9 +38,9 @@ namespace Abu.Console
 
         public string Process(object[] args, Console console)
         {
-            //TODO fix it
-            Text output =  Object.FindObjectOfType<ConsoleView>().GetComponentInChildren<Text>();
-            output.text = "";
+            MonoBehaviour consoleView = Object.FindObjectOfType<ConsoleView>();
+            Text text = consoleView.GetComponentInChildren<Text>();
+            text.text = "";
             return "";
         }
     }

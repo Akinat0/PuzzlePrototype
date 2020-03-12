@@ -4,7 +4,7 @@ using Puzzle;
 
 namespace ScreensScripts
 {
-    public class ReplayScreenManager : MonoBehaviour
+    public class ReplayScreenManager : ManagerView
     {
         [SerializeField] private GameObject replayScreen;
         [SerializeField] private Button reviveButton;
@@ -39,17 +39,8 @@ namespace ScreensScripts
         {
             replayScreen.SetActive(true);
         }
-
-        private void OnEnable()
-        {
-            GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
-        }
-        private void OnDisable()
-        {
-            GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
-        }
-
-        void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+        
+        protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
             levelColorScheme.SetButtonColor(replayButton);
             levelColorScheme.SetButtonColor(reviveButton);

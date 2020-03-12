@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
+﻿using DG.Tweening;
+using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinSceneManager : MonoBehaviour
+public class CoinSceneManager : ManagerView
 {
 
     [SerializeField] private Text coinText;
@@ -17,14 +15,21 @@ public class CoinSceneManager : MonoBehaviour
         coinText.color = textColor;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
+    }
+
+    protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    {
+        coinText.color = levelColorScheme.TextColor2;
     }
 
     private void BalanceChangedEvent_Handler(int balance)

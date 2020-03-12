@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Puzzle
 {
-    public class Score : MonoBehaviour
+    public class ScoreManager : ManagerView
     {
 
         private int _score = 0;
@@ -26,22 +26,20 @@ namespace Puzzle
             PlayerPrefs.SetInt("score", _score);
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent += PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
-            GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
-
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
-            GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
-
         }
         
         void ResetLevelEvent_Handler()
@@ -60,7 +58,7 @@ namespace Puzzle
             AddScore(score);
         }
         
-        void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+        protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
             _scoreText.color = levelColorScheme.TextColor2;
         }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseManager : MonoBehaviour
+public class PauseManager : ManagerView
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private Button continueButton;
@@ -61,18 +61,19 @@ public class PauseManager : MonoBehaviour
     }
 
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
-    private void OnDisable()
+
+    protected override void OnDisable()
     {
         GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
         GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
     }
 
-    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
         levelColorScheme.SetButtonColor(continueButton);
         levelColorScheme.SetButtonColor(restartButton);
