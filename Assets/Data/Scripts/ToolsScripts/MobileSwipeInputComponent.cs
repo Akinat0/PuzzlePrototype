@@ -54,21 +54,25 @@ namespace Abu.Tools
                     if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                     {
                         OnSwipe?.Invoke(SwipeType.Up);
+                        Debug.Log("Swipe up");
                     }
                     //swipe down
                     if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                     {
                         OnSwipe?.Invoke(SwipeType.Down);
+                        Debug.Log("Swipe down");
                     }
                     //swipe left
                     if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
                     {
                         OnSwipe?.Invoke(SwipeType.Left);
+                        Debug.Log("Swipe left");
                     }
                     //swipe right
                     if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
                     {
                         OnSwipe?.Invoke(SwipeType.Right);
+                        Debug.Log("Swipe right");
                     }
                 }
             }
@@ -91,26 +95,30 @@ namespace Abu.Tools
            
                 //normalize the 2d vector
                 currentSwipe.Normalize();
- 
+                
                 //swipe upwards
                 if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                 {
                     OnSwipe?.Invoke(SwipeType.Up);
+                    Debug.Log("Swipe up");
                 }
                 //swipe down
                 if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
                 {
                     OnSwipe?.Invoke(SwipeType.Down);
+                    Debug.Log("Swipe down");
                 }
                 //swipe left
                 if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
                 {
                     OnSwipe?.Invoke(SwipeType.Left);
+                    Debug.Log("Swipe left");
                 }
                 //swipe right
                 if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
                 {
                     OnSwipe?.Invoke(SwipeType.Right);
+                    Debug.Log("Swipe right");
                 }
             }
         }

@@ -1332,6 +1332,7 @@ GameObject:
   - component: {fileID: 2113529052}
   - component: {fileID: 2113529051}
   - component: {fileID: 2113529050}
+  - component: {fileID: 2113529055}
   m_Layer: 5
   m_Name: Selector
   m_TagString: Untagged
@@ -1436,10 +1437,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelContainer: {fileID: 1204572082}
   InteractBtnText: {fileID: 405806200}
-  RightBtn: {fileID: 751751979}
-  LeftBtn: {fileID: 849499074}
-  InteractBtn: {fileID: 107434693}
+  RightBtnObject: {fileID: 751751979}
+  LeftBtnObject: {fileID: 849499074}
+  InteractBtnObject: {fileID: 107434693}
   _Selection:
   - {fileID: 11400000, guid: a069304c25f4544ab8a67f0bcf3922fa, type: 2}
   - {fileID: 11400000, guid: aacf5968101d5834881ebac6907289d1, type: 2}
   - {fileID: 11400000, guid: 3e3970e77997448fba4f1bfe85197b9b, type: 2}
+--- !u!114 &2113529055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113529049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5792bd91b1c4dc5b080ee148a7c97c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
