@@ -1,4 +1,4 @@
-﻿Shader "Slots/Sprites/Wave/Blend"
+﻿Shader "WaveBlendUnlitShader"
 {
 	Properties
 	{

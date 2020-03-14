@@ -8,8 +8,12 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private GameObject m_LevelRootPrefab;
     [SerializeField] private LevelColorScheme m_LevelColorScheme;
     
+    [Space(10)]
+    [SerializeField] private bool m_CollectionEnabled = false;
+    
     public string Name => m_LevelName;
     public string SceneID => m_SceneID;
     public GameObject LevelRootPrefab => m_LevelRootPrefab;
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
+    public bool CollectionEnabled => m_CollectionEnabled;
 }
