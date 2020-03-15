@@ -10,7 +10,6 @@ namespace Abu.Tools
         protected virtual void Start()
         {
             ItemNumber = 0;
-            DisplayItem(ItemNumber);
         }
         protected abstract int Length { get;}
         public int ItemNumber { get; protected set;} //Index representing current item in the selection

@@ -43,6 +43,7 @@ public class SelectionManager : MonoBehaviour
     //Constants
     public const float MainButtonsOffset = 500; 
     public const float PlayerAnimationDuration = 0.5f; 
+    public const float UiAnimationDuration = 0.5f; 
     
     public void Awake()
     {
@@ -142,7 +143,7 @@ public class SelectionManager : MonoBehaviour
 
     PlayerView DisplayPlayer(int _Direction, GameObject _PlayerPrefab, Transform _OldLevelView = null)
     {
-        Vector2 camSize = ScreenScaler.CameraSize();
+        Vector2 camSize = ScreenScaler.CameraSize;
         
         PlayerView oldPrefab = null;
 
@@ -191,7 +192,7 @@ public class SelectionManager : MonoBehaviour
 
     BackgroundView DisplayBackground(int _Direction, GameObject _BackgroundPrefab, Transform _OldLevelView = null)
     {
-        Vector2 camSize = ScreenScaler.CameraSize();
+        Vector2 camSize = ScreenScaler.CameraSize;
         
         BackgroundView oldPrefab = null;
 
@@ -222,14 +223,14 @@ public class SelectionManager : MonoBehaviour
         RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
         RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
 
-        rightBtnRect.DOAnchorPos(new Vector2(210, 0), 0.3f).onComplete = () => RightBtnObject.SetActive(false);
-        leftBtnRect.DOAnchorPos(new Vector2(-210, 0), 0.3f).onComplete = () => LeftBtnObject.SetActive(false);
+        rightBtnRect.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtnObject.SetActive(false);
+        leftBtnRect.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtnObject.SetActive(false);
         
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, -MainButtonsOffset), 0.3f);
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, -MainButtonsOffset), UiAnimationDuration);
         interactBtnTweener.onPlay = () => interactBtn.interactable = false; 
         interactBtnTweener.onComplete = () => InteractBtnObject.SetActive(false);
         
-        HideCollectionButton(0.3f);
+        HideCollectionButton(UiAnimationDuration);
     }
 
     void ShowUI()
@@ -238,10 +239,10 @@ public class SelectionManager : MonoBehaviour
         RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
         RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
         
-        rightBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
-        leftBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
+        rightBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        leftBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, 0.3f).SetDelay(0.25f);
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         interactBtnTweener.onPlay = () =>
         {
             interactBtn.interactable = true;
@@ -254,9 +255,27 @@ public class SelectionManager : MonoBehaviour
         DisplayItem(ItemNumber);
     }
 
-    public void Interact()
+    void HideActivePlayer()
+    {
+        m_PlayerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
+    }
+    
+    void ShowActivePlayer()
+    {
+        m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration);
+    }
+
+
+    public void OnInteract()
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(CurrentItem));
+    }
+
+    public void OnCollection()
+    {
+        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs());
+        HideUI();
+        HideActivePlayer();
     }
     
     private void ShowCollectionButton(float _Duration = 0)
@@ -359,6 +378,4 @@ public class SelectionManager : MonoBehaviour
         ShowUI();   
     }
 
-
-   
 }

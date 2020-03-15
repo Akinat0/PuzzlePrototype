@@ -15,8 +15,9 @@ namespace ScreensScripts
         public static event Action<GameSceneManager> GameSceneLoadedEvent;
         public static event Action GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
-         
-           
+        public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
+
+
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject backgroundContainer;
@@ -71,6 +72,13 @@ namespace ScreensScripts
             playerEntity = _Args.PlayerView.transform;
             LevelChangedEvent?.Invoke(_Args);
         }
+
+        public void InvokeShowCollection(ShowCollectionEventArgs _Args)
+        {
+            Debug.Log("LevelChanged Invoked");
+            ShowCollectionEvent?.Invoke(_Args);
+        }
+        
         
     }
 }
