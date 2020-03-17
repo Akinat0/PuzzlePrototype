@@ -38,6 +38,7 @@ public class SelectionManager : MonoBehaviour
     private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
 
+    private bool m_ShowPlayerAnimated = false;
     private MobileSwipeInputComponent MobileSwipeInputComponent;
 
     //Constants
@@ -186,6 +187,13 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
+
+            if (m_ShowPlayerAnimated)
+            {
+                _PlayerPrefab.transform.localPosition += Vector3.down * camSize.y;
+                _PlayerPrefab.transform.DOMove(Vector3.zero, UiAnimationDuration);
+                m_ShowPlayerAnimated = false;
+            }
             return _PlayerPrefab.GetComponent<PlayerView>();
         }
     }
@@ -226,7 +234,7 @@ public class SelectionManager : MonoBehaviour
         rightBtnRect.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtnObject.SetActive(false);
         leftBtnRect.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtnObject.SetActive(false);
         
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, -MainButtonsOffset), UiAnimationDuration);
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, interactBtnRect.rect.y - MainButtonsOffset), UiAnimationDuration);
         interactBtnTweener.onPlay = () => interactBtn.interactable = false; 
         interactBtnTweener.onComplete = () => InteractBtnObject.SetActive(false);
         
@@ -249,8 +257,7 @@ public class SelectionManager : MonoBehaviour
             InteractBtnObject.SetActive(true);
         };
 
-        ShowCollectionButton(0.25f);
-        
+        ShowCollectionButton(UiAnimationDuration, 0.25f);
         ClearContainers();
         DisplayItem(ItemNumber);
     }
@@ -278,20 +285,25 @@ public class SelectionManager : MonoBehaviour
         HideActivePlayer();
     }
     
-    private void ShowCollectionButton(float _Duration = 0)
+    private void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
     {
+        CollectionBtnObject.SetActive(true);
         collectionBtn.interactable = true;
         
         RectTransform collectionBtnRect = CollectionBtnObject.GetComponent<RectTransform>();
-        collectionBtnRect.DOAnchorPos(Vector2.zero, _Duration);
+        collectionBtnRect.DOAnchorPos(Vector2.zero, _Duration).SetDelay(_Delay);
     }
     
     private void HideCollectionButton(float _Duration = 0)
     {
         RectTransform collectionBtnRect = CollectionBtnObject.GetComponent<RectTransform>();
 
-        collectionBtnRect.DOAnchorPos(new Vector2(0, -MainButtonsOffset), _Duration)
-            .OnStart(() => collectionBtn.interactable = false);
+        collectionBtnRect.DOAnchorPos(new Vector2(0, collectionBtnRect.rect.y - MainButtonsOffset), _Duration)
+            .OnStart(() =>
+            {
+                collectionBtn.interactable = false;
+                CollectionBtnObject.SetActive(false);
+            });
     }
 
     private void SetupColors(float _Duration = 0)
@@ -344,6 +356,7 @@ public class SelectionManager : MonoBehaviour
             MobileSwipeInputComponent.OnSwipe += MobileSwipeEvent_handler;
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
     }
 
     private void OnDisable()
@@ -352,6 +365,7 @@ public class SelectionManager : MonoBehaviour
             MobileSwipeInputComponent.OnSwipe -= MobileSwipeEvent_handler;
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
     }
 
     private void MobileSwipeEvent_handler(SwipeType swipe)
@@ -376,6 +390,12 @@ public class SelectionManager : MonoBehaviour
     private void GameSceneUnloadedEvent_Handler()
     {
         ShowUI();   
+    }
+
+    private void CloseCollectionEvent_Handler()
+    {
+        m_ShowPlayerAnimated = true;
+        ShowUI();
     }
 
 }

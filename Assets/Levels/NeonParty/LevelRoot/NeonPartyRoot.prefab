@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 4396439755969541168}
   - component: {fileID: 8015675962621134005}
   m_Layer: 0
-  m_Name: NeonRoot
+  m_Name: NeonPartyRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,6 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb06a5a68da743879d0d056f1aa2b51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerView: {fileID: 7123868608045520271}
+  m_BackgroundView: {fileID: 6344100859751500784}
 --- !u!1001 &685506210826041359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316,6 +318,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 685506210826041359}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7123868608045520271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7736753722939682176, guid: 59e492d33ca064dffb901c5fff405e42,
+    type: 3}
+  m_PrefabInstance: {fileID: 685506210826041359}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf2782783d30466db27b7559320fca5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1115704630192876202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -391,3 +405,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1115704630192876202}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6344100859751500784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6300818924424044890, guid: 86c4470e43cc2425cb73f2ad8ea3d61e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1115704630192876202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb96011550475e419dab41df5059143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

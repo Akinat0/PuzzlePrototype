@@ -1,4 +1,5 @@
-﻿using Abu.Tools;
+﻿using System;
+using Abu.Tools;
 using DG.Tweening;
 using ScreensScripts;
 using UnityEngine;
@@ -57,20 +58,36 @@ public class CollectionSelector : SelectorBase
         DisplayItem(ItemNumber);
 
         activePlayer.transform.localPosition += Vector3.up * ScreenScaler.CameraSize.y;
-        activePlayer.transform.DOMove(Vector3.zero, SelectionManager.UiAnimationDuration);
-        Content.DOAnchorPos(Vector2.zero, SelectionManager.UiAnimationDuration);
+        activePlayer.transform.DOMove(Vector3.zero, SelectionManager.UiAnimationDuration)
+            .SetDelay(SelectionManager.UiAnimationDuration / 2);
+        Content.DOAnchorPos(Vector2.zero, SelectionManager.UiAnimationDuration)
+            .SetDelay(SelectionManager.UiAnimationDuration / 2);
     }
     
-    private void HideCollection()
+    private void HideCollection(float _Duration = 0)
     {
-        Content.localPosition += Vector3.up * Content.rect.size.y;
-        Content.gameObject.SetActive(false);
+        if (activePlayer != null)
+        {
+            activePlayer.transform.DOMove(Vector3.up * ScreenScaler.CameraSize.y,
+                SelectionManager.UiAnimationDuration).onComplete = () => Destroy(activePlayer.gameObject);
+        }
+
+        if (Math.Abs(_Duration) > Mathf.Epsilon)
+            Content.DOAnchorPos(Vector3.up * Screen.height, SelectionManager.UiAnimationDuration);
+        else
+            Content.position += Vector3.up * Screen.height;
+        
     }
 
     public void OnChoose()
     {
         HideCollection();
-        
+    }
+
+    public void OnBack()
+    {
+        HideCollection();
+        LauncherUI.Instance.InvokeCloseCollection();
     }
     
     void OnEnable()
@@ -82,7 +99,7 @@ public class CollectionSelector : SelectorBase
     {
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
     }
-
+    
     private void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
         ShowCollection();

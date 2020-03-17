@@ -16,6 +16,7 @@ namespace ScreensScripts
         public static event Action GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
+        public static event Action CloseCollectionEvent; 
 
 
         [SerializeField] private AsyncLoader asyncLoader;
@@ -78,7 +79,11 @@ namespace ScreensScripts
             Debug.Log("LevelChanged Invoked");
             ShowCollectionEvent?.Invoke(_Args);
         }
-        
-        
+
+        public void InvokeCloseCollection()
+        {
+            Debug.Log("CloseCollection Invoked");
+            CloseCollectionEvent?.Invoke();
+        }
     }
 }
