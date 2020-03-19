@@ -7,7 +7,16 @@ public class LevelRootView : MonoBehaviour
 
 
 
-    public PlayerView PlayerView => m_PlayerView;
+    public PlayerView PlayerView
+    {
+        get { return m_PlayerView;}
+        set
+        {
+            m_PlayerView = value;
+            m_PlayerView.transform.SetParent(transform);
+        }
+    }
+    
     public BackgroundView BackgroundView => m_BackgroundView;
 
 }

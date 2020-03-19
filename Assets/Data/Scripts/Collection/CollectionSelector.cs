@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CollectionSelector : SelectorBase
 {
     [SerializeField] private CollectionItem[] Selection;
+    [SerializeField] private Transform LevelPlayerRoot;
     [SerializeField] private Transform ItemContainer;
     [SerializeField] private RectTransform Content;
     protected override int Length => Selection.Length;
@@ -79,15 +80,24 @@ public class CollectionSelector : SelectorBase
         
     }
 
+    private void ChoosePlayer(float _Duration)
+    {
+        if (Math.Abs(_Duration) > Mathf.Epsilon)
+            Content.DOAnchorPos(Vector3.up * Screen.height, SelectionManager.UiAnimationDuration);
+        else
+            Content.position += Vector3.up * Screen.height;
+    }
+
     public void OnChoose()
     {
-        HideCollection();
+        ChoosePlayer(SelectionManager.UiAnimationDuration);
+        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(activePlayer));
     }
 
     public void OnBack()
     {
-        HideCollection();
-        LauncherUI.Instance.InvokeCloseCollection();
+        HideCollection(SelectionManager.UiAnimationDuration);
+        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
     
     void OnEnable()

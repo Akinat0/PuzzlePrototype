@@ -38,7 +38,8 @@ public class SelectionManager : MonoBehaviour
     private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
 
-    private bool m_ShowPlayerAnimated = false;
+    private BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
+    private BoolToggle m_ContainerCleaningNeeded = new BoolToggle(true);
     private MobileSwipeInputComponent MobileSwipeInputComponent;
 
     //Constants
@@ -187,12 +188,10 @@ public class SelectionManager : MonoBehaviour
         }
         else
         {
-
-            if (m_ShowPlayerAnimated)
+            if (m_ShowPlayerAnimated.Value)
             {
                 _PlayerPrefab.transform.localPosition += Vector3.down * camSize.y;
-                _PlayerPrefab.transform.DOMove(Vector3.zero, UiAnimationDuration);
-                m_ShowPlayerAnimated = false;
+                _PlayerPrefab.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
             }
             return _PlayerPrefab.GetComponent<PlayerView>();
         }
@@ -258,8 +257,42 @@ public class SelectionManager : MonoBehaviour
         };
 
         ShowCollectionButton(UiAnimationDuration, 0.25f);
-        ClearContainers();
+
+        if(m_ContainerCleaningNeeded.Value)
+            ClearContainers();
+        
         DisplayItem(ItemNumber);
+    }
+    
+    void BringBackUI(PlayerView _NewPlayer)
+    {
+        RectTransform rightBtnRect = RightBtnObject.GetComponent<RectTransform>();
+        RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
+        RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
+        
+        rightBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        leftBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        
+        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        interactBtnTweener.onPlay = () =>
+        {
+            interactBtn.interactable = true;
+            InteractBtnObject.SetActive(true);
+        };
+
+        ShowCollectionButton(UiAnimationDuration, 0.25f);
+
+        if (_NewPlayer != null)
+        {    
+            DestroyImmediate(m_PlayerView.gameObject);
+            m_PlayerView = _NewPlayer;
+            LevelContainer.GetComponentInChildren<LevelRootView>().PlayerView = m_PlayerView;
+        }
+        else
+        {
+            m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
+        }
+
     }
 
     void HideActivePlayer()
@@ -392,10 +425,9 @@ public class SelectionManager : MonoBehaviour
         ShowUI();   
     }
 
-    private void CloseCollectionEvent_Handler()
+    private void CloseCollectionEvent_Handler(CloseCollectionEventArgs _Args)
     {
-        m_ShowPlayerAnimated = true;
-        ShowUI();
+        BringBackUI(_Args.PlayerView);
     }
 
 }
