@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class ShowCollectionEventArgs 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public LevelColorScheme ColorScheme { get; private set; }
+
+    public ShowCollectionEventArgs(LevelColorScheme _Scheme)
     {
-        
+        ColorScheme = _Scheme;
     }
+    
 }

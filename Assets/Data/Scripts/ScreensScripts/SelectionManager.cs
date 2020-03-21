@@ -4,6 +4,7 @@ using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Rendering;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -39,7 +40,6 @@ public class SelectionManager : MonoBehaviour
     private int ItemNumber; //Index representing current item in the shop
 
     private BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
-    private BoolToggle m_ContainerCleaningNeeded = new BoolToggle(true);
     private MobileSwipeInputComponent MobileSwipeInputComponent;
 
     //Constants
@@ -106,12 +106,8 @@ public class SelectionManager : MonoBehaviour
         DisplayLevel(_Direction);
 
         InteractBtnText.text = CurrentItem.Name;
-        
-        //Managing right button
-        RightBtnObject.SetActive(_Index + 1 != _Selection.Length);
 
-        //Managing left button
-        LeftBtnObject.SetActive(_Index != 0);
+        ManagingButtons();
         
         LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, CurrentItem));
         
@@ -121,6 +117,15 @@ public class SelectionManager : MonoBehaviour
             RightBtnObject.SetActive(false);
         }
         
+    }
+
+    void ManagingButtons()
+    {
+        //Managing right button
+        RightBtnObject.SetActive(ItemNumber + 1 != _Selection.Length);
+
+        //Managing left button
+        LeftBtnObject.SetActive(ItemNumber != 0);
     }
 
     LevelRootView DisplayLevel(int _Direction)
@@ -256,16 +261,20 @@ public class SelectionManager : MonoBehaviour
             InteractBtnObject.SetActive(true);
         };
 
-        ShowCollectionButton(UiAnimationDuration, 0.25f);
-
-        if(m_ContainerCleaningNeeded.Value)
-            ClearContainers();
+        if(CurrentItem.CollectionEnabled)
+            ShowCollectionButton(UiAnimationDuration, 0.25f);
+        else
+            HideCollectionButton(UiAnimationDuration);
+        
+        ClearContainers();
         
         DisplayItem(ItemNumber);
     }
     
     void BringBackUI(PlayerView _NewPlayer)
     {
+        ManagingButtons();
+        
         RectTransform rightBtnRect = RightBtnObject.GetComponent<RectTransform>();
         RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
         RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
@@ -280,7 +289,10 @@ public class SelectionManager : MonoBehaviour
             InteractBtnObject.SetActive(true);
         };
 
-        ShowCollectionButton(UiAnimationDuration, 0.25f);
+        if(CurrentItem.CollectionEnabled)
+            ShowCollectionButton(UiAnimationDuration, 0.25f);
+        else
+            HideCollectionButton(UiAnimationDuration);
 
         if (_NewPlayer != null)
         {    
@@ -313,7 +325,7 @@ public class SelectionManager : MonoBehaviour
 
     public void OnCollection()
     {
-        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs());
+        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(CurrentItem.ColorScheme));
         HideUI();
         HideActivePlayer();
     }
@@ -327,7 +339,7 @@ public class SelectionManager : MonoBehaviour
         collectionBtnRect.DOAnchorPos(Vector2.zero, _Duration).SetDelay(_Delay);
     }
     
-    private void HideCollectionButton(float _Duration = 0)
+    private void HideCollectionButton(float _Duration)
     {
         RectTransform collectionBtnRect = CollectionBtnObject.GetComponent<RectTransform>();
 
@@ -335,8 +347,8 @@ public class SelectionManager : MonoBehaviour
             .OnStart(() =>
             {
                 collectionBtn.interactable = false;
-                CollectionBtnObject.SetActive(false);
-            });
+            })
+            .onComplete = () => CollectionBtnObject.SetActive(false);
     }
 
     private void SetupColors(float _Duration = 0)
@@ -425,6 +437,7 @@ public class SelectionManager : MonoBehaviour
         ShowUI();   
     }
 
+    //The handler handles two behaviours: if we chose new player or if we not
     private void CloseCollectionEvent_Handler(CloseCollectionEventArgs _Args)
     {
         BringBackUI(_Args.PlayerView);

@@ -83,7 +83,10 @@ namespace ScreensScripts
         public void InvokeCloseCollection(CloseCollectionEventArgs _Args)
         {
             Debug.Log("CloseCollection Invoked");
-            playerEntity = _Args.PlayerView.transform;
+            
+            if(_Args.PlayerView != null)
+                playerEntity = _Args.PlayerView.transform;
+            
             CloseCollectionEvent?.Invoke(_Args);
         }
     }
