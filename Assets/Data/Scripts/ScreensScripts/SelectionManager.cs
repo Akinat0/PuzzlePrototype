@@ -1,10 +1,8 @@
-﻿using System;
-using Abu.Tools;
+﻿using Abu.Tools;
 using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Rendering;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -156,9 +154,14 @@ public class SelectionManager : MonoBehaviour
 
         if(_OldLevelView != null)
             oldPrefab = _OldLevelView.GetComponentInChildren<PlayerView>();
-        
-        if(CurrentItem.CollectionEnabled)
+
+        if (CurrentItem.CollectionEnabled)
+        {
+            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.Item, _PlayerPrefab.transform.parent, true);
+            DestroyImmediate(_PlayerPrefab);
+            _PlayerPrefab = defaultCollectionPlayer;
             ShowCollectionButton(PlayerAnimationDuration);
+        }
         else
             HideCollectionButton(PlayerAnimationDuration);
         
@@ -307,6 +310,12 @@ public class SelectionManager : MonoBehaviour
 
     }
 
+    void SetPlayerFromCollection()
+    {
+        DestroyImmediate(m_PlayerView);
+      //  m_PlayerView = Instantiate();
+    }
+    
     void HideActivePlayer()
     {
         m_PlayerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);

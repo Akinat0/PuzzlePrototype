@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using UnityEngine;
 using Abu.Tools;
 using Puzzle;
@@ -36,7 +35,7 @@ namespace ScreensScripts
 
         private void Start()
         {
-            Screen.fullScreen = true;
+           // Screen.fullScreen = true;
         }
 
         void PlayLevel(LevelConfig _Config)

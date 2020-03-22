@@ -69,4 +69,27 @@ namespace Abu.Console
             return result;
         }
     }
+
+    public class DefaultCollectionItemCommand : IConsoleCommand
+    {
+        public string Command => "defcolitem";
+
+        public string Process(object[] args, Console console)
+        {
+            var collectionManager = Object.FindObjectOfType<CollectionManager>();
+            string result;
+
+            try
+            {
+                result = $"Success. Default item id is {collectionManager.DefaultItemID}, " +
+                          $"object has name {collectionManager.DefaultItem.name}";
+            }
+            catch (Exception e)
+            {
+                result = $"Fail. {e.Message}";
+            }
+            
+            return result;
+        }
+    }
 }
