@@ -2177,6 +2177,7 @@ GameObject:
   - component: {fileID: 1911391893}
   - component: {fileID: 1911391894}
   - component: {fileID: 1911391895}
+  - component: {fileID: 1911391896}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -2244,6 +2245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalletManager: {fileID: 1911391895}
+  CollectionManager: {fileID: 1911391896}
 --- !u!114 &1911391895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2257,6 +2259,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalletData: {fileID: 11400000, guid: bda4bf52dd30d47cfbe9cd600a5de4fd, type: 2}
+--- !u!114 &1911391896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911391890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cc12f37a8e49ef9f0440d7f1484bc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectionData: {fileID: 11400000, guid: e6fca33f0beac476ba2084cbf18af442, type: 2}
 --- !u!1 &1952831604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,10 +2379,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RightArrow: {fileID: 450510017}
   LeftArrow: {fileID: 2041591107}
-  Selection:
-  - {fileID: 11400000, guid: 6279bc2cbb5224903ac5d3b2578ae8b9, type: 2}
-  - {fileID: 11400000, guid: 6279bc2cbb5224903ac5d3b2578ae8b9, type: 2}
-  - {fileID: 11400000, guid: 6279bc2cbb5224903ac5d3b2578ae8b9, type: 2}
   LevelPlayerRoot: {fileID: 0}
   ItemContainer: {fileID: 369106906}
   Content: {fileID: 405294505}
