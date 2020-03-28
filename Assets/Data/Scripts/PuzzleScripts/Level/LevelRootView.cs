@@ -2,29 +2,21 @@
 
 public class LevelRootView : MonoBehaviour
 {
-    private PlayerView m_PlayerView; 
-    private BackgroundView m_BackgroundView;
+    [SerializeField] private PlayerView m_PlayerView; 
+    [SerializeField] private BackgroundView m_BackgroundView;
+
+
 
     public PlayerView PlayerView
     {
-        get
+        get { return m_PlayerView;}
+        set
         {
-            m_PlayerView = GetComponentInChildren<PlayerView>();
-            if(m_PlayerView == null)
-                Debug.LogError("Can't find player view in children of level root");
-            return m_PlayerView;
-        }
-    }
-
-    public BackgroundView BackgroundView
-    {
-        get
-        {
-            m_BackgroundView = GetComponentInChildren<BackgroundView>();
-            if(m_BackgroundView == null)
-                Debug.LogError("Can't find background view in children of level root");
-            return m_BackgroundView;
+            m_PlayerView = value;
+            m_PlayerView.transform.SetParent(transform);
         }
     }
     
+    public BackgroundView BackgroundView => m_BackgroundView;
+
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using UnityEngine;
 using Abu.Tools;
 using Puzzle;
@@ -15,8 +14,10 @@ namespace ScreensScripts
         public static event Action<GameSceneManager> GameSceneLoadedEvent;
         public static event Action GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
-         
-           
+        public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
+        public static event Action<CloseCollectionEventArgs> CloseCollectionEvent; 
+
+
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject backgroundContainer;
@@ -34,7 +35,7 @@ namespace ScreensScripts
 
         private void Start()
         {
-            Screen.fullScreen = true;
+           // Screen.fullScreen = true;
         }
 
         void PlayLevel(LevelConfig _Config)
@@ -71,6 +72,21 @@ namespace ScreensScripts
             playerEntity = _Args.PlayerView.transform;
             LevelChangedEvent?.Invoke(_Args);
         }
-        
+
+        public void InvokeShowCollection(ShowCollectionEventArgs _Args)
+        {
+            Debug.Log("LevelChanged Invoked");
+            ShowCollectionEvent?.Invoke(_Args);
+        }
+
+        public void InvokeCloseCollection(CloseCollectionEventArgs _Args)
+        {
+            Debug.Log("CloseCollection Invoked");
+            
+            if(_Args.PlayerView != null)
+                playerEntity = _Args.PlayerView.transform;
+            
+            CloseCollectionEvent?.Invoke(_Args);
+        }
     }
 }

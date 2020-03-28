@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Puzzle;
 
-public class AttemptManager : MonoBehaviour
+public class AttemptManager : ManagerView
 {
 
     private int _attemptNumber;
@@ -26,16 +26,16 @@ public class AttemptManager : MonoBehaviour
         _attemptNumber = 0;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
-        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
-        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
     }
 
     void GameStartedEvent_Handler()
@@ -45,7 +45,7 @@ public class AttemptManager : MonoBehaviour
         StartCoroutine(FadeText());
     }
 
-    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
         _textPlaceholder.color = levelColorScheme.TextColor2;
     }
