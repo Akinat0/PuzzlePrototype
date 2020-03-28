@@ -979,7 +979,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2846591, y: 0.15056099}
   m_AnchorMax: {x: 0.71337146, y: 0.20625204}
-  m_AnchoredPosition: {x: 0.0010223389, y: 0.375}
+  m_AnchoredPosition: {x: 0.0010375977, y: 0.375}
   m_SizeDelta: {x: -148.33, y: -33.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &777141094
@@ -1368,7 +1368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2846591, y: 0.15056099}
   m_AnchorMax: {x: 0.71337146, y: 0.20625204}
-  m_AnchoredPosition: {x: 0.0010223389, y: 0.375}
+  m_AnchoredPosition: {x: 0.0010070801, y: 0.375}
   m_SizeDelta: {x: -148.33, y: -33.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &828118341
@@ -1741,7 +1741,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2846591, y: 0.15056099}
   m_AnchorMax: {x: 0.71337146, y: 0.20625204}
-  m_AnchoredPosition: {x: 0.0010223389, y: 0.375}
+  m_AnchoredPosition: {x: 0.0010070801, y: 0.375}
   m_SizeDelta: {x: -148.33, y: -33.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1033927275
@@ -2050,7 +2050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1075808, y: 0.17862229}
   m_AnchorMax: {x: 0.683468, y: 0.851}
-  m_AnchoredPosition: {x: 0.0000038146973, y: 0.09499931}
+  m_AnchoredPosition: {x: 0, y: 0.09499931}
   m_SizeDelta: {x: -0.000015259, y: 0.18999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1376741792
@@ -2273,7 +2273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2846591, y: 0.282813}
   m_AnchorMax: {x: 0.71337146, y: 0.339561}
-  m_AnchoredPosition: {x: -0.0007171631, y: -0.00012207031}
+  m_AnchoredPosition: {x: -0.0007324219, y: -0.00012207031}
   m_SizeDelta: {x: -148.34, y: -34.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1509539260
@@ -3316,7 +3316,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2068077343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
+  m_Script: {fileID: 11500000, guid: a26a3e2aa8ea4af08a8e19362e2fc926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnCoins: 1
@@ -3324,10 +3324,13 @@ MonoBehaviour:
   costOfEnemy: 1
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: faaaef8a19d2a4f45bdfd781a9936fff, type: 3}
-  - {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709, type: 3}
-  - {fileID: 5592148314577438307, guid: 515a4486cb9753a4d955286b3a348866, type: 3}
   partOfThePLayerOnTheScreen: 0.25
   background: {fileID: 0}
+  spawnTimestep: 1
+  startEnemySpeed: 1
+  hightestEnemySpeed: 10
+  timeToHighComplexity: 60
+  _spawn: 0
 --- !u!114 &2068077352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,7 +3385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2846591, y: 0.282813}
   m_AnchorMax: {x: 0.71337146, y: 0.339561}
-  m_AnchoredPosition: {x: -0.0007171631, y: -0.00012207031}
+  m_AnchoredPosition: {x: -0.0007019043, y: -0.00012207031}
   m_SizeDelta: {x: -148.34, y: -34.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2136858185
