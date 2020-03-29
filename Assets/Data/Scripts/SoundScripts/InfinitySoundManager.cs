@@ -8,19 +8,7 @@ public class InfinitySoundManager : MonoBehaviour
 
     private int _themeIndex = 0;
     private bool _play = false;
-
-    private void Start()
-    {
-        //Fetch the AudioSource from the GameObject
-        _audioSource = GetComponent<AudioSource>();
-
-        //Set the original AudioClip as this clip
-        _audioSource.clip = themes[0];
-
-        //Output the current clip's length
-        Debug.Log("Audio clip length : " + _audioSource.clip.length);
-    }
-
+    
     void Update()
     {
         if (!_play)
@@ -38,6 +26,7 @@ public class InfinitySoundManager : MonoBehaviour
             Destroy(_audioSource.gameObject);
 
         _audioSource = new GameObject("Theme " + clip.name).AddComponent<AudioSource>();
+        _audioSource.transform.SetParent(transform);
         _audioSource.clip = clip;
         _audioSource.Play();
 
@@ -46,8 +35,8 @@ public class InfinitySoundManager : MonoBehaviour
 
     private void NextTheme()
     {
-        _themeIndex++;
         PlayTheme(themes[_themeIndex]);
+        _themeIndex++;
     }
     
     protected void OnEnable()
@@ -66,8 +55,7 @@ public class InfinitySoundManager : MonoBehaviour
 
     private void GameStartedEvent_Handler()
     {
-        PlayTheme(themes[_themeIndex]);
-        _play = true;
+        NextTheme();
     }
 
     private void PauseLevelEvent_Handler(bool paused)
