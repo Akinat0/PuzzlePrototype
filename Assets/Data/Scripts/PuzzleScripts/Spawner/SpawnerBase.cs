@@ -72,6 +72,11 @@ namespace Puzzle
         {
             GameObject prefabToInstantiate = 
                 enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
+            if (prefabToInstantiate == null)
+            {
+                Debug.LogWarning($"There's no enemy of type {@params.enemyType} in spawner enemies list");
+                return null;
+            }
             GameObject enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
             enemy.GetComponent<IEnemy>().Instantiate(@params);
 
