@@ -8,9 +8,17 @@ public class TutorialTimelineManager : MonoBehaviour
     [SerializeField] private PlayableDirector[] _directors;
     private int _curDir;
 
+    private bool _isCanTap;
+    private TutorialInput _gameInput;
+    private bool _firstStage;
+
     private void Start()
     {
+        _isCanTap = false;
         _curDir = 0;
+        _gameInput = GetComponent<TutorialInput>();
+       _gameInput.enabled = false;
+       _firstStage = true;
     }
 
     public void StartFirstDirector()
@@ -28,6 +36,18 @@ public class TutorialTimelineManager : MonoBehaviour
         }
     }
 
+    public void GiveControl()
+    {
+        _isCanTap = true;
+        _gameInput.enabled = true;
+    }
+
+    public void RemoveControl()
+    {
+        _isCanTap = false;
+        _gameInput.enabled = false;
+    }
+
     public void Restart()
     {
         _directors[_curDir].Stop();
@@ -37,11 +57,22 @@ public class TutorialTimelineManager : MonoBehaviour
     private void OnEnable()
     {
         GameSceneManager.PlayerLosedHpEvent += TutorialTakeDamageAction_handler;
+        MobileGameInput.TouchOnTheScreen += OnTap_handler;
+
     }
 
     private void OnDisable()
     {
         GameSceneManager.PlayerLosedHpEvent -= TutorialTakeDamageAction_handler;
+        MobileGameInput.TouchOnTheScreen -= OnTap_handler;
+    }
+
+    private void OnTap_handler(Touch touch)
+    {
+        if (_firstStage)
+        {
+            RemoveControl();
+        }
     }
 
     private void TutorialTakeDamageAction_handler(int hp)
@@ -49,4 +80,11 @@ public class TutorialTimelineManager : MonoBehaviour
         Debug.LogError("RESTART");
         Restart();
     }
+
+    public void EndFirstStage()
+    {
+        _firstStage = false;
+    }
+
+    
 }

@@ -16,7 +16,7 @@ namespace Puzzle
         protected int _health = DEFAULT_HP;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
-        void Start()
+        protected virtual void Start()
         {
             _view = GetComponent<PlayerView>();
             _immuneFramesEnabled = false;
@@ -51,7 +51,7 @@ namespace Puzzle
             _immuneFramesEnabled = false;
         }
 
-        public void ChangeSides()
+        public virtual void ChangeSides()
         {
             for (int i = 0; i < sides.Length; i++)
                 sides[i] = !sides[i];

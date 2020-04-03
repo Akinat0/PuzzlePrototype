@@ -16,6 +16,16 @@ public class TutorialTimelineListener : TimelineListener
         {
             _manager.GoToNext();
         }
+
+        if (notification is TutorGiveControlMarker)
+        {
+            _manager.GiveControl();
+        }
+
+        if (notification is TutorEndFirstStageMarker)
+        {
+            _manager.EndFirstStage();
+        }
     }
 
     protected override void GameStartedEvent_Handler()

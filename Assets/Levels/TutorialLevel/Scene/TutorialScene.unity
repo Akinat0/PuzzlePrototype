@@ -3514,10 +3514,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2068077344}
-  - component: {fileID: 2068077345}
   - component: {fileID: 2068077351}
   - component: {fileID: 2068077352}
   - component: {fileID: 2068077346}
+  - component: {fileID: 2068077345}
   m_Layer: 8
   m_Name: GameContainer
   m_TagString: Untagged
@@ -3552,10 +3552,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2068077343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbeefa12c3fa989469978fa6320853c1, type: 3}
+  m_Script: {fileID: 11500000, guid: ceac25c1ecf0bd34582da8298e18733a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Condition: 1
 --- !u!114 &2068077346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3584,6 +3583,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnCoins: 1
+  coinProbability: 0.2
+  costOfEnemy: 1
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: faaaef8a19d2a4f45bdfd781a9936fff, type: 3}
   - {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709, type: 3}
