@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 185244007846851575}
   - component: {fileID: 239240343293705108}
   m_Layer: 0
-  m_Name: chandelier_light (2)
+  m_Name: chandelier_light_general
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,6 @@ Transform:
   - {fileID: 5739193462544015155}
   - {fileID: 6904238355182799134}
   - {fileID: 8551268079907729441}
-  - {fileID: 3936822135316522276}
   - {fileID: 338132155058608519}
   - {fileID: 8713128797738966045}
   m_Father: {fileID: 0}
@@ -221,6 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5739193462544015155}
   - component: {fileID: 2284562960320381663}
+  - component: {fileID: 7445740152525442137}
   m_Layer: 0
   m_Name: chandelier
   m_TagString: Untagged
@@ -241,6 +241,7 @@ Transform:
   m_Children:
   - {fileID: 6583537078402732292}
   - {fileID: 185244007846851575}
+  - {fileID: 3936822135316522276}
   m_Father: {fileID: 6954064271567186361}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -293,6 +294,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &7445740152525442137
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206939752886168243}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
 --- !u!1 &1315486321637928146
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,7 +334,7 @@ Transform:
   m_LocalScale: {x: 0.89125323, y: 1.140625, z: 1}
   m_Children: []
   m_Father: {fileID: 6954064271567186361}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6045788684362983892
 SpriteRenderer:
@@ -545,7 +557,7 @@ GameObject:
   - component: {fileID: 6583537078402732292}
   - component: {fileID: 5180792939598005462}
   m_Layer: 0
-  m_Name: chandelier_light
+  m_Name: chandelier_light_small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -805,7 +817,7 @@ Transform:
   - {fileID: 2361003423072892772}
   - {fileID: 7856767461715891508}
   m_Father: {fileID: 6954064271567186361}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8283448645863440099
 SpriteRenderer:
@@ -881,11 +893,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6514935701289710705}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.82, z: 0}
-  m_LocalScale: {x: 0.89125323, y: 1.140625, z: 1}
+  m_LocalPosition: {x: 0, y: -3.5682192, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6954064271567186361}
-  m_RootOrder: 3
+  m_Father: {fileID: 5739193462544015155}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2345801435027610662
 SpriteRenderer:
@@ -1027,7 +1039,7 @@ GameObject:
   - component: {fileID: 6904238355182799134}
   - component: {fileID: 5660712429833947752}
   m_Layer: 0
-  m_Name: tables_right (1)
+  m_Name: tables_left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
