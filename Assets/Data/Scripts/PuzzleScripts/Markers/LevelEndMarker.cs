@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-//Kind of crutch
-[Serializable]
+[CustomStyle("LevelEndMarker"), Serializable]
 public class LevelEndMarker : Marker, INotification
 {
     public PropertyName id { get; }
+    
 }
 
 
