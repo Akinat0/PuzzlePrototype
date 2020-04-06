@@ -1,19 +1,18 @@
-﻿using System;
-using Puzzle;
+﻿using Puzzle;
 using UnityEngine;
 using UnityEngine.Playables;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineListener : MonoBehaviour, INotificationReceiver
 {
-    private PlayableDirector _playableDirector;
-    
-    private void Start()
+    protected PlayableDirector _playableDirector;
+
+    protected virtual void Start()
     {
         _playableDirector = GetComponent<PlayableDirector>();
     }
 
-    public void OnNotify(Playable origin, INotification notification, object context)
+    public virtual void OnNotify(Playable origin, INotification notification, object context)
     {
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
 
@@ -23,7 +22,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
             GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
             return;
         }
-        
+    
         if (notification is LevelEndMarker)
         {
             Debug.Log("Notification received " + time + " type: level end marker");
@@ -32,20 +31,20 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         }
     }
 
-    private void OnEnable()
+    protected void OnEnable()
     {
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
-    
+
     private void GameStartedEvent_Handler()
     {
         _playableDirector.Play();
@@ -57,7 +56,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
             return;
         _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
-    
+
     private void ResetLevelEvent_Handler()
     {
         _playableDirector.Stop();
