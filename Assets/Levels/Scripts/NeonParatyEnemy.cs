@@ -1,6 +1,5 @@
 ﻿using Puzzle;
 using PuzzleScripts;
-using UnityEngine;
 
 public class NeonParatyEnemy : PuzzleEnemy
 {
