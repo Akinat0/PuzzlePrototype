@@ -52,6 +52,7 @@ namespace PuzzleScripts
         public void Die()
         {
             GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
+            effect.transform.right = transform.right;
             effect.transform.position = transform.position;
             GameSceneManager.Instance.InvokeEnemyDied(score);
 
