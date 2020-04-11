@@ -1,4 +1,5 @@
 ﻿using PuzzleScripts;
+using UnityEngine;
 
 namespace Puzzle
 {
@@ -6,7 +7,7 @@ namespace Puzzle
     {
         void OnHitPlayer(Player player);
 
-        void Die();
+        Transform Die();
 
         void Move();
         void Instantiate(EnemyParams @params);

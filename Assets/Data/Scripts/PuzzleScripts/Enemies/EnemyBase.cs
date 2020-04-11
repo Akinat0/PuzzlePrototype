@@ -14,7 +14,7 @@ namespace PuzzleScripts
     public class EnemyBase : MonoBehaviour, IEnemy
     {
         public static readonly float Distance = 10f; //Distance to target
-        
+
         [SerializeField] private GameObject vfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
@@ -27,7 +27,7 @@ namespace PuzzleScripts
 
         private float time = 0;
         private float dist = 0;
-
+        
         private void Update()
         {
             if (!_motion)
@@ -49,11 +49,12 @@ namespace PuzzleScripts
                 Destroy(gameObject);
         }
 
-        public void Die()
+        public virtual Transform Die()
         {
             GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
             effect.transform.right = transform.right;
             effect.transform.position = transform.position;
+            effect.transform.localScale *= transform.localScale.x;
             GameSceneManager.Instance.InvokeEnemyDied(score);
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
@@ -61,6 +62,8 @@ namespace PuzzleScripts
                Account.AddCoins(coinHolder.Coins); 
             
             Destroy(gameObject);
+
+            return effect.transform;
         }
         
         public void Move()
@@ -72,7 +75,6 @@ namespace PuzzleScripts
         {
             _speed =  @params.speed;
             
-            transform.Rotate(new Vector3(0, 0, 90 * @params.side.GetHashCode()));
             Player player = GameSceneManager.Instance.GetPlayer();
             PlayerView playerView = player.GetComponent<PlayerView>();
             
@@ -81,7 +83,7 @@ namespace PuzzleScripts
                 Debug.LogError("PlayerView is missing");
                 return;
             }
-
+            
             Vector3 target = playerView.GetSidePosition(@params.side);
             
             switch (@params.side)
