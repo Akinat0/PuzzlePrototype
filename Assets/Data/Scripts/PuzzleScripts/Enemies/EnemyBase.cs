@@ -18,6 +18,8 @@ namespace PuzzleScripts
         [SerializeField] private GameObject vfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
+
+        private EnemyParams enemyParams;
         
         private float _speed = 0.5f;
     
@@ -73,6 +75,7 @@ namespace PuzzleScripts
 
         public virtual void Instantiate(EnemyParams @params)
         {
+            enemyParams = @params;
             _speed =  @params.speed;
             
             Player player = GameSceneManager.Instance.GetPlayer();

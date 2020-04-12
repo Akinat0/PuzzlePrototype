@@ -1,5 +1,6 @@
 ﻿using Puzzle;
 using PuzzleScripts;
+using UnityEngine;
 
 public class NeonParatyEnemy : PuzzleEnemy
 {
@@ -7,5 +8,6 @@ public class NeonParatyEnemy : PuzzleEnemy
     {
         base.Instantiate(@params);
         GetComponent<SkinContainer>().Skin = @params.stickOut ? 0 : 1;
+        GetComponent<SpriteRenderer>().flipY = @params.side == Side.Right;
     }
 }
