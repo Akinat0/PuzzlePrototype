@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8381284477293656006}
   m_Layer: 0
-  m_Name: NeonPartyExplosion
+  m_Name: NeonPartyEnemyExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,6 +38,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8381284477293656006}
     m_Modifications:
+    - target: {fileID: 307424169713261355, guid: 4c25ad920c385472fa22233bbdb70ebd,
+        type: 3}
+      propertyPath: useUnscaledTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2834689649091276864, guid: 4c25ad920c385472fa22233bbdb70ebd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -97,6 +102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NeonPartyExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 2834689649091276870, guid: 4c25ad920c385472fa22233bbdb70ebd,
+        type: 3}
+      propertyPath: useUnscaledTime
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c25ad920c385472fa22233bbdb70ebd, type: 3}
