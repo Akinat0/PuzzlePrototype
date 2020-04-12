@@ -4,7 +4,7 @@ using UnityEngine;
 public class HeartsHealthManager : HealthManagerBase
 {
 
-    [SerializeField] private Animator HeartsAnimator;
+    [SerializeField] private Animator heartsAnimator;
     [SerializeField] private HeartView[] hearts;
     
     private static readonly int AnimationReset = Animator.StringToHash("Reset");
@@ -27,16 +27,12 @@ public class HeartsHealthManager : HealthManagerBase
             Debug.LogError($"Heart {Hp} is null");
         
         Hp--;
-        
-        if(_Hp != Hp)
-            Debug.LogWarning("Health manager hp doesn't match with player's hp");
-
     }
 
     protected override void Reset()
     {
-        if(HeartsAnimator != null)
-            HeartsAnimator.SetTrigger(AnimationReset);
+        if(heartsAnimator != null)
+            heartsAnimator.SetTrigger(AnimationReset);
         
         Hp = hearts.Length - 1;
         foreach (var heart in hearts)
