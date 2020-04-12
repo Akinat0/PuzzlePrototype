@@ -168,7 +168,6 @@ namespace Puzzle{
 
     public void InvokeLevelCompleted()
     {
-        InvokePauseLevel(true); 
         Debug.Log("LevelComplete Invoked");
         LevelCompletedEvent?.Invoke();
         CallCompleteMenu();
