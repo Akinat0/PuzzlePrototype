@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class HeartsHealthManager : HealthManagerBase
 {
+
+    [SerializeField] private Animator HeartsAnimator;
     [SerializeField] private HeartView[] hearts;
     
+    private static readonly int AnimationReset = Animator.StringToHash("Reset");
+
     private void Start()
     { 
         Hp = hearts.Length - 1;
@@ -31,6 +35,9 @@ public class HeartsHealthManager : HealthManagerBase
 
     protected override void Reset()
     {
+        if(HeartsAnimator != null)
+            HeartsAnimator.SetTrigger(AnimationReset);
+        
         Hp = hearts.Length - 1;
         foreach (var heart in hearts)
             heart.Appear();

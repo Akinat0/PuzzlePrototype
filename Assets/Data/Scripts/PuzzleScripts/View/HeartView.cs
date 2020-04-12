@@ -13,13 +13,16 @@ public class HeartView : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void Disappear()
+    public void Disappear(bool withVfx = true)
     {
         animator.SetBool(Visible, false);
-        Instantiate(vfx, transform);
+        if(withVfx)
+            Instantiate(vfx, transform);
     }
-    public void Appear()
+    public void Appear(bool withVfx = true)
     {
         animator.SetBool(Visible, true);
+        if(withVfx)
+            Instantiate(vfx, transform);
     }
 }
