@@ -6,7 +6,7 @@ namespace Abu.Tools
 {
     public class SelfDestroy : MonoBehaviour
     {
-        [SerializeField] private float destroyTime = 2;
+        [SerializeField] public float destroyTime = 2;
 
         void Start()
         {
