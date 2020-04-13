@@ -33,10 +33,6 @@ namespace ScreensScripts
             Instance = this;
         }
 
-        private void Start()
-        {
-           // Screen.fullScreen = true;
-        }
 
         void PlayLevel(LevelConfig _Config)
         {
