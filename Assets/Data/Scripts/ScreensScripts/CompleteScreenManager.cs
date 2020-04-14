@@ -10,9 +10,7 @@ public class CompleteScreenManager : ManagerView
 
     [SerializeField] private FlatFXState startCompleteState;
     [SerializeField] private FlatFXState endCompleteState;
-
-    [SerializeField] private AudioClip TaDa;
-
+    
     private void Start()
     {
         CompleteScreen.SetActive(false);
@@ -33,11 +31,7 @@ public class CompleteScreenManager : ManagerView
         
         VFXManager.Instance.CallConfettiEffect();
         VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.GetPlayer().transform.position, startCompleteState, endCompleteState);
-
-        AudioSource tadaSound = gameObject.AddComponent<AudioSource>();
-        tadaSound.PlayOneShot(TaDa);
-        
-        
+        VFXManager.Instance.CallWinningSound();
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)

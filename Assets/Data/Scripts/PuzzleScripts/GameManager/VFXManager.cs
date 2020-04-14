@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Puzzle
 {
     public class VFXManager : MonoBehaviour
     {
-        [SerializeField] private Transform[] confettiHolders;
- 
         public static VFXManager Instance;
-        private FlatFX m_FlatFx;
 
-        private Coroutine LevelCompleteRoutine;
-        private GameObject _confettiVfx;
+        private Transform[] m_ConfettiHolders = new Transform[5];
+        private FlatFX m_FlatFx;
+        private Coroutine m_LevelCompleteRoutine;
+        private GameObject m_ConfettiVfx;
+        private GameObject m_TadaSFX;
 
         public FlatFX FlatFx => m_FlatFx;
 
@@ -22,72 +23,117 @@ namespace Puzzle
         {
             Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
-            _confettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
+            m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
+            m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
             SetConfettiHoldersPositions();
+            
         }
         
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
         {
             int effectNumber = FlatFXType.SunRays.GetHashCode();
-            LevelCompleteRoutine = StartCoroutine(LevelCompleteSunshineEffectRoutine(position, effectNumber, startState, endState));
+            m_LevelCompleteRoutine = StartCoroutine(LevelCompleteSunshineEffectRoutine(position, effectNumber, startState, endState));
         }
 
         public void StopLevelCompleteSunshineEffect()
         {
-            StopCoroutine(LevelCompleteRoutine);    
+            StopCoroutine(m_LevelCompleteRoutine);    
+        }
+
+        public void CallConfettiEffect()
+        {
+            foreach (Transform confettiHolder in m_ConfettiHolders)
+            {
+                if (m_ConfettiVfx != null)
+                    Instantiate(m_ConfettiVfx, confettiHolder);
+            }
+        }
+
+        public void CallWinningSound()
+        {
+            Instantiate(m_TadaSFX);
+        }
+
+        private void SetConfettiHoldersPositions()
+        {
+            for(int i = 0; i < 5; i++)
+                m_ConfettiHolders[i] = new GameObject("ConfettiHolder_" + i).transform;
+            
+            foreach (Transform confettiHolder in m_ConfettiHolders)
+                confettiHolder.parent = Camera.main.transform;
+
+            Vector2 camSize = ScreenScaler.CameraSize;
+
+            m_ConfettiHolders[0].position = new Vector3(0, -camSize.y/2, 3);
+            m_ConfettiHolders[0].gameObject.SetActive(false);
+            m_ConfettiHolders[1].position = new Vector3(-camSize.x/2, -camSize.y/2, 3);
+            m_ConfettiHolders[2].position = new Vector3(camSize.x/2, -camSize.y/2, 3);
+            m_ConfettiHolders[3].position = new Vector3(-camSize.x/2, camSize.y/2, 3);
+            m_ConfettiHolders[4].position = new Vector3(camSize.x/2, camSize.y/2, 3);
+            
+            foreach (Transform confettiHolder in m_ConfettiHolders)
+                confettiHolder.LookAt(new Vector3(0, 0, 0));
+            
         }
         
         IEnumerator LevelCompleteSunshineEffectRoutine(Vector2 position, int effectNumber, FlatFXState start, FlatFXState end)
         {
             while (true)
             {
-                FlatFx.settings[effectNumber].lifetime = 5.0f;
+                FlatFx.settings[effectNumber].lifetime = 3.0f;
                 FlatFx.settings[effectNumber].sectorCount = 20;
-                
-                FlatFx.settings[effectNumber].start.size = start.size;
-                FlatFx.settings[effectNumber].end.size = end.size;
-                
-                FlatFx.settings[effectNumber].start.thickness = start.size;
-                FlatFx.settings[effectNumber].end.thickness = end.size;
-                
-                FlatFx.settings[effectNumber].start.innerColor = start.innerColor;
-                FlatFx.settings[effectNumber].start.outerColor = start.outerColor;
-                
-                FlatFx.settings[effectNumber].end.innerColor = end.innerColor;
-                FlatFx.settings[effectNumber].end.outerColor = end.outerColor;
-                
+
+                if (start != null && end != null)
+                {
+                    FlatFx.settings[effectNumber].start.size = start.size;
+                    FlatFx.settings[effectNumber].end.size = end.size;
+
+                    FlatFx.settings[effectNumber].start.thickness = start.size;
+                    FlatFx.settings[effectNumber].end.thickness = end.size;
+
+                    FlatFx.settings[effectNumber].start.innerColor = start.innerColor;
+                    FlatFx.settings[effectNumber].start.outerColor = start.outerColor;
+
+                    FlatFx.settings[effectNumber].end.innerColor = end.innerColor;
+                    FlatFx.settings[effectNumber].end.outerColor = end.outerColor;
+                }
+
 
                 FlatFx.AddEffect(position, effectNumber);
                 yield return new WaitForSeconds(2.5f);
             }
-        }
-
+        } 
+        
+        //Editor
+#if UNITY_EDITOR
+        
         [ContextMenu("Confetti")]
-        public void CallConfettiEffect()
+        public void EditorCallConfettiEffect()
         {
-            foreach (Transform confettiHolder in confettiHolders)
-            {
-                if (_confettiVfx != null)
-                    Instantiate(_confettiVfx, confettiHolder);
-            }
+            if (Application.IsPlaying(this))
+                CallConfettiEffect();
         }
 
-        private void SetConfettiHoldersPositions()
+        [ContextMenu("CompleteSunshineStart")]
+        public void EditorCallSunshineStart()
         {
-            foreach (Transform confettiHolder in confettiHolders)
-                confettiHolder.parent = Camera.main.transform;
-
-            Vector2 camSize = ScreenScaler.CameraSize;
-
-            confettiHolders[0].position = new Vector3(0, -camSize.y/2, 0);
-            confettiHolders[1].position = new Vector3(-camSize.x/2, -camSize.y/2, 0);
-            confettiHolders[2].position = new Vector3(camSize.x/2, -camSize.y/2, 0);
-            confettiHolders[3].position = new Vector3(-camSize.x/2, camSize.y/2, 0);
-            confettiHolders[4].position = new Vector3(camSize.x/2, camSize.y/2, 0);
-            
-            foreach (Transform confettiHolder in confettiHolders)
-                confettiHolder.LookAt(Camera.main.transform);
-            
+            if(Application.IsPlaying(this))
+                CallLevelCompleteSunshineEffect(new Vector2(0, 0));
         }
+
+        [ContextMenu("CompleteSunshineStop")]
+        public void EditorEndCompleteSunshine()
+        {
+            if(Application.IsPlaying(this))
+                StopLevelCompleteSunshineEffect();
+        }
+        
+        [ContextMenu("CallWinningSound")]
+        public void EditorCallWinningSound()
+        {
+            if(Application.IsPlaying(this))
+                CallWinningSound();
+        }    
+#endif
     }
 }
