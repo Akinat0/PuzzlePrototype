@@ -22,7 +22,7 @@ public class HeartsHealthManager : HealthManagerBase
         HeartView heart = hearts[Hp];
         
         if(heart!=null)
-            heart.Disappear();
+            heart.Hide();
         else
             Debug.LogError($"Heart {Hp} is null");
         
@@ -36,6 +36,13 @@ public class HeartsHealthManager : HealthManagerBase
         
         Hp = hearts.Length - 1;
         foreach (var heart in hearts)
-            heart.Appear();
+            heart.Show();
+    }
+
+    protected override void LevelCompletedEvent_Handler()
+    {
+        base.LevelCompletedEvent_Handler();
+        foreach (HeartView heart in hearts)
+            heart.Hide();
     }
 }
