@@ -40,6 +40,11 @@ namespace Puzzle
             StopCoroutine(m_LevelCompleteRoutine);    
         }
 
+        public void CallCrosslightEffect(Vector2 position)
+        {
+            FlatFx.AddEffect(position, FlatFXType.Crosslight.GetHashCode());
+        }
+        
         public void CallConfettiEffect()
         {
             foreach (Transform confettiHolder in m_ConfettiHolders)
@@ -118,7 +123,7 @@ namespace Puzzle
         public void EditorCallSunshineStart()
         {
             if(Application.IsPlaying(this))
-                CallLevelCompleteSunshineEffect(new Vector2(0, 0));
+                CallLevelCompleteSunshineEffect(Vector2.zero);
         }
 
         [ContextMenu("CompleteSunshineStop")]
@@ -134,6 +139,13 @@ namespace Puzzle
             if(Application.IsPlaying(this))
                 CallWinningSound();
         }    
+        
+        [ContextMenu("CallCrosslight")]
+        public void EditorCallCrosslightEffect()
+        {
+            if(Application.IsPlaying(this))
+                CallCrosslightEffect(Vector2.zero);
+        }
 #endif
     }
 }
