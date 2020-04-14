@@ -7,19 +7,15 @@ public class CompleteScreenManager : ManagerView
 {
     [SerializeField] private GameObject CompleteScreen;
     [SerializeField] private Button menuButton;
-    [SerializeField] private Transform[] confettiHolders;
 
     [SerializeField] private FlatFXState startCompleteState;
     [SerializeField] private FlatFXState endCompleteState;
 
     [SerializeField] private AudioClip TaDa;
-    private GameObject _confettiVfx;
-    private Coroutine _completeEffectRoutine;
 
     private void Start()
     {
         CompleteScreen.SetActive(false);
-        _confettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
     }
 
     public void ToMenu()
@@ -28,20 +24,15 @@ public class CompleteScreenManager : ManagerView
         GameSceneManager.Instance.InvokeLevelClosed();
         CompleteScreen.SetActive(false);
 
-        VFXManager.StopLevelCompleteEffect();
+        VFXManager.Instance.StopLevelCompleteSunshineEffect();
     }
 
     public void CreateReplyScreen()
     {
         CompleteScreen.SetActive(true);
-
-        foreach (Transform confettiHolder in confettiHolders)
-        {
-            if (_confettiVfx != null)
-                Instantiate(_confettiVfx, confettiHolder);
-        }
         
-        VFXManager.CallLevelCompleteEffect(GameSceneManager.Instance.GetPlayer().transform.position, startCompleteState, endCompleteState);
+        VFXManager.Instance.CallConfettiEffect();
+        VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.GetPlayer().transform.position, startCompleteState, endCompleteState);
 
         AudioSource tadaSound = gameObject.AddComponent<AudioSource>();
         tadaSound.PlayOneShot(TaDa);

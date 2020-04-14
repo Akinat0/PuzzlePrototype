@@ -1,37 +1,43 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Abu.Tools;
 using UnityEngine;
 
 namespace Puzzle
 {
     public class VFXManager : MonoBehaviour
     {
-        private static VFXManager instance;
+        [SerializeField] private Transform[] confettiHolders;
+ 
+        public static VFXManager Instance;
         private FlatFX m_FlatFx;
 
         private Coroutine LevelCompleteRoutine;
-        
-        public static FlatFX FlatFx => instance.m_FlatFx;
+        private GameObject _confettiVfx;
+
+        public FlatFX FlatFx => m_FlatFx;
 
         private void Awake()
         {
+            Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
-            instance = this;
-        }
-
-        public static void CallLevelCompleteEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
-        {
-            int effectNumber = FlatFXType.SunRays.GetHashCode();
-            instance.LevelCompleteRoutine = instance.StartCoroutine(LevelCompleteEffectRoutine(position, effectNumber, startState, endState));
-        }
-
-        public static void StopLevelCompleteEffect()
-        {
-            instance.StopCoroutine(instance.LevelCompleteRoutine);    
+            _confettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
+            SetConfettiHoldersPositions();
         }
         
-        static IEnumerator LevelCompleteEffectRoutine(Vector2 position, int effectNumber, FlatFXState start, FlatFXState end)
+        public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
+        {
+            int effectNumber = FlatFXType.SunRays.GetHashCode();
+            LevelCompleteRoutine = StartCoroutine(LevelCompleteSunshineEffectRoutine(position, effectNumber, startState, endState));
+        }
+
+        public void StopLevelCompleteSunshineEffect()
+        {
+            StopCoroutine(LevelCompleteRoutine);    
+        }
+        
+        IEnumerator LevelCompleteSunshineEffectRoutine(Vector2 position, int effectNumber, FlatFXState start, FlatFXState end)
         {
             while (true)
             {
@@ -55,6 +61,33 @@ namespace Puzzle
                 yield return new WaitForSeconds(2.5f);
             }
         }
-        
+
+        [ContextMenu("Confetti")]
+        public void CallConfettiEffect()
+        {
+            foreach (Transform confettiHolder in confettiHolders)
+            {
+                if (_confettiVfx != null)
+                    Instantiate(_confettiVfx, confettiHolder);
+            }
+        }
+
+        private void SetConfettiHoldersPositions()
+        {
+            foreach (Transform confettiHolder in confettiHolders)
+                confettiHolder.parent = Camera.main.transform;
+
+            Vector2 camSize = ScreenScaler.CameraSize;
+
+            confettiHolders[0].position = new Vector3(0, -camSize.y/2, 0);
+            confettiHolders[1].position = new Vector3(-camSize.x/2, -camSize.y/2, 0);
+            confettiHolders[2].position = new Vector3(camSize.x/2, -camSize.y/2, 0);
+            confettiHolders[3].position = new Vector3(-camSize.x/2, camSize.y/2, 0);
+            confettiHolders[4].position = new Vector3(camSize.x/2, camSize.y/2, 0);
+            
+            foreach (Transform confettiHolder in confettiHolders)
+                confettiHolder.LookAt(Camera.main.transform);
+            
+        }
     }
 }
