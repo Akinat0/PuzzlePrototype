@@ -51,7 +51,7 @@ namespace ScreensScripts
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameSceneLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, backgroundContainer, gameObject, _levelConfig.ColorScheme); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, backgroundContainer, gameObject, _levelConfig); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
         }
 

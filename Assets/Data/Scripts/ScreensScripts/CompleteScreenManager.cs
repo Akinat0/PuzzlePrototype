@@ -1,3 +1,4 @@
+using System.Collections;
 using Puzzle;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -38,5 +39,5 @@ public class CompleteScreenManager : ManagerView
     {
         levelColorScheme.SetButtonColor(menuButton);
     }
-    
+
 }
