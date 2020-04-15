@@ -33,7 +33,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NeonBackgroundSkyIdle
+  m_Name: NeonPartyBackgroundWoman
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8c464e49b1045458b9cb10463687e26b, type: 2}
+  m_Motion: {fileID: 7400000, guid: 764292c5e8f9042be8c81cb42e968d11, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -59,7 +59,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sky Layer
+  m_Name: Woman Layer
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -1775258335877346689}
@@ -97,7 +97,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Sky Layer
+    m_Name: Woman Layer
     m_StateMachine: {fileID: -685077987068709283}
     m_Mask: {fileID: 0}
     m_Motions: []
