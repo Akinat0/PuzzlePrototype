@@ -37,13 +37,12 @@ namespace PuzzleScripts
             Move();
         }
         public EnemyType Type => type;
-
+        
         public int Damage
         {
             get { return _damage; }
             set { _damage = value;}
         }
-
         public virtual void OnHitPlayer(Player player)
         {
             player.DealDamage(Damage);
@@ -110,6 +109,11 @@ namespace PuzzleScripts
             }
         }
     
+        public virtual void SetCoinHolder(int CostOfEnemy)
+        {
+            gameObject.AddComponent<CoinHolder>().SetupCoinHolder(CostOfEnemy);
+        }
+        
         private void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;

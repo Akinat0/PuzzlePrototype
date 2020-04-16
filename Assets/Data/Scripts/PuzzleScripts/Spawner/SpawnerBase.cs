@@ -21,7 +21,7 @@ namespace Puzzle
         [Header("Enemy params")]
         [SerializeField] protected GameObject[] enemyPrefab;
         
-        [Tooltip("The percent which player's pazzle will take on the any screen")]
+        [Tooltip("The percent which player's puzzle will take on the any screen")]
         [SerializeField] protected float partOfThePLayerOnTheScreen = 0.25f;
         [SerializeField] protected GameObject background;
 
@@ -72,18 +72,14 @@ namespace Puzzle
         {
             GameObject prefabToInstantiate = 
                 enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
-            GameObject enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
-            enemy.GetComponent<IEnemy>().Instantiate(@params);
+            GameObject enemyGameObject = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
+            IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();
+            enemy.Instantiate(@params);
 
             if (Random.Range(0.0f, 1.0f) < coinProbability)
-                SetCoinHolder(enemy);
-
-            return enemy.GetComponent<IEnemy>() as EnemyBase;
-        }
-        
-        private void SetCoinHolder(GameObject holder)
-        {
-            holder.AddComponent<CoinHolder>().SetupCoinHolder(CostOfEnemy);
+                enemy.SetCoinHolder(1);
+            
+            return enemyGameObject.GetComponent<IEnemy>() as EnemyBase;
         }
 
         protected virtual void OnEnable()

@@ -13,5 +13,6 @@ namespace Puzzle
         void Instantiate(EnemyParams @params);
         int Damage { get; set; }
 
+        void SetCoinHolder(int CostOfEnemy);
     }
 }
