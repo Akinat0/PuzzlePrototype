@@ -33,7 +33,6 @@ namespace ScreensScripts
             Instance = this;
         }
 
-
         void PlayLevel(LevelConfig _Config)
         {
             if (asyncLoader.gameObject != null && _Config != null && !string.IsNullOrEmpty(_Config.SceneID))

@@ -8,6 +8,8 @@ public class NeonParatyEnemy : PuzzleEnemy
     {
         base.Instantiate(@params);
         GetComponent<SkinContainer>().Skin = @params.stickOut ? 0 : 1;
-        GetComponent<SpriteRenderer>().flipY = @params.side == Side.Right;
+        
+        if(@params.side == Side.Right)
+            transform.Rotate(new Vector3(180, 0, 0));
     }
 }
