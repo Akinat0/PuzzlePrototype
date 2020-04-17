@@ -1,6 +1,4 @@
-﻿using System;
-using Puzzle;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HeartsHealthManager : HealthManagerBase
 {

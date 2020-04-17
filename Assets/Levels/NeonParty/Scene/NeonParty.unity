@@ -985,8 +985,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textPlaceholder: {fileID: 1262870498}
-  _timeUntilStartFade: 1
-  _fadeTime: 1
   _textOfNotification: 'Attempt #'
 --- !u!114 &789215866
 MonoBehaviour:
@@ -1647,7 +1645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

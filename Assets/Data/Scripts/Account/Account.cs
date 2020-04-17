@@ -19,6 +19,7 @@ public class Account : MonoBehaviour
 
     #region Wallet
 
+    public static int Coins => instance.WalletManager.Coins;
     public static void AddCoins(int amount)
     {
         instance.WalletManager.AddCoins(amount);
@@ -30,6 +31,7 @@ public class Account : MonoBehaviour
         Debug.Log($"[Account] BalanceChangedEvent invoked. New balance is {balance}.");
         BalanceChangedEvent?.Invoke(balance);
     }
+    
     #endregion
 
     #region Collection
