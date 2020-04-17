@@ -2,7 +2,7 @@
 using PuzzleScripts;
 using UnityEngine;
 
-public class NeonParatyEnemy : PuzzleEnemy
+public class NeonPartyPuzzleEnemy : PuzzleEnemy
 {
     public override void Instantiate(EnemyParams @params)
     {

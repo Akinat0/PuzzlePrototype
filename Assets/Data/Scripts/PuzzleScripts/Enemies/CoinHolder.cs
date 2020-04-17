@@ -7,21 +7,31 @@ using UnityEngine.Rendering;
 public class CoinHolder : MonoBehaviour
 {
     private int coins = 0;
-    private GameObject particles;
-    private GameObject sparkls;
-    private GameObject shine;
-    private SpriteMask mask;
+    protected GameObject particles;
+    protected GameObject sparkls;
+    protected GameObject shine;
+    protected SpriteMask mask;
     public int Coins => coins;
     
     void Start()
     {
+        CreateEffects();
+    }
+
+    public void SetupCoinHolder(int amount)
+    {
+        coins = amount;
+    }
+
+    protected virtual void CreateEffects()
+    {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        //spriteRenderer.material = Resources.Load<Material>("Materials/CoinHolderMaterial");
         
         particles = Instantiate(Resources.Load<GameObject>("Prefabs/CoinParticles"),
             transform.position,
             transform.rotation,
             GameSceneManager.Instance.GameSceneRoot);
+        
         particles.transform.localScale = transform.localScale;
         particles.AddComponent<FollowerComponent>().Target = transform;
 
@@ -30,11 +40,6 @@ public class CoinHolder : MonoBehaviour
         
         sparkls = Instantiate(Resources.Load<GameObject>("Prefabs/CoinSparkly"), transform);
         shine = Instantiate(Resources.Load<GameObject>("Prefabs/CoinShine"), transform);
-    }
-
-    public void SetupCoinHolder(int amount)
-    {
-        coins = amount;
     }
     
     private void OnDestroy()
