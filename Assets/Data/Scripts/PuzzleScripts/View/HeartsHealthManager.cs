@@ -1,4 +1,5 @@
-﻿using Puzzle;
+﻿using System;
+using Puzzle;
 using UnityEngine;
 
 public class HeartsHealthManager : HealthManagerBase
@@ -12,6 +13,9 @@ public class HeartsHealthManager : HealthManagerBase
     private void Start()
     { 
         Hp = hearts.Length - 1;
+        
+        foreach (HeartView heart in hearts)
+            heart.gameObject.SetActive(false);
     }
 
     protected override void LoseHeart(int _Hp)
@@ -29,8 +33,11 @@ public class HeartsHealthManager : HealthManagerBase
         Hp--;
     }
 
-    protected override void Reset()
+    protected override void ResetHealth()
     {
+        foreach (HeartView heart in hearts)
+            heart.gameObject.SetActive(true);
+        
         if(heartsAnimator != null)
             heartsAnimator.SetTrigger(AnimationReset);
         
@@ -45,4 +52,5 @@ public class HeartsHealthManager : HealthManagerBase
         foreach (HeartView heart in hearts)
             heart.Hide();
     }
+
 }
