@@ -1,6 +1,4 @@
-using System.Collections;
 using Puzzle;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
