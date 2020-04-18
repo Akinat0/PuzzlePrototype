@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 4396439755969541168}
   - component: {fileID: 8015675962621134005}
   - component: {fileID: 7981331649366452584}
+  - component: {fileID: 5103431488091864233}
   m_Layer: 0
   m_Name: NeonPartyRoot
   m_TagString: Untagged
@@ -377,6 +378,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5103431488091864233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396439755969541175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnCoins: 1
+  coinProbability: 0.2
+  costOfEnemy: 1
+  enemyPrefab:
+  - {fileID: 8385284075992252128, guid: ab2e51e505f984131a1da584fb06e7fd, type: 3}
+  - {fileID: 5592148314577438307, guid: a0fd2a2d203264c76a604a31695c340f, type: 3}
+  - {fileID: 5592148314577438307, guid: 515a4486cb9753a4d955286b3a348866, type: 3}
+  partOfThePLayerOnTheScreen: 0.25
 --- !u!1 &8445521676467371751
 GameObject:
   m_ObjectHideFlags: 0

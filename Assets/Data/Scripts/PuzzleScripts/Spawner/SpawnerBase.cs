@@ -23,7 +23,6 @@ namespace Puzzle
         
         [Tooltip("The percent which player's puzzle will take on the any screen")]
         [SerializeField] protected float partOfThePLayerOnTheScreen = 0.25f;
-        [SerializeField] protected GameObject background;
 
         private GameObject m_PlayerEntity;
         private PlayerView m_PlayerView;
