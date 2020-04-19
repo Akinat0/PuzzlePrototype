@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine.Timeline;
 
-[Serializable]
+
+[CustomStyle("BpmMarker"),Serializable]
 public class BpmMarker : Marker
 {
 

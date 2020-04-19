@@ -7,7 +7,7 @@ namespace Puzzle
     {
         [HideInInspector] public Side side;
         [HideInInspector] public bool stickOut;
-        
+
         public override void OnHitPlayer(Player player)
         {
             if (player.sides[side.GetHashCode()] != stickOut) //Sides shouldn't be equal
@@ -25,6 +25,6 @@ namespace Puzzle
             stickOut = @params.stickOut;
             base.Instantiate(@params);
         }
-        
+
     }
 }

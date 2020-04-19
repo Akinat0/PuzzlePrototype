@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class CoinSceneManager : ManagerView
 {
-
     [SerializeField] private Text coinText;
 
     private void Start()
     {
+        coinText.text = Account.Coins.ToString();
         Color textColor = coinText.color;
-        textColor.a = 0;
         coinText.color = textColor;
     }
 
@@ -19,12 +18,14 @@ public class CoinSceneManager : ManagerView
     {
         base.OnEnable();
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
+        GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
+        GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
@@ -35,10 +36,15 @@ public class CoinSceneManager : ManagerView
     private void BalanceChangedEvent_Handler(int balance)
     {
         coinText.text = balance.ToString();
-        
-        coinText.DOKill();
-        var fadeOutTween = coinText.DOFade(1.0f, 1.0f);
-        fadeOutTween.onComplete += () => coinText.DOFade(0.0f, 1.0f);
+        ShowShort(coinText);
+    }
+    
+    void PauseLevelEvent_Handler(bool pause)
+    {
+        if (pause)
+            ShowInstant(coinText);
+        else
+            HideLong(coinText);
     }
     
 }

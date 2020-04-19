@@ -1,26 +1,29 @@
-﻿using UnityEngine.UI;
+﻿using DG.Tweening;
+using UnityEngine.UI;
 using UnityEngine;
 
 namespace Puzzle
 {
     public class ScoreManager : ManagerView
     {
-
         private int _score = 0;
         private Text _scoreText;
 
-        void Start()
+        public string Score => $"Score: {_score}";
+
+        void Awake()
         {
             _scoreText = GetComponent<Text>();
-            AddScore(0);
+            _scoreText.text = Score;
         }
 
         void AddScore(int score)
         {
             _score += score;
-            _scoreText.text = "Score: " + _score;
+            _scoreText.text = Score;
+            ShowShort(_scoreText);
         }
-
+        
         void SaveScore()
         {
             PlayerPrefs.SetInt("score", _score);
@@ -32,6 +35,7 @@ namespace Puzzle
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent += PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
+            GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         }
 
         protected override void OnDisable()
@@ -40,12 +44,12 @@ namespace Puzzle
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
+            GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         }
         
         void ResetLevelEvent_Handler()
         {
             _score = 0;
-            AddScore(_score);
         }
 
         void PlayerDiedEvent_Handler()
@@ -56,6 +60,14 @@ namespace Puzzle
         void EnemyDiedEvent_Handler(int score)
         {
             AddScore(score);
+        }
+
+        void PauseLevelEvent_Handler(bool pause)
+        {
+            if (pause)
+                ShowInstant(_scoreText);
+            else
+                HideLong(_scoreText);
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
