@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class InfinityGameSceneManager : GameSceneManager
 {
-    public static event Action<float> ChangeDifficultyInfinitySpawner;
-    public static event Action ChangeLevel;
+    [SerializeField] private Transform patternContainer;
+    public static event Action<float> ChangeDifficultyInfinitySpawnerEvent;
+    public static event Action ChangeSoundEvent;
+    public static event Action ChangePatternEvent;
+    public static event Action<float> ChangeEnemySpeedEvent;
+    public static event Action<float> ChangePatternTimeLineSpeedEvent;
         
     //////////////////
     //Event Invokers//
@@ -13,11 +17,26 @@ public class InfinityGameSceneManager : GameSceneManager
 
     public void InvokeChangeDifficultyInfinitySpawner(float speed)
     {
-        ChangeDifficultyInfinitySpawner?.Invoke(speed);
+        ChangeDifficultyInfinitySpawnerEvent?.Invoke(speed);
     }
 
-    public void InvokeChangeLevel()
+    public void InvokeChangeTimeLine()
     {
-        ChangeLevel?.Invoke();
+        ChangeSoundEvent?.Invoke();
+    }
+
+    public void InvokeChangePattern()
+    {
+        ChangePatternEvent?.Invoke();
+    }
+
+    public void InvokeChangeEnemySpeed(float enemySpeed)
+    {
+        ChangeEnemySpeedEvent?.Invoke(enemySpeed);
+    }
+
+    public void InvokeChangePatternTimeLineSpeed(float timeLineSpeed)
+    {
+        ChangePatternTimeLineSpeedEvent?.Invoke(timeLineSpeed);
     }
 }

@@ -6,158 +6,76 @@ using Random = UnityEngine.Random;
 
 public class InfiniteSpawner : SpawnerBase
 {
-    [SerializeField] private float spawnTimestep = 1;
-
+    private float _difficulty;
     private float _enemySpeed;
-    public bool _spawn = false;
-
-    private readonly float SPEED_FACTOR = 2;
-    private readonly float TIME_SPAWN_FACTOR = 7;
-
-    private float _timeFromStart = 0;
-    private float _spawnTimer = 0;
-
-    private float _difficulty = 0;
+    private float _patternTimeLineSpeed;
 
     private void Start()
     {
-        _enemySpeed = 0;
+        _enemySpeed = 4;
+        _patternTimeLineSpeed = 1;
+        _difficulty = 5;
     }
 
-    private void Update()
+    private void ChangeEnemySpeed(float diif)
     {
-        if (!_spawn)
-            return;
-
-        if (_enemySpeed <= 0)
-            return;
-
-        //Update Timers
-        _spawnTimer += Time.deltaTime;
-        _timeFromStart += Time.deltaTime;
-
-
-        if (_spawnTimer >= spawnTimestep)
-        {
-            EnemyParams enemyParams = new EnemyParams { };
-            
-            enemyParams.enemyType = EnemyType.Puzzle;
-            enemyParams.speed = _enemySpeed;
-            enemyParams.stickOut = Random.value > 0.5f;
-            enemyParams.side = chooseEnemySide();
-
-            CreateEnemy(enemyParams);
-
-            _spawnTimer = 0;
-        }
-    }
-
-    private Side chooseEnemySide()
-    {
-        if (Random.value * 20 < _difficulty)
-            return (Side) (Random.value > 0.5f ? 1 : 3);
-        else
-            return (Side) Random.Range(0, 4);
-    }
-
-    private void ChangeSpeed(float diif)
-    {
-        _enemySpeed += diif / SPEED_FACTOR;
+        _enemySpeed += diif / (_difficulty / 2);
         Debug.Log("<color=#00FFCC>" + "Change speed: " + _enemySpeed + "</color>");
     }
 
-    private void ChangeTimeStemp(float diff)
+    private void ChangePatternTimeLineSpeed(float diff)
     {
-        spawnTimestep -= diff / TIME_SPAWN_FACTOR;
-        Debug.Log("<color=#00FFCC>" + "Change spawnTimestep: " + spawnTimestep + "</color>");
+        _patternTimeLineSpeed += diff / _difficulty / 5;
+        Debug.Log("<color=#00FFCC>" + "Change spawnTimestep: " + _patternTimeLineSpeed + "</color>");
     }
 
     protected override void OnEnable()
     {
+        GameSceneManager.CreateEnemyEvent += CreateEnemyEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
-        InfinityGameSceneManager.ChangeDifficultyInfinitySpawner += ChangeDifficultyInfinitySpawner_Handler;
-        InfinityGameSceneManager.ChangeLevel += ChangeChangeLevel_Handler;
+        InfinityGameSceneManager.ChangeDifficultyInfinitySpawnerEvent += ChangeDifficultyInfinitySpawner_Handler;
+        InfinityGameSceneManager.ChangeSoundEvent += ChangeSound_Handler;
         base.OnEnable();
     }
 
     protected override void OnDisable()
     {
+        GameSceneManager.CreateEnemyEvent -= CreateEnemyEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
-        InfinityGameSceneManager.ChangeDifficultyInfinitySpawner -= ChangeDifficultyInfinitySpawner_Handler;
-        InfinityGameSceneManager.ChangeLevel -= ChangeChangeLevel_Handler;
+        InfinityGameSceneManager.ChangeDifficultyInfinitySpawnerEvent -= ChangeDifficultyInfinitySpawner_Handler;
+        InfinityGameSceneManager.ChangeSoundEvent -= ChangeSound_Handler;
         base.OnDisable();
+    }
+
+    void CreateEnemyEvent_Handler(EnemyParams @params)
+    {
+        CreateEnemy(@params);
     }
 
     void ResetLevelEvent_Handler()
     {
-        _enemySpeed = 0;
-        _timeFromStart = 0;
-        _spawnTimer = 0;
-    }
-
-    void PauseLevelEvent_Handler(bool pause)
-    {
-        _spawn = !pause;
     }
 
     void ChangeDifficultyInfinitySpawner_Handler(float diff)
     {
-        if (_enemySpeed == 0)
+        _difficulty += diff;
+        if (GameSceneManager.Instance is InfinityGameSceneManager instance)
         {
-            ChangeSpeed(diff * SPEED_FACTOR);
-        }
-        else
-        {
-            //Condition ending spawn
-            if (diff == -100)
+            if (Random.value >= 0.5)
             {
-                //Set speed = 0
-                ChangeTimeStemp(-_enemySpeed * SPEED_FACTOR);
-                return;
-            }
-            
-            if (Random.value > 0.6f)
-            {
-                if (_enemySpeed + (diff) < 3)
-                {
-                    _enemySpeed = 3;
-                    ChangeTimeStemp(diff);
-                }
-                else if (_enemySpeed + (diff) > 8)
-                {
-                    _enemySpeed = 8;
-                    ChangeTimeStemp(diff);
-                }
-                else
-                    ChangeSpeed(diff);
+                ChangeEnemySpeed(diff);
+                instance.InvokeChangeEnemySpeed(_enemySpeed);
             }
             else
             {
-                if (spawnTimestep - (diff / TIME_SPAWN_FACTOR) < 0.5f)
-                {
-                    spawnTimestep = 0.5f;
-                    ChangeSpeed(diff);
-                }
-                else if (spawnTimestep - (diff / TIME_SPAWN_FACTOR) > 2f)
-                {
-                    spawnTimestep = 2f;
-                    ChangeSpeed(diff);
-                }
-                else
-                    ChangeTimeStemp(diff);
+                ChangePatternTimeLineSpeed(diff);
+                instance.InvokeChangePatternTimeLineSpeed(_patternTimeLineSpeed);
             }
         }
-        _difficulty += diff;
-        Debug.Log("<color=#FFFF00>" + "Change difficulty: " + _difficulty + "</color>");
+
     }
 
-    void ChangeChangeLevel_Handler()
+    void ChangeSound_Handler()
     {
-        _enemySpeed = 0;
-        _timeFromStart = 0;
-        _spawnTimer = 0;
-        spawnTimestep = 1;
     }
 }
