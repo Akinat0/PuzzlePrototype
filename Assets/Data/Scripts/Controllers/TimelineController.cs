@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class Controller : MonoBehaviour
+public class TimelineController : MonoBehaviour
 {
     [Space, SerializeField, Tooltip("The Scriptable object with items")]
     protected PlayableAsset[] playableAssets;

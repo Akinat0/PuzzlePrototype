@@ -1,5 +1,5 @@
 ﻿
-public class InfinitySondTimeLineController : Controller
+public class InfinitySondTimeLineTimelineController : TimelineController
 {
     private void OnEnable()
     {

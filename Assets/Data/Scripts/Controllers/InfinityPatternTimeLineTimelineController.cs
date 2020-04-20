@@ -1,5 +1,5 @@
 ﻿
-public class InfinityPatternTimeLineController : Controller
+public class InfinityPatternTimeLineTimelineController : TimelineController
 {
     private void OnEnable()
     {
