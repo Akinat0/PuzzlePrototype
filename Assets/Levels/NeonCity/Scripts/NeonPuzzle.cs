@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Puzzle;
+﻿using Puzzle;
 using PuzzleScripts;
 using UnityEngine;
 

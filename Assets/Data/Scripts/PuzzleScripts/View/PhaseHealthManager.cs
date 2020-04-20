@@ -11,7 +11,7 @@ public class PhaseHealthManager : HealthManagerBase
             _damagableView.SetSkinsPhase(_Hp - 1);
     }
 
-    protected override void Reset()
+    protected override void ResetHealth()
     {
         if (_damagableView != null)
             _damagableView.SetSkinsPhase(Player.DEFAULT_HP - 1);    

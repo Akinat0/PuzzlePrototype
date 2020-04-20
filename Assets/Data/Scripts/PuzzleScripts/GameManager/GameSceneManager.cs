@@ -28,11 +28,12 @@ namespace Puzzle{
         [SerializeField] private Transform gameSceneRoot;
 
         public Transform GameSceneRoot => gameSceneRoot;
+        public LevelConfig LevelConfig => _levelConfig;
 
         private Player _player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
-        
+        private LevelConfig _levelConfig;
         void Awake()
     {
         Instance = this;
@@ -43,7 +44,7 @@ namespace Puzzle{
         _gameCameraAnimator.SetTrigger(Shake);
     }
     
-    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelColorScheme colorScheme)
+    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
     {
         this._player = _player.AddComponent<Player>();
         _player.AddComponent<PlayerInput>();
@@ -58,13 +59,13 @@ namespace Puzzle{
             Debug.LogError("Camera is null");
         }
 
-        SoundManager.Instance.LevelThemeClip = theme;
+        //SoundManager.Instance.LevelThemeClip = theme;
 
-        if (colorScheme != null)
-        {
-            InvokeSetupLevel(colorScheme);
-        }
+        _levelConfig = config;
         
+        if (config.ColorScheme != null)
+            InvokeSetupLevel(config.ColorScheme);
+
         // TODO  actions with background and gameRoot
         InvokeResetLevel();
     }
@@ -168,10 +169,11 @@ namespace Puzzle{
 
     public void InvokeLevelCompleted()
     {
-        InvokePauseLevel(true); 
         Debug.Log("LevelComplete Invoked");
         LevelCompletedEvent?.Invoke();
         CallCompleteMenu();
     }
+    
+    
 }
 }

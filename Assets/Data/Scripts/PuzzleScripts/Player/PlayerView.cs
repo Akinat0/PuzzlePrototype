@@ -18,6 +18,8 @@ public class PlayerView : MonoBehaviour
     
     private static readonly int Damaged = Animator.StringToHash("Damaged");
 
+    public Transform[] TRBLPositions => TRBL_positions;
+
     protected virtual void Start()
     {
         _animator = GetComponent<Animator>();

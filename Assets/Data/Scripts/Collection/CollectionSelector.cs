@@ -7,15 +7,19 @@ using UnityEngine.UI;
 
 public class CollectionSelector : SelectorBase
 {
-    [SerializeField] private CollectionItem[] Selection;
     [SerializeField] private Transform LevelPlayerRoot;
     [SerializeField] private Transform ItemContainer;
     [SerializeField] private RectTransform Content;
+    
+    private CollectionItem[] Selection;
+    
+
     protected override int Length => Selection.Length;
     
     protected override void Start()
     {
-        base.Start();
+        ItemNumber = Account.CollectionDefaultItemId;
+        Selection = Account.CollectionItems;
         HideCollection();
     }
     
@@ -90,6 +94,7 @@ public class CollectionSelector : SelectorBase
 
     public void OnChoose()
     {
+        Account.CollectionDefaultItemId = ItemNumber;
         ChoosePlayer(SelectionManager.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(activePlayer));
     }

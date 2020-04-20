@@ -14,7 +14,8 @@ namespace Abu.Console
             {
                 new HelpConsoleCommand(),
                 new ClearConsoleCommand(),
-                new WalletConsoleCommand()
+                new WalletConsoleCommand(),
+                new DefaultCollectionItemCommand()
             };
         }
 

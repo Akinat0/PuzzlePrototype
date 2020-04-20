@@ -151,7 +151,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 789215869}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.58375007, y: 0.89621586}
   m_AnchorMax: {x: 0.95800006, y: 0.9671569}
@@ -239,7 +239,7 @@ RectTransform:
   m_Children:
   - {fileID: 992283410}
   m_Father: {fileID: 789215869}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -446,7 +446,7 @@ RectTransform:
   - {fileID: 809547646}
   - {fileID: 1724393367}
   m_Father: {fileID: 789215869}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.096567616, y: 0.9345015}
   m_AnchorMax: {x: 0.096567616, y: 0.9345015}
@@ -1127,6 +1127,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CompleteScreen: {fileID: 98199145}
   menuButton: {fileID: 992283407}
+  startCompleteState:
+    position: {x: 0, y: 0}
+    size: 0
+    thickness: 0
+    rotation: 0
+    innerColor: {r: 0, g: 0, b: 0, a: 0}
+    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    seed: 0
+  endCompleteState:
+    position: {x: 0, y: 0}
+    size: 0
+    thickness: 0
+    rotation: 0
+    innerColor: {r: 0, g: 0, b: 0, a: 0}
+    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    seed: 0
 --- !u!114 &789215864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,8 +1172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textPlaceholder: {fileID: 1262870498}
-  _timeUntilStartFade: 1
-  _fadeTime: 1
   _textOfNotification: 'Attempt #'
 --- !u!114 &789215866
 MonoBehaviour:
@@ -1230,13 +1244,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 54452304}
-  - {fileID: 1837672284}
   - {fileID: 98199146}
   - {fileID: 2055349150}
   - {fileID: 1262870500}
   - {fileID: 1489325253}
   - {fileID: 202349200}
+  - {fileID: 54452304}
+  - {fileID: 1837672284}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1936,7 +1950,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 789215869}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.096567616, y: 0.333}
   m_AnchorMax: {x: 0.897393, y: 0.67730033}
@@ -2192,7 +2206,7 @@ RectTransform:
   - {fileID: 828118340}
   - {fileID: 1693844263}
   m_Father: {fileID: 789215869}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2875,7 +2889,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 789215869}
-  m_RootOrder: 1
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.58375007, y: 0.82150453}
   m_AnchorMax: {x: 0.95800006, y: 0.8863059}
@@ -3254,7 +3268,7 @@ RectTransform:
   - {fileID: 777141093}
   - {fileID: 1712234254}
   m_Father: {fileID: 789215869}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3307,7 +3321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbeefa12c3fa989469978fa6320853c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Condition: 1
 --- !u!114 &2068077351
 MonoBehaviour:
   m_ObjectHideFlags: 0
