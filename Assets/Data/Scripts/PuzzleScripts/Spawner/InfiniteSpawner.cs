@@ -17,9 +17,9 @@ public class InfiniteSpawner : SpawnerBase
         _difficulty = 5;
     }
 
-    private void ChangeEnemySpeed(float diif)
+    private void ChangeEnemySpeed(float diff)
     {
-        _enemySpeed += diif / (_difficulty / 2);
+        _enemySpeed += diff / (_difficulty / 2);
         Debug.Log("<color=#00FFCC>" + "Change speed: " + _enemySpeed + "</color>");
     }
 
