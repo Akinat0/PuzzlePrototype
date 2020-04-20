@@ -30,7 +30,7 @@ namespace PuzzleScripts
         private float time = 0;
         private float dist = 0;
         
-        private void Update()
+        protected virtual void Update()
         {
             if (!_motion)
                 return;

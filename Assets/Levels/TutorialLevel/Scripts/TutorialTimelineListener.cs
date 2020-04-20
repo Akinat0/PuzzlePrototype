@@ -18,13 +18,11 @@ public class TutorialTimelineListener : TimelineListener
         }
 
         if (notification is TutorGiveControlMarker)
-        {
-            _manager.GiveControl();
-        }
+            _manager.InvokeEnableInput();
 
         if (notification is TutorEndFirstStageMarker)
-        {
-            _manager.EndFirstStage();
+        { 
+            //TODO
         }
     }
 
@@ -32,6 +30,6 @@ public class TutorialTimelineListener : TimelineListener
     {
         _manager.StartFirstDirector();
     }
-
+    
 
 }

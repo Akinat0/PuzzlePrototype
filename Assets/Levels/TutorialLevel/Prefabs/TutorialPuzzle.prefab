@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 8385284075992252135}
   - component: {fileID: 8385284075992252133}
   - component: {fileID: 4213290343958945854}
+  - component: {fileID: -4620893246667248300}
   - component: {fileID: 8385284075992252134}
-  - component: {fileID: 2792410231475641444}
   m_Layer: 0
-  m_Name: NeonPuzzle
+  m_Name: TutorialPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8385284075992252128}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: -2.55}
-  m_LocalScale: {x: 0.9492003, y: 0.9492003, z: 0.9492003}
+  m_LocalScale: {x: 0.39419743, y: 0.39419743, z: 0.39419743}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -69,10 +69,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 974043859
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d25772c5415d64735a3bb8491d928090, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 97c5b9b769caa45febf36ef83cbabd1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,6 +100,18 @@ MonoBehaviour:
   type: 0
   side: 0
   stickOut: 0
+--- !u!114 &-4620893246667248300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385284075992252128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f058d071ee2574d5392b9fc56b7ea0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &8385284075992252134
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113,31 +125,16 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0004272461, y: -0.008268774}
+  m_Offset: {x: 0.014339864, y: -0.018113613}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.48, y: 1.48}
+    oldSize: {x: 3.02, y: 3.21}
     newSize: {x: 7.2, y: 6.99}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4960022, y: 1.4739534}
+  m_Size: {x: 2.214662, y: 2.3009043}
   m_EdgeRadius: 0
---- !u!114 &2792410231475641444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8385284075992252128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ce0c805fa25cc043aaa0595156e0577, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Sprites:
-  - {fileID: 21300000, guid: d88c9e4996b934941b66d8dae46d6b76, type: 3}
-  - {fileID: 21300000, guid: 3dc2266023834434abbc2fa18c9ee5e1, type: 3}
