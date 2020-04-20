@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.3587269, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1213,6 +1213,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CompleteScreen: {fileID: 98199145}
   menuButton: {fileID: 992283407}
+  startCompleteState:
+    position: {x: 0, y: 0}
+    size: 0
+    thickness: 0
+    rotation: 0
+    innerColor: {r: 0, g: 0, b: 0, a: 0}
+    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    seed: 0
+  endCompleteState:
+    position: {x: 0, y: 0}
+    size: 0
+    thickness: 0
+    rotation: 0
+    innerColor: {r: 0, g: 0, b: 0, a: 0}
+    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    seed: 0
 --- !u!114 &789215864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1242,8 +1258,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textPlaceholder: {fileID: 1262870498}
-  _timeUntilStartFade: 1
-  _fadeTime: 1
   _textOfNotification: 'Attempt #'
 --- !u!114 &789215866
 MonoBehaviour:
@@ -1879,7 +1893,6 @@ MonoBehaviour:
   replayScreenManager: {fileID: 789215864}
   theme: {fileID: 8300000, guid: b2ba2ee848d8edd4a943fec5d4dda60e, type: 3}
   gameSceneRoot: {fileID: 2068077344}
-  patternContainer: {fileID: 0}
 --- !u!1 &1262077542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +1998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3710,9 +3723,6 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: 931080af2c8bf424692d3d097664326d, type: 3}
   partOfThePLayerOnTheScreen: 0.25
-  background: {fileID: 0}
-  spawnTimestep: 1
-  _spawn: 0
 --- !u!114 &2068077352
 MonoBehaviour:
   m_ObjectHideFlags: 0
