@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InfinityGameSceneManager : GameSceneManager
 {
-    [SerializeField] private Transform patternContainer;
     public static event Action<float> ChangeDifficultyInfinitySpawnerEvent;
     public static event Action ChangeSoundEvent;
     public static event Action ChangePatternEvent;

@@ -2,9 +2,10 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
+[RequireComponent(typeof(PlayableDirector))]
 public class TimelineController : MonoBehaviour
 {
-    [Space, SerializeField, Tooltip("The Scriptable object with items")]
+    [Space, SerializeField, Tooltip("The Scriptable objects with items")]
     protected PlayableAsset[] playableAssets;
 
     protected int _indexAsset = 0;
