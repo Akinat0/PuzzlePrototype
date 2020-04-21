@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8385284075992252135}
   - component: {fileID: 8385284075992252133}
-  - component: {fileID: 4213290343958945854}
-  - component: {fileID: -4620893246667248300}
+  - component: {fileID: 3686086425595120636}
   - component: {fileID: 8385284075992252134}
   m_Layer: 0
   m_Name: TutorialPuzzle
@@ -83,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4213290343958945854
+--- !u!114 &3686086425595120636
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8385284075992252128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb8a8bd57afe34ad38d4113d65552f68, type: 3}
+  m_Script: {fileID: 11500000, guid: 5055e665735704e6381075137ce3b282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 2834689649091276865, guid: b36bd37abc6cea644995b2343c5458fb, type: 3}
@@ -100,18 +99,6 @@ MonoBehaviour:
   type: 0
   side: 0
   stickOut: 0
---- !u!114 &-4620893246667248300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8385284075992252128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f058d071ee2574d5392b9fc56b7ea0ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &8385284075992252134
 BoxCollider2D:
   m_ObjectHideFlags: 0

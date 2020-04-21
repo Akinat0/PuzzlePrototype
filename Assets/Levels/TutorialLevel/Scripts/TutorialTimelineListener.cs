@@ -1,13 +1,10 @@
-﻿using Puzzle;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Playables;
 
 public class TutorialTimelineListener : TimelineListener
 {
 
-    [SerializeField] private TutorialTimelineManager _manager;
+    [SerializeField] private TutorialManager _manager;
 
     public override void OnNotify(Playable origin, INotification notification, object context)
     {

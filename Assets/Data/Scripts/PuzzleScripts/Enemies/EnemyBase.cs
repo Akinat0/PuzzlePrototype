@@ -19,20 +19,20 @@ namespace PuzzleScripts
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
 
-        private EnemyParams enemyParams;
+        private EnemyParams _enemyParams;
         
         private float _speed = 0.5f;
     
         private int _damage = 1;
 
-        private bool _motion = true;
+        protected bool Motion = true;
 
-        private float time = 0;
-        private float dist = 0;
+        private float _time = 0;
+        private float _dist = 0;
         
         protected virtual void Update()
         {
-            if (!_motion)
+            if (!Motion)
                 return;
             Move();
         }
@@ -74,10 +74,10 @@ namespace PuzzleScripts
 
         public virtual void Instantiate(EnemyParams @params)
         {
-            enemyParams = @params;
+            _enemyParams = @params;
             _speed =  @params.speed;
             
-            Player player = GameSceneManager.Instance.GetPlayer();
+            Player player = GameSceneManager.Instance.Player;
             PlayerView playerView = player.GetComponent<PlayerView>();
             
             if(playerView == null)
@@ -114,13 +114,13 @@ namespace PuzzleScripts
             gameObject.AddComponent<CoinHolder>().SetupCoinHolder(CostOfEnemy);
         }
         
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
@@ -133,7 +133,7 @@ namespace PuzzleScripts
         
         void PauseLevelEvent_Handler(bool paused)
         {
-            _motion = !paused;
+            Motion = !paused;
         }
     }
 

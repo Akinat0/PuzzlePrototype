@@ -16,6 +16,8 @@ namespace Puzzle
         protected int _health = DEFAULT_HP;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
+        public PlayerView PlayerView => _view;
+        
         protected virtual void Start()
         {
             _view = GetComponent<PlayerView>();

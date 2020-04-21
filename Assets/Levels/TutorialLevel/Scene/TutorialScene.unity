@@ -366,7 +366,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1033927275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01118861d78dc0f48b21a9d7aae83d34, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c4355ae13aa044c7acfde41a6cc7a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cameraAnimatorController: {fileID: 9100000, guid: 865d4b065d96c7a4c9b1cf9e10da9831,
@@ -375,6 +375,10 @@ MonoBehaviour:
   replayScreenManager: {fileID: 7328119269845762707}
   theme: {fileID: 8300000, guid: b2ba2ee848d8edd4a943fec5d4dda60e, type: 3}
   gameSceneRoot: {fileID: 2068077344}
+  _directors:
+  - {fileID: 412326546}
+  - {fileID: 1807901633}
+  - {fileID: 86112101}
 --- !u!1 &1427194078
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,7 +549,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2068077344}
   - component: {fileID: 2068077351}
-  - component: {fileID: 2068077352}
   - component: {fileID: 2068077346}
   - component: {fileID: 2068077345}
   m_Layer: 8
@@ -597,6 +600,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c4355ae13aa044c7acfde41a6cc7a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraAnimatorController: {fileID: 9100000, guid: 865d4b065d96c7a4c9b1cf9e10da9831,
+    type: 2}
+  completeScreenManager: {fileID: 7328119269845762716}
+  replayScreenManager: {fileID: 7328119269845762707}
+  theme: {fileID: 0}
+  gameSceneRoot: {fileID: 0}
   _directors:
   - {fileID: 412326546}
   - {fileID: 1807901633}
@@ -621,23 +630,6 @@ MonoBehaviour:
   - {fileID: 5592148314577438307, guid: 74ec06d750a9cdc4f91dc4792ac48709, type: 3}
   - {fileID: 5592148314577438307, guid: 515a4486cb9753a4d955286b3a348866, type: 3}
   partOfThePLayerOnTheScreen: 0.25
---- !u!114 &2068077352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068077343}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: ae859bf91fd564346a526961d1a4a2c2, type: 2}
-  isGlobal: 1
-  blendDistance: 0
-  weight: 1
-  priority: 0
 --- !u!1001 &3866195373513968647
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,16 +11,16 @@ public class TutorialMobileInput : MobileGameInput
 
     protected override void OnEnable()
     {
-        TutorialTimelineManager.OnTutorialInputEnabled += OnTutorialInputEnabled_Handler;
-        TutorialTimelineManager.OnTutorialInputDisabled += OnTutorialInputDisabled_Handler;
-        TutorialTimelineManager.OnTutorialRestart += OnTutorialRestart_Handler;
+        TutorialManager.OnTutorialInputEnabled += OnTutorialInputEnabled_Handler;
+        TutorialManager.OnTutorialInputDisabled += OnTutorialInputDisabled_Handler;
+        TutorialManager.OnTutorialRestart += OnTutorialRestart_Handler;
     }
     
     protected override void OnDisable()
     {
-        TutorialTimelineManager.OnTutorialInputEnabled -= OnTutorialInputEnabled_Handler;
-        TutorialTimelineManager.OnTutorialInputDisabled -= OnTutorialInputDisabled_Handler;
-        TutorialTimelineManager.OnTutorialRestart -= OnTutorialRestart_Handler;
+        TutorialManager.OnTutorialInputEnabled -= OnTutorialInputEnabled_Handler;
+        TutorialManager.OnTutorialInputDisabled -= OnTutorialInputDisabled_Handler;
+        TutorialManager.OnTutorialRestart -= OnTutorialRestart_Handler;
     }
 
     void OnTutorialInputEnabled_Handler()

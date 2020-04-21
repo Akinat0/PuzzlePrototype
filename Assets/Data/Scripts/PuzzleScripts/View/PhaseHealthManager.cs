@@ -30,7 +30,7 @@ public class PhaseHealthManager : HealthManagerBase
 
     void GameStartedEvent_Handler()
     {
-        _damagableView = GameSceneManager.Instance.GetPlayer()
+        _damagableView = GameSceneManager.Instance.Player
             .GetComponent<DamagableView>();
         
         if (_damagableView == null)
