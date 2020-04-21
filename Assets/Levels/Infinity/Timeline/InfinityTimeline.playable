@@ -108,21 +108,6 @@ MonoBehaviour:
   m_Time: 43.600000000000094
   difficultyParams:
     difficulty: 1
---- !u!114 &-6193580054888860876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf77f8e5cccc4080a1eeb6b591670187, type: 3}
-  m_Name: Change Difficulty Marker
-  m_EditorClassIdentifier: 
-  m_Time: 224.3833333333334
-  difficultyParams:
-    difficulty: -100
 --- !u!114 &-6130778113285585468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,7 +299,6 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects:
-    - {fileID: 6492976813117526240}
     - {fileID: 6403435428393353249}
     - {fileID: -6290418303411441937}
     - {fileID: 6879959767805529774}
@@ -326,7 +310,6 @@ MonoBehaviour:
     - {fileID: -1862779762827155727}
     - {fileID: -7470603522597510846}
     - {fileID: 357730986902137724}
-    - {fileID: -6193580054888860876}
     - {fileID: -4474744672541947072}
     - {fileID: 1059392536535985180}
     - {fileID: 5558671594613318175}
@@ -362,21 +345,6 @@ MonoBehaviour:
   m_Time: 21.583333333333332
   difficultyParams:
     difficulty: 1
---- !u!114 &6492976813117526240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf77f8e5cccc4080a1eeb6b591670187, type: 3}
-  m_Name: Change Difficulty Marker
-  m_EditorClassIdentifier: 
-  m_Time: 0
-  difficultyParams:
-    difficulty: 3
 --- !u!114 &6879959767805529774
 MonoBehaviour:
   m_ObjectHideFlags: 1

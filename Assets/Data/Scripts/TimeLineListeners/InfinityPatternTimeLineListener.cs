@@ -8,18 +8,25 @@ public class InfinityPatternTimeLineListener : TimelineListener
 {
     private float _timeLineSpeed;
     private float _enemySpeed;
-    private float _prevTimeLineSpeed;
-    private float _prevEnemySpeed;
+    private float _futureTimeLineSpeed;
+    private float _futureEnemySpeed;
     private bool _reverseStickOut;
+    private bool _reverseSide;
     private EnemyParams _enemyParams;
 
     public new void Start()
     {
-        _timeLineSpeed = 1;
-        _enemySpeed = 4;
-        _prevTimeLineSpeed = 1;
-        _prevEnemySpeed = 4;
+        if (GameSceneManager.Instance is InfinityGameSceneManager instance)
+        {
+            _timeLineSpeed = instance.startPatternTimeLineSpeed;
+            _futureTimeLineSpeed = instance.startPatternTimeLineSpeed;
+
+            _enemySpeed = instance.startEnemySpeed;
+            _futureEnemySpeed = instance.startEnemySpeed;
+        }
+
         _reverseStickOut = false;
+        _reverseSide = false;
         base.Start();
     }
 
@@ -36,7 +43,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
                 case LevelEndMarker _:
                     instance.InvokeChangePattern();
                     SetCurrentSpeeds();
-                    SetNewReverseStickOut();
+                    SetNewReverses();
                     return;
             }
         }
@@ -46,19 +53,37 @@ public class InfinityPatternTimeLineListener : TimelineListener
     {
         enemyParams.speed = _enemySpeed;
         enemyParams.stickOut = _reverseStickOut ? enemyParams.stickOut : !enemyParams.stickOut;
+        enemyParams.side = _reverseSide ? ReverseSide(enemyParams.side) : enemyParams.side;
         return enemyParams;
     }
 
     private void SetCurrentSpeeds()
     {
-        _enemySpeed = _prevEnemySpeed;
-        _timeLineSpeed = _prevTimeLineSpeed;
+        _enemySpeed = _futureEnemySpeed;
+        _timeLineSpeed = _futureTimeLineSpeed;
         _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(_timeLineSpeed);
     }
 
-    private void SetNewReverseStickOut()
+    private void SetNewReverses()
     {
         _reverseStickOut = Random.value > 0.5;
+        _reverseSide = Random.value > 0.5;
+    }
+
+    private Side ReverseSide(Side side)
+    {
+        switch (side)
+        {
+            case Side.Left:
+                return Side.Right;
+            case Side.Right:
+                return Side.Left;
+            case Side.Up:
+                return Side.Down;
+            case Side.Down:
+                return Side.Up;
+        }
+        return side;
     }
 
     private new void OnEnable()
@@ -77,11 +102,11 @@ public class InfinityPatternTimeLineListener : TimelineListener
 
     private void ChangePatternTimeLineSpeed_Handler(float speed)
     {
-        _prevTimeLineSpeed = speed;
+        _futureTimeLineSpeed = speed;
     }
 
     private void ChangeEnemySpeed_Handler(float speed)
     {
-        _prevEnemySpeed = speed;
+        _futureEnemySpeed = speed;
     }
 }

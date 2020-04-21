@@ -6,26 +6,33 @@ using Random = UnityEngine.Random;
 
 public class InfiniteSpawner : SpawnerBase
 {
+    [SerializeField] private float enemySpeedDenominator;
+    [SerializeField] private float patternTimeLineSpeedDenominator;
+
     private float _difficulty;
     private float _enemySpeed;
     private float _patternTimeLineSpeed;
 
     private void Start()
     {
-        _enemySpeed = 4;
-        _patternTimeLineSpeed = 1;
-        _difficulty = 5;
+        if (GameSceneManager.Instance is InfinityGameSceneManager instance)
+        {
+            _enemySpeed = instance.startEnemySpeed;
+            _patternTimeLineSpeed = instance.startPatternTimeLineSpeed;
+        }
+
+        _difficulty = _enemySpeed + _patternTimeLineSpeed;
     }
 
     private void ChangeEnemySpeed(float diff)
     {
-        _enemySpeed += diff / (_difficulty / 2);
+        _enemySpeed += diff / (_difficulty / enemySpeedDenominator);
         Debug.Log("<color=#00FFCC>" + "Change speed: " + _enemySpeed + "</color>");
     }
 
     private void ChangePatternTimeLineSpeed(float diff)
     {
-        _patternTimeLineSpeed += diff / _difficulty / 5;
+        _patternTimeLineSpeed += diff / _difficulty / patternTimeLineSpeedDenominator;
         Debug.Log("<color=#00FFCC>" + "Change spawnTimestep: " + _patternTimeLineSpeed + "</color>");
     }
 
