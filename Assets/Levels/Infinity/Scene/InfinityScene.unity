@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -364,8 +364,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a295f172a08d424dadf86efb10d0c01, type: 2}
   - {fileID: 11400000, guid: a7321a297ded699418c394fa134bfc10, type: 2}
   - {fileID: 11400000, guid: a48d6740217e46f45823e9546080a544, type: 2}
-  _indexAsset: 0
-  _playableDirector: {fileID: 0}
 --- !u!114 &161046239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,18 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1246c8e8054c8980f446762b3549c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playableDirector: {fileID: 0}
-  _timeLineSpeed: 0
-  _enemySpeed: 0
-  _prevTimeLineSpeed: 0
-  _prevEnemySpeed: 0
-  _reverseStickOut: 0
-  _enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 0
-    stickOut: 0
-    radialPosition: 0
 --- !u!320 &161046240
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -1907,9 +1893,6 @@ MonoBehaviour:
   replayScreenManager: {fileID: 789215864}
   theme: {fileID: 8300000, guid: b2ba2ee848d8edd4a943fec5d4dda60e, type: 3}
   gameSceneRoot: {fileID: 2068077344}
-  _player: {fileID: 0}
-  _gameCameraAnimator: {fileID: 0}
-  _levelConfig: {fileID: 0}
 --- !u!1 &1262077542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,7 +3423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336f7e43ec434561bab5c2e20217442d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playableDirector: {fileID: 0}
 --- !u!320 &2068077347
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -3723,8 +3705,6 @@ MonoBehaviour:
   playableAssets:
   - {fileID: 11400000, guid: 078a3a550f0a1eb49bc0725c96afa95b, type: 2}
   - {fileID: 11400000, guid: e4b24d4283991cb47b04cdd6443bfe5c, type: 2}
-  _indexAsset: 0
-  _playableDirector: {fileID: 0}
 --- !u!114 &2068077351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3743,11 +3723,6 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: 931080af2c8bf424692d3d097664326d, type: 3}
   partOfThePLayerOnTheScreen: 0.25
-  spawnTimestep: 1
-  startEnemySpeed: 0.02
-  hightestEnemySpeed: 0.1
-  timeToHighComplexity: 60
-  _spawn: 0
 --- !u!114 &2068077352
 MonoBehaviour:
   m_ObjectHideFlags: 0
