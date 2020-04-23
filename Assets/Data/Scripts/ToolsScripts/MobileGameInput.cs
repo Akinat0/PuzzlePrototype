@@ -12,7 +12,7 @@ public class MobileGameInput : MonoBehaviour
 {
     public static Action<Touch> TouchOnTheScreen;
 
-    public bool Condition { get; protected set; }
+    public virtual bool Condition { get; protected set; }
 
     protected virtual void Update()
     {

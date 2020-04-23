@@ -62,7 +62,15 @@ namespace Puzzle
 
         public Transform CallTapEffect(Transform parent)
         {
-            return Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
+            Transform tap =  Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
+            
+            //Make tap independent on parent scale
+            tap.localScale = new Vector3(
+                tap.localScale.x * tap.localScale.x / tap.lossyScale.x,
+                tap.localScale.y * tap.localScale.y / tap.lossyScale.y,
+                tap.localScale.z * tap.localScale.z / tap.lossyScale.z);
+            
+            return tap;
         }
 
         private void SetConfettiHoldersPositions()
