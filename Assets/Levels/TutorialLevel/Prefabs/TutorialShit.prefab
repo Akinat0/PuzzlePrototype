@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5592148314577438308}
+  - component: {fileID: -1716696452130983000}
   - component: {fileID: 5592148314577438310}
   - component: {fileID: 2310159257380425238}
-  - component: {fileID: 4370494131141229364}
   m_Layer: 0
-  m_Name: EnemyShit
+  m_Name: TutorialShit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,6 +33,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-1716696452130983000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5592148314577438307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2273d6fd3764458813c2c743ffeee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfx: {fileID: 1433339661640926266, guid: 511ed4ffc82f7df4fbe8d15c2075be78, type: 3}
+  score: 20
+  type: 1
 --- !u!212 &5592148314577438310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -98,18 +113,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.1999993
---- !u!114 &4370494131141229364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5592148314577438307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8a7aa1290dfbcb4c97dfd81fc75649f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vfx: {fileID: 1433339661640926266, guid: 511ed4ffc82f7df4fbe8d15c2075be78, type: 3}
-  score: 20
-  type: 1

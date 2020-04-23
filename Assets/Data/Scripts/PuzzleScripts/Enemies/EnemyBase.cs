@@ -131,7 +131,7 @@ namespace PuzzleScripts
             Destroy(gameObject);
         }
         
-        void PauseLevelEvent_Handler(bool paused)
+        protected virtual void PauseLevelEvent_Handler(bool paused)
         {
             Motion = !paused;
         }

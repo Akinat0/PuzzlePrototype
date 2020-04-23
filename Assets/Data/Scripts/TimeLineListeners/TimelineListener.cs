@@ -51,7 +51,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         _playableDirector.Play();
     }
 
-    private void PauseLevelEvent_Handler(bool paused)
+    protected virtual void PauseLevelEvent_Handler(bool paused)
     {
         if (!_playableDirector.playableGraph.IsValid()) 
             return;

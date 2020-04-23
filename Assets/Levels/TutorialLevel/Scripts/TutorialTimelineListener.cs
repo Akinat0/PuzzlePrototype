@@ -50,4 +50,17 @@ public class TutorialTimelineListener : TimelineListener
             return;
         _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
+
+    protected override void PauseLevelEvent_Handler(bool paused)
+    {
+        if (!paused)
+        {
+            if (!TutorialManager.TutorialStopped)
+                base.PauseLevelEvent_Handler(paused);
+        }
+        else
+        {
+            base.PauseLevelEvent_Handler(paused);
+        }
+    }
 }

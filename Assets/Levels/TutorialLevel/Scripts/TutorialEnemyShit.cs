@@ -1,38 +1,43 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Abu.Tools;
 using Puzzle;
-using PuzzleScripts;
 using UnityEngine;
 
-public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
+public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
 {
     private bool _reachedHalfway;
+
     public event Action Solved;
+
     protected override void Update()
     {
         base.Update();
 
+        if (!_reachedHalfway)
+        {
+            if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                ScreenScaler.CameraSize.y * 3.0f / 8.0f)
+            {
+                _reachedHalfway = true;
+                if (GameSceneManager.Instance is TutorialManager sceneManager)
+                {
+                    sceneManager.InvokeEnemyIsClose(this);
+                }
+            }
+        }
+    }
+
+    public override Transform Die()
+    {
         if (TutorialManager.TutorialStopped
-            && TutorialManager.StopReason as TutorialEnemyPuzzle == this
-            && GameSceneManager.Instance.Player.sides[side.GetHashCode()] != stickOut)//Sides shouldn't be equal
+            && TutorialManager.StopReason as TutorialEnemyShit == this)
         {
             Solved?.Invoke();
         }
 
-        if (!_reachedHalfway)
-        {
-            if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
-                ScreenScaler.CameraSize.y / 4)
-            {
-                _reachedHalfway = true;
-                if (GameSceneManager.Instance is TutorialManager sceneManager)
-                    sceneManager.InvokeEnemyIsClose(this);
-            }
-        }
+        return base.Die();
     }
-    
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -51,6 +56,7 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
     {
         Destroy(gameObject);
     }
+    
     void TutorialStopEvent_Handler(bool pause)
     {
         Motion = !pause;
@@ -68,5 +74,5 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
             base.PauseLevelEvent_Handler(paused);
         }
     }
-
+    
 }
