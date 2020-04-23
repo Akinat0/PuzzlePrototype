@@ -39,28 +39,20 @@ public class InfiniteSpawner : SpawnerBase
     protected override void OnEnable()
     {
         GameSceneManager.CreateEnemyEvent += CreateEnemyEvent_Handler;
-        GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
         InfinityGameSceneManager.ChangeDifficultyInfinitySpawnerEvent += ChangeDifficultyInfinitySpawner_Handler;
-        InfinityGameSceneManager.ChangeSoundEvent += ChangeSound_Handler;
         base.OnEnable();
     }
 
     protected override void OnDisable()
     {
         GameSceneManager.CreateEnemyEvent -= CreateEnemyEvent_Handler;
-        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
         InfinityGameSceneManager.ChangeDifficultyInfinitySpawnerEvent -= ChangeDifficultyInfinitySpawner_Handler;
-        InfinityGameSceneManager.ChangeSoundEvent -= ChangeSound_Handler;
         base.OnDisable();
     }
 
     void CreateEnemyEvent_Handler(EnemyParams @params)
     {
         CreateEnemy(@params);
-    }
-
-    void ResetLevelEvent_Handler()
-    {
     }
 
     void ChangeDifficultyInfinitySpawner_Handler(float diff)
@@ -79,10 +71,5 @@ public class InfiniteSpawner : SpawnerBase
                 instance.InvokeChangePatternTimeLineSpeed(_patternTimeLineSpeed);
             }
         }
-
-    }
-
-    void ChangeSound_Handler()
-    {
     }
 }

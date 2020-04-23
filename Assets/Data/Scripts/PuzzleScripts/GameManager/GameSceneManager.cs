@@ -34,146 +34,145 @@ namespace Puzzle{
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig _levelConfig;
+
         void Awake()
-    {
-        Instance = this;
-    }
-
-    public void ShakeCamera()
-    { 
-        _gameCameraAnimator.SetTrigger(Shake);
-    }
-    
-    public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
-    {
-        this._player = _player.AddComponent<Player>();
-        _player.AddComponent<PlayerInput>();
-        FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
-        if (Camera.main != null)
         {
-            _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
-            _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
-        }
-        else
-        {
-            Debug.LogError("Camera is null");
+            Instance = this;
         }
 
-        //SoundManager.Instance.LevelThemeClip = theme;
-
-        _levelConfig = config;
+        public void ShakeCamera()
+        { 
+            _gameCameraAnimator.SetTrigger(Shake);
+        }
         
-        if (config.ColorScheme != null)
-            InvokeSetupLevel(config.ColorScheme);
+        public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
+        {
+            this._player = _player.AddComponent<Player>();
+            _player.AddComponent<PlayerInput>();
+            FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
+            if (Camera.main != null)
+            {
+                _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
+                _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
+            }
+            else
+            {
+                Debug.LogError("Camera is null");
+            }
 
-        // TODO  actions with background and gameRoot
-        InvokeResetLevel();
-    }
+            //SoundManager.Instance.LevelThemeClip = theme;
 
-    void UnloadScene()
-    {
-        Destroy(_player.GetComponent<PlayerInput>());
-        Destroy(_player.GetComponent<Player>());
-        Destroy(_gameCameraAnimator);
-        SceneManager.UnloadSceneAsync(gameObject.scene);
-    }
+            _levelConfig = config;
+            
+            if (config.ColorScheme != null)
+                InvokeSetupLevel(config.ColorScheme);
 
-    public Player GetPlayer()
-    {
-        return _player;
-    }
+            // TODO  actions with background and gameRoot
+            InvokeResetLevel();
+        }
 
-    void CallEndgameMenu()
-    {
-        replayScreenManager.CreateReplyScreen();
-    }
-    
-    void CallCompleteMenu()
-    {
-        completeScreenManager.CreateReplyScreen();
-    }
+        void UnloadScene()
+        {
+            Destroy(_player.GetComponent<PlayerInput>());
+            Destroy(_player.GetComponent<Player>());
+            Destroy(_gameCameraAnimator);
+            SceneManager.UnloadSceneAsync(gameObject.scene);
+        }
 
-    //////////////////
-    //Event Invokers//
-    //////////////////
+        public Player GetPlayer()
+        {
+            return _player;
+        }
 
-    public void InvokeSetupLevel(LevelColorScheme colorScheme)
-    {
-        Debug.Log("SetupLevel Invoked");
-        SetupLevelEvent?.Invoke(colorScheme);
-    }
-    
-    public void InvokeResetLevel()
-    {
-        Debug.Log("ResetLevel Invoked");
-        ResetLevelEvent?.Invoke();
-        GameStartedEvent?.Invoke();
-        InvokePauseLevel(false); //Unpausing
-    }
+        void CallEndgameMenu()
+        {
+            replayScreenManager.CreateReplyScreen();
+        }
+        
+        void CallCompleteMenu()
+        {
+            completeScreenManager.CreateReplyScreen();
+        }
 
-    public void InvokePauseLevel(bool pause)
-    {
-        Time.timeScale = pause ? 0 : 1;
-        Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
-        PauseLevelEvent?.Invoke(pause);
-    }
+        //////////////////
+        //Event Invokers//
+        //////////////////
 
-    public void InvokePlayerDied()
-    {
-        InvokePauseLevel(true);
-        Debug.Log("PlayerDied Invoked");
-        PlayerDiedEvent?.Invoke();
-        CallEndgameMenu();
-    }
+        public void InvokeSetupLevel(LevelColorScheme colorScheme)
+        {
+            Debug.Log("SetupLevel Invoked");
+            SetupLevelEvent?.Invoke(colorScheme);
+        }
+        
+        public void InvokeResetLevel()
+        {
+            Debug.Log("ResetLevel Invoked");
+            ResetLevelEvent?.Invoke();
+            GameStartedEvent?.Invoke();
+            InvokePauseLevel(false); //Unpausing
+        }
 
-    public void InvokePlayerLosedHp(int hp)
-    {
-        Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
-        PlayerLosedHpEvent?.Invoke(hp);
-    }
+        public void InvokePauseLevel(bool pause)
+        {
+            Time.timeScale = pause ? 0 : 1;
+            Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
+            PauseLevelEvent?.Invoke(pause);
+        }
 
-    public void InvokeEnemyDied(int score)
-    {
-        Debug.Log("EnemyDied Invoked");
-        EnemyDiedEvent?.Invoke(score);
-    }
-    
-    public void InvokeGameStarted()
-    {
-        Debug.Log("GameStarted Invoked");
-        GameStartedEvent?.Invoke();
-        InvokePauseLevel(false); //Unpausing
-    }
+        public void InvokePlayerDied()
+        {
+            InvokePauseLevel(true);
+            Debug.Log("PlayerDied Invoked");
+            PlayerDiedEvent?.Invoke();
+            CallEndgameMenu();
+        }
 
-    public void InvokePlayerRevive()
-    {
-        Debug.Log("PlayerRevive Invoked");
-        PlayerRiviveEvent?.Invoke();
-        InvokePauseLevel(false);
-    }
+        public void InvokePlayerLosedHp(int hp)
+        {
+            Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
+            PlayerLosedHpEvent?.Invoke(hp);
+        }
 
-    public void InvokeCreateEnemy(EnemyParams @params)
-    {
-        Debug.Log("CreateEnemy Invoked");
-        CreateEnemyEvent?.Invoke(@params);
-    }
-    
-    public void InvokeLevelClosed()
-    {
-        InvokePauseLevel(true);
-        Debug.Log("LevelClosed Invoked");
-        LevelClosedEvent?.Invoke();
-        UnloadScene();
-        LauncherUI.Instance.InvokeGameSceneUnloaded();
-    }
+        public void InvokeEnemyDied(int score)
+        {
+            Debug.Log("EnemyDied Invoked");
+            EnemyDiedEvent?.Invoke(score);
+        }
+        
+        public void InvokeGameStarted()
+        {
+            Debug.Log("GameStarted Invoked");
+            GameStartedEvent?.Invoke();
+            InvokePauseLevel(false); //Unpausing
+        }
 
-    public void InvokeLevelCompleted()
-    {
-        Debug.Log("LevelComplete Invoked");
-        LevelCompletedEvent?.Invoke();
-        CallCompleteMenu();
+        public void InvokePlayerRevive()
+        {
+            Debug.Log("PlayerRevive Invoked");
+            PlayerRiviveEvent?.Invoke();
+            InvokePauseLevel(false);
+        }
+
+        public void InvokeCreateEnemy(EnemyParams @params)
+        {
+            Debug.Log("CreateEnemy Invoked");
+            CreateEnemyEvent?.Invoke(@params);
+        }
+        
+        public void InvokeLevelClosed()
+        {
+            InvokePauseLevel(true);
+            Debug.Log("LevelClosed Invoked");
+            LevelClosedEvent?.Invoke();
+            UnloadScene();
+            LauncherUI.Instance.InvokeGameSceneUnloaded();
+        }
+
+        public void InvokeLevelCompleted()
+        {
+            Debug.Log("LevelComplete Invoked");
+            LevelCompletedEvent?.Invoke();
+            CallCompleteMenu();
+        }
     }
-    
-    
-}
 }

@@ -14,7 +14,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
     private bool _reverseSide;
     private EnemyParams _enemyParams;
 
-    public new void Start()
+    protected override void Start()
     {
         if (GameSceneManager.Instance is InfinityGameSceneManager instance)
         {

@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(PlayableDirector))]
 public class InfinitySoundTimelineListener : TimelineListener
 {
-
     public override void OnNotify(Playable origin, INotification notification, object context)
     {
         if (GameSceneManager.Instance is InfinityGameSceneManager instance)
