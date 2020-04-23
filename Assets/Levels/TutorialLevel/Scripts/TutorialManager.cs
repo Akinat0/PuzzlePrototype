@@ -39,6 +39,7 @@ public class TutorialManager : GameSceneManager
             {
                 if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                 {
+                    VFXManager.Instance.CallTapEffect(Player.transform);
                     InvokeOnStopTutorial(true);
                 }    
             }
