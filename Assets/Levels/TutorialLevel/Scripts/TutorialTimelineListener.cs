@@ -1,32 +1,53 @@
-﻿using UnityEngine;
+﻿using Puzzle;
+using UnityEngine;
 using UnityEngine.Playables;
 
 public class TutorialTimelineListener : TimelineListener
 {
-
-    [SerializeField] private TutorialManager _manager;
-
     public override void OnNotify(Playable origin, INotification notification, object context)
     {
         base.OnNotify(origin, notification, context);
-        if(notification is GotoMarker)
+
+        if (GameSceneManager.Instance is TutorialManager manager)
         {
-            _manager.GoToNext();
+            switch (notification)
+            {
+                case GotoMarker gotoMarker:
+
+                    manager.InvokeTutorialNextStage();
+                    break;
+
+                case TutorGiveControlMarker giveControlMarker:
+                    manager.InvokeEnableInput();
+                    break;
+                
+                case TutorEndFirstStageMarker endFirstStageMarker:
+                    //TODO
+                    break;
+            }
         }
-
-        if (notification is TutorGiveControlMarker)
-            _manager.InvokeEnableInput();
-
-        if (notification is TutorEndFirstStageMarker)
-        { 
-            //TODO
+        else
+        {
+            Debug.LogError("Tutorial scene manager didn't found");
         }
-    }
-
-    protected override void GameStartedEvent_Handler()
-    {
-        _manager.StartFirstDirector();
     }
     
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        TutorialManager.OnStopTutorial += OnStopTutorial_Handler;
+    }
 
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        TutorialManager.OnStopTutorial -= OnStopTutorial_Handler;
+    }
+
+    void OnStopTutorial_Handler(bool paused)
+    {
+        if (!_playableDirector.playableGraph.IsValid()) 
+            return;
+        _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
+    }
 }

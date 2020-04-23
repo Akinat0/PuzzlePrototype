@@ -6,9 +6,9 @@ using UnityEngine.Playables;
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineListener : MonoBehaviour, INotificationReceiver
 {
-    private PlayableDirector _playableDirector;
+    protected PlayableDirector _playableDirector;
     
-    private void Start()
+    protected virtual void Start()
     {
         _playableDirector = GetComponent<PlayableDirector>();
     }
@@ -32,14 +32,14 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         }
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
     }
 
-    private void OnDisable()
+    protected virtual  void OnDisable()
     {
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;

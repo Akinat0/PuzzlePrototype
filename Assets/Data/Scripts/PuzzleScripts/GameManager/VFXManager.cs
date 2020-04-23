@@ -26,7 +26,6 @@ namespace Puzzle
             m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
             m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
             SetConfettiHoldersPositions();
-            
         }
         
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)

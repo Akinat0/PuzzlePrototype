@@ -13,7 +13,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
     private bool _reverseStickOut;
     private EnemyParams _enemyParams;
 
-    public new void Start()
+    protected override void Start()
     {
         _timeLineSpeed = 1;
         _enemySpeed = 4;
@@ -61,7 +61,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
         _reverseStickOut = Random.value > 0.5;
     }
 
-    private new void OnEnable()
+    protected override void OnEnable()
     {
         InfinityGameSceneManager.ChangePatternTimeLineSpeedEvent += ChangePatternTimeLineSpeed_Handler;
         InfinityGameSceneManager.ChangeEnemySpeedEvent += ChangeEnemySpeed_Handler;

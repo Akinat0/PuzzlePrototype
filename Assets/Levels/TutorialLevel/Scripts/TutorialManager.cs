@@ -11,26 +11,15 @@ public class TutorialManager : GameSceneManager
     public static event Action OnTutorialRestart;
     public static event Action<EnemyBase> OnEnemyIsClose;
     public static event Action<bool> OnStopTutorial;
+    public static event Action OnTutorialNextStage;
 
     [SerializeField] private PlayableDirector[] _directors;
-    
-    private int _stage = 0;
-    public int Stage => _stage;
 
-    public void StartFirstDirector()
-    {
-        _directors[_stage].Play();
-    }
+    private bool _tutorialStopped = false;
+    private int _stage = 0;
     
-    public void GoToNext()
-    {
-        _directors[_stage].Pause();
-        _stage++;
-        if(_stage < _directors.Length)
-        {
-            _directors[_stage].Play();
-        }
-    }
+    public int Stage => _stage;
+    public static bool TutorialStopped => ((TutorialManager) Instance)._tutorialStopped;
 
     private void ProcessTouch()
     {
@@ -46,20 +35,25 @@ public class TutorialManager : GameSceneManager
     {
         if (_stage == 0)
         {
-            if (enemy.Type == EnemyType.Puzzle && enemy is PuzzleEnemy puzzleEnemy)
+            if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
             {
-                if(Player.sides[puzzleEnemy.Type.GetHashCode()] != puzzleEnemy.stickOut)
+                if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                 {
-                    OnStopTutorial?.Invoke(enemy);
-                }      
+                    InvokeOnStopTutorial(true);
+                }    
             }
             else
             {
-                OnStopTutorial?.Invoke(enemy);
+                InvokeOnStopTutorial(true);
             }
-            
-            OnStopTutorial?.Invoke(true);
         }
+    }
+    
+    private void ProcessTutorialStopped(bool pause)
+    {
+        if (_stage == 0)
+            if(!pause)
+                InvokeDisableInput();
     }
     private void Restart()
     {
@@ -116,6 +110,20 @@ public class TutorialManager : GameSceneManager
         Debug.LogError("Enemy is close invoked " + enemy.name);
         OnEnemyIsClose?.Invoke(enemy);
         ProcessEnemyIsClose(enemy);
+    }
+    public void InvokeTutorialNextStage()
+    {
+        _stage++;
+        Debug.LogError("OnTutorialNextStage invoked. Tutorial goes stage " + _stage);
+        OnTutorialNextStage?.Invoke();
+    }
+
+    public void InvokeOnStopTutorial(bool pause)
+    {
+        _tutorialStopped = pause;
+        Debug.LogError("OnStopTutorial invoked");
+        OnStopTutorial?.Invoke(_tutorialStopped);
+        ProcessTutorialStopped(_tutorialStopped);
     }
 }
 
