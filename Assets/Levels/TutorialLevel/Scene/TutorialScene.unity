@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -357,7 +357,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2068077344}
   - component: {fileID: 2068077351}
-  - component: {fileID: 2068077346}
   - component: {fileID: 2068077345}
   m_Layer: 8
   m_Name: GameContainer
@@ -394,28 +393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049992a020f234c05a59c679207afe18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2068077346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068077343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c4355ae13aa044c7acfde41a6cc7a2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraAnimatorController: {fileID: 9100000, guid: 865d4b065d96c7a4c9b1cf9e10da9831,
-    type: 2}
-  completeScreenManager: {fileID: 7328119269845762716}
-  replayScreenManager: {fileID: 7328119269845762707}
-  theme: {fileID: 0}
-  gameSceneRoot: {fileID: 0}
-  _directors:
-  - {fileID: 412326546}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &2068077351
 MonoBehaviour:
   m_ObjectHideFlags: 0

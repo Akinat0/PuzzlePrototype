@@ -40,7 +40,15 @@ namespace Puzzle
 
         void Awake()
         {
-            Instance = this;
+            if(Instance == null)
+                Instance = this;
+            else
+                Debug.LogError("There's more than one GameSceneManager in the scene");
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
         }
 
         public void ShakeCamera()
