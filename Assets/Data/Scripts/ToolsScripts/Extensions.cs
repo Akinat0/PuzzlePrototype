@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public static class MonoBehaviourExtension 
+public static class Extensions 
 {
     public static void Invoke(this MonoBehaviour _monoBehaviour, Action _action, float _time)
     {
@@ -14,5 +14,9 @@ public static class MonoBehaviourExtension
         yield return new WaitForSeconds(_time);
         
         _action?.Invoke();
+    }
+    
+    public static float Remap (this float value, float from1, float to1, float from2, float to2) {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 }

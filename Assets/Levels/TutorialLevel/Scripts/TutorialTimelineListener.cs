@@ -46,9 +46,7 @@ public class TutorialTimelineListener : TimelineListener
 
     void OnStopTutorial_Handler(bool paused)
     {
-        if (!_playableDirector.playableGraph.IsValid()) 
-            return;
-        _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
+        Pause(paused);
     }
 
     protected override void PauseLevelEvent_Handler(bool paused)

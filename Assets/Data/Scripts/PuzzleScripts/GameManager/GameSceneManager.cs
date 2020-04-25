@@ -21,6 +21,7 @@ namespace Puzzle
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
         public static event Action LevelCompletedEvent;
+        public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -186,6 +187,12 @@ namespace Puzzle
             Debug.Log("LevelComplete Invoked");
             LevelCompletedEvent?.Invoke();
             CallCompleteMenu();
+        }
+        
+        public void InvokePlayAudio(LevelPlayAudioEventArgs args)
+        {
+            Debug.Log("PlayAudio Invoked " + args.AudioClip.name);
+            PlayAudioEvent?.Invoke(args);
         }
     }
 }

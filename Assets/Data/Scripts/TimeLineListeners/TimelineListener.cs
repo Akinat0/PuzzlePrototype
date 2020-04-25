@@ -1,7 +1,10 @@
-﻿using System;
+﻿using System.Linq;
+using System.Collections.Generic;
+using System.Collections;
 using Puzzle;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineListener : MonoBehaviour, INotificationReceiver
@@ -17,18 +20,20 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
     {
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
 
-        if (notification is EnemyNotificationMarker enemyMarker)
+        switch (notification)
         {
-            Debug.Log("Notification received " + time + " type: " + enemyMarker.enemyParams.enemyType);
-            GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
-            return;
-        }
-        
-        if (notification is LevelEndMarker)
-        {
-            Debug.Log("Notification received " + time + " type: level end marker");
-            GameSceneManager.Instance.InvokeLevelCompleted();
-            return;
+            case EnemyNotificationMarker enemyMarker:
+                Debug.Log($"Notification received {time} type: {enemyMarker.enemyParams.enemyType}");
+                GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
+                break;
+            case PlayAudioMarker audioMarker:
+                Debug.Log($"Notification received {time} type: {typeof(PlayAudioMarker)} : {audioMarker.AudioClip.name}");
+                GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip, audioMarker.Looped, audioMarker.SoundCurve));
+                break;
+            case LevelEndMarker levelEndMarker:
+                Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
+                GameSceneManager.Instance.InvokeLevelCompleted();
+                break;
         }
     }
 
@@ -53,10 +58,17 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 
     protected virtual void PauseLevelEvent_Handler(bool paused)
     {
+        Pause(paused);
+    }
+
+    protected void Pause(bool paused)
+    {
         if (!_playableDirector.playableGraph.IsValid()) 
             return;
+        
         _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
+    
     
     private void ResetLevelEvent_Handler()
     {
