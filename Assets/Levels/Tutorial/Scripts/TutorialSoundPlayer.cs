@@ -14,12 +14,10 @@ public class TutorialSoundPlayer : LevelSoundPlayer
     
     protected override void OnDisable()
     {
-        base.OnEnable();
+        base.OnDisable();
         TutoriaScenelManager.OnStopTutorial -= OnStopTutorial_Handler;
         TutoriaScenelManager.OnTutorialRestart -= OnTutorialReset_Handler;
         TutoriaScenelManager.OnTutorialNextStage -= OnTutorialNextStage_Handler;
-
-
     }
 
     void OnStopTutorial_Handler(bool paused)
