@@ -24,6 +24,11 @@ namespace Abu.Tools
                 return new Vector2(width, height);
             }
         }
+
+        public static Vector2 PartOfScreen(float part)
+        {
+            return CameraSize * part;
+        }
         
         public static float BestFit(SpriteRenderer spriteRenderer)
         {

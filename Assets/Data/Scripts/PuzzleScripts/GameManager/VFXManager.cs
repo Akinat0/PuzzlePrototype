@@ -15,6 +15,7 @@ namespace Puzzle
         private FlatFX m_FlatFx;
         private Coroutine m_LevelCompleteRoutine;
         private GameObject m_ConfettiVfx;
+        private GameObject m_TapVfx;
         private GameObject m_TadaSFX;
 
         public FlatFX FlatFx => m_FlatFx;
@@ -23,10 +24,10 @@ namespace Puzzle
         {
             Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
+            m_TapVfx = Resources.Load<GameObject>("Prefabs/Tap");
             m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
             m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
             SetConfettiHoldersPositions();
-            
         }
         
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
@@ -57,6 +58,19 @@ namespace Puzzle
         public void CallWinningSound()
         {
             Instantiate(m_TadaSFX);
+        }
+
+        public Transform CallTapEffect(Transform parent)
+        {
+            Transform tap =  Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
+            
+            //Make tap independent on parent scale
+            tap.localScale = new Vector3(
+                tap.localScale.x * tap.localScale.x / tap.lossyScale.x,
+                tap.localScale.y * tap.localScale.y / tap.lossyScale.y,
+                tap.localScale.z * tap.localScale.z / tap.lossyScale.z);
+            
+            return tap;
         }
 
         private void SetConfettiHoldersPositions()
@@ -111,6 +125,13 @@ namespace Puzzle
         
         //Editor
 #if UNITY_EDITOR
+        
+        [ContextMenu("Tap")]
+        public void EditorCallTapEffect()
+        {
+            if (Application.IsPlaying(this))
+                CallTapEffect(null);
+        }
         
         [ContextMenu("Confetti")]
         public void EditorCallConfettiEffect()

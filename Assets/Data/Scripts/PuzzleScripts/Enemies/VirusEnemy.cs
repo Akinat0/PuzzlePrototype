@@ -12,7 +12,7 @@ namespace Puzzle
             radialPosition = @params.radialPosition;
             base.Instantiate(@params);
 
-            Player player = GameSceneManager.Instance.GetPlayer();
+            Player player = GameSceneManager.Instance.Player;
             Vector3 zAxis = new Vector3(0, 0, 1);
 
             transform.RotateAround(player.transform.position, zAxis, radialPosition);

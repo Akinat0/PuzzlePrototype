@@ -12,9 +12,9 @@ public class MobileGameInput : MonoBehaviour
 {
     public static Action<Touch> TouchOnTheScreen;
 
-    public bool Condition { get; private set; }
+    public virtual bool Condition { get; protected set; }
 
-    void Update()
+    protected virtual void Update()
     {
         if (!Condition)
             return;
@@ -38,13 +38,14 @@ public class MobileGameInput : MonoBehaviour
                 }
                 else
                 {
-                    TouchOnTheScreen?.Invoke(touch);
+                    TouchOnScreen(touch);
                 }
             }
         }
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
+            
             if (EventSystem.current.IsPointerOverGameObject())
                 //Mouse on UI element
                 return;
@@ -58,7 +59,8 @@ public class MobileGameInput : MonoBehaviour
             }
             else
             {
-                TouchOnTheScreen?.Invoke(new Touch {position = Input.mousePosition});
+                
+                TouchOnScreen(new Touch {position = Input.mousePosition});
             }
                 
         }    
@@ -79,14 +81,21 @@ public class MobileGameInput : MonoBehaviour
             TouchOnTheScreen?.Invoke(_touch);
         }
     }
-    
-    private void OnEnable()
+
+    protected void TouchOnScreen(Touch touch)
     {
+        TouchOnTheScreen?.Invoke(touch);
+    }
+    
+    protected virtual void OnEnable()
+    {
+        
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
+        
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
     }
 

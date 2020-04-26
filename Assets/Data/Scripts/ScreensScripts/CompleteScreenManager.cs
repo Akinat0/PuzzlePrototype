@@ -29,7 +29,7 @@ public class CompleteScreenManager : ManagerView
         CompleteScreen.SetActive(true);
         
         VFXManager.Instance.CallConfettiEffect();
-        VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.GetPlayer().transform.position, startCompleteState, endCompleteState);
+        VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.Player.transform.position, startCompleteState, endCompleteState);
         VFXManager.Instance.CallWinningSound();
     }
 

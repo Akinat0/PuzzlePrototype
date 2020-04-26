@@ -1,6 +1,11 @@
 ﻿
 public class InfinitySondTimeLineTimelineController : TimelineController
 {
+    protected override void StartIndex()
+    {
+        RandomIndex();
+    }
+    
     private void OnEnable()
     {
         InfinityGameSceneManager.ChangeSoundEvent += ChangeSound_Handler;
@@ -13,6 +18,6 @@ public class InfinitySondTimeLineTimelineController : TimelineController
 
     private void ChangeSound_Handler()
     {
-        NextTimeLine();
+        NextTimeline();
     }
 }

@@ -9,14 +9,16 @@ namespace Puzzle
     {
         private PlayerView _view;
 
-        private bool _immuneFramesEnabled;
-        private float _immuneTime = 0.2f;
+        protected bool _immuneFramesEnabled;
+        protected float _immuneTime = 0.2f;
 
         public const int DEFAULT_HP = 5;
-        private int _health = DEFAULT_HP;
+        protected int _health = DEFAULT_HP;
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
-        void Start()
+        public PlayerView PlayerView => _view;
+        
+        protected virtual void Start()
         {
             _view = GetComponent<PlayerView>();
             _immuneFramesEnabled = false;
@@ -28,7 +30,7 @@ namespace Puzzle
             enemy.OnHitPlayer(this);
         }
 
-        public void DealDamage(int damage)
+        public virtual void DealDamage(int damage)
         {
             GameSceneManager.Instance.ShakeCamera();
             if (!_immuneFramesEnabled) {
@@ -46,12 +48,12 @@ namespace Puzzle
             Invoke(nameof(DisableImmune), _immuneTime);
         }
 
-        private void DisableImmune()
+        protected void DisableImmune()
         {
             _immuneFramesEnabled = false;
         }
 
-        public void ChangeSides()
+        public virtual void ChangeSides()
         {
             for (int i = 0; i < sides.Length; i++)
                 sides[i] = !sides[i];

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 [RequireComponent(typeof(PlayableDirector))]
-public class TimelineController : MonoBehaviour
+public abstract class TimelineController : MonoBehaviour
 {
     [Space, SerializeField, Tooltip("The Scriptable objects with items")]
     protected PlayableAsset[] playableAssets;
@@ -16,21 +16,18 @@ public class TimelineController : MonoBehaviour
     {
         _playableDirector = GetComponent<PlayableDirector>();
         StartIndex();
-        _playableDirector.playableAsset = playableAssets[_indexAsset];
-        _playableDirector.Play();
+        Refresh();
     }
 
-    protected void StartIndex()
+    protected virtual void StartIndex()
     {
-        _indexAsset = Random.Range(0, playableAssets.Length);
+        _indexAsset = 0;
     }
 
-    protected void NextTimeLine()
+    protected void NextTimeline()
     {
         NextIndex();
-        _playableDirector.playableAsset = playableAssets[_indexAsset];
-        _playableDirector.Play(); 
-        _playableDirector.time = 0;
+        Refresh();
     }
 
     protected void NextIndex()
@@ -44,5 +41,12 @@ public class TimelineController : MonoBehaviour
     protected void RandomIndex()
     {
         _indexAsset = Random.Range(0, playableAssets.Length);
+    }
+
+    protected void Refresh()
+    {
+        _playableDirector.playableAsset = playableAssets[_indexAsset];
+        _playableDirector.time = 0;
+        _playableDirector.Play();
     }
 }

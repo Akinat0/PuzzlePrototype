@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4612617726443869283}
   - component: {fileID: 979535260916508468}
   - component: {fileID: 2992154185844742710}
-  - component: {fileID: 4583948362923549096}
   m_Layer: 0
   m_Name: CommonBluePuzzle
   m_TagString: Untagged
@@ -155,25 +154,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4583948362923549096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979535260916508469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbf2782783d30466db27b7559320fca5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _partOfScreen: 0.25
-  shape: {fileID: 5176168562646035759}
-  TRBL_positions:
-  - {fileID: 1546686867688416708}
-  - {fileID: 897065173522100192}
-  - {fileID: 408911447969626490}
-  - {fileID: 5945066512175875022}
 --- !u!1 &3842958785870243051
 GameObject:
   m_ObjectHideFlags: 0

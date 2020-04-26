@@ -21,14 +21,4 @@ public class InfinitySoundTimelineListener : TimelineListener
             }
         }
     }
-
-    private new void OnEnable()
-    {
-        base.OnEnable();
-    }
-
-    private new void OnDisable()
-    {
-        base.OnDisable();
-    }
 }

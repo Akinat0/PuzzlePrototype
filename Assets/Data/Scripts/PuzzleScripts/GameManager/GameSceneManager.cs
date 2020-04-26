@@ -4,11 +4,12 @@ using ScreensScripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Puzzle{
+namespace Puzzle
+{
     public class GameSceneManager : MonoBehaviour
     {
         public static GameSceneManager Instance;
-        
+
         public static event Action GameStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
@@ -20,6 +21,7 @@ namespace Puzzle{
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
         public static event Action LevelCompletedEvent;
+        public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -30,6 +32,8 @@ namespace Puzzle{
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => _levelConfig;
 
+        public Player Player => _player;
+
         private Player _player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
@@ -37,14 +41,22 @@ namespace Puzzle{
 
         void Awake()
         {
-            Instance = this;
+            if(Instance == null)
+                Instance = this;
+            else
+                Debug.LogError("There's more than one GameSceneManager in the scene");
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
         }
 
         public void ShakeCamera()
-        { 
+        {
             _gameCameraAnimator.SetTrigger(Shake);
         }
-        
+
         public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
         {
             this._player = _player.AddComponent<Player>();
@@ -63,7 +75,7 @@ namespace Puzzle{
             //SoundManager.Instance.LevelThemeClip = theme;
 
             _levelConfig = config;
-            
+
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
 
@@ -79,21 +91,23 @@ namespace Puzzle{
             SceneManager.UnloadSceneAsync(gameObject.scene);
         }
 
-        public Player GetPlayer()
-        {
-            return _player;
-        }
-
         void CallEndgameMenu()
         {
             replayScreenManager.CreateReplyScreen();
         }
-        
+
         void CallCompleteMenu()
         {
             completeScreenManager.CreateReplyScreen();
         }
 
+        protected virtual void OnEnable()
+        {
+        }
+        
+        protected virtual void OnDisable()
+        {
+        }
         //////////////////
         //Event Invokers//
         //////////////////
@@ -103,7 +117,7 @@ namespace Puzzle{
             Debug.Log("SetupLevel Invoked");
             SetupLevelEvent?.Invoke(colorScheme);
         }
-        
+
         public void InvokeResetLevel()
         {
             Debug.Log("ResetLevel Invoked");
@@ -138,7 +152,7 @@ namespace Puzzle{
             Debug.Log("EnemyDied Invoked");
             EnemyDiedEvent?.Invoke(score);
         }
-        
+
         public void InvokeGameStarted()
         {
             Debug.Log("GameStarted Invoked");
@@ -158,7 +172,7 @@ namespace Puzzle{
             Debug.Log("CreateEnemy Invoked");
             CreateEnemyEvent?.Invoke(@params);
         }
-        
+
         public void InvokeLevelClosed()
         {
             InvokePauseLevel(true);
@@ -173,6 +187,12 @@ namespace Puzzle{
             Debug.Log("LevelComplete Invoked");
             LevelCompletedEvent?.Invoke();
             CallCompleteMenu();
+        }
+        
+        public void InvokePlayAudio(LevelPlayAudioEventArgs args)
+        {
+            Debug.Log("PlayAudio Invoked " + args.AudioClip.name);
+            PlayAudioEvent?.Invoke(args);
         }
     }
 }

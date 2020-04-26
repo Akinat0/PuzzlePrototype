@@ -1,6 +1,11 @@
 ﻿
 public class InfinityPatternTimeLineTimelineController : TimelineController
 {
+    protected override void StartIndex()
+    {
+        RandomIndex();
+    }
+    
     private void OnEnable()
     {
         InfinityGameSceneManager.ChangePatternEvent += ChangePattern_Handler;
@@ -14,6 +19,6 @@ public class InfinityPatternTimeLineTimelineController : TimelineController
     private void ChangePattern_Handler()
     {
         RandomIndex();
-        NextTimeLine();
+        NextTimeline();
     }
 }

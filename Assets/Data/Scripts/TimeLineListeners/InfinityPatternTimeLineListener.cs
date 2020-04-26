@@ -86,7 +86,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
         return side;
     }
 
-    private new void OnEnable()
+    protected override void OnEnable()
     {
         InfinityGameSceneManager.ChangePatternTimeLineSpeedEvent += ChangePatternTimeLineSpeed_Handler;
         InfinityGameSceneManager.ChangeEnemySpeedEvent += ChangeEnemySpeed_Handler;
