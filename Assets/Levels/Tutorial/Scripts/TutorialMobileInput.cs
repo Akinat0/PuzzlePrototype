@@ -27,6 +27,7 @@ public class TutorialMobileInput : MobileGameInput
 
     protected override void OnEnable()
     {
+        TouchRegistered += TouchRegistered_Handler;
         TutoriaScenelManager.OnTutorialInputEnabled += OnTutorialInputEnabled_Handler;
         TutoriaScenelManager.OnTutorialInputDisabled += OnTutorialInputDisabled_Handler;
         GameSceneManager.ResetLevelEvent += OnRestartLevel_Handler;
@@ -34,6 +35,7 @@ public class TutorialMobileInput : MobileGameInput
     
     protected override void OnDisable()
     {
+        TouchRegistered -= TouchRegistered_Handler;
         TutoriaScenelManager.OnTutorialInputEnabled -= OnTutorialInputEnabled_Handler;
         TutoriaScenelManager.OnTutorialInputDisabled -= OnTutorialInputDisabled_Handler;
         GameSceneManager.ResetLevelEvent -= OnRestartLevel_Handler;
@@ -49,6 +51,11 @@ public class TutorialMobileInput : MobileGameInput
         Condition = false;
     }
     
+    void TouchRegistered_Handler(Touch touch)
+    {
+        Vector3 position = Camera.main.ScreenToWorldPoint(touch.position);
+        VFXManager.Instance.CallTapRippleEffect(position);
+    }
     
     void OnRestartLevel_Handler()
     {

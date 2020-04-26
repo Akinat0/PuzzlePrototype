@@ -45,7 +45,7 @@ public class TutoriaScenelManager : GameSceneManager
                 {
                     if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                     {
-                        VFXManager.Instance.CallTapEffect(Player.transform);
+                        VFXManager.Instance.CallTutorialTapEffect(Player.transform);
 
                         if (puzzleEnemy is ITutorialStopReason stopReason)
                         {
@@ -60,7 +60,7 @@ public class TutoriaScenelManager : GameSceneManager
 
                 if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
                 {
-                    VFXManager.Instance.CallTapEffect(enemy.transform);
+                    VFXManager.Instance.CallTutorialTapEffect(enemy.transform);
 
                     _stopReason = (ITutorialStopReason) enemy;
                     ((ITutorialStopReason) enemy).Solved += StopReasonSolved_Handler;
@@ -75,10 +75,10 @@ public class TutoriaScenelManager : GameSceneManager
             {
                 if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
                     if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
-                        VFXManager.Instance.CallTapEffect(Player.transform);
+                        VFXManager.Instance.CallTutorialTapEffect(Player.transform);
                 
                 if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
-                    VFXManager.Instance.CallTapEffect(enemy.transform);
+                    VFXManager.Instance.CallTutorialTapEffect(enemy.transform);
                 break;
             }
         }

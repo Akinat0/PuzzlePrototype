@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Puzzle;
@@ -21,6 +22,11 @@ public class LevelSoundPlayer : MonoBehaviour
             float timeOnCurve = audioSource.time.Remap(0, audioLength, 0, soundCurveLength);
             audioSource.volume = Mathf.Clamp01(soundCurve.Evaluate(timeOnCurve));
         }
+    }
+
+    private void OnDestroy()
+    {
+        ClearAudio();
     }
 
     protected void ClearAudio()
@@ -46,7 +52,7 @@ public class LevelSoundPlayer : MonoBehaviour
                 audioSource.UnPause();
         }
     }
-    
+
     protected virtual void OnEnable()
     {
         GameSceneManager.PlayAudioEvent += PlayAudioEvent_Handler;

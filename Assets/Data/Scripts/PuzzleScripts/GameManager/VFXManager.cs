@@ -60,9 +60,14 @@ namespace Puzzle
             Instantiate(m_TadaSFX);
         }
 
-        public Transform CallTapEffect(Transform parent)
+        public void CallTapRippleEffect(Vector3 position)
         {
-            Transform tap =  Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
+            FlatFx.AddEffect(position, FlatFXType.Ripple.GetHashCode());
+        }
+        
+        public Transform CallTutorialTapEffect(Transform parent)
+        {
+            Transform tap = Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
             
             //Make tap independent on parent scale
             tap.localScale = new Vector3(
@@ -130,7 +135,7 @@ namespace Puzzle
         public void EditorCallTapEffect()
         {
             if (Application.IsPlaying(this))
-                CallTapEffect(null);
+                CallTutorialTapEffect(null);
         }
         
         [ContextMenu("Confetti")]
@@ -167,6 +172,14 @@ namespace Puzzle
             if(Application.IsPlaying(this))
                 CallCrosslightEffect(Vector2.zero);
         }
+        
+        [ContextMenu("CallTapRipple")]
+        public void EditorCallTapRippleEffect()
+        {
+            if(Application.IsPlaying(this))
+                CallTapRippleEffect(Vector2.zero);
+        }
+        
 #endif
     }
 }
