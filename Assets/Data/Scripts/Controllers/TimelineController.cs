@@ -16,8 +16,7 @@ public abstract class TimelineController : MonoBehaviour
     {
         _playableDirector = GetComponent<PlayableDirector>();
         StartIndex();
-        _playableDirector.playableAsset = playableAssets[_indexAsset];
-        _playableDirector.Play();
+        Refresh();
     }
 
     protected virtual void StartIndex()
@@ -25,12 +24,10 @@ public abstract class TimelineController : MonoBehaviour
         _indexAsset = 0;
     }
 
-    protected void NextTimeLine()
+    protected void NextTimeline()
     {
         NextIndex();
-        _playableDirector.playableAsset = playableAssets[_indexAsset];
-        _playableDirector.Play(); 
-        _playableDirector.time = 0;
+        Refresh();
     }
 
     protected void NextIndex()
@@ -44,5 +41,12 @@ public abstract class TimelineController : MonoBehaviour
     protected void RandomIndex()
     {
         _indexAsset = Random.Range(0, playableAssets.Length);
+    }
+
+    protected void Refresh()
+    {
+        _playableDirector.playableAsset = playableAssets[_indexAsset];
+        _playableDirector.time = 0;
+        _playableDirector.Play();
     }
 }

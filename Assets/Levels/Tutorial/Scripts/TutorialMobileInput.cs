@@ -27,17 +27,15 @@ public class TutorialMobileInput : MobileGameInput
 
     protected override void OnEnable()
     {
-        TutorialManager.OnTutorialInputEnabled += OnTutorialInputEnabled_Handler;
-        TutorialManager.OnTutorialInputDisabled += OnTutorialInputDisabled_Handler;
-        TutorialManager.OnTutorialRestart += OnTutorialRestart_Handler;
+        TutoriaScenelManager.OnTutorialInputEnabled += OnTutorialInputEnabled_Handler;
+        TutoriaScenelManager.OnTutorialInputDisabled += OnTutorialInputDisabled_Handler;
         GameSceneManager.ResetLevelEvent += OnRestartLevel_Handler;
     }
     
     protected override void OnDisable()
     {
-        TutorialManager.OnTutorialInputEnabled -= OnTutorialInputEnabled_Handler;
-        TutorialManager.OnTutorialInputDisabled -= OnTutorialInputDisabled_Handler;
-        TutorialManager.OnTutorialRestart -= OnTutorialRestart_Handler;
+        TutoriaScenelManager.OnTutorialInputEnabled -= OnTutorialInputEnabled_Handler;
+        TutoriaScenelManager.OnTutorialInputDisabled -= OnTutorialInputDisabled_Handler;
         GameSceneManager.ResetLevelEvent -= OnRestartLevel_Handler;
     }
 
@@ -51,10 +49,6 @@ public class TutorialMobileInput : MobileGameInput
         Condition = false;
     }
     
-    void OnTutorialRestart_Handler()
-    {
-        Condition = false;
-    }
     
     void OnRestartLevel_Handler()
     {

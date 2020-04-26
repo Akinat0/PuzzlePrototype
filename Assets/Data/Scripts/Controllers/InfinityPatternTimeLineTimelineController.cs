@@ -19,6 +19,6 @@ public class InfinityPatternTimeLineTimelineController : TimelineController
     private void ChangePattern_Handler()
     {
         RandomIndex();
-        NextTimeLine();
+        NextTimeline();
     }
 }

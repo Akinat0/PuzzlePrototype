@@ -4,7 +4,7 @@ using PuzzleScripts;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class TutorialManager : GameSceneManager
+public class TutoriaScenelManager : GameSceneManager
 {
     public static event Action OnTutorialInputEnabled; 
     public static event Action OnTutorialInputDisabled;
@@ -13,81 +13,96 @@ public class TutorialManager : GameSceneManager
     public static event Action<bool> OnStopTutorial;
     public static event Action OnTutorialNextStage;
     public static event Action<ITutorialStopReason> OnTutorialStopReasonSolved;
-
-    [SerializeField] private PlayableDirector[] _directors;
-
+    
     private bool _tutorialStopped = false;
     private ITutorialStopReason _stopReason = null;
     private int _stage = 0;
-    
-    public int Stage => _stage;
-    public static bool TutorialStopped => ((TutorialManager) Instance)._tutorialStopped;
-    public static ITutorialStopReason StopReason => ((TutorialManager) Instance)._stopReason;
 
-    private void ProcessTouch()
+    public int Stage
     {
-        switch (_stage)
+        get => _stage;
+      
+        private set
+        {
+            _stage = value;
+            if (_stage > 0)
+                InvokeEnableInput();
+            else
+                InvokeDisableInput();
+        }
+    }
+    
+    public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;
+    public static ITutorialStopReason StopReason => ((TutoriaScenelManager) Instance)._stopReason;
+
+    private void ProcessEnemyIsClose(EnemyBase enemy)
+    {
+        switch (Stage)
         {
             case 0:
-                //InvokeDisableInput();
+            {
+                if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
+                {
+                    if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
+                    {
+                        VFXManager.Instance.CallTapEffect(Player.transform);
+
+                        if (puzzleEnemy is ITutorialStopReason stopReason)
+                        {
+                            _stopReason = stopReason;
+                            stopReason.Solved += StopReasonSolved_Handler;
+                        }
+
+                        InvokeOnStopTutorial(true);
+                        InvokeEnableInput();
+                    }
+                }
+
+                if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
+                {
+                    VFXManager.Instance.CallTapEffect(enemy.transform);
+
+                    _stopReason = (ITutorialStopReason) enemy;
+                    ((ITutorialStopReason) enemy).Solved += StopReasonSolved_Handler;
+
+                    InvokeOnStopTutorial(true);
+                    InvokeEnableInput();
+                }
+                break;
+            }
+
+            case 1:
+            {
+                if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
+                    if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
+                        VFXManager.Instance.CallTapEffect(Player.transform);
+                
+                if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
+                    VFXManager.Instance.CallTapEffect(enemy.transform);
+                break;
+            }
+        }
+    }
+            
+        
+    
+    
+    private void ProcessTutorialStopReasonSolved()
+    {
+        switch (Stage)
+        {
+            case 0:
+                InvokeOnStopTutorial(false);
+                InvokeDisableInput();
                 break;
         }
     }
 
-    private void ProcessEnemyIsClose(EnemyBase enemy)
-    {
-        if (_stage == 0)
-        {
-            if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
-            {
-                if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
-                {
-                    VFXManager.Instance.CallTapEffect(Player.transform);
-
-                    if (puzzleEnemy is ITutorialStopReason stopReason)
-                    {
-                        _stopReason = stopReason;
-                        stopReason.Solved += StopReasonSolved_Handler;
-                    }
-
-                    InvokeOnStopTutorial(true);
-                    InvokeEnableInput();
-                }    
-            }
-
-            if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
-            {
-                VFXManager.Instance.CallTapEffect(enemy.transform);
-                
-                _stopReason = (ITutorialStopReason)enemy;
-                ((ITutorialStopReason)enemy).Solved += StopReasonSolved_Handler;
-
-                InvokeOnStopTutorial(true);
-                InvokeEnableInput();
-            }
-        }
-        
-    }
-    
-    private void ProcessTutorialStopReasonSolved()
-    {
-        if (_stage == 0)
-        {
-            InvokeOnStopTutorial(false);
-            InvokeDisableInput();
-        }
-    }
-
-    private void Restart()
-    {
-        _directors[_stage].Stop();
-        _directors[_stage].Play();
-    }
-    
     private void OnEnable()
     {
         base.OnEnable();
         PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
+        ResetLevelEvent += ResetLevelEvent_Handler;
         MobileGameInput.TouchOnTheScreen += TouchOnTheScreen_Handler;
     }
     
@@ -95,6 +110,7 @@ public class TutorialManager : GameSceneManager
     {
         base.OnDisable();
         PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
+        ResetLevelEvent -= ResetLevelEvent_Handler;
         MobileGameInput.TouchOnTheScreen -= TouchOnTheScreen_Handler;
     }
     
@@ -103,10 +119,14 @@ public class TutorialManager : GameSceneManager
         InvokeTutorialRestart();
     }
 
+    private void ResetLevelEvent_Handler()
+    {
+        Stage = 0;
+    }
+    
     private void TouchOnTheScreen_Handler(Touch touch)
     {
         Debug.LogError("Touch registered");
-        ProcessTouch();
     }
 
     private void StopReasonSolved_Handler()
@@ -129,9 +149,8 @@ public class TutorialManager : GameSceneManager
 
     public void InvokeTutorialRestart()
     {
-        Debug.LogError("Restart stage " + _stage);
+        Debug.LogError("Restart stage " + Stage);
         OnTutorialRestart?.Invoke();
-        Restart();
     }
     
     public void InvokeEnemyIsClose(EnemyBase enemy)
@@ -143,8 +162,8 @@ public class TutorialManager : GameSceneManager
     }
     public void InvokeTutorialNextStage()
     {
-        _stage++;
-        Debug.LogError("OnTutorialNextStage invoked. Tutorial goes stage " + _stage);
+        Stage++;
+        Debug.LogError("OnTutorialNextStage invoked. Tutorial goes stage " + Stage);
         OnTutorialNextStage?.Invoke();
     }
 

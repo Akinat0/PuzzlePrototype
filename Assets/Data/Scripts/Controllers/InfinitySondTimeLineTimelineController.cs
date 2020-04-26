@@ -18,6 +18,6 @@ public class InfinitySondTimeLineTimelineController : TimelineController
 
     private void ChangeSound_Handler()
     {
-        NextTimeLine();
+        NextTimeline();
     }
 }

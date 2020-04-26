@@ -8,21 +8,13 @@ public class TutorialTimelineListener : TimelineListener
     {
         base.OnNotify(origin, notification, context);
 
-        if (GameSceneManager.Instance is TutorialManager manager)
+        if (GameSceneManager.Instance is TutoriaScenelManager manager)
         {
             switch (notification)
             {
                 case GotoMarker gotoMarker:
 
                     manager.InvokeTutorialNextStage();
-                    break;
-
-                case TutorGiveControlMarker giveControlMarker:
-                    manager.InvokeEnableInput();
-                    break;
-                
-                case TutorEndFirstStageMarker endFirstStageMarker:
-                    //TODO
                     break;
             }
         }
@@ -35,13 +27,13 @@ public class TutorialTimelineListener : TimelineListener
     protected override void OnEnable()
     {
         base.OnEnable();
-        TutorialManager.OnStopTutorial += OnStopTutorial_Handler;
+        TutoriaScenelManager.OnStopTutorial += OnStopTutorial_Handler;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        TutorialManager.OnStopTutorial -= OnStopTutorial_Handler;
+        TutoriaScenelManager.OnStopTutorial -= OnStopTutorial_Handler;
     }
 
     void OnStopTutorial_Handler(bool paused)
@@ -53,7 +45,7 @@ public class TutorialTimelineListener : TimelineListener
     {
         if (!paused)
         {
-            if (!TutorialManager.TutorialStopped)
+            if (!TutoriaScenelManager.TutorialStopped)
                 base.PauseLevelEvent_Handler(paused);
         }
         else

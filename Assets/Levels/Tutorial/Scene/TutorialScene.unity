@@ -180,7 +180,7 @@ PlayableDirector:
   m_GameObject: {fileID: 412326543}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: a13eb36ab195afd43bfd276ea7cfaaa7, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 0
@@ -210,6 +210,10 @@ PlayableDirector:
     value: {fileID: 3866195373513968648}
   - key: {fileID: -5681840142667719587, guid: a16bb79bd45b7a448b25e7a7590d504e, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 6649270982525342854, guid: a13eb36ab195afd43bfd276ea7cfaaa7, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 783052350732916565, guid: a13eb36ab195afd43bfd276ea7cfaaa7, type: 2}
+    value: {fileID: 412326543}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &412326547
@@ -450,6 +454,7 @@ GameObject:
   - component: {fileID: 2068077344}
   - component: {fileID: 2068077351}
   - component: {fileID: 2068077345}
+  - component: {fileID: 2068077346}
   m_Layer: 8
   m_Name: GameContainer
   m_TagString: Untagged
@@ -487,6 +492,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lock: {fileID: 1311990834}
+--- !u!114 &2068077346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2068077343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53010952289f54f518f43cd49feef028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2068077351
 MonoBehaviour:
   m_ObjectHideFlags: 0
