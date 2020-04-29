@@ -8,7 +8,7 @@ public class TutorialSoundPlayer : LevelSoundPlayer
     {
         base.OnEnable();
         TutoriaScenelManager.OnStopTutorial += OnStopTutorial_Handler;
-        TutoriaScenelManager.OnTutorialRestart += OnTutorialReset_Handler;        TutoriaScenelManager.OnTutorialNextStage -= OnTutorialNextStage_Handler;
+        TutoriaScenelManager.OnTutorialRestart += OnTutorialReset_Handler;
         TutoriaScenelManager.OnTutorialNextStage += OnTutorialNextStage_Handler;
     }
     

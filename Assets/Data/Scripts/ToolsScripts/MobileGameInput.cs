@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public interface ITouchProcessor
 {
     void OnTouch(Touch touch);
-
 }
 
 public class MobileGameInput : MonoBehaviour
@@ -28,7 +27,6 @@ public class MobileGameInput : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                
                 if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                     //Touch on UI element
                     return;
