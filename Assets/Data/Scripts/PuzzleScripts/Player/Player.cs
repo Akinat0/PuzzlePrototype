@@ -14,6 +14,7 @@ namespace Puzzle
 
         public const int DEFAULT_HP = 5;
         protected int _health = DEFAULT_HP;
+        
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
         public PlayerView PlayerView => _view;

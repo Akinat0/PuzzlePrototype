@@ -1,11 +1,28 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Puzzle;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PuzzleCollectionItem", menuName = "Puzzle/CreateCollectionItem", order = 51)]
 public class CollectionItem : ScriptableObject
 {
-    [SerializeField] private GameObject m_Item;
+    [SerializeField] private PuzzleVariant[] puzzleVariants;
 
-    public GameObject Item => m_Item;
+
+    public GameObject GetPuzzleVariant(PuzzleSides sides)
+    {
+        return puzzleVariants.FirstOrDefault(variant => variant.Sides == sides).Puzzle;
+    }
+}
+
+[Serializable]
+public struct PuzzleVariant
+{
+    [SerializeField] private PuzzleSides sides;
+    [SerializeField] private GameObject puzzle;
+
+    public PuzzleSides Sides => sides;
+    public GameObject Puzzle => puzzle;
 }

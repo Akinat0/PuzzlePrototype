@@ -33,9 +33,9 @@ namespace Puzzle
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => _levelConfig;
 
-        public Player Player => _player;
+        public Player Player => player;
 
-        private Player _player;
+        private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig _levelConfig;
@@ -60,7 +60,8 @@ namespace Puzzle
 
         public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
         {
-            this._player = _player.AddComponent<Player>();
+            player = _player.AddComponent<Player>();
+            player.sides = config.PuzzleSides.ToArray();
             _player.AddComponent<PlayerInput>();
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
             if (Camera.main != null)
@@ -86,8 +87,8 @@ namespace Puzzle
 
         void UnloadScene()
         {
-            Destroy(_player.GetComponent<PlayerInput>());
-            Destroy(_player.GetComponent<Player>());
+            Destroy(player.GetComponent<PlayerInput>());
+            Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
             SceneManager.UnloadSceneAsync(gameObject.scene);
         }
