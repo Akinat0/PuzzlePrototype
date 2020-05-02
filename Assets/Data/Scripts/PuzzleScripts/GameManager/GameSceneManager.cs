@@ -22,6 +22,7 @@ namespace Puzzle
         public static event Action LevelClosedEvent;
         public static event Action LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
+        public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -193,6 +194,12 @@ namespace Puzzle
         {
             Debug.Log("PlayAudio Invoked " + args.AudioClip.name);
             PlayAudioEvent?.Invoke(args);
+        }
+        
+        public void InvokeEnemyAppearedOnScreen(EnemyBase enemyBase)
+        {
+            Debug.Log("EnemyAppearedOnScreen Invoked " + enemyBase.Type);
+            EnemyAppearedOnScreenEvent?.Invoke(enemyBase);
         }
     }
 }

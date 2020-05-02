@@ -1,4 +1,5 @@
 ﻿using System;
+using Abu.Tools;
 using Puzzle;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ namespace PuzzleScripts
     
         private int _damage = 1;
 
+        private bool _appearedOnScreen;
+
         protected bool Motion = true;
 
         private float _time = 0;
@@ -32,6 +35,16 @@ namespace PuzzleScripts
         
         protected virtual void Update()
         {
+            if (!_appearedOnScreen)
+            {
+                if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                    ScreenScaler.CameraSize.y / 2)
+                {
+                    _appearedOnScreen = true;
+                    GameSceneManager.Instance.InvokeEnemyAppearedOnScreen(this);
+                }
+            }
+            
             if (!Motion)
                 return;
             Move();

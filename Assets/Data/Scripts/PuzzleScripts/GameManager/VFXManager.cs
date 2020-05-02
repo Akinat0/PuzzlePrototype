@@ -56,6 +56,7 @@ namespace Puzzle
 
         public void CallCrosslightEffect(Vector2 position)
         {
+            FlatFx.useUnscaledTime = false;
             FlatFx.AddEffect(position, FlatFXType.Crosslight.GetHashCode());
         }
         
@@ -75,6 +76,7 @@ namespace Puzzle
 
         public void CallTapRippleEffect(Vector3 position)
         {
+            FlatFx.useUnscaledTime = true;
             FlatFx.AddEffect(position, FlatFXType.Ripple.GetHashCode());
         }
         
