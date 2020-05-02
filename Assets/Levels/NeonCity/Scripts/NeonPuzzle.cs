@@ -7,6 +7,6 @@ public class NeonPuzzle : PuzzleEnemy
     public override void Instantiate(EnemyParams @params)
     {
         base.Instantiate(@params);
-        GetComponent<SpriteRenderer>().flipX = !@params.stickOut;
+        GetComponent<SpriteRenderer>().flipX = @params.stickOut;
     }
 }

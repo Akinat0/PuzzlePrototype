@@ -41,10 +41,10 @@ GameObject:
   - component: {fileID: 979535260916508466}
   - component: {fileID: 979535260916508467}
   - component: {fileID: 4612617726443869283}
-  - component: {fileID: 979535260916508468}
+  - component: {fileID: 6213134702107427209}
   - component: {fileID: 2992154185844742710}
   m_Layer: 0
-  m_Name: CommonBluePuzzle
+  m_Name: CommonBluePuzzle_TL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
---- !u!114 &979535260916508468
+--- !u!114 &6213134702107427209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 979535260916508469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ecd574d1d63eb84ab4b8c22c2464d9f, type: 3}
+  m_Script: {fileID: 11500000, guid: dbf2782783d30466db27b7559320fca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _partOfScreen: 0.25
@@ -200,6 +200,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -224,8 +225,8 @@ SpriteRenderer:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 97c5b9b769caa45febf36ef83cbabd1a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 20989bb43f03c499595e3fdbf3f7e1e1, type: 3}
+  m_Color: {r: 0, g: 0.6194389, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -248,8 +249,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Sprites:
-  - {fileID: 21300000, guid: 97c5b9b769caa45febf36ef83cbabd1a, type: 3}
-  - {fileID: 21300000, guid: 5218826fef0ed49dbab8ac67ca33799c, type: 3}
+  - {fileID: 21300000, guid: 20989bb43f03c499595e3fdbf3f7e1e1, type: 3}
+  - {fileID: 21300000, guid: a06de487f80074b5dafad857441fe70f, type: 3}
 --- !u!1 &5375074283878449981
 GameObject:
   m_ObjectHideFlags: 0

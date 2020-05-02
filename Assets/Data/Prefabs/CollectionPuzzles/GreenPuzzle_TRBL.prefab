@@ -11,8 +11,18 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6f589c74aa9ed40bf99b197007071baa,
+      objectReference: {fileID: 21300000, guid: ee1cb0c8fc2b244d4818d376cd157866,
         type: 3}
+    - target: {fileID: 593447243670306959, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 593447243670306959, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.034409046
+      objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -41,12 +51,12 @@ PrefabInstance:
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
@@ -66,24 +76,49 @@ PrefabInstance:
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508469, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_Name
-      value: OrangePuzzle_RB
+      value: GreenPuzzle_TRBL
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176168562646035759, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176168562646035759, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176168562646035759, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176168562646035759, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176168562646035759, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6483042016809923517, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: _Sprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 6f589c74aa9ed40bf99b197007071baa,
+      objectReference: {fileID: 21300000, guid: ee1cb0c8fc2b244d4818d376cd157866,
         type: 3}
     - target: {fileID: 6483042016809923517, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: _Sprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 6d3036ce7c54c4a1ca64f95fbd8a541c,
+      objectReference: {fileID: 21300000, guid: e8f39a76cb4744d34a03de78217a8cc3,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6dde514f921d44bbb62005d47ed91c9, type: 3}
