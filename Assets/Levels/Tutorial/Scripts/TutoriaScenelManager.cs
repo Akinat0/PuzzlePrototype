@@ -132,7 +132,7 @@ public class TutoriaScenelManager : GameSceneManager
     
     private void TouchOnTheScreen_Handler(Touch touch)
     {
-        Debug.LogError("Touch registered");
+        Debug.Log("<color=green> Touch registered </color> ");
     }
 
     private void StopReasonSolved_Handler()
@@ -148,25 +148,25 @@ public class TutoriaScenelManager : GameSceneManager
     
     public void InvokeEnableInput()
     {
-        Debug.LogError("Tutorial input enabled");
+        Debug.Log("<color=green> Tutorial input enabled </color> ");
         OnTutorialInputEnabled?.Invoke();
     }
     
     public void InvokeDisableInput()
     {
-        Debug.LogError("Tutorial input disabled");
+        Debug.Log("<color=green> Tutorial input disabled </color> ");
         OnTutorialInputDisabled?.Invoke();
     }
 
     public void InvokeTutorialRestart()
     {
-        Debug.LogError("Restart stage " + Stage);
+        Debug.Log("<color=green> Restart stage " + Stage + "</color>");
         OnTutorialRestart?.Invoke();
     }
     
     public void InvokeEnemyIsClose(EnemyBase enemy)
     {
-        Debug.LogError("Enemy is close invoked " + enemy.name);
+        Debug.Log("<color=green> Enemy is close invoked " + enemy.name + "</color>");
         if(enemy is ITutorialStopReason tutorialStopReason)
             OnEnemyIsClose?.Invoke(tutorialStopReason);
         ProcessEnemyIsClose(enemy);
@@ -174,20 +174,20 @@ public class TutoriaScenelManager : GameSceneManager
     public void InvokeTutorialNextStage()
     {
         Stage++;
-        Debug.LogError("OnTutorialNextStage invoked. Tutorial goes stage " + Stage);
+        Debug.Log("<color=green> OnTutorialNextStage invoked. Tutorial goes stage " + Stage + "</color>");
         OnTutorialNextStage?.Invoke();
     }
 
     public void InvokeOnStopTutorial(bool pause)
     {
         _tutorialStopped = pause;
-        Debug.LogError("OnStopTutorial invoked");
+        Debug.Log("<color=green> OnStopTutorial invoked </color> ");
         OnStopTutorial?.Invoke(_tutorialStopped);
     }
     
     public void InvokeOnTutorialStopReasonSolved(ITutorialStopReason reason)
     {
-        Debug.LogError("OnTutorialStopReasonSolved invoked");
+        Debug.Log("<color=green> OnTutorialStopReasonSolved invoked </color>");
         OnTutorialStopReasonSolved?.Invoke(reason);
         ProcessTutorialStopReasonSolved();
     }
