@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using Abu.Tools;
 using Puzzle;
 using PuzzleScripts;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Rendering.Universal;
 
 public class TutoriaScenelManager : GameSceneManager
 {
@@ -45,7 +48,8 @@ public class TutoriaScenelManager : GameSceneManager
                 {
                     if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                     {
-                        VFXManager.Instance.CallTutorialTapEffect(Player.transform);
+                        VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, Player.transform,
+                            () => { VFXManager.Instance.CallTutorialTapEffect(Player.transform); }, null, 0.8f);
 
                         if (puzzleEnemy is ITutorialStopReason stopReason)
                         {
@@ -60,8 +64,9 @@ public class TutoriaScenelManager : GameSceneManager
 
                 if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
                 {
-                    VFXManager.Instance.CallTutorialTapEffect(enemy.transform);
-
+                    VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, enemy.transform,
+                        () => { VFXManager.Instance.CallTutorialTapEffect(enemy.transform); }, null, 0.8f);
+                    
                     _stopReason = (ITutorialStopReason) enemy;
                     ((ITutorialStopReason) enemy).Solved += StopReasonSolved_Handler;
 
@@ -83,15 +88,13 @@ public class TutoriaScenelManager : GameSceneManager
             }
         }
     }
-            
-        
-    
-    
+
     private void ProcessTutorialStopReasonSolved()
     {
         switch (Stage)
         {
             case 0:
+                VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
                 InvokeOnStopTutorial(false);
                 InvokeDisableInput();
                 break;
@@ -103,14 +106,16 @@ public class TutoriaScenelManager : GameSceneManager
         base.OnEnable();
         PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         ResetLevelEvent += ResetLevelEvent_Handler;
+        LevelClosedEvent += OnLevelClosedEvent_Handler;
         MobileGameInput.TouchOnTheScreen += TouchOnTheScreen_Handler;
     }
-    
+
     protected override void OnDisable()
     {
         base.OnDisable();
         PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         ResetLevelEvent -= ResetLevelEvent_Handler;
+        LevelClosedEvent -= OnLevelClosedEvent_Handler;
         MobileGameInput.TouchOnTheScreen -= TouchOnTheScreen_Handler;
     }
     
@@ -121,6 +126,7 @@ public class TutoriaScenelManager : GameSceneManager
 
     private void ResetLevelEvent_Handler()
     {
+        VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
         Stage = 0;
     }
     
@@ -133,6 +139,11 @@ public class TutoriaScenelManager : GameSceneManager
     {
         InvokeOnTutorialStopReasonSolved(_stopReason);
         _stopReason.Solved -= StopReasonSolved_Handler; //We're unsubscribing on invoke
+    }
+    
+    private void OnLevelClosedEvent_Handler()
+    {
+        VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
     }
     
     public void InvokeEnableInput()
@@ -180,5 +191,6 @@ public class TutoriaScenelManager : GameSceneManager
         OnTutorialStopReasonSolved?.Invoke(reason);
         ProcessTutorialStopReasonSolved();
     }
+    
 }
 

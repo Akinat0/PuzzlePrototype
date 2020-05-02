@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Puzzle
@@ -17,6 +20,15 @@ namespace Puzzle
         private GameObject m_ConfettiVfx;
         private GameObject m_TapVfx;
         private GameObject m_TadaSFX;
+        private Volume m_Volume;
+
+        public Vignette Vignette
+        {
+            get{
+                m_Volume.profile.TryGet(out Vignette vignette);
+                return vignette;
+            }
+        }
 
         public FlatFX FlatFx => m_FlatFx;
 
@@ -24,12 +36,13 @@ namespace Puzzle
         {
             Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
+            m_Volume = GetComponent<Volume>();
             m_TapVfx = Resources.Load<GameObject>("Prefabs/Tap");
             m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
             m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
             SetConfettiHoldersPositions();
         }
-        
+
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
         {
             int effectNumber = FlatFXType.SunRays.GetHashCode();
