@@ -14,11 +14,25 @@ public static class VignetteAnimator
     private const float Sampling = 60f;
 
     private static MonoHelper coroutineHolder;
-    
+
+    private static GameObject holderObject;
+    private static GameObject HolderObject
+    {
+        get
+        {
+            if (holderObject == null)
+                holderObject = new GameObject("Vignette Animator Coroutine Holder");
+            
+            return holderObject;
+        }
+    }
+
     static void Clear()
     {
-        Object.DestroyImmediate(coroutineHolder);
-        coroutineHolder = new GameObject("Vignette Animator Coroutine Holder").AddComponent<MonoHelper>();
+        if(coroutineHolder != null && coroutineHolder.gameObject != null)
+            Object.DestroyImmediate(coroutineHolder);
+
+        coroutineHolder = HolderObject.AddComponent<MonoHelper>();
     }
     
     public static void FocusAndFollow(Vignette vignette, Transform target, Action onSuccess = null, Action onFail = null, float? focusTime = null)

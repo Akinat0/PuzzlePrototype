@@ -23,6 +23,8 @@ namespace Puzzle
         public static event Action LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
+        public static event Action<string> CutsceneStartedEvent;
+        public static event Action<string> CutsceneEndedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -103,13 +105,9 @@ namespace Puzzle
             completeScreenManager.CreateReplyScreen();
         }
 
-        protected virtual void OnEnable()
-        {
-        }
+        protected virtual void OnEnable() { }
+        protected virtual void OnDisable() { }
         
-        protected virtual void OnDisable()
-        {
-        }
         //////////////////
         //Event Invokers//
         //////////////////
@@ -168,13 +166,13 @@ namespace Puzzle
             PlayerRiviveEvent?.Invoke();
             InvokePauseLevel(false);
         }
-
+        
         public void InvokeCreateEnemy(EnemyParams @params)
         {
             Debug.Log("CreateEnemy Invoked");
             CreateEnemyEvent?.Invoke(@params);
         }
-
+        
         public void InvokeLevelClosed()
         {
             InvokePauseLevel(true);
@@ -183,7 +181,7 @@ namespace Puzzle
             UnloadScene();
             LauncherUI.Instance.InvokeGameSceneUnloaded();
         }
-
+        
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
@@ -201,6 +199,20 @@ namespace Puzzle
         {
             Debug.Log("EnemyAppearedOnScreen Invoked " + enemyBase.Type);
             EnemyAppearedOnScreenEvent?.Invoke(enemyBase);
+        }
+        
+        public void InvokeCutsceneStarted(string SceneID)
+        {
+            Debug.Log("CutsceneStarted Invoked " + SceneID);
+            InvokePauseLevel(true);
+            CutsceneStartedEvent?.Invoke(SceneID);
+        }
+        
+        public void InvokeCutsceneEnded(string SceneID)
+        {
+            Debug.Log("CutsceneEnded Invoked " + SceneID);
+            InvokePauseLevel(false);
+            CutsceneEndedEvent?.Invoke(SceneID);
         }
     }
 }
