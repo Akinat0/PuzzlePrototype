@@ -357,6 +357,7 @@ public class SelectionManager : MonoBehaviour
             {
                 collectionBtn.interactable = false;
             })
+            .SetUpdate(true)
             .onComplete = () => CollectionBtnObject.SetActive(false);
     }
 
