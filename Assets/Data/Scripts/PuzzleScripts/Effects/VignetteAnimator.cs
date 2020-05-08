@@ -48,7 +48,7 @@ public static class VignetteAnimator
         vignette.active = true;
         vignette.rounded.value = true;
         vignette.smoothness.value = 1;
-        vignette.color.value = Color.black;
+        vignette.color.value = new Color(0.08f, 0.08f, 0.08f);
         
         coroutineHolder.StartCoroutine(FollowRoutine(target, successAction, failAction, focusTime ?? FocusTime, vignette));
     }
