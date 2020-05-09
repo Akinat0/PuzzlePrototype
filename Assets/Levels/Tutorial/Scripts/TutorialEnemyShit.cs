@@ -9,14 +9,26 @@ public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
 
     public event Action Solved;
 
+    bool isHalfway
+    {
+        get
+        {
+            if (_enemyParams.side == Side.Down || _enemyParams.side == Side.Up)
+                return (GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                       ScreenScaler.CameraSize.y * 3.0f / 8.0f;
+            else
+                return (GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                       ScreenScaler.CameraSize.x * 3.0f / 8.0f;
+        }
+    }
+   
     protected override void Update()
     {
         base.Update();
 
         if (!_reachedHalfway)
         {
-            if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
-                ScreenScaler.CameraSize.y * 3.0f / 8.0f)
+            if (isHalfway)
             {
                 _reachedHalfway = true;
                 if (GameSceneManager.Instance is TutoriaScenelManager sceneManager)
@@ -74,5 +86,5 @@ public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
             base.PauseLevelEvent_Handler(paused);
         }
     }
-    
+
 }

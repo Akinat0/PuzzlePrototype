@@ -20,7 +20,7 @@ namespace PuzzleScripts
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
 
-        private EnemyParams _enemyParams;
+        protected EnemyParams _enemyParams;
         
         private float _speed = 0.5f;
     

@@ -28,9 +28,9 @@ MonoBehaviour:
   m_Time: 13.5
   enemyParams:
     enemyType: 0
-    side: 1
-    speed: 2
-    stickOut: 0
+    side: 2
+    speed: 1.2
+    stickOut: 1
     radialPosition: 0
 --- !u!114 &-7816909188464924385
 MonoBehaviour:
@@ -71,23 +71,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Time: 16
---- !u!114 &-6696155979236224777
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
-  m_Name: AudioPlayableAsset
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: e7abd2b767488fd499eec73ccc4e0a25, type: 3}
-  m_Loop: 0
-  m_bufferingTime: 0.1
-  m_ClipProperties:
-    volume: 1
 --- !u!114 &-6647349749014594353
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,7 +153,7 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
 --- !u!114 &-3351389739562410641
 MonoBehaviour:
@@ -184,10 +167,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 19.5
+  m_Time: 19.183333333333334
   enemyParams:
-    enemyType: 0
-    side: 1
+    enemyType: 1
+    side: 0
     speed: 2
     stickOut: 0
     radialPosition: 0
@@ -374,16 +357,13 @@ MonoBehaviour:
     - {fileID: 5364716503613857705}
     - {fileID: 2218608781455898997}
     - {fileID: -2181867282066655231}
-    - {fileID: 7829294217616700764}
-    - {fileID: 7888023913834966739}
-    - {fileID: 2590383659842006622}
     - {fileID: 7226430753614551674}
     - {fileID: -3351389739562410641}
     - {fileID: 1647617362383376648}
-    - {fileID: 2201850484639772601}
     - {fileID: -8434496134786429622}
     - {fileID: 7791921262770258529}
     - {fileID: -4200533985576373503}
+    - {fileID: 2205214590894847392}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,14 +397,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 17.5
+  m_Time: 17.2
   enemyParams:
-    enemyType: 0
+    enemyType: 1
     side: 1
     speed: 2
     stickOut: 0
     radialPosition: 0
---- !u!114 &2201850484639772601
+--- !u!114 &2205214590894847392
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -433,16 +413,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
+  m_Script: {fileID: 11500000, guid: 58c42c96574548049889e2ab55e71052, type: 3}
+  m_Name: Note Marker
   m_EditorClassIdentifier: 
-  m_Time: 15.5
-  enemyParams:
-    enemyType: 0
-    side: 1
-    speed: 2
-    stickOut: 0
-    radialPosition: 0
+  m_Time: 15.233333333333333
+  note: Cutscene
 --- !u!114 &2218608781455898997
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,19 +431,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Time: 22.5
---- !u!114 &2590383659842006622
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 364475de51aba3840873fc47e62ddbae, type: 3}
-  m_Name: Goto Marker
-  m_EditorClassIdentifier: 
-  m_Time: 24
 --- !u!114 &3638353576311966734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -582,10 +544,10 @@ MonoBehaviour:
   m_Children: []
   m_Clips:
   - m_Version: 1
-    m_Start: 0.3
+    m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: -6696155979236224777}
-    m_Duration: 23.7
+    m_Asset: {fileID: 8860106124814866709}
+    m_Duration: 23.379591836734694
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6649270982525342854}
     m_EaseInDuration: 0
@@ -649,7 +611,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: UnityV1_Tutorial
+    m_DisplayName: Puzzle_Tutorial_1
   m_Markers:
     m_Objects: []
   m_TrackProperties:
@@ -668,10 +630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 21.5
+  m_Time: 21.166666666666668
   enemyParams:
-    enemyType: 0
-    side: 1
+    enemyType: 1
+    side: 2
     speed: 2
     stickOut: 0
     radialPosition: 0
@@ -690,36 +652,10 @@ MonoBehaviour:
   m_Time: 11.5
   enemyParams:
     enemyType: 0
-    side: 1
-    speed: 2
+    side: 0
+    speed: 1.2
     stickOut: 0
     radialPosition: 0
---- !u!114 &7829294217616700764
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aead8022dd3156d40a0d9465737a35ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Time: 23.5
---- !u!114 &7888023913834966739
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aead8022dd3156d40a0d9465737a35ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Time: 24
 --- !u!114 &8300850711324486778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -746,6 +682,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Time: 19.65
+--- !u!114 &8860106124814866709
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
+  m_Name: AudioPlayableAsset
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 8d83cbcf5b8674dd2995c78831962b10, type: 3}
+  m_Loop: 0
+  m_bufferingTime: 0.1
+  m_ClipProperties:
+    volume: 1
 --- !u!114 &9186831002612359005
 MonoBehaviour:
   m_ObjectHideFlags: 1

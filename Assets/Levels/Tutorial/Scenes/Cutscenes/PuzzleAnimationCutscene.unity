@@ -800,6 +800,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion
       objectReference: {fileID: 0}
+    - target: {fileID: 2834689649091276870, guid: b36bd37abc6cea644995b2343c5458fb,
+        type: 3}
+      propertyPath: useUnscaledTime
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2645635069595499049, guid: b36bd37abc6cea644995b2343c5458fb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b36bd37abc6cea644995b2343c5458fb, type: 3}
@@ -1069,7 +1074,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3d162f8592b124c15b6bec7907fbf851, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
