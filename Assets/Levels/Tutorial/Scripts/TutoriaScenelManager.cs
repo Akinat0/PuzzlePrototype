@@ -76,16 +76,16 @@ public class TutoriaScenelManager : GameSceneManager
                 break;
             }
 
-            case 1:
-            {
-                if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
-                    if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
-                        VFXManager.Instance.CallTutorialTapEffect(Player.transform);
-                
-                if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
-                    VFXManager.Instance.CallTutorialTapEffect(enemy.transform);
-                break;
-            }
+//            case 1:
+//            {
+//                if (enemy.Type == EnemyType.Puzzle && enemy is TutorialEnemyPuzzle puzzleEnemy)
+//                    if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
+//                        VFXManager.Instance.CallTutorialTapEffect(Player.transform);
+//                
+//                if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
+//                    VFXManager.Instance.CallTutorialTapEffect(enemy.transform);
+//                break;
+//            }
         }
     }
 
