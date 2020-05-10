@@ -19,7 +19,8 @@ public class TutorialSoundPlayer : LevelSoundPlayer
             float audioLength = audioSource.clip.length;
             float timeOnCurve = audioSource.time.Remap(0, audioLength, 0, soundCurveLength);
             float valueOnCurve = Mathf.Clamp01(soundCurve.Evaluate(timeOnCurve));
-
+            
+            //Additional volume remap in case of quite sound is active
             audioSource.volume = quietSound ? valueOnCurve.Remap(0, 1, 0, volumeOnPause) : valueOnCurve;
         }
     }
