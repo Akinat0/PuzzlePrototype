@@ -47,7 +47,7 @@ public class SoundManager : MonoBehaviour
 
     public void PauseSounds(bool pause)
     {
-        AudioListener.pause = pause;
+//        AudioListener.pause = pause;
     }
     public void PauseTheme()
     {

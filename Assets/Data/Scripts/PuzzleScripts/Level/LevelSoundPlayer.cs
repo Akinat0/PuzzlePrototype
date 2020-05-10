@@ -37,10 +37,8 @@ public class LevelSoundPlayer : MonoBehaviour
         audioSources.Clear();
     }
 
-    protected void Pause(bool pause)
+    protected virtual void Pause(bool pause)
     {
-        Time.timeScale = pause ? 0 : 1;
-        
         foreach (var audioSource in audioSources.Keys)
         {
             if(audioSource == null)
@@ -66,8 +64,6 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
-
-
 
     void PlayAudioEvent_Handler(LevelPlayAudioEventArgs args)
     {
