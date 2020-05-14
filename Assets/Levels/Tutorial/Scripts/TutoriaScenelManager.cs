@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using Abu.Tools;
+using DG.Tweening;
 using Puzzle;
 using PuzzleScripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Rendering.Universal;
@@ -21,6 +23,8 @@ public class TutoriaScenelManager : GameSceneManager
     private ITutorialStopReason _stopReason = null;
     private int _stage = 0;
 
+    private FadeEffect _fadeEffect;
+
     public int Stage
     {
         get => _stage;
@@ -34,7 +38,13 @@ public class TutoriaScenelManager : GameSceneManager
                 InvokeDisableInput();
         }
     }
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 110);
+    }
+
     public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;
     public static ITutorialStopReason StopReason => ((TutoriaScenelManager) Instance)._stopReason;
 
@@ -48,6 +58,7 @@ public class TutoriaScenelManager : GameSceneManager
                 {
                     if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                     {
+                        _fadeEffect.setActive(false);
                         VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, Player.transform,
                             () => { VFXManager.Instance.CallTutorialTapEffect(Player.transform); }, null, 0.8f);
 
@@ -64,6 +75,7 @@ public class TutoriaScenelManager : GameSceneManager
 
                 if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
                 {
+                    _fadeEffect.setActive(false);
                     VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, enemy.transform,
                         () => { VFXManager.Instance.CallTutorialTapEffect(enemy.transform); }, null, 0.8f);
                     
@@ -88,15 +100,25 @@ public class TutoriaScenelManager : GameSceneManager
 //            }
         }
     }
-
     private void ProcessTutorialStopReasonSolved()
     {
         switch (Stage)
         {
             case 0:
+                _fadeEffect.setActive(true);
                 VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
                 InvokeOnStopTutorial(false);
                 InvokeDisableInput();
+                break;
+        }
+    }
+    
+    private void ProcessTutorialNextStage()
+    {
+        switch (Stage)
+        {
+            case 1:
+                _fadeEffect.Sprite.DOFade(0, 1f); //Fadeout
                 break;
         }
     }
@@ -128,6 +150,8 @@ public class TutoriaScenelManager : GameSceneManager
     {
         VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
         Stage = 0;
+        _fadeEffect.setActive(true);
+        _fadeEffect.Sprite.DOFade(FadeEffect.DefaultAlpha, 0);
     }
     
     private void TouchOnTheScreen_Handler(Touch touch)
@@ -176,6 +200,7 @@ public class TutoriaScenelManager : GameSceneManager
         Stage++;
         Debug.Log("<color=green> OnTutorialNextStage invoked. Tutorial goes stage " + Stage + "</color>");
         OnTutorialNextStage?.Invoke();
+        ProcessTutorialNextStage();
     }
 
     public void InvokeOnStopTutorial(bool pause)

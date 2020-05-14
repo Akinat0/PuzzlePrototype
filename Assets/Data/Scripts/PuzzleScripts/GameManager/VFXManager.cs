@@ -43,6 +43,11 @@ namespace Puzzle
             SetConfettiHoldersPositions();
         }
 
+        public FadeEffect CallFadeEffect(Transform parent, string sortingLayer, int sortingOrder)
+        {
+            return new FadeEffect(parent, sortingLayer, sortingOrder);
+        }
+        
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
         {
             int effectNumber = FlatFXType.SunRays.GetHashCode();
@@ -90,6 +95,16 @@ namespace Puzzle
                 tap.localScale.y * tap.localScale.y / tap.lossyScale.y,
                 tap.localScale.z * tap.localScale.z / tap.lossyScale.z);
             
+            return tap;
+        }
+        
+        public Transform CallTutorialTapEffect(Transform parent, Color color)
+        {
+            Transform tap = CallTutorialTapEffect(parent);
+
+            foreach (SpriteRenderer spriteRenderer in tap.GetComponentsInChildren<SpriteRenderer>())
+                spriteRenderer.color = color;
+
             return tap;
         }
 

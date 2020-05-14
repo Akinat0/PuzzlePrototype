@@ -42,7 +42,7 @@ namespace Puzzle
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig _levelConfig;
 
-        void Awake()
+        protected virtual void Awake()
         {
             if(Instance == null)
                 Instance = this;
