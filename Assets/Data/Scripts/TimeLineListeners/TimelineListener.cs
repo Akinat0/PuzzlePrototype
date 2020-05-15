@@ -31,8 +31,8 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
                 GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip, audioMarker.Looped, audioMarker.SoundCurve));
                 break;
             case CutsceneMarker cutsceneMarker:
-                Debug.Log($"Notification received {time} type: {typeof(PlayAudioMarker)} : {cutsceneMarker.SceneId}");
-                GameSceneManager.Instance.InvokeCutsceneStarted(cutsceneMarker.SceneId);
+                Debug.Log($"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}");
+                GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId, cutsceneMarker.SceneTransitionType));
                 break;
             case LevelEndMarker levelEndMarker:
                 Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");

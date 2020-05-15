@@ -11,7 +11,12 @@ public class FadeEffect
     {
         Sprite.gameObject.SetActive(active);
     }
-    
+
+    public void Unload()
+    {
+        Object.Destroy(Sprite.gameObject);   
+    }
+
     public FadeEffect(Transform parent, string sortingLayer, int sortingOrder)
     {
         GameObject fadeObject = new GameObject("Fade");
@@ -23,4 +28,6 @@ public class FadeEffect
         Sprite.color = new Color(0, 0, 0, 0.2f);
         Sprite.transform.localScale = ScreenScaler.ScaleToFillScreen(Sprite);
     }
+    
+    
 }

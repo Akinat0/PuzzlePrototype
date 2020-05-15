@@ -6,8 +6,10 @@ using UnityEngine.Timeline;
 public class CutsceneMarker : Marker, INotification
 {
     [SerializeField] private string sceneId;
+    [SerializeField] private SceneTransitionType sceneTransitionType;
     
     public string SceneId => sceneId;
+    public SceneTransitionType SceneTransitionType => sceneTransitionType;
 
     public PropertyName id { get; }
     

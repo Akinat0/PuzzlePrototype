@@ -1,4 +1,5 @@
 ﻿using System;
+using Abu.Tools.SceneTransition;
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
@@ -23,8 +24,8 @@ namespace Puzzle
         public static event Action LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
-        public static event Action<string> CutsceneStartedEvent;
-        public static event Action<string> CutsceneEndedEvent;
+        public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
+        public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -201,18 +202,18 @@ namespace Puzzle
             EnemyAppearedOnScreenEvent?.Invoke(enemyBase);
         }
         
-        public void InvokeCutsceneStarted(string SceneID)
+        public void InvokeCutsceneStarted(CutsceneEventArgs args)
         {
-            Debug.Log("CutsceneStarted Invoked " + SceneID);
+            Debug.Log("CutsceneStarted Invoked " + args.SceneID);
             InvokePauseLevel(true);
-            CutsceneStartedEvent?.Invoke(SceneID);
+            CutsceneStartedEvent?.Invoke(args);
         }
         
-        public void InvokeCutsceneEnded(string SceneID)
+        public void InvokeCutsceneEnded(CutsceneEventArgs args)
         {
-            Debug.Log("CutsceneEnded Invoked " + SceneID);
+            Debug.Log("CutsceneEnded Invoked " + args.SceneID);
             InvokePauseLevel(false);
-            CutsceneEndedEvent?.Invoke(SceneID);
+            CutsceneEndedEvent?.Invoke(args);
         }
     }
 }

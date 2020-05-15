@@ -35,12 +35,12 @@ namespace Puzzle
         }
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
-        protected virtual void CutsceneStartedEvent_Handler(string SceneID)
+        protected virtual void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(false);
         }
         
-        protected virtual void CutsceneEndedEvent_Handler(string SceneID)
+        protected virtual void CutsceneEndedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(true);
         }

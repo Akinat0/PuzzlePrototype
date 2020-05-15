@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
+using Abu.Tools.SceneTransition;
+using DG.Tweening;
 using Puzzle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,36 +47,46 @@ public class CutsceneLoader : MonoBehaviour
         GameSceneManager.CutsceneEndedEvent -= CutsceneEndedEvent_Handler;
     }
 
-    private void CutsceneStartedEvent_Handler(string sceneID)
+    private void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
     {
-        Scene scene = SceneManager.GetSceneByName(sceneID);
+        Scene scene = SceneManager.GetSceneByName(_args.SceneID);
+        
+        ISceneTransition sceneTransition = SceneTransitions.Create(_args.SceneTransition);
 
-        if (!scene.isLoaded)
+        
+        sceneTransition.InTransition(0.6f, () =>
         {
-            StartCoroutine(Extensions.WaitUntil(
-                () => scene.isLoaded,
-                () =>
-                {
-                    foreach (GameObject root in scene.GetRootGameObjects())
-                        root.SetActive(true);
-                }));
-        }
-        else
-        {
-            foreach (GameObject root in scene.GetRootGameObjects())
-                root.SetActive(true);
-        }
+            if (!scene.isLoaded)
+            {
+                StartCoroutine(Extensions.WaitUntil(
+                    () => scene.isLoaded,
+                    () =>
+                    {
+                        foreach (GameObject root in scene.GetRootGameObjects())
+                            root.SetActive(true);
+                    }));
+            }
+            else
+            {
+                foreach (GameObject root in scene.GetRootGameObjects())
+                    root.SetActive(true);
+            }
+            
+            sceneTransition.Unload();
+        });
     }
     
-    private void CutsceneEndedEvent_Handler(string sceneID)
+    private void CutsceneEndedEvent_Handler(CutsceneEventArgs _args)
     {
-        Scene scene = SceneManager.GetSceneByName(sceneID);
+        Scene scene = SceneManager.GetSceneByName(_args.SceneID);
+
+        ISceneTransition sceneTransition = SceneTransitions.Create(_args.SceneTransition);
+        
+        sceneTransition.OutTransition(0.6f, () => sceneTransition.Unload());
 
         if (scene.isLoaded)
-        {
             foreach (GameObject root in scene.GetRootGameObjects())
                 root.SetActive(false);
-        }
     }
     
 }

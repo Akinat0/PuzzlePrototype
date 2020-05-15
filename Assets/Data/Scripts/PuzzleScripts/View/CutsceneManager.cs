@@ -7,6 +7,7 @@ public class CutsceneManager : MonoBehaviour
 {
     [SerializeField] private Image progressBar;
     [SerializeField] private Text tipText;
+    [SerializeField] private SceneTransitionType transitionType;
     
     public const float SkipTime = 2;
     private float holdTime = 0;
@@ -78,7 +79,8 @@ public class CutsceneManager : MonoBehaviour
     {
         holdTime += Time.unscaledDeltaTime;
         progressBar.fillAmount = Mathf.Clamp01(holdTime / SkipTime);
+        
         if (holdTime >= SkipTime)
-            GameSceneManager.Instance.InvokeCutsceneEnded(gameObject.scene.name);
+            GameSceneManager.Instance.InvokeCutsceneEnded(new CutsceneEventArgs(gameObject.scene.name, transitionType));
     }
 }
