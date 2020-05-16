@@ -17,6 +17,7 @@ namespace PuzzleScripts
         public static readonly float Distance = 10f; //Distance to target
 
         [SerializeField] private GameObject vfx;
+        [SerializeField] private AudioClip sfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
 
@@ -69,6 +70,9 @@ namespace PuzzleScripts
             effect.transform.right = transform.right;
             effect.transform.position = transform.position;
             effect.transform.localScale *= transform.localScale.x;
+            
+            SoundManager.Instance.PlayOneShot(sfx);
+            
             GameSceneManager.Instance.InvokeEnemyDied(score);
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
