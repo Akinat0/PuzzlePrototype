@@ -46,9 +46,8 @@ namespace PuzzleScripts
                 }
             }
             
-            if (!Motion)
-                return;
-            Move();
+            if (Motion)
+                Move();
         }
         public EnemyType Type => type;
         
@@ -71,7 +70,8 @@ namespace PuzzleScripts
             effect.transform.position = transform.position;
             effect.transform.localScale *= transform.localScale.x;
             
-            SoundManager.Instance.PlayOneShot(sfx);
+            if(sfx != null)
+                SoundManager.Instance.PlayOneShot(sfx);
             
             GameSceneManager.Instance.InvokeEnemyDied(score);
 
@@ -93,6 +93,9 @@ namespace PuzzleScripts
         {
             _enemyParams = @params;
             _speed =  @params.speed;
+
+            if(@params.sfx != null)
+                sfx = @params.sfx;
             
             Player player = GameSceneManager.Instance.Player;
             PlayerView playerView = player.GetComponent<PlayerView>();
@@ -162,5 +165,8 @@ namespace PuzzleScripts
         public float speed;
         public bool stickOut;
         [Range(0, 359)] public float radialPosition;
+     
+        public AudioClip sfx;
+        [Range(0, 1)] public float volume;
     }
 }
