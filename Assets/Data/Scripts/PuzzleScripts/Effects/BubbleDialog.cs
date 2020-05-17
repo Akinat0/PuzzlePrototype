@@ -28,7 +28,11 @@ public class BubbleDialog : MonoBehaviour
         hideBehaviour = animator.GetBehaviours<AnimationEventBehaviour>()
             .First(behaviour => behaviour.StateId == hideBehaviourID);
         
-        hideBehaviour.OnStateExitEvent += _ => Destroy(gameObject);
+        hideBehaviour.OnStateExitEvent += _ =>
+        {
+            if(gameObject != null)
+                Destroy(gameObject);
+        };
     }
 
     public void SetRenderLayer(string layer, int? layerOrder = null)
@@ -43,15 +47,17 @@ public class BubbleDialog : MonoBehaviour
         }
     }
     
-    public void Show(string _message)
+    public void Show(string message)
     {
-        messageText.text = _message;
+        messageText.text = message;
         animator.SetBool(SHOW, true);
     }
     
-    public void Hide()
+    public void Hide(Action onFinish = null)
     {
         animator.SetBool(SHOW, false);
+        if(onFinish != null)
+            hideBehaviour.OnStateExitEvent += _ => onFinish.Invoke();
     }
     
     public static BubbleDialog Create(Action<BubbleDialog> scaleRules = null)

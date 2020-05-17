@@ -81,9 +81,7 @@ namespace Puzzle
             {
                 Debug.LogError("Camera is null");
             }
-
-            //SoundManager.Instance.LevelThemeClip = theme;
-
+            
             _levelConfig = config;
 
             if (config.ColorScheme != null)
@@ -111,9 +109,9 @@ namespace Puzzle
             completeScreenManager.CreateReplyScreen();
         }
         
-        protected void ShowDialog(string message, float time = -1)
+        public void ShowDialog(string message, float time = -1)
         {
-            _currentDialog = BubbleDialog.Create(
+            BubbleDialog newDialog = BubbleDialog.Create(
                 bubbleDialog =>
                 {
                     bubbleDialog.transform.parent = GameSceneRoot;
@@ -126,10 +124,16 @@ namespace Puzzle
                     bubbleDialog.transform.position = Vector2.one * halfOfPuzzleWidth;
                 });
         
-            _currentDialog.Show(message);
+            if (_currentDialog != null)
+                _currentDialog.Hide(() => newDialog.Show(message));
+            else
+                newDialog.Show(message);
+
+            _currentDialog = newDialog;
 
             if (time > 0)
-                _currentDialog.Invoke(_currentDialog.Hide, time);
+                //If time is specified we will close window in this time
+                _currentDialog.Invoke(() => _currentDialog.Hide(), time);
         
         }
 

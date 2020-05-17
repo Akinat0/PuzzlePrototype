@@ -39,7 +39,6 @@ public class TutoriaScenelManager : GameSceneManager
     {
         base.Start();
         _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 110);
-        this.Invoke(() => ShowDialog("Hello Friend!", 2), 1f);
     }
     
     public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;

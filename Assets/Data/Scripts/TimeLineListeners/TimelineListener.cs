@@ -38,6 +38,10 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
                 Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
                 GameSceneManager.Instance.InvokeLevelCompleted();
                 break;
+            case BubbleDialogMarker bubbleDialogMarker:
+                Debug.Log($"Notification received {time} type: {typeof(BubbleDialogMarker)}");
+                GameSceneManager.Instance.ShowDialog(bubbleDialogMarker.Message, bubbleDialogMarker.Time);
+                break;
         }
     }
 
