@@ -20,7 +20,6 @@ public class TutoriaScenelManager : GameSceneManager
     private int _stage = 0;
 
     private FadeEffect _fadeEffect;
-    private BubbleDialog _currentDialog;
 
     public int Stage
     {
@@ -40,7 +39,7 @@ public class TutoriaScenelManager : GameSceneManager
     {
         base.Start();
         _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 110);
-        this.Invoke(() => ShowDialog("Hello Friend!", 20), 1f);
+        this.Invoke(() => ShowDialog("Hello Friend!", 2), 1f);
     }
     
     public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;
@@ -121,27 +120,7 @@ public class TutoriaScenelManager : GameSceneManager
         }
     }
 
-    void ShowDialog(string message, float time = -1)
-    {
-        _currentDialog = BubbleDialog.Create(
-            bubbleDialog =>
-            {
-                bubbleDialog.transform.parent = GameSceneRoot;
-                bubbleDialog.transform.localScale =
-                    ScreenScaler.FitHorizontalPart(bubbleDialog.Background, 0.35f) *
-                    Vector2.one;
-                
-                //Put dialog on the top right puzzle angle
-                float halfOfPuzzleWidth = ScreenScaler.PartOfScreen(Player.PlayerView.PartOfScreen / 2).x;
-                bubbleDialog.transform.position = Vector2.one * halfOfPuzzleWidth;
-            });
-        
-        _currentDialog.Show(message);
-
-        if (time > 0)
-            _currentDialog.Invoke(_currentDialog.Hide, time);
-        
-    }
+    
     
     private void OnEnable()
     {

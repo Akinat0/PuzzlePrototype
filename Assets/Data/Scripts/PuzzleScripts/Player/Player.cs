@@ -69,7 +69,7 @@ namespace Puzzle
         private void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-            GameSceneManager.PlayerRiviveEvent += PlayerRiviveEvent_Handler;
+            GameSceneManager.PlayerReviveEvent += PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen += TouchOnScreen_Handler;
 
         }
@@ -77,7 +77,7 @@ namespace Puzzle
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-            GameSceneManager.PlayerRiviveEvent -= PlayerRiviveEvent_Handler;
+            GameSceneManager.PlayerReviveEvent -= PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen -= TouchOnScreen_Handler;
         }
 
@@ -86,7 +86,7 @@ namespace Puzzle
             ResetHp();
         }
         
-        void PlayerRiviveEvent_Handler()
+        void PlayerReviveEventHandler()
         {
             ResetHp();
         }

@@ -12,7 +12,7 @@ public abstract class HealthManagerBase : MonoBehaviour
     protected virtual void OnEnable()
     {
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.PlayerRiviveEvent += PlayerRiviveEvent_Handler;
+        GameSceneManager.PlayerReviveEvent += PlayerReviveEventHandler;
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
@@ -21,7 +21,7 @@ public abstract class HealthManagerBase : MonoBehaviour
     protected virtual void OnDisable()
     {
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.PlayerRiviveEvent -= PlayerRiviveEvent_Handler;
+        GameSceneManager.PlayerReviveEvent -= PlayerReviveEventHandler;
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
@@ -32,7 +32,7 @@ public abstract class HealthManagerBase : MonoBehaviour
         ResetHealth();
     }
 
-    protected virtual void PlayerRiviveEvent_Handler()
+    protected virtual void PlayerReviveEventHandler()
     {
         ResetHealth();
     }

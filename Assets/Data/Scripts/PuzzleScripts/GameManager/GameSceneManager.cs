@@ -1,4 +1,5 @@
 ﻿using System;
+using Abu.Tools;
 using Abu.Tools.SceneTransition;
 using PuzzleScripts;
 using ScreensScripts;
@@ -14,7 +15,7 @@ namespace Puzzle
         public static event Action GameStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
-        public static event Action PlayerRiviveEvent;
+        public static event Action PlayerReviveEvent;
         public static event Action PlayerDiedEvent;
         public static event Action<int> PlayerLosedHpEvent;
         public static event Action<int> EnemyDiedEvent;
@@ -42,6 +43,8 @@ namespace Puzzle
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig _levelConfig;
+        
+        protected BubbleDialog _currentDialog;
 
         protected virtual void Awake()
         {
@@ -107,6 +110,28 @@ namespace Puzzle
         {
             completeScreenManager.CreateReplyScreen();
         }
+        
+        protected void ShowDialog(string message, float time = -1)
+        {
+            _currentDialog = BubbleDialog.Create(
+                bubbleDialog =>
+                {
+                    bubbleDialog.transform.parent = GameSceneRoot;
+                    bubbleDialog.transform.localScale =
+                        ScreenScaler.FitHorizontalPart(bubbleDialog.Background, 0.35f) *
+                        Vector2.one;
+                
+                    //Put dialog on the top right puzzle angle
+                    float halfOfPuzzleWidth = ScreenScaler.PartOfScreen(Player.PlayerView.PartOfScreen / 2).x;
+                    bubbleDialog.transform.position = Vector2.one * halfOfPuzzleWidth;
+                });
+        
+            _currentDialog.Show(message);
+
+            if (time > 0)
+                _currentDialog.Invoke(_currentDialog.Hide, time);
+        
+        }
 
         protected virtual void OnEnable() { }
         protected virtual void OnDisable() { }
@@ -166,7 +191,7 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
-            PlayerRiviveEvent?.Invoke();
+            PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
         }
         
