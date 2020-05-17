@@ -46,6 +46,16 @@ namespace Abu.Tools
             return Mathf.Abs(1 - horizontalScale) > Mathf.Abs(1 - verticalScale) ? verticalScale : horizontalScale;
         }
         
+        public static float FitHorizontalPart(SpriteRenderer spriteRenderer, float part)
+        {
+            return FitHorizontal(spriteRenderer) * part;
+        }
+        
+        public static float FitVerticalPart(SpriteRenderer spriteRenderer, float part)
+        {
+            return FitVertical(spriteRenderer) * part;
+        }
+        
         public static float FitHorizontal(SpriteRenderer spriteRenderer)
         {
             Sprite sprite = spriteRenderer.sprite;

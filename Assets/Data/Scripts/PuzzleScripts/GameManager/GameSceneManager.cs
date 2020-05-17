@@ -51,6 +51,8 @@ namespace Puzzle
                 Debug.LogError("There's more than one GameSceneManager in the scene");
         }
 
+        protected virtual void Start() { }
+
         private void OnDestroy()
         {
             Instance = null;
