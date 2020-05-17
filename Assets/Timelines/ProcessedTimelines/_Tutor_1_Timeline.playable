@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b7fd90bbaae4438acc2f1ceb75dcd3, type: 3}
   m_Name: Cutscene Marker
   m_EditorClassIdentifier: 
-  m_Time: 16.699999668863125
+  m_Time: 38.23333300219644
   sceneId: ShitAnimationCutscene
   sceneTransitionType: 0
 --- !u!114 &-5875035031765571379
@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 17.38333333333336
+  m_Time: 38.916666666666664
   enemyParams:
     enemyType: 1
     side: 2
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 7.650000000000001
+  m_Time: 16.26666666666666
   enemyParams:
     enemyType: 0
     side: 1
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 8.266666997803572
+  m_Time: 16.883333664470236
   enemyParams:
     enemyType: 0
     side: 2
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364475de51aba3840873fc47e62ddbae, type: 3}
   m_Name: Goto Marker
   m_EditorClassIdentifier: 
-  m_Time: 22.966666666666665
+  m_Time: 48.11666666666667
 --- !u!114 &-1326257580394852701
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -455,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 16.699999668863125
+  m_Time: 38.23333300219644
   enemyParams:
     enemyType: 1
     side: 1
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 1.0166666666666666
   message: Hi, Friend!
-  time: 3
+  time: 4
 --- !u!114 &1392828282068334807
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,9 +510,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5b7fd90bbaae4438acc2f1ceb75dcd3, type: 3}
   m_Name: Cutscene Marker
   m_EditorClassIdentifier: 
-  m_Time: 6.016666666666667
+  m_Time: 14.633333333333333
   sceneId: PuzzleAnimationCutscene
   sceneTransitionType: 0
+--- !u!114 &1876861167915535428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83f527bb3494c0b89383759b82928b5, type: 3}
+  m_Name: Bubble Dialog Marker
+  m_EditorClassIdentifier: 
+  m_Time: 11.016666666666667
+  message: Look..
+  time: 3
 --- !u!114 &2205214590894847392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -583,6 +598,9 @@ MonoBehaviour:
     - {fileID: -5533444630348384608}
     - {fileID: 285179282838453526}
     - {fileID: 8404617830494760389}
+    - {fileID: 1876861167915535428}
+    - {fileID: 4797572458843947412}
+    - {fileID: 7068401664700735281}
 --- !u!114 &3638353576311966734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -617,6 +635,21 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &4797572458843947412
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83f527bb3494c0b89383759b82928b5, type: 3}
+  m_Name: Bubble Dialog Marker
+  m_EditorClassIdentifier: 
+  m_Time: 30.333333333333332
+  message: Cool!
+  time: 2
 --- !u!114 &4864505602787209332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,7 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 15.383333333333361
+  m_Time: 36.916666666666664
   enemyParams:
     enemyType: 1
     side: 0
@@ -739,7 +772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e17fd99bdb255f40bd7449e5776cb6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Time: 6.2666669978035685
+  m_Time: 14.883333664470234
   enemyParams:
     enemyType: 0
     side: 0
@@ -769,6 +802,21 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &7068401664700735281
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d83f527bb3494c0b89383759b82928b5, type: 3}
+  m_Name: Bubble Dialog Marker
+  m_EditorClassIdentifier: 
+  m_Time: 32.54999999999999
+  message: There's another type of enemies
+  time: 5
 --- !u!114 &8300850711324486778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -794,9 +842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d83f527bb3494c0b89383759b82928b5, type: 3}
   m_Name: Bubble Dialog Marker
   m_EditorClassIdentifier: 
-  m_Time: 2.5833333333333335
-  message: Bye, Friend!
-  time: 3
+  m_Time: 5.083333333333333
+  message: I will tell you how to play this game
+  time: 6
 --- !u!114 &8624386448836102989
 MonoBehaviour:
   m_ObjectHideFlags: 1

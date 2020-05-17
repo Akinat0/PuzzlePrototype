@@ -21,6 +21,9 @@ public class TutoriaScenelManager : GameSceneManager
 
     private FadeEffect _fadeEffect;
 
+    private bool _firstPuzzleTip = true;
+    private bool _firstShitTip = true;
+    
     public int Stage
     {
         get => _stage;
@@ -38,7 +41,7 @@ public class TutoriaScenelManager : GameSceneManager
     protected override void Start()
     {
         base.Start();
-        _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 110);
+        _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 101);
     }
     
     public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;
@@ -66,6 +69,11 @@ public class TutoriaScenelManager : GameSceneManager
 
                         InvokeOnStopTutorial(true);
                         InvokeEnableInput();
+
+                        if (_firstPuzzleTip)
+                            ShowDialog("Tap anywhere now! Otherwise I will take a damage =(");
+                        
+                        
                     }
                 }
 
@@ -80,6 +88,10 @@ public class TutoriaScenelManager : GameSceneManager
 
                     InvokeOnStopTutorial(true);
                     InvokeEnableInput();
+
+                    if (_firstShitTip)
+                        ShowDialog("Tap on this shit!");
+                    
                 }
                 break;
             }
@@ -96,7 +108,7 @@ public class TutoriaScenelManager : GameSceneManager
 //            }
         }
     }
-    private void ProcessTutorialStopReasonSolved()
+    private void ProcessTutorialStopReasonSolved(ITutorialStopReason tutorialStopReason)
     {
         switch (Stage)
         {
@@ -105,6 +117,19 @@ public class TutoriaScenelManager : GameSceneManager
                 VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
                 InvokeOnStopTutorial(false);
                 InvokeDisableInput();
+
+                if (tutorialStopReason is TutorialEnemyPuzzle && _firstPuzzleTip)
+                {
+                    _firstPuzzleTip = false;
+                    ShowDialog("Great! Thank you!", 3);
+                }
+                
+                if (tutorialStopReason is TutorialEnemyShit && _firstShitTip)
+                {
+                    _firstShitTip = false;
+                    ShowDialog("Good job!", 3);
+                }
+
                 break;
         }
     }
@@ -115,6 +140,8 @@ public class TutoriaScenelManager : GameSceneManager
         {
             case 1:
                 _fadeEffect.Sprite.DOFade(0, 1f); //Fadeout
+                ShowDialog("Great!", 2);
+                this.Invoke(() => ShowDialog("Try it by yourself now =)", 5), 2);
                 break;
         }
     }
@@ -141,6 +168,7 @@ public class TutoriaScenelManager : GameSceneManager
     
     private void PlayerLosedHpEvent_Handler(int hp)
     {
+        ShowDialog("Hey! It was painful! Let's try again =)", 3);
         InvokeTutorialRestart();
     }
 
@@ -212,7 +240,7 @@ public class TutoriaScenelManager : GameSceneManager
     {
         Debug.Log("<color=green> OnTutorialStopReasonSolved invoked </color>");
         OnTutorialStopReasonSolved?.Invoke(reason);
-        ProcessTutorialStopReasonSolved();
+        ProcessTutorialStopReasonSolved(reason);
     }
     
 }

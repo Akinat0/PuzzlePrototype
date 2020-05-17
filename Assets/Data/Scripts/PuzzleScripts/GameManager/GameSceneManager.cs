@@ -130,6 +130,7 @@ namespace Puzzle
                 newDialog.Show(message);
 
             _currentDialog = newDialog;
+            _currentDialog.SetRenderLayer(RenderLayer.VFX, 102);
 
             if (time > 0)
                 //If time is specified we will close window in this time
