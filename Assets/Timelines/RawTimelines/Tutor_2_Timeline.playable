@@ -21,6 +21,27 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-6717454018340034669
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 32
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &-6683640359964595406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,6 +123,27 @@ MonoBehaviour:
     side: 0
     speed: 1.3
     stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-4328798441943862160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 28.15
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.4
+    stickOut: 0
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
@@ -189,6 +231,27 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-1297501497446334414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 27.016666666666666
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.2
+    stickOut: 0
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &-752993554074321215
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,7 +289,17 @@ MonoBehaviour:
     - {fileID: -1861996386202216931}
     - {fileID: -4352528716144985176}
     - {fileID: -4454576746887990667}
-    - {fileID: 8636265517029250537}
+    - {fileID: -1297501497446334414}
+    - {fileID: 3063760337138069909}
+    - {fileID: -4328798441943862160}
+    - {fileID: 6413419929287827728}
+    - {fileID: 4740586158739514182}
+    - {fileID: 4238975003205435867}
+    - {fileID: 6956815154708536467}
+    - {fileID: 244726371418476753}
+    - {fileID: 6702339478155389390}
+    - {fileID: -6717454018340034669}
+    - {fileID: 4071625255188246347}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +319,27 @@ MonoBehaviour:
     m_Framerate: 60
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -752993554074321215}
+--- !u!114 &244726371418476753
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 32
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &1855951773482353700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,6 +358,27 @@ MonoBehaviour:
     side: 3
     speed: 2
     stickOut: 0
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &3063760337138069909
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 27.583333333333332
+  enemyParams:
+    enemyType: 0
+    side: 3
+    speed: 2.3
+    stickOut: 1
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
@@ -288,6 +403,69 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &4071625255188246347
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 32
+  enemyParams:
+    enemyType: 0
+    side: 3
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &4238975003205435867
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 29.65
+  enemyParams:
+    enemyType: 0
+    side: 3
+    speed: 2.7
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &4740586158739514182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 29.166666666666668
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.6
+    stickOut: 0
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &5813135052005226918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,6 +483,27 @@ MonoBehaviour:
     enemyType: 1
     side: 1
     speed: 2
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &6413419929287827728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 28.683333333333334
+  enemyParams:
+    enemyType: 0
+    side: 3
+    speed: 2.5
     stickOut: 1
     radialPosition: 0
     sfx: {fileID: 0}
@@ -330,6 +529,27 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &6702339478155389390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 32
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &6891501665990795570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,7 +571,7 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &8636265517029250537
+--- !u!114 &6956815154708536467
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,9 +580,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83f527bb3494c0b89383759b82928b5, type: 3}
-  m_Name: Bubble Dialog Marker
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 0
-  message: Great! I think you're ready to try it without my help =)
-  time: 6
+  m_Time: 30.133333333333333
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.8
+    stickOut: 0
+    radialPosition: 0
+    sfx: {fileID: 0}
+    volume: 0

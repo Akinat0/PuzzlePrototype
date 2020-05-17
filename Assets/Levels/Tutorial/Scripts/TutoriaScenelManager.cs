@@ -141,7 +141,7 @@ public class TutoriaScenelManager : GameSceneManager
             case 1:
                 _fadeEffect.Sprite.DOFade(0, 1f); //Fadeout
                 ShowDialog("Great!", 2);
-                this.Invoke(() => ShowDialog("Try it by yourself now =)", 5), 2);
+                this.Invoke(() => ShowDialog("Try it yourself now =)", 5), 2);
                 break;
         }
     }
@@ -168,7 +168,8 @@ public class TutoriaScenelManager : GameSceneManager
     
     private void PlayerLosedHpEvent_Handler(int hp)
     {
-        ShowDialog("Hey! It was painful! Let's try again =)", 3);
+        ShowDialog("Hey! It was painful!", 2.5f);
+        this.Invoke(() => ShowDialog("Let's try again =)", 2), 2.5f);
         InvokeTutorialRestart();
     }
 

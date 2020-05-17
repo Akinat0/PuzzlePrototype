@@ -109,6 +109,7 @@ namespace Puzzle
             completeScreenManager.CreateReplyScreen();
         }
         
+        //TODO move it to player view
         public void ShowDialog(string message, float time = -1)
         {
             BubbleDialog newDialog = BubbleDialog.Create(
