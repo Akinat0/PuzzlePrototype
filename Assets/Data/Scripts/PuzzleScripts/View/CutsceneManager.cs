@@ -45,7 +45,7 @@ public class CutsceneManager : MonoBehaviour
         {
             TouchPhase touchPhase = Input.touches[0].phase;
             
-            if(touchPhase == TouchPhase.Began || )
+            if(touchPhase == TouchPhase.Began)
                 ProcessTouchBegan();
                 
             if(touchPhase == TouchPhase.Moved || touchPhase == TouchPhase.Stationary )
