@@ -16,30 +16,46 @@ public static class TimelineProcessor
         //Clean old timeline
         for (int i=0; i < dstTimeline.markerTrack.GetMarkerCount(); i++)
         {
-            dstTimeline.markerTrack.DeleteMarker(dstTimeline.markerTrack.GetMarker(i));
+            IMarker marker = dstTimeline.markerTrack.GetMarker(i);
+            if(marker is BpmMarker || marker is EnemyNotificationMarker || marker is EnemyMarker)
+                dstTimeline.markerTrack.DeleteMarker(marker);
         };
             
         foreach (IMarker output in  originTimeline.markerTrack.GetMarkers())
         {
-            EnemyMarker marker = output as EnemyMarker;
-            
-            if (marker == null)
+            switch (output)
             {
-                Debug.Log("Marker added " + output.time);
-                continue;
+                case EnemyMarker enemyMarker:
+                {
+                    if (enemyMarker == null)
+                    {
+                        Debug.Log("Marker added " + output.time);
+                        continue;
+                    }
+    
+                    double deltaTime = EnemyBase.Distance / enemyMarker.enemyParams.speed;  
+                    double creationTime = enemyMarker.time - deltaTime;
+    
+                    EnemyNotificationMarker copyMarker = dstTimeline.markerTrack.CreateMarker(typeof(EnemyNotificationMarker), creationTime) as EnemyNotificationMarker;
+            
+                    copyMarker.enemyParams = enemyMarker.enemyParams;
+            
+                    Debug.Log("Old time " + enemyMarker.time + ", New time " + creationTime);
+                    break;
+                }
+
+                case NoteMarker noteMarker:
+                {
+                    dstTimeline.markerTrack.CreateMarker(typeof(NoteMarker), noteMarker.time);
+                    Debug.Log("Note marker created " + noteMarker.time);
+                    break;
+                }
             }
-    
-            double deltaTime = EnemyBase.Distance / marker.enemyParams.speed;  
-            double creationTime = marker.time - deltaTime;
-    
-            EnemyNotificationMarker copyMarker = dstTimeline.markerTrack.CreateMarker(typeof(EnemyNotificationMarker), creationTime) as EnemyNotificationMarker;
-            
-            copyMarker.enemyParams = marker.enemyParams;
-            
-            Debug.Log("Old time " + marker.time + ", New time " + creationTime);
-            
         }
     }
+    
+    
+    
     public static void GenerateBpmTimeline(TimelineAsset dstTimeline, int bpm)
     {
         

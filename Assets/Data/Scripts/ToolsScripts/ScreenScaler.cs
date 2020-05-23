@@ -2,6 +2,7 @@
 using System.Numerics;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Abu.Tools
 {
@@ -25,6 +26,13 @@ namespace Abu.Tools
             }
         }
 
+        public static Vector3 WorldToScreenNormalized(Vector3 worldPosition)
+        {
+            Vector2 camSize = CameraSize;
+            //Keep in mind that (zero,zero) of world is (camSize/2, camSize/2) of camera
+            return new Vector2((worldPosition.x + camSize.x * 0.5f) / camSize.x, (worldPosition.y + camSize.y * 0.5f) / camSize.y);
+        }
+        
         public static Vector2 PartOfScreen(float part)
         {
             return CameraSize * part;
@@ -36,6 +44,16 @@ namespace Abu.Tools
             float verticalScale = FitVertical(spriteRenderer);
             
             return Mathf.Abs(1 - horizontalScale) > Mathf.Abs(1 - verticalScale) ? verticalScale : horizontalScale;
+        }
+        
+        public static float FitHorizontalPart(SpriteRenderer spriteRenderer, float part)
+        {
+            return FitHorizontal(spriteRenderer) * part;
+        }
+        
+        public static float FitVerticalPart(SpriteRenderer spriteRenderer, float part)
+        {
+            return FitVertical(spriteRenderer) * part;
         }
         
         public static float FitHorizontal(SpriteRenderer spriteRenderer)

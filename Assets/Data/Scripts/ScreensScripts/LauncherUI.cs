@@ -27,6 +27,7 @@ namespace ScreensScripts
         private GameSceneManager GameSceneManager;
 
         private LevelConfig _levelConfig;
+        public LevelConfig LevelConfig => _levelConfig;
 
         private void Awake()
         {
@@ -65,6 +66,7 @@ namespace ScreensScripts
         {
             Debug.Log("LevelChanged Invoked");
             playerEntity = _Args.PlayerView.transform;
+            _levelConfig = _Args.LevelConfig;
             LevelChangedEvent?.Invoke(_Args);
         }
 

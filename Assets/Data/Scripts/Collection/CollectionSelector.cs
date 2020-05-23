@@ -28,7 +28,20 @@ public class CollectionSelector : SelectorBase
     protected override void CreateItem(int _Index)
     {
         oldPlayer = activePlayer;
-        activePlayer = Instantiate(Selection[_Index].Item, ItemContainer).GetComponent<PlayerView>();
+        GameObject collectionPuzzle = Selection[_Index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides);
+
+        //TODO ignore unsupported puzzles
+//        for (int i = 0; i < Length; i++)
+//        {
+//            collectionPuzzle = Selection[_Index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides);
+//            if (collectionPuzzle != null)
+//                break;
+//            
+//            Debug.LogError($"Collection item {_Index} has no suitable variant");
+//        }
+//        
+            
+        activePlayer = Instantiate(collectionPuzzle, ItemContainer).GetComponent<PlayerView>();
     }
 
     protected override void DisplayItem(int _Index, int _Direction = 0)

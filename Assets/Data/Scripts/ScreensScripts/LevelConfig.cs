@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Puzzle;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
 public class LevelConfig : ScriptableObject
@@ -7,6 +8,9 @@ public class LevelConfig : ScriptableObject
     [SerializeField] private string m_SceneID;
     [SerializeField] private GameObject m_LevelRootPrefab;
     [SerializeField] private LevelColorScheme m_LevelColorScheme;
+
+    [Space(10)] 
+    [SerializeField] private PuzzleSides m_PuzzleSides;
     
     [Space(10)]
     [SerializeField] private bool m_CollectionEnabled = false;
@@ -16,4 +20,6 @@ public class LevelConfig : ScriptableObject
     public GameObject LevelRootPrefab => m_LevelRootPrefab;
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
     public bool CollectionEnabled => m_CollectionEnabled;
+    
+    public PuzzleSides PuzzleSides => m_PuzzleSides;
 }

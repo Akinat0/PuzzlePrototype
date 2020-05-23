@@ -10,6 +10,20 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
 {
     private bool _reachedHalfway;
     public event Action Solved;
+    
+    bool isHalfway
+    {
+        get
+        {
+            if (_enemyParams.side == Side.Down || _enemyParams.side == Side.Up)
+                return (GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                       ScreenScaler.CameraSize.y / 4;
+            else
+                return (GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                       ScreenScaler.CameraSize.x / 4;
+        }
+    }
+
     protected override void Update()
     {
         base.Update();
@@ -21,15 +35,11 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
             Solved?.Invoke();
         }
 
-        if (!_reachedHalfway)
+        if (!_reachedHalfway && isHalfway)
         {
-            if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
-                ScreenScaler.CameraSize.y / 4)
-            {
-                _reachedHalfway = true;
-                if (GameSceneManager.Instance is TutoriaScenelManager sceneManager)
-                    sceneManager.InvokeEnemyIsClose(this);
-            }
+            _reachedHalfway = true;
+            if (GameSceneManager.Instance is TutoriaScenelManager sceneManager)
+                sceneManager.InvokeEnemyIsClose(this);
         }
     }
     

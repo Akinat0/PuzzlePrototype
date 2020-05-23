@@ -6,11 +6,12 @@ using UnityEngine.EventSystems;
 public interface ITouchProcessor
 {
     void OnTouch(Touch touch);
-
 }
+
 public class MobileGameInput : MonoBehaviour
 {
     public static Action<Touch> TouchOnTheScreen;
+    public static Action<Touch> TouchRegistered; //Called each time your touch was registered
 
     public virtual bool Condition { get; protected set; }
 
@@ -26,7 +27,6 @@ public class MobileGameInput : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                
                 if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                     //Touch on UI element
                     return;
@@ -80,22 +80,23 @@ public class MobileGameInput : MonoBehaviour
         {
             TouchOnTheScreen?.Invoke(_touch);
         }
+        
+        InvokeTouchRegistered(_touch);
     }
 
     protected void TouchOnScreen(Touch touch)
     {
         TouchOnTheScreen?.Invoke(touch);
+        InvokeTouchRegistered(touch);
     }
     
     protected virtual void OnEnable()
     {
-        
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
     protected virtual void OnDisable()
     {
-        
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
     }
 
@@ -103,4 +104,11 @@ public class MobileGameInput : MonoBehaviour
     {
         Condition = !_Pause;
     }
+
+    private void InvokeTouchRegistered(Touch touch)
+    {
+        Debug.Log("Touch registered " + touch.position);
+        TouchRegistered?.Invoke(touch);
+    }
+    
 }

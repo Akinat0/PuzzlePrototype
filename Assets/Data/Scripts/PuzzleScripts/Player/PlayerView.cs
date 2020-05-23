@@ -17,6 +17,8 @@ public class PlayerView : MonoBehaviour
     private Animator _animator;
     
     private static readonly int Damaged = Animator.StringToHash("Damaged");
+    
+    public float PartOfScreen => _partOfScreen;
 
     public Transform[] TRBLPositions => TRBL_positions;
 

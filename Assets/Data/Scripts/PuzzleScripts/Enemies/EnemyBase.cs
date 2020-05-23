@@ -1,4 +1,5 @@
 ﻿using System;
+using Abu.Tools;
 using Puzzle;
 using UnityEngine;
 
@@ -16,14 +17,17 @@ namespace PuzzleScripts
         public static readonly float Distance = 10f; //Distance to target
 
         [SerializeField] private GameObject vfx;
+        [SerializeField] private AudioClip sfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
 
-        private EnemyParams _enemyParams;
+        protected EnemyParams _enemyParams;
         
         private float _speed = 0.5f;
     
         private int _damage = 1;
+
+        private bool _appearedOnScreen;
 
         protected bool Motion = true;
 
@@ -32,9 +36,18 @@ namespace PuzzleScripts
         
         protected virtual void Update()
         {
-            if (!Motion)
-                return;
-            Move();
+            if (!_appearedOnScreen)
+            {
+                if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
+                    ScreenScaler.CameraSize.y / 2)
+                {
+                    _appearedOnScreen = true;
+                    GameSceneManager.Instance.InvokeEnemyAppearedOnScreen(this);
+                }
+            }
+            
+            if (Motion)
+                Move();
         }
         public EnemyType Type => type;
         
@@ -56,6 +69,10 @@ namespace PuzzleScripts
             effect.transform.right = transform.right;
             effect.transform.position = transform.position;
             effect.transform.localScale *= transform.localScale.x;
+            
+            if(sfx != null)
+                SoundManager.Instance.PlayOneShot(sfx);
+            
             GameSceneManager.Instance.InvokeEnemyDied(score);
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
@@ -76,6 +93,9 @@ namespace PuzzleScripts
         {
             _enemyParams = @params;
             _speed =  @params.speed;
+
+            if(@params.sfx != null)
+                sfx = @params.sfx;
             
             Player player = GameSceneManager.Instance.Player;
             PlayerView playerView = player.GetComponent<PlayerView>();
@@ -145,5 +165,8 @@ namespace PuzzleScripts
         public float speed;
         public bool stickOut;
         [Range(0, 359)] public float radialPosition;
+     
+        public AudioClip sfx;
+        [Range(0, 1)] public float volume;
     }
 }

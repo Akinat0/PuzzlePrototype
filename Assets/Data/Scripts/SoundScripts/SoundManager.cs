@@ -8,17 +8,13 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
     public static SoundManager Instance;
     
     [SerializeField] private AudioClip launcherTheme;
-    [SerializeField] private AudioClip levelThemeClip;
-
-    public AudioClip LevelThemeClip { set => levelThemeClip = value; }
 
     private AudioSource currentThemeSource;
     private AudioSource oneShotPlayer;
-    private void Start()
+    private void Awake()
     {
         Instance = this;
         PlayTheme(launcherTheme);
@@ -45,10 +41,6 @@ public class SoundManager : MonoBehaviour
         currentThemeSource.Play();
     }
 
-    public void PauseSounds(bool pause)
-    {
-        AudioListener.pause = pause;
-    }
     public void PauseTheme()
     {
         if(currentThemeSource != null)
@@ -58,29 +50,22 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler; 
-        GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler; 
     }
 
     private void OnDisable()
     {
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
-    }
-
-    void ResetLevelEvent_Handler()
-    {
-        //PlayTheme(levelThemeClip);
-    }
-
-    void PauseLevelEvent_Handler(bool pause)
-    {
-        PauseSounds(pause);
+        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
     }
 
     void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         PauseTheme();   
+    }
+    
+    void GameSceneUnloadedEvent_Handler()
+    {
+        PlayTheme(launcherTheme);   
     }
 }

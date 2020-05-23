@@ -157,7 +157,7 @@ public class SelectionManager : MonoBehaviour
 
         if (CurrentItem.CollectionEnabled)
         {
-            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.Item, _PlayerPrefab.transform.parent, true);
+            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.GetPuzzleVariant(CurrentItem.PuzzleSides), _PlayerPrefab.transform.parent, true);
             DestroyImmediate(_PlayerPrefab);
             _PlayerPrefab = defaultCollectionPlayer;
             ShowCollectionButton(PlayerAnimationDuration);
@@ -357,6 +357,7 @@ public class SelectionManager : MonoBehaviour
             {
                 collectionBtn.interactable = false;
             })
+            .SetUpdate(true)
             .onComplete = () => CollectionBtnObject.SetActive(false);
     }
 

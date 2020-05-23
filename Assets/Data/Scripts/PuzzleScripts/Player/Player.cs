@@ -14,6 +14,7 @@ namespace Puzzle
 
         public const int DEFAULT_HP = 5;
         protected int _health = DEFAULT_HP;
+        
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
         public PlayerView PlayerView => _view;
@@ -68,7 +69,7 @@ namespace Puzzle
         private void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-            GameSceneManager.PlayerRiviveEvent += PlayerRiviveEvent_Handler;
+            GameSceneManager.PlayerReviveEvent += PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen += TouchOnScreen_Handler;
 
         }
@@ -76,7 +77,7 @@ namespace Puzzle
         private void OnDisable()
         {
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-            GameSceneManager.PlayerRiviveEvent -= PlayerRiviveEvent_Handler;
+            GameSceneManager.PlayerReviveEvent -= PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen -= TouchOnScreen_Handler;
         }
 
@@ -85,7 +86,7 @@ namespace Puzzle
             ResetHp();
         }
         
-        void PlayerRiviveEvent_Handler()
+        void PlayerReviveEventHandler()
         {
             ResetHp();
         }

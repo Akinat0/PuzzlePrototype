@@ -1,4 +1,6 @@
 ﻿using System;
+using Abu.Tools;
+using Abu.Tools.SceneTransition;
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
@@ -13,7 +15,7 @@ namespace Puzzle
         public static event Action GameStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
-        public static event Action PlayerRiviveEvent;
+        public static event Action PlayerReviveEvent;
         public static event Action PlayerDiedEvent;
         public static event Action<int> PlayerLosedHpEvent;
         public static event Action<int> EnemyDiedEvent;
@@ -22,6 +24,9 @@ namespace Puzzle
         public static event Action LevelClosedEvent;
         public static event Action LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
+        public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
+        public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
+        public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -32,20 +37,24 @@ namespace Puzzle
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => _levelConfig;
 
-        public Player Player => _player;
+        public Player Player => player;
 
-        private Player _player;
+        private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig _levelConfig;
+        
+        protected BubbleDialog _currentDialog;
 
-        void Awake()
+        protected virtual void Awake()
         {
             if(Instance == null)
                 Instance = this;
             else
                 Debug.LogError("There's more than one GameSceneManager in the scene");
         }
+
+        protected virtual void Start() { }
 
         private void OnDestroy()
         {
@@ -59,7 +68,8 @@ namespace Puzzle
 
         public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
         {
-            this._player = _player.AddComponent<Player>();
+            player = _player.AddComponent<Player>();
+            player.sides = config.PuzzleSides.ToArray();
             _player.AddComponent<PlayerInput>();
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
             if (Camera.main != null)
@@ -71,9 +81,7 @@ namespace Puzzle
             {
                 Debug.LogError("Camera is null");
             }
-
-            //SoundManager.Instance.LevelThemeClip = theme;
-
+            
             _levelConfig = config;
 
             if (config.ColorScheme != null)
@@ -85,8 +93,8 @@ namespace Puzzle
 
         void UnloadScene()
         {
-            Destroy(_player.GetComponent<PlayerInput>());
-            Destroy(_player.GetComponent<Player>());
+            Destroy(player.GetComponent<PlayerInput>());
+            Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
             SceneManager.UnloadSceneAsync(gameObject.scene);
         }
@@ -100,14 +108,40 @@ namespace Puzzle
         {
             completeScreenManager.CreateReplyScreen();
         }
-
-        protected virtual void OnEnable()
-        {
-        }
         
-        protected virtual void OnDisable()
+        //TODO move it to player view
+        public void ShowDialog(string message, float time = -1)
         {
+            BubbleDialog newDialog = BubbleDialog.Create(
+                bubbleDialog =>
+                {
+                    bubbleDialog.transform.parent = GameSceneRoot;
+                    bubbleDialog.transform.localScale =
+                        ScreenScaler.FitHorizontalPart(bubbleDialog.Background, 0.35f) *
+                        Vector2.one;
+                
+                    //Put dialog on the top right puzzle angle
+                    float halfOfPuzzleWidth = ScreenScaler.PartOfScreen(Player.PlayerView.PartOfScreen / 2).x;
+                    bubbleDialog.transform.position = Vector2.one * halfOfPuzzleWidth;
+                });
+        
+            if (_currentDialog != null)
+                _currentDialog.Hide(() => newDialog.Show(message));
+            else
+                newDialog.Show(message);
+
+            _currentDialog = newDialog;
+            _currentDialog.SetRenderLayer(RenderLayer.VFX, 102);
+
+            if (time > 0)
+                //If time is specified we will close window in this time
+                _currentDialog.Invoke(() => _currentDialog.Hide(), time);
+        
         }
+
+        protected virtual void OnEnable() { }
+        protected virtual void OnDisable() { }
+        
         //////////////////
         //Event Invokers//
         //////////////////
@@ -163,16 +197,16 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
-            PlayerRiviveEvent?.Invoke();
+            PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
         }
-
+        
         public void InvokeCreateEnemy(EnemyParams @params)
         {
             Debug.Log("CreateEnemy Invoked");
             CreateEnemyEvent?.Invoke(@params);
         }
-
+        
         public void InvokeLevelClosed()
         {
             InvokePauseLevel(true);
@@ -181,7 +215,7 @@ namespace Puzzle
             UnloadScene();
             LauncherUI.Instance.InvokeGameSceneUnloaded();
         }
-
+        
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
@@ -193,6 +227,26 @@ namespace Puzzle
         {
             Debug.Log("PlayAudio Invoked " + args.AudioClip.name);
             PlayAudioEvent?.Invoke(args);
+        }
+        
+        public void InvokeEnemyAppearedOnScreen(EnemyBase enemyBase)
+        {
+            Debug.Log("EnemyAppearedOnScreen Invoked " + enemyBase.Type);
+            EnemyAppearedOnScreenEvent?.Invoke(enemyBase);
+        }
+        
+        public void InvokeCutsceneStarted(CutsceneEventArgs args)
+        {
+            Debug.Log("CutsceneStarted Invoked " + args.SceneID);
+            InvokePauseLevel(true);
+            CutsceneStartedEvent?.Invoke(args);
+        }
+        
+        public void InvokeCutsceneEnded(CutsceneEventArgs args)
+        {
+            Debug.Log("CutsceneEnded Invoked " + args.SceneID);
+            InvokePauseLevel(false);
+            CutsceneEndedEvent?.Invoke(args);
         }
     }
 }

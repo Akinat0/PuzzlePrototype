@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Puzzle;
@@ -23,6 +24,11 @@ public class LevelSoundPlayer : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        ClearAudio();
+    }
+
     protected void ClearAudio()
     {
         foreach (AudioSource audioSource in audioSources.Keys)
@@ -31,10 +37,8 @@ public class LevelSoundPlayer : MonoBehaviour
         audioSources.Clear();
     }
 
-    protected void Pause(bool pause)
+    protected virtual void Pause(bool pause)
     {
-        Time.timeScale = pause ? 0 : 1;
-        
         foreach (var audioSource in audioSources.Keys)
         {
             if(audioSource == null)
@@ -46,7 +50,7 @@ public class LevelSoundPlayer : MonoBehaviour
                 audioSource.UnPause();
         }
     }
-    
+
     protected virtual void OnEnable()
     {
         GameSceneManager.PlayAudioEvent += PlayAudioEvent_Handler;
@@ -60,8 +64,6 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
-
-
 
     void PlayAudioEvent_Handler(LevelPlayAudioEventArgs args)
     {

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 namespace Puzzle
@@ -17,6 +20,15 @@ namespace Puzzle
         private GameObject m_ConfettiVfx;
         private GameObject m_TapVfx;
         private GameObject m_TadaSFX;
+        private Volume m_Volume;
+
+        public Vignette Vignette
+        {
+            get{
+                m_Volume.profile.TryGet(out Vignette vignette);
+                return vignette;
+            }
+        }
 
         public FlatFX FlatFx => m_FlatFx;
 
@@ -24,10 +36,16 @@ namespace Puzzle
         {
             Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
+            m_Volume = GetComponent<Volume>();
             m_TapVfx = Resources.Load<GameObject>("Prefabs/Tap");
             m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
             m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
             SetConfettiHoldersPositions();
+        }
+
+        public FadeEffect CallFadeEffect(Transform parent, string sortingLayer, int sortingOrder)
+        {
+            return new FadeEffect(parent, sortingLayer, sortingOrder);
         }
         
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
@@ -43,6 +61,7 @@ namespace Puzzle
 
         public void CallCrosslightEffect(Vector2 position)
         {
+            FlatFx.useUnscaledTime = false;
             FlatFx.AddEffect(position, FlatFXType.Crosslight.GetHashCode());
         }
         
@@ -60,9 +79,15 @@ namespace Puzzle
             Instantiate(m_TadaSFX);
         }
 
-        public Transform CallTapEffect(Transform parent)
+        public void CallTapRippleEffect(Vector3 position)
         {
-            Transform tap =  Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
+            FlatFx.useUnscaledTime = true;
+            FlatFx.AddEffect(position, FlatFXType.Ripple.GetHashCode());
+        }
+        
+        public Transform CallTutorialTapEffect(Transform parent)
+        {
+            Transform tap = Instantiate(m_TapVfx, parent.position, Quaternion.identity, parent).transform;
             
             //Make tap independent on parent scale
             tap.localScale = new Vector3(
@@ -70,6 +95,16 @@ namespace Puzzle
                 tap.localScale.y * tap.localScale.y / tap.lossyScale.y,
                 tap.localScale.z * tap.localScale.z / tap.lossyScale.z);
             
+            return tap;
+        }
+        
+        public Transform CallTutorialTapEffect(Transform parent, Color color)
+        {
+            Transform tap = CallTutorialTapEffect(parent);
+
+            foreach (SpriteRenderer spriteRenderer in tap.GetComponentsInChildren<SpriteRenderer>())
+                spriteRenderer.color = color;
+
             return tap;
         }
 
@@ -130,7 +165,7 @@ namespace Puzzle
         public void EditorCallTapEffect()
         {
             if (Application.IsPlaying(this))
-                CallTapEffect(null);
+                CallTutorialTapEffect(null);
         }
         
         [ContextMenu("Confetti")]
@@ -167,6 +202,14 @@ namespace Puzzle
             if(Application.IsPlaying(this))
                 CallCrosslightEffect(Vector2.zero);
         }
+        
+        [ContextMenu("CallTapRipple")]
+        public void EditorCallTapRippleEffect()
+        {
+            if(Application.IsPlaying(this))
+                CallTapRippleEffect(Vector2.zero);
+        }
+        
 #endif
     }
 }

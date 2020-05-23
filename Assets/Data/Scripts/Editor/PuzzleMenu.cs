@@ -11,11 +11,15 @@ using UnityEngine.Timeline;
 public class PuzzleMenu : EditorWindow
 {
     
-    [MenuItem("PuzzleUtils/Generate Timelines")]
+    [MenuItem("PuzzleUtils/Generate Timeline")]
     public static void GenearteTimelines()
     {
-        string[] guids = AssetDatabase.FindAssets("Timeline", new []{"Assets/Timelines/RawTimelines"});
-    
+        TimelineAsset[] assets = Selection.GetFiltered<TimelineAsset>(SelectionMode.Assets);
+        List<string> guids = new List<string>();
+        
+        foreach (TimelineAsset asset in assets)
+            guids.Add(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(asset)));
+        
         foreach (var guid in guids)
         {
             TimelineAsset oldTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(AssetDatabase.GUIDToAssetPath(guid), typeof(TimelineAsset));
