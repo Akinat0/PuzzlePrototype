@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Abu.Tools
 {
@@ -22,18 +23,24 @@ namespace Abu.Tools
 
         private void Update()
         {
-            SwipeMobile();
-            
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
             SwipeMouse();            
-    #endif
+#else
+            SwipeMobile();
+#endif
         }
 
         private void SwipeMobile()
         {
             if(Input.touches.Length > 0)
             {
+                
                 Touch t = Input.GetTouch(0);
+                
+                if (EventSystem.current.IsPointerOverGameObject(t.fingerId))
+                    //Touch on UI element
+                    return;
+                
                 if(t.phase == TouchPhase.Began)
                 {
                     //save began touch 2d point
@@ -80,6 +87,10 @@ namespace Abu.Tools
         
         private void SwipeMouse()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+                //Mouse on UI element
+                return;
+            
             if(Input.GetMouseButtonDown(0))
             {
                 //save began touch 2d point
