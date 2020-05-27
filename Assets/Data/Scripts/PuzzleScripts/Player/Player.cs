@@ -18,6 +18,7 @@ namespace Puzzle
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
         public PlayerView PlayerView => _view;
+        public int Hp => _health;
         
         protected virtual void Start()
         {

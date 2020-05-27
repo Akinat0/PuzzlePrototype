@@ -88,6 +88,7 @@ namespace Puzzle
                 InvokeSetupLevel(config.ColorScheme);
 
             // TODO  actions with background and gameRoot
+            
             InvokeResetLevel();
         }
 
@@ -106,7 +107,7 @@ namespace Puzzle
 
         void CallCompleteMenu()
         {
-            completeScreenManager.CreateReplyScreen();
+            completeScreenManager.CreateReplyScreen(Player.Hp, Player.DEFAULT_HP);
         }
         
         //TODO move it to player view

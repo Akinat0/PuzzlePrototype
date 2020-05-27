@@ -22,6 +22,12 @@ public static class Extensions
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
     
+    public static int Remap (this int value, int from1, int to1, int from2, int to2)
+    {
+        float _value = value;
+        return Mathf.RoundToInt(_value.Remap(from1, to1, from2, to2));
+    }
+    
     //Coroutines
     public static IEnumerator WaitUntil(Func<bool> predicate, Action finish)
     {
