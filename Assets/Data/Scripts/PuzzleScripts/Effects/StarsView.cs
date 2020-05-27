@@ -24,7 +24,7 @@ public class StarsView : MonoBehaviour
 
     private void Start()
     {
-        //Calculate scale for single star such as it's a single element and then use it for hole view
+        //Calculate scale for single star as if it's a single element and then use it for hole view
         float singleImageScale =
             ScreenScaler.FitHorizontalPart(starAnimators.First().GetComponent<SpriteRenderer>(), 0.35f);
 
