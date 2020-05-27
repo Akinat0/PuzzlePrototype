@@ -8,6 +8,7 @@ using UnityEngine;
 public class StarsView : MonoBehaviour
 {
     [SerializeField] private Animator[] starAnimators;
+    [SerializeField] private AudioClip[] starClips;
     
     private Dictionary<Animator, AnimationEventBehaviour> showEventBehaviours = new Dictionary<Animator, AnimationEventBehaviour>();
     private Dictionary<Animator, AnimationEventBehaviour> hideEventBehaviours = new Dictionary<Animator, AnimationEventBehaviour>();
@@ -50,12 +51,19 @@ public class StarsView : MonoBehaviour
         
         if (stars > 0)
         {
+            //setup sounds
+            for (int i = 0; i < stars; i++)
+            {
+                int indexClosure = i;
+                showEventBehaviours[starAnimators[i]].OnStateCompleteEvent += _ =>
+                    SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
+            }
+            
             for (int i = 0; i < stars - 1; i++)
             {
                 int indexClosure = i;
                 
                 //Set next animator show trigger after completing
-                
                 showEventBehaviours[starAnimators[i]].OnStateCompleteEvent += _ => starAnimators[indexClosure + 1].SetTrigger(Show);
             }
             

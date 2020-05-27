@@ -17,7 +17,10 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        PlayTheme(launcherTheme);
+        
+        if(launcherTheme != null)
+            PlayTheme(launcherTheme);
+        
         oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
     }
 

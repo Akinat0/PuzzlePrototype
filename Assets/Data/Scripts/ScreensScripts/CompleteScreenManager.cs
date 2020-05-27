@@ -35,8 +35,6 @@ public class CompleteScreenManager : ManagerView
                 CompleteScreen.SetActive(false); 
             });
         }
-        
-        
     }
     
     public void CreateReplyScreen(int remainHp, int totalHp)
