@@ -10,7 +10,7 @@ namespace ScreensScripts
         [SerializeField] private Button reviveButton;
         [SerializeField] private Button replayButton;
         [SerializeField] private Button menuButton;
-        
+        [SerializeField] private Text timerField;
 
         private void Start()
         {
@@ -22,11 +22,23 @@ namespace ScreensScripts
             GameSceneManager.Instance.InvokeResetLevel();
             replayScreen.SetActive(false);
         }
-        
+
         public void Revive()
         {
-            GameSceneManager.Instance.InvokePlayerRevive();
-            replayScreen.SetActive(false);
+            if (timerField != null)
+            {
+                replayScreen.SetActive(false);
+                StartCoroutine(CountdownRoutine(timerField, () =>
+                {
+                    timerField.gameObject.SetActive(false);
+                    GameSceneManager.Instance.InvokePlayerRevive();
+                }));
+            }
+            else
+            {
+                replayScreen.SetActive(false);
+                GameSceneManager.Instance.InvokePlayerRevive();
+            }
         }
 
         public void ToMenu()

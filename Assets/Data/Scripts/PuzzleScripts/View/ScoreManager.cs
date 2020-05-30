@@ -27,13 +27,13 @@ namespace Puzzle
 
         private IEnumerator ScrollScore()
         {
-            float oneFrame = 0.5f / (_score - _tempScore);
+            float delay = 0.5f / (_score - _tempScore);
             while (_tempScore != _score)
             {
                 _tempScore++;
                 _scoreText.text = Score;
                 ShowShort(_scoreText);
-                yield return new WaitForSeconds(oneFrame);
+                yield return new WaitForSeconds(delay);
             }
         }
         
@@ -85,7 +85,7 @@ namespace Puzzle
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
-            _scoreText.color = levelColorScheme.TextColor2;
+            levelColorScheme.SetTextColor(_scoreText, true);
         }
     }
 }

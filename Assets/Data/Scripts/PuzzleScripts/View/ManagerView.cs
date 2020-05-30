@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,6 +36,23 @@ namespace Puzzle
         }
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
+        
+        protected IEnumerator CountdownRoutine(Text timerField, Action onFinish)
+        {
+            if(!timerField.gameObject.activeSelf)
+                timerField.gameObject.SetActive(true);
+            
+            for (int i = 3; i > 0; i--)
+            {
+                timerField.text = i.ToString();
+                timerField.DOKill();
+                timerField.rectTransform.DOPunchScale(new Vector3(1.1f, 1.1f, 1), 0.7f, 3, 0.2f).SetUpdate(true);
+                yield return new WaitForSecondsRealtime(1);
+            }
+            
+            onFinish?.Invoke();
+        }
+        
         protected virtual void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(false);

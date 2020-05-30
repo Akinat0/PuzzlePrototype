@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Puzzle;
+﻿using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,12 +21,20 @@ public class PauseManager : ManagerView
 
     public void OnPause()
     {
-        if(!Paused)
+        if (!Paused)
             PauseTheGame();
-        else
+        else if (timerField != null)
         {
-            StartCoroutine(ResumeTheGame());
+            pauseMenu.SetActive(false);
+            StartCoroutine(CountdownRoutine(timerField, () =>
+            {
+                timerField.gameObject.SetActive(false);
+                _paused = false;
+                GameSceneManager.Instance.InvokePauseLevel(false);
+            }));
         }
+        else
+            ResumeTheGame();
     }
     
     public void VolumeSliderValueChanged(float value)
@@ -54,21 +61,15 @@ public class PauseManager : ManagerView
         pauseMenu.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
-    
 
-    private IEnumerator ResumeTheGame()
+    private void ResumeTheGame()
     {
-        timerField.gameObject.SetActive(true);
-        pauseMenu.SetActive(false);
-        for (int i = 3; i > 0; i--)
-        {
-            timerField.text = i.ToString();
-            yield return new WaitForSecondsRealtime(1);
-        }
-        timerField.gameObject.SetActive(false);
         _paused = false;
+        pauseMenu.SetActive(false);
         GameSceneManager.Instance.InvokePauseLevel(false);
     }
+
+    
 
 
     protected override void OnEnable()
@@ -89,6 +90,8 @@ public class PauseManager : ManagerView
         levelColorScheme.SetButtonColor(restartButton);
         levelColorScheme.SetButtonColor(menuButton);
         levelColorScheme.SetButtonColor(pauseButton);
+        if(timerField != null)
+            levelColorScheme.SetTextColor(timerField, true);
     }
 
     void LevelCompletedEvent_Handler()

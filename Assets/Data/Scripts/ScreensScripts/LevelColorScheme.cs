@@ -38,7 +38,7 @@ public class LevelColorScheme
         
         button.gameObject.SetActive(defaultActiveState);
     }
-    public void SetTextColor(Text text)
+    public void SetTextColor(Text text, bool alternateColor = false)
     {
         if (text == null)
         {
@@ -46,6 +46,6 @@ public class LevelColorScheme
             return;
         }
 
-        text.color = _TextColor2;
+        text.color = alternateColor ? _TextColor2 : _TextColor;
     }
 }
