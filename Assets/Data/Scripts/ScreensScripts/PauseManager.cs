@@ -1,4 +1,5 @@
-﻿using Puzzle;
+﻿using System.Collections;
+using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class PauseManager : ManagerView
     [SerializeField] private Button restartButton;
     [SerializeField] private Button menuButton;
     [SerializeField] private Button pauseButton;
+    [SerializeField] private Text timerField;
     
     private bool _paused = false;
     public bool Paused => _paused;
@@ -24,7 +26,7 @@ public class PauseManager : ManagerView
             PauseTheGame();
         else
         {
-            ResumeTheGame();
+            StartCoroutine(ResumeTheGame());
         }
     }
     
@@ -52,11 +54,19 @@ public class PauseManager : ManagerView
         pauseMenu.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
+    
 
-    private void ResumeTheGame()
+    private IEnumerator ResumeTheGame()
     {
-        _paused = false;
+        timerField.gameObject.SetActive(true);
         pauseMenu.SetActive(false);
+        for (int i = 3; i > 0; i--)
+        {
+            timerField.text = i.ToString();
+            yield return new WaitForSecondsRealtime(1);
+        }
+        timerField.gameObject.SetActive(false);
+        _paused = false;
         GameSceneManager.Instance.InvokePauseLevel(false);
     }
 

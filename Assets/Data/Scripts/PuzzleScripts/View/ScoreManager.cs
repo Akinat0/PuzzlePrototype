@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -7,9 +8,10 @@ namespace Puzzle
     public class ScoreManager : ManagerView
     {
         private int _score = 0;
+        private int _tempScore = 0;
         private Text _scoreText;
 
-        public string Score => $"Score: {_score}";
+        public string Score => $"Score: {_tempScore}";
 
         void Awake()
         {
@@ -20,8 +22,19 @@ namespace Puzzle
         void AddScore(int score)
         {
             _score += score;
-            _scoreText.text = Score;
-            ShowShort(_scoreText);
+            StartCoroutine(ScrollScore());
+        }
+
+        private IEnumerator ScrollScore()
+        {
+            float oneFrame = 0.5f / (_score - _tempScore);
+            while (_tempScore != _score)
+            {
+                _tempScore++;
+                _scoreText.text = Score;
+                ShowShort(_scoreText);
+                yield return new WaitForSeconds(oneFrame);
+            }
         }
         
         void SaveScore()
