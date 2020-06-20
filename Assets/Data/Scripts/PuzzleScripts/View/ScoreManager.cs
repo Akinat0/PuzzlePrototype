@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -9,13 +10,13 @@ namespace Puzzle
     {
         private int _score = 0;
         private int _tempScore = 0;
-        private Text _scoreText;
+        private TextMeshProUGUI _scoreText;
 
         public string Score => $"Score: {_tempScore}";
 
         void Awake()
         {
-            _scoreText = GetComponent<Text>();
+            _scoreText = GetComponent<TextMeshProUGUI>();
             _scoreText.text = Score;
         }
 

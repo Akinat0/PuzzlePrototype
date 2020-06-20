@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,19 +64,19 @@ namespace Puzzle
             gameObject.SetActive(true);
         }
 
-        protected void ShowShort(Text text)
+        protected void ShowShort(TextMeshProUGUI text)
         {
             text.DOKill();
             text.DOFade(1.0f, APPEAR_TIME).onComplete += () => text.DOFade(0.0f, DISAPPEAR_TIME);
         }
         
-        protected void HideLong(Text text)
+        protected void HideLong(TextMeshProUGUI text)
         {
             text.DOKill();
             text.Invoke(() => text.DOFade(0.0f, DISAPPEAR_TIME_LONG), TIME_TO_DISAPPEAR);
         }
 
-        protected void ShowInstant(Text text)
+        protected void ShowInstant(TextMeshProUGUI text)
         {
             text.DOKill();
             Color color = text.color;
@@ -83,7 +84,7 @@ namespace Puzzle
             text.color = color;
         }
         
-        protected void HideInstant(Text text)
+        protected void HideInstant(TextMeshProUGUI text)
         {
             text.DOKill();
             Color color = text.color;

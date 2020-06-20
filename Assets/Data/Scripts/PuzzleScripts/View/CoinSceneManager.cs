@@ -1,11 +1,11 @@
 ﻿using DG.Tweening;
 using Puzzle;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CoinSceneManager : ManagerView
 {
-    [SerializeField] private Text coinText;
+    [SerializeField] private TextMeshProUGUI coinText;
 
     private void Start()
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,6 +40,17 @@ public class LevelColorScheme
         button.gameObject.SetActive(defaultActiveState);
     }
     public void SetTextColor(Text text, bool alternateColor = false)
+    {
+        if (text == null)
+        {
+            Debug.LogError("Text is null");
+            return;
+        }
+
+        text.color = alternateColor ? _TextColor2 : _TextColor;
+    }
+    
+    public void SetTextColor(TextMeshProUGUI text, bool alternateColor = false)
     {
         if (text == null)
         {

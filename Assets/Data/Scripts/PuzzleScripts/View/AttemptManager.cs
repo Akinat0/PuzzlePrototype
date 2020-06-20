@@ -4,13 +4,14 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Puzzle;
+using TMPro;
 
 public class AttemptManager : ManagerView
 {
     private int _attemptNumber;
 
     [SerializeField]
-    private Text _textPlaceholder;
+    private TextMeshProUGUI _textPlaceholder;
 
     [SerializeField]
     private string _textOfNotification = "Attempt #";
