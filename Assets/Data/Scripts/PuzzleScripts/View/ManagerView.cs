@@ -66,8 +66,7 @@ namespace Puzzle
         protected void ShowShort(Text text)
         {
             text.DOKill();
-            var fadeOutTween = text.DOFade(1.0f, APPEAR_TIME);
-            fadeOutTween.onComplete += () => text.DOFade(0.0f, DISAPPEAR_TIME);
+            text.DOFade(1.0f, APPEAR_TIME).onComplete += () => text.DOFade(0.0f, DISAPPEAR_TIME);
         }
         
         protected void HideLong(Text text)
