@@ -12,12 +12,31 @@ namespace Puzzle
         private int _tempScore = 0;
         private TextMeshProUGUI _scoreText;
 
-        public string Score => $"Score: {_tempScore}";
+        private string Score => $"Score: {_tempScore}";
+        
+        private string Text {
+            
+            set
+            {
+                float prevFontSize = _scoreText.fontSize;
+                _scoreText.text = value;
+                _scoreText.ForceMeshUpdate();
+                float newFontSize = _scoreText.fontSize;
+
+                if (!Mathf.Approximately(prevFontSize, newFontSize))
+                    InvokeChangeSharedFontSize(newFontSize);
+            }
+        }
 
         void Awake()
         {
             _scoreText = GetComponent<TextMeshProUGUI>();
-            _scoreText.text = Score;
+            Text = Score;
+        }
+
+        void Start()
+        {
+            InvokeChangeSharedFontSize(_scoreText.fontSize);
         }
 
         void AddScore(int score)
@@ -32,7 +51,7 @@ namespace Puzzle
             while (_tempScore != _score)
             {
                 _tempScore++;
-                _scoreText.text = Score;
+                Text = Score;
                 ShowShort(_scoreText);
                 yield return new WaitForSeconds(delay);
             }
@@ -59,6 +78,7 @@ namespace Puzzle
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+
         }
         
         void ResetLevelEvent_Handler()
@@ -88,5 +108,6 @@ namespace Puzzle
         {
             levelColorScheme.SetTextColor(_scoreText, true);
         }
+        
     }
 }

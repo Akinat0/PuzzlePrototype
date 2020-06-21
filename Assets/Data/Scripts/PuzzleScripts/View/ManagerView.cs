@@ -14,6 +14,8 @@ namespace Puzzle
         protected const float DISAPPEAR_TIME = 1.0f;
         protected const float DISAPPEAR_TIME_LONG = 3.0f;
 
+        protected static event Action<float> ChangeSharedFontSize;
+
         private void Awake()
         {
             GameSceneManager.CutsceneStartedEvent += CutsceneStartedEvent_Handler;
@@ -35,9 +37,9 @@ namespace Puzzle
         {
             GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
         }
+        
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
-        
         protected IEnumerator CountdownRoutine(Text timerField, Action onFinish)
         {
             if(!timerField.gameObject.activeSelf)
@@ -90,6 +92,11 @@ namespace Puzzle
             Color color = text.color;
             color.a = 0;
             text.color = color;
+        }
+
+        protected void InvokeChangeSharedFontSize(float fontSize)
+        {
+            ChangeSharedFontSize?.Invoke(fontSize);
         }
     }
 }

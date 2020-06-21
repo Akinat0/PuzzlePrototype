@@ -19,6 +19,7 @@ public class CoinSceneManager : ManagerView
         base.OnEnable();
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+        ChangeSharedFontSize += ChangeSharedFontSize_Handler;
     }
 
     protected override void OnDisable()
@@ -26,6 +27,7 @@ public class CoinSceneManager : ManagerView
         base.OnDisable();
         Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+        ChangeSharedFontSize -= ChangeSharedFontSize_Handler;
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
@@ -47,4 +49,9 @@ public class CoinSceneManager : ManagerView
             HideLong(coinText);
     }
     
+    private void ChangeSharedFontSize_Handler(float sharedFontSize)
+    {
+        if (!Mathf.Approximately(coinText.fontSize, sharedFontSize))
+            coinText.fontSize = sharedFontSize;
+    }
 }
