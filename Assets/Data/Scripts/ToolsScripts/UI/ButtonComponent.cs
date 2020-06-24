@@ -19,13 +19,24 @@ namespace Abu.Tools.UI
             get => Button.interactable;
             set => Button.interactable = value;
         }
-
-        protected virtual Color Color
+        
+        public virtual RectTransform RectTransform
+        {
+            get
+            {
+                if(rectTransform == null)
+                    rectTransform = transform as RectTransform;
+                return rectTransform;
+            }
+        }
+        
+        public virtual Color Color
         {
             get => Background.color;
             set => Background.color = value;
         }
-        protected virtual Image Background
+        
+        public virtual Image Background
         {
             get
             {
@@ -35,7 +46,7 @@ namespace Abu.Tools.UI
                 return background;
             }
         }
-        
+      
         protected virtual Button Button
         {
             get
@@ -47,7 +58,7 @@ namespace Abu.Tools.UI
             }
         }
 
-        
+        private RectTransform rectTransform;
         private Image background;
         private Button button;
 

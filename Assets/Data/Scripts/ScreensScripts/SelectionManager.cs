@@ -1,4 +1,5 @@
 ﻿using Abu.Tools;
+using Abu.Tools.UI;
 using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
@@ -11,31 +12,21 @@ public class SelectionManager : MonoBehaviour
     [Header("UI elements"),] [SerializeField]
     private Transform LevelContainer;
 
-    [SerializeField] private GameObject RightBtnObject;
+    [SerializeField] private ButtonComponent RightBtn;
 
-    [SerializeField] private GameObject LeftBtnObject;
+    [SerializeField] private ButtonComponent LeftBtn;
 
-    [SerializeField] private GameObject InteractBtnObject;
+    [SerializeField] private TextButtonComponent InteractBtn;
 
-    [SerializeField] private TextMeshProUGUI InteractBtnText;
-
-    [SerializeField] private GameObject CollectionBtnObject;
-
-    [SerializeField] private TextMeshProUGUI CollectionBtnText;
+    [SerializeField] private TextButtonComponent CollectionBtn;
 
     [Space(8), SerializeField, Tooltip("The Scriptable object with items")]
     private LevelConfig[] _Selection;
 
     public LevelConfig CurrentItem{ get; private set;}
-
-    //Buttons
-    private Button rightBtn;
-    private Button leftBtn;
-    private Button interactBtn;
-    private Button collectionBtn;
+    
     
     private PlayerView m_PlayerView;
-    private BackgroundView m_BackgroundView;
     private int ItemNumber; //Index representing current item in the shop
 
     private BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
@@ -50,14 +41,9 @@ public class SelectionManager : MonoBehaviour
     {
         MobileSwipeInputComponent = GetComponent<MobileSwipeInputComponent>();
     }
-
+    
     public void Start()
     {
-        rightBtn = RightBtnObject.GetComponent<Button>();
-        leftBtn = LeftBtnObject.GetComponent<Button>();
-        interactBtn = InteractBtnObject.GetComponent<Button>();
-        collectionBtn = CollectionBtnObject.GetComponent<Button>();
-        
         ItemNumber = 0;
         DisplayItem(ItemNumber);
     }
@@ -65,7 +51,7 @@ public class SelectionManager : MonoBehaviour
     //Called when right btn clicks
     public void OnRightBtnClick()
     {
-        if (ItemNumber == _Selection.Length - 1 || !RightBtnObject.activeInHierarchy || !rightBtn.interactable)
+        if (ItemNumber == _Selection.Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
         {
             Debug.Log("Selection's already on the last element or right button disabled");
             return;
@@ -78,7 +64,7 @@ public class SelectionManager : MonoBehaviour
     //Called when left btn clicks
     public void OnLeftBtnClick()
     {
-        if (ItemNumber == 0 || !LeftBtnObject.activeInHierarchy || !leftBtn.interactable)
+        if (ItemNumber == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable)
         {
             Debug.Log("Selection's already on the first element or left button disabled");
             return;
@@ -93,7 +79,7 @@ public class SelectionManager : MonoBehaviour
         if (_Selection.Length == 0) //If nothing remains in shop 
         {
             LevelContainer.gameObject.SetActive(false);
-            InteractBtnObject.SetActive(false);
+            InteractBtn.SetActive(false);
             return;
         }
 
@@ -104,7 +90,7 @@ public class SelectionManager : MonoBehaviour
         
         DisplayLevel(_Direction);
 
-        InteractBtnText.text = CurrentItem.Name;
+        InteractBtn.Text = CurrentItem.Name;
 
         ManagingButtons();
         
@@ -112,8 +98,8 @@ public class SelectionManager : MonoBehaviour
         
         if (_Selection.Length == 0)
         {
-            LeftBtnObject.SetActive(false);
-            RightBtnObject.SetActive(false);
+            LeftBtn.SetActive(false);
+            RightBtn.SetActive(false);
         }
         
     }
@@ -121,10 +107,10 @@ public class SelectionManager : MonoBehaviour
     void ManagingButtons()
     {
         //Managing right button
-        RightBtnObject.SetActive(ItemNumber + 1 != _Selection.Length);
+        RightBtn.SetActive(ItemNumber + 1 != _Selection.Length);
 
         //Managing left button
-        LeftBtnObject.SetActive(ItemNumber != 0);
+        LeftBtn.SetActive(ItemNumber != 0);
     }
 
     LevelRootView DisplayLevel(int _Direction)
@@ -135,14 +121,14 @@ public class SelectionManager : MonoBehaviour
         {
             LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
             m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject, oldPrefab.transform);
-            m_BackgroundView = DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject, oldPrefab.transform);
+            DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject, oldPrefab.transform);
             return levelRootView;
         }
         else
         {
             LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
             m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject);
-            m_BackgroundView = DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject);
+            DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject);
             return levelRootView;
         }
     }
@@ -171,8 +157,8 @@ public class SelectionManager : MonoBehaviour
             var tweenerPlayer = oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), PlayerAnimationDuration);
             tweenerPlayer.onPlay = () =>
             {
-                rightBtn.interactable = false;
-                leftBtn.interactable = false;
+                RightBtn.Interactable = false;
+                LeftBtn.Interactable = false;
             };
 
             tweenerPlayer.onComplete = () =>
@@ -181,8 +167,8 @@ public class SelectionManager : MonoBehaviour
                 // so we will destroy old level prefab in player's finish animation code
                 if(_OldLevelView != null)
                     Destroy(_OldLevelView.gameObject); 
-                rightBtn.interactable = true;
-                leftBtn.interactable = true;
+                RightBtn.Interactable = true;
+                LeftBtn.Interactable = true;
             };
 
             //Create new prefab
@@ -235,25 +221,22 @@ public class SelectionManager : MonoBehaviour
 
     void HideUI()
     {
-        RectTransform rightBtnRect = RightBtnObject.GetComponent<RectTransform>();
-        RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
-        RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
 
-        rightBtnRect.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtnObject.SetActive(false);
-        leftBtnRect.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtnObject.SetActive(false);
+        RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtn.SetActive(false);
+        LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtn.SetActive(false);
         
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(new Vector2(0, interactBtnRect.rect.y - MainButtonsOffset), UiAnimationDuration);
-        interactBtnTweener.onPlay = () => interactBtn.interactable = false; 
-        interactBtnTweener.onComplete = () => InteractBtnObject.SetActive(false);
+        Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, InteractBtn.RectTransform.rect.y - MainButtonsOffset), UiAnimationDuration);
+        interactBtnTweener.onPlay = () => InteractBtn.Interactable = false; 
+        interactBtnTweener.onComplete = () => InteractBtn.SetActive(false);
         
         HideCollectionButton(UiAnimationDuration);
     }
 
     void ShowUI()
     {
-        RectTransform rightBtnRect = RightBtnObject.GetComponent<RectTransform>();
-        RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
-        RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
+        RectTransform rightBtnRect = RightBtn.GetComponent<RectTransform>();
+        RectTransform leftBtnRect = LeftBtn.GetComponent<RectTransform>();
+        RectTransform interactBtnRect = InteractBtn.GetComponent<RectTransform>();
         
         rightBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         leftBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
@@ -261,8 +244,8 @@ public class SelectionManager : MonoBehaviour
         Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         interactBtnTweener.onPlay = () =>
         {
-            interactBtn.interactable = true;
-            InteractBtnObject.SetActive(true);
+            InteractBtn.Interactable = true;
+            InteractBtn.SetActive(true);
         };
 
         if(CurrentItem.CollectionEnabled)
@@ -278,19 +261,15 @@ public class SelectionManager : MonoBehaviour
     void BringBackUI(PlayerView _NewPlayer)
     {
         ManagingButtons();
+
+        RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         
-        RectTransform rightBtnRect = RightBtnObject.GetComponent<RectTransform>();
-        RectTransform leftBtnRect = LeftBtnObject.GetComponent<RectTransform>();
-        RectTransform interactBtnRect = InteractBtnObject.GetComponent<RectTransform>();
-        
-        rightBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        leftBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         interactBtnTweener.onPlay = () =>
         {
-            interactBtn.interactable = true;
-            InteractBtnObject.SetActive(true);
+            InteractBtn.Interactable = true;
+            InteractBtn.SetActive(true);
         };
 
         if(CurrentItem.CollectionEnabled)
@@ -342,24 +321,23 @@ public class SelectionManager : MonoBehaviour
     
     private void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
     {
-        CollectionBtnObject.SetActive(true);
-        collectionBtn.interactable = true;
+        CollectionBtn.SetActive(true);
+        CollectionBtn.Interactable = true;
         
-        RectTransform collectionBtnRect = CollectionBtnObject.GetComponent<RectTransform>();
-        collectionBtnRect.DOAnchorPos(Vector2.zero, _Duration).SetDelay(_Delay);
+        CollectionBtn.RectTransform.DOAnchorPos(Vector2.zero, _Duration).SetDelay(_Delay);
     }
     
     private void HideCollectionButton(float _Duration)
     {
-        RectTransform collectionBtnRect = CollectionBtnObject.GetComponent<RectTransform>();
+        RectTransform collectionBtnRect = CollectionBtn.GetComponent<RectTransform>();
 
         collectionBtnRect.DOAnchorPos(new Vector2(0, collectionBtnRect.rect.y - MainButtonsOffset), _Duration)
             .OnStart(() =>
             {
-                collectionBtn.interactable = false;
+                CollectionBtn.Interactable = false;
             })
             .SetUpdate(true)
-            .onComplete = () => CollectionBtnObject.SetActive(false);
+            .onComplete = () => CollectionBtn.SetActive(false);
     }
 
     private void SetupColors(float _Duration = 0)
@@ -368,36 +346,32 @@ public class SelectionManager : MonoBehaviour
 
         if (_Duration > 0)
         {
-            Image leftBtnImage = LeftBtnObject.GetComponent<Image>();
-            DOTween.To(() => leftBtnImage.color,
-                x => leftBtnImage.color = x, colorScheme.ArrowColor, _Duration);
+            DOTween.To(() => LeftBtn.Color,
+                x => LeftBtn.Color = x, colorScheme.ArrowColor, _Duration);
 
-            Image rightBtnImage = RightBtnObject.GetComponent<Image>();
-            DOTween.To(() => rightBtnImage.color,
-                x => rightBtnImage.color = x, colorScheme.ArrowColor, _Duration);
+            DOTween.To(() => RightBtn.Color,
+                x => RightBtn.Color = x, colorScheme.ArrowColor, _Duration);
 
-            Image interactBtnImage = InteractBtnObject.GetComponent<Image>();
-            DOTween.To(() => interactBtnImage.color,
-                x => interactBtnImage.color = x, colorScheme.ButtonColor, _Duration);
+            DOTween.To(() => InteractBtn.Color,
+                x => InteractBtn.Color = x, colorScheme.ButtonColor, _Duration);
             
-            DOTween.To(() => InteractBtnText.color,
-                x => InteractBtnText.color = x, colorScheme.TextColor, _Duration);
+            DOTween.To(() => InteractBtn.TextField.color,
+                x => InteractBtn.TextField.color = x, colorScheme.TextColor, _Duration);
             
-            Image collectionBtnImage = CollectionBtnObject.GetComponent<Image>();
-            DOTween.To(() => collectionBtnImage.color,
-                x => collectionBtnImage.color = x, colorScheme.ButtonColor, _Duration);
+            DOTween.To(() => CollectionBtn.Color,
+                x => CollectionBtn.Color = x, colorScheme.ButtonColor, _Duration);
             
-            DOTween.To(() => CollectionBtnText.color,
-                x => CollectionBtnText.color = x, colorScheme.TextColor, _Duration);
+            DOTween.To(() => CollectionBtn.TextField.color,
+                x => CollectionBtn.TextField.color = x, colorScheme.TextColor, _Duration);
         }
         else
         {
-            LeftBtnObject.GetComponent<Image>().color = colorScheme.ArrowColor;
-            RightBtnObject.GetComponent<Image>().color = colorScheme.ArrowColor;
-            InteractBtnObject.GetComponent<Image>().color = colorScheme.ButtonColor;
-            InteractBtnText.color = colorScheme.TextColor;
-            CollectionBtnObject.GetComponent<Image>().color = colorScheme.ButtonColor;
-            CollectionBtnText.color = colorScheme.TextColor;
+            LeftBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
+            RightBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
+            InteractBtn.GetComponent<Image>().color = colorScheme.ButtonColor;
+            InteractBtn.TextField.color = colorScheme.TextColor;
+            CollectionBtn.GetComponent<Image>().color = colorScheme.ButtonColor;
+            CollectionBtn.TextField.color = colorScheme.TextColor;
         }
     }
     private void ClearContainers()
@@ -413,6 +387,11 @@ public class SelectionManager : MonoBehaviour
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
+        
+        RightBtn.OnClick += OnRightBtnClick;
+        LeftBtn.OnClick += OnLeftBtnClick;
+        InteractBtn.OnClick += OnInteract;
+        CollectionBtn.OnClick += OnCollection;
     }
 
     private void OnDisable()
@@ -422,6 +401,11 @@ public class SelectionManager : MonoBehaviour
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
+        
+        RightBtn.OnClick -= OnRightBtnClick;
+        LeftBtn.OnClick -= OnLeftBtnClick;
+        InteractBtn.OnClick -= OnInteract;
+        CollectionBtn.OnClick -= OnCollection;
     }
 
     private void MobileSwipeEvent_handler(SwipeType swipe)
