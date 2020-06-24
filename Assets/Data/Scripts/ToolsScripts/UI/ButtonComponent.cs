@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Data.Scripts.Tools.Input;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace Abu.Tools.UI
 {
     public class ButtonComponent : UIComponent
     {
-
+        [SerializeField] protected AudioClip Sound;
         [SerializeField] protected Color ButtonColor = Color.white;
         
         public event Action OnClick;
@@ -66,7 +67,10 @@ namespace Abu.Tools.UI
         {
             //Interactable condition is already into account
             if (MobileInput.Condition)
+            {
                 OnClick?.Invoke();
+                SoundManager.Instance.PlayOneShot(Sound);
+            }
         }
 
         protected override void OnValidate()
