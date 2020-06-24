@@ -86,8 +86,9 @@ GameObject:
   - component: {fileID: 136589146055612899}
   - component: {fileID: 136589146055612896}
   - component: {fileID: 136589146055612897}
+  - component: {fileID: 2986736765927541209}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: MiniButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,8 +195,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ToMenu
+      - m_Target: {fileID: 2986736765927541209}
+        m_MethodName: OnButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -205,6 +206,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2986736765927541209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136589146055612902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64db48b91d8441e5884359ad128e0f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &136589146136011443
 GameObject:
   m_ObjectHideFlags: 0
