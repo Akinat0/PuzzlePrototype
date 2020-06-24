@@ -3,6 +3,7 @@ using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -16,11 +17,11 @@ public class SelectionManager : MonoBehaviour
 
     [SerializeField] private GameObject InteractBtnObject;
 
-    [SerializeField] private Text InteractBtnText;
+    [SerializeField] private TextMeshProUGUI InteractBtnText;
 
     [SerializeField] private GameObject CollectionBtnObject;
 
-    [SerializeField] private Text CollectionBtnText;
+    [SerializeField] private TextMeshProUGUI CollectionBtnText;
 
     [Space(8), SerializeField, Tooltip("The Scriptable object with items")]
     private LevelConfig[] _Selection;
@@ -394,9 +395,9 @@ public class SelectionManager : MonoBehaviour
             LeftBtnObject.GetComponent<Image>().color = colorScheme.ArrowColor;
             RightBtnObject.GetComponent<Image>().color = colorScheme.ArrowColor;
             InteractBtnObject.GetComponent<Image>().color = colorScheme.ButtonColor;
-            InteractBtnText.GetComponent<Text>().color = colorScheme.TextColor;
+            InteractBtnText.color = colorScheme.TextColor;
             CollectionBtnObject.GetComponent<Image>().color = colorScheme.ButtonColor;
-            CollectionBtnText.GetComponent<Text>().color = colorScheme.TextColor;
+            CollectionBtnText.color = colorScheme.TextColor;
         }
     }
     private void ClearContainers()
