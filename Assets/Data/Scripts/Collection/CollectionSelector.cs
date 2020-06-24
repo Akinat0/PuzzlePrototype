@@ -1,5 +1,6 @@
 ﻿using System;
 using Abu.Tools;
+using Abu.Tools.UI;
 using DG.Tweening;
 using ScreensScripts;
 using UnityEngine;
@@ -7,7 +8,8 @@ using UnityEngine.UI;
 
 public class CollectionSelector : SelectorBase
 {
-    [SerializeField] private Transform LevelPlayerRoot;
+    [SerializeField] private TextButtonComponent InteractBtn;
+    [SerializeField] private ButtonComponent HomeBtn;
     [SerializeField] private Transform ItemContainer;
     [SerializeField] private RectTransform Content;
     
@@ -120,12 +122,18 @@ public class CollectionSelector : SelectorBase
     
     void OnEnable()
     {
+        base.OnEnable();
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
+        InteractBtn.OnClick += OnChoose;
+        HomeBtn.OnClick += OnBack;
     }
     
     void OnDisable()
     {
+        base.OnDisable();
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
+        InteractBtn.OnClick -= OnChoose;
+        HomeBtn.OnClick -= OnBack;
     }
     
     private void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
