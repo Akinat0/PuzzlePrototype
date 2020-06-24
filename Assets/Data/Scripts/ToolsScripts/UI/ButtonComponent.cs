@@ -69,7 +69,9 @@ namespace Abu.Tools.UI
             if (MobileInput.Condition)
             {
                 OnClick?.Invoke();
-                SoundManager.Instance.PlayOneShot(Sound);
+                
+                if(Sound != null)
+                    SoundManager.Instance.PlayOneShot(Sound);
             }
         }
 
