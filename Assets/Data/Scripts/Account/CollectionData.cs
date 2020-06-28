@@ -2,7 +2,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new CollectionData", menuName = "Account/CollectionData", order = 51)]
 public class CollectionData : SaveableScriptableObject
 {
-    [SerializeField] private CollectionItem[] _CollectionItems;
+    [SerializeField] CollectionItem[] _CollectionItems;
     [SerializeField] public int DefaultItemID;
     
 

@@ -10,13 +10,19 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     [SerializeField] Transform LevelContainer;
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
-
-    [Space(8), SerializeField, Tooltip("The Scriptable object with items")]
-    LevelConfig[] _Selection; //TODO move to account
-
+    
     PlayerView m_PlayerView;
 
     BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
+
+    protected override int Index
+    {
+        set
+        {
+            base.Index = value;
+            Account.DefaultLevelId = value;
+        }
+    }
 
     //Constants
     public const float MainButtonsOffset = 500; 
@@ -25,9 +31,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     public void Start()
     {
-        Selection = _Selection; //TODO 
-        Index = 0; //TODO Create default level in account
-        DisplayItem(Index);
+        Selection = Account.LevelConfigs;
+        Index = Account.DefaultLevelId;
+        DisplayItem();
     }
     
     protected override void MoveLeft()
@@ -39,24 +45,24 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
         
         Index--;
-        DisplayItem(Index, 1);
+        DisplayItem(1);
     }
 
     protected override void MoveRight()
     {
-        if (Index == _Selection.Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
+        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
         {
             Debug.Log("Selection's already on the last element or right button disabled");
             return;
         }
 
         Index++;
-        DisplayItem(Index, -1);
+        DisplayItem(-1);
     }
 
-    private void DisplayItem(int _Index, int _Direction = 0)
+    private void DisplayItem(int _Direction = 0)
     {
-        if (_Selection.Length == 0) //If nothing remains in shop 
+        if (Selection.Length == 0) //If nothing remains in shop 
         {
             LevelContainer.gameObject.SetActive(false);
             InteractBtn.SetActive(false);
@@ -74,7 +80,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
         
-        if (_Selection.Length == 0)
+        if (Length == 0)
         {
             LeftBtn.SetActive(false);
             RightBtn.SetActive(false);
@@ -85,7 +91,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     void ManagingButtons()
     {
         //Managing right button
-        RightBtn.SetActive(Index + 1 != _Selection.Length);
+        RightBtn.SetActive(Index + 1 != Length);
 
         //Managing left button
         LeftBtn.SetActive(Index != 0);
@@ -127,8 +133,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             _PlayerPrefab = defaultCollectionPlayer;
             ShowCollectionButton(PlayerAnimationDuration);
         }
-        else
-            HideCollectionButton(PlayerAnimationDuration);
+        else 
+            HideCollectionButton(_Direction == 0 ? 0 : PlayerAnimationDuration);
         
         if (_Direction != 0 && oldPrefab != null)
         {
@@ -233,7 +239,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         ClearContainers();
         
-        DisplayItem(Index);
+        DisplayItem();
     }
     
     void BringBackUI(PlayerView _NewPlayer)
@@ -272,19 +278,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         m_PlayerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
     }
-    
-    void OnInteract()
-    {
-        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
-    }
 
-    void OnCollection()
-    {
-        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(Current.ColorScheme));
-        HideUI();
-        HideActivePlayer();
-    }
-    
     void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
     {
         CollectionBtn.SetActive(true);
@@ -295,15 +289,17 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void HideCollectionButton(float _Duration)
     {
-        RectTransform collectionBtnRect = CollectionBtn.GetComponent<RectTransform>();
-
-        collectionBtnRect.DOAnchorPos(new Vector2(0, collectionBtnRect.rect.y - MainButtonsOffset), _Duration)
-            .OnStart(() =>
-            {
-                CollectionBtn.Interactable = false;
-            })
-            .SetUpdate(true)
-            .onComplete = () => CollectionBtn.SetActive(false);
+        if (_Duration < Mathf.Epsilon)
+        {
+            CollectionBtn.RectTransform.anchoredPosition = new Vector2(0, CollectionBtn.RectTransform.rect.y - MainButtonsOffset);
+        }
+        else
+        {
+            CollectionBtn.RectTransform.DOAnchorPos(new Vector2(0, CollectionBtn.RectTransform.rect.y - MainButtonsOffset), _Duration)
+                .OnStart(() => { CollectionBtn.Interactable = false; })
+                .SetUpdate(true)
+                .onComplete = () => CollectionBtn.SetActive(false);
+        }
     }
 
     void SetupColors(float _Duration = 0)
@@ -346,7 +342,17 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             Destroy(go.gameObject, 0);
     }
 
-    
+    void OnInteract()
+    {
+        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
+    }
+
+    void OnCollection()
+    {
+        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(Current.ColorScheme));
+        HideUI();
+        HideActivePlayer();
+    }
 
     protected override void OnEnable()
     {
