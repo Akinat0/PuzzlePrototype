@@ -9,7 +9,9 @@ namespace Abu.Tools.UI
         [SerializeField] protected ButtonComponent LeftBtn;
 
         protected virtual int Index { get; set; }
-        
+
+        protected virtual T Current => Selection[Index];
+
         protected abstract void MoveLeft();
 
         protected abstract void MoveRight();

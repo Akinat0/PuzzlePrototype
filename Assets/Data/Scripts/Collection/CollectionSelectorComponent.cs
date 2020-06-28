@@ -49,7 +49,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if(_Direction != 0)
         {
             oldPlayer.transform.DOMove(shift,
-                    SelectionManager.PlayerAnimationDuration)
+                    LevelSelectorComponent.PlayerAnimationDuration)
                 .OnStart(() =>
                 {
                     RightBtn.Interactable = false;
@@ -63,7 +63,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
                 });
             
             activePlayer.transform.DOMove(Vector3.zero, 
-                SelectionManager.PlayerAnimationDuration);
+                LevelSelectorComponent.PlayerAnimationDuration);
         }
     }
     
@@ -93,11 +93,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
         activePlayer.transform.localPosition += Vector3.up * ScreenScaler.CameraSize.y;
         
-        activePlayer.transform.DOMove(Vector3.zero, SelectionManager.UiAnimationDuration)
-            .SetDelay(SelectionManager.UiAnimationDuration / 2);
+        activePlayer.transform.DOMove(Vector3.zero, LevelSelectorComponent.UiAnimationDuration)
+            .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
         
-        Content.DOAnchorPos(Vector2.zero, SelectionManager.UiAnimationDuration)
-            .SetDelay(SelectionManager.UiAnimationDuration / 2);
+        Content.DOAnchorPos(Vector2.zero, LevelSelectorComponent.UiAnimationDuration)
+            .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
     }
     
     void HideCollection(float _Duration = 0)
@@ -105,11 +105,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (activePlayer != null)
         {
             activePlayer.transform.DOMove(Vector3.up * ScreenScaler.CameraSize.y,
-                SelectionManager.UiAnimationDuration).onComplete = () => Destroy(activePlayer.gameObject);
+                LevelSelectorComponent.UiAnimationDuration).onComplete = () => Destroy(activePlayer.gameObject);
         }
 
         if (Math.Abs(_Duration) > Mathf.Epsilon)
-            Content.DOAnchorPos(Vector3.up * Screen.height, SelectionManager.UiAnimationDuration);
+            Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
         else
             Content.position += Vector3.up * Screen.height;
         
@@ -118,7 +118,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     void ChoosePlayer(float _Duration)
     {
         if (Math.Abs(_Duration) > Mathf.Epsilon)
-            Content.DOAnchorPos(Vector3.up * Screen.height, SelectionManager.UiAnimationDuration);
+            Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
         else
             Content.position += Vector3.up * Screen.height;
     }
@@ -126,13 +126,13 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     void OnChoose()
     {
         Account.CollectionDefaultItemId = Index;
-        ChoosePlayer(SelectionManager.UiAnimationDuration);
+        ChoosePlayer(LevelSelectorComponent.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(activePlayer));
     }
 
     void OnBack()
     {
-        HideCollection(SelectionManager.UiAnimationDuration);
+        HideCollection(LevelSelectorComponent.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
     

@@ -4,74 +4,54 @@ using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 
-public class SelectionManager : MonoBehaviour
+public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 {
-
-    [Header("UI elements"),] [SerializeField]
-    private Transform LevelContainer;
-
-    [SerializeField] private ButtonComponent RightBtn;
-
-    [SerializeField] private ButtonComponent LeftBtn;
-
-    [SerializeField] private TextButtonComponent InteractBtn;
-
-    [SerializeField] private TextButtonComponent CollectionBtn;
+    [SerializeField] Transform LevelContainer;
+    [SerializeField] TextButtonComponent InteractBtn;
+    [SerializeField] TextButtonComponent CollectionBtn;
 
     [Space(8), SerializeField, Tooltip("The Scriptable object with items")]
-    private LevelConfig[] _Selection;
+    LevelConfig[] _Selection; //TODO move to account
 
-    public LevelConfig CurrentItem{ get; private set;}
-    
-    
-    private PlayerView m_PlayerView;
-    private int ItemNumber; //Index representing current item in the shop
+    PlayerView m_PlayerView;
 
-    private BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
-    private MobileSwipeInputComponent MobileSwipeInputComponent;
+    BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
 
     //Constants
     public const float MainButtonsOffset = 500; 
     public const float PlayerAnimationDuration = 0.5f; 
-    public const float UiAnimationDuration = 0.5f; 
-    
-    public void Awake()
-    {
-        MobileSwipeInputComponent = GetComponent<MobileSwipeInputComponent>();
-    }
-    
+    public const float UiAnimationDuration = 0.5f;
+
     public void Start()
     {
-        ItemNumber = 0;
-        DisplayItem(ItemNumber);
+        Selection = _Selection; //TODO 
+        Index = 0; //TODO Create default level in account
+        DisplayItem(Index);
     }
     
-    //Called when right btn clicks
-    public void OnRightBtnClick()
+    protected override void MoveLeft()
     {
-        if (ItemNumber == _Selection.Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
-        {
-            Debug.Log("Selection's already on the last element or right button disabled");
-            return;
-        }
-
-        ItemNumber++;
-        DisplayItem(ItemNumber, -1);
-    }
-    
-    //Called when left btn clicks
-    public void OnLeftBtnClick()
-    {
-        if (ItemNumber == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable)
+        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable)
         {
             Debug.Log("Selection's already on the first element or left button disabled");
             return;
         }
         
-        ItemNumber--;
-        DisplayItem(ItemNumber, 1);
+        Index--;
+        DisplayItem(Index, 1);
+    }
+
+    protected override void MoveRight()
+    {
+        if (Index == _Selection.Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
+        {
+            Debug.Log("Selection's already on the last element or right button disabled");
+            return;
+        }
+
+        Index++;
+        DisplayItem(Index, -1);
     }
 
     private void DisplayItem(int _Index, int _Direction = 0)
@@ -83,18 +63,16 @@ public class SelectionManager : MonoBehaviour
             return;
         }
 
-        CurrentItem = _Selection[_Index];
-
         if(_Direction == 0)
             SetupColors();
         
         DisplayLevel(_Direction);
 
-        InteractBtn.Text = CurrentItem.Name;
+        InteractBtn.Text = Current.Name;
 
         ManagingButtons();
         
-        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, CurrentItem));
+        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
         
         if (_Selection.Length == 0)
         {
@@ -107,10 +85,10 @@ public class SelectionManager : MonoBehaviour
     void ManagingButtons()
     {
         //Managing right button
-        RightBtn.SetActive(ItemNumber + 1 != _Selection.Length);
+        RightBtn.SetActive(Index + 1 != _Selection.Length);
 
         //Managing left button
-        LeftBtn.SetActive(ItemNumber != 0);
+        LeftBtn.SetActive(Index != 0);
     }
 
     LevelRootView DisplayLevel(int _Direction)
@@ -119,14 +97,14 @@ public class SelectionManager : MonoBehaviour
 
         if (oldPrefab != null && _Direction != 0)
         {
-            LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
+            LevelRootView levelRootView = Instantiate(Current.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
             m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject, oldPrefab.transform);
             DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject, oldPrefab.transform);
             return levelRootView;
         }
         else
         {
-            LevelRootView levelRootView = Instantiate(CurrentItem.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
+            LevelRootView levelRootView = Instantiate(Current.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
             m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject);
             DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject);
             return levelRootView;
@@ -142,9 +120,9 @@ public class SelectionManager : MonoBehaviour
         if(_OldLevelView != null)
             oldPrefab = _OldLevelView.GetComponentInChildren<PlayerView>();
 
-        if (CurrentItem.CollectionEnabled)
+        if (Current.CollectionEnabled)
         {
-            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.GetPuzzleVariant(CurrentItem.PuzzleSides), _PlayerPrefab.transform.parent, true);
+            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.GetPuzzleVariant(Current.PuzzleSides), _PlayerPrefab.transform.parent, true);
             DestroyImmediate(_PlayerPrefab);
             _PlayerPrefab = defaultCollectionPlayer;
             ShowCollectionButton(PlayerAnimationDuration);
@@ -248,14 +226,14 @@ public class SelectionManager : MonoBehaviour
             InteractBtn.SetActive(true);
         };
 
-        if(CurrentItem.CollectionEnabled)
+        if(Current.CollectionEnabled)
             ShowCollectionButton(UiAnimationDuration, 0.25f);
         else
             HideCollectionButton(UiAnimationDuration);
         
         ClearContainers();
         
-        DisplayItem(ItemNumber);
+        DisplayItem(Index);
     }
     
     void BringBackUI(PlayerView _NewPlayer)
@@ -272,7 +250,7 @@ public class SelectionManager : MonoBehaviour
             InteractBtn.SetActive(true);
         };
 
-        if(CurrentItem.CollectionEnabled)
+        if(Current.CollectionEnabled)
             ShowCollectionButton(UiAnimationDuration, 0.25f);
         else
             HideCollectionButton(UiAnimationDuration);
@@ -290,36 +268,24 @@ public class SelectionManager : MonoBehaviour
 
     }
 
-    void SetPlayerFromCollection()
-    {
-        DestroyImmediate(m_PlayerView);
-      //  m_PlayerView = Instantiate();
-    }
-    
     void HideActivePlayer()
     {
         m_PlayerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
     }
     
-    void ShowActivePlayer()
+    void OnInteract()
     {
-        m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration);
+        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
     }
 
-
-    public void OnInteract()
+    void OnCollection()
     {
-        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(CurrentItem));
-    }
-
-    public void OnCollection()
-    {
-        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(CurrentItem.ColorScheme));
+        LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(Current.ColorScheme));
         HideUI();
         HideActivePlayer();
     }
     
-    private void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
+    void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
     {
         CollectionBtn.SetActive(true);
         CollectionBtn.Interactable = true;
@@ -327,7 +293,7 @@ public class SelectionManager : MonoBehaviour
         CollectionBtn.RectTransform.DOAnchorPos(Vector2.zero, _Duration).SetDelay(_Delay);
     }
     
-    private void HideCollectionButton(float _Duration)
+    void HideCollectionButton(float _Duration)
     {
         RectTransform collectionBtnRect = CollectionBtn.GetComponent<RectTransform>();
 
@@ -340,9 +306,9 @@ public class SelectionManager : MonoBehaviour
             .onComplete = () => CollectionBtn.SetActive(false);
     }
 
-    private void SetupColors(float _Duration = 0)
+    void SetupColors(float _Duration = 0)
     {
-        LevelColorScheme colorScheme = CurrentItem.ColorScheme;
+        LevelColorScheme colorScheme = Current.ColorScheme;
 
         if (_Duration > 0)
         {
@@ -374,66 +340,69 @@ public class SelectionManager : MonoBehaviour
             CollectionBtn.TextField.color = colorScheme.TextColor;
         }
     }
-    private void ClearContainers()
+    void ClearContainers()
     {
         foreach (Transform go in LevelContainer.transform)
             Destroy(go.gameObject, 0);
     }
 
-    private void OnEnable()
+    
+
+    protected override void OnEnable()
     {
-        if (MobileSwipeInputComponent != null)
-            MobileSwipeInputComponent.OnSwipe += MobileSwipeEvent_handler;
+        base.OnEnable();
+        
+        //MobileInput.OnSwipe += MobileSwipeEvent_handler; TODO input refactoring
+        
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
         
-        RightBtn.OnClick += OnRightBtnClick;
-        LeftBtn.OnClick += OnLeftBtnClick;
         InteractBtn.OnClick += OnInteract;
         CollectionBtn.OnClick += OnCollection;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
-        if (MobileSwipeInputComponent != null)
-            MobileSwipeInputComponent.OnSwipe -= MobileSwipeEvent_handler;
+        base.OnDisable();
+        
+        //MobileInput.OnSwipe -= MobileSwipeEvent_handler; TODO input refactoring
+        
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
         
-        RightBtn.OnClick -= OnRightBtnClick;
-        LeftBtn.OnClick -= OnLeftBtnClick;
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
     }
 
-    private void MobileSwipeEvent_handler(SwipeType swipe)
+    void MobileSwipeEvent_handler(SwipeType swipe)
     {
-        switch (swipe)
-        {
-            case SwipeType.Left:
-                OnRightBtnClick();
-                break;
-            
-            case SwipeType.Right:
-                OnLeftBtnClick();
-                break;
-        }
+        //TODO Refactor input
+//        switch (swipe)
+//        {
+//            case SwipeType.Left:
+//                OnRightBtnClick();
+//                break;
+//            
+//            case SwipeType.Right:
+//                OnLeftBtnClick();
+//                break;
+//        }
     }
     
-    private void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
+    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         HideUI();
     }
 
-    private void GameSceneUnloadedEvent_Handler()
+    void GameSceneUnloadedEvent_Handler()
     {
         ShowUI();   
     }
 
     //The handler handles two behaviours: if we chose new player or if we not
-    private void CloseCollectionEvent_Handler(CloseCollectionEventArgs _Args)
+    void CloseCollectionEvent_Handler(CloseCollectionEventArgs _Args)
     {
         BringBackUI(_Args.PlayerView);
     }
