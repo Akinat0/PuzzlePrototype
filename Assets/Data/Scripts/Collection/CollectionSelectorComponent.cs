@@ -4,30 +4,70 @@ using Abu.Tools.UI;
 using DG.Tweening;
 using ScreensScripts;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CollectionSelector : SelectorBase
+public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 {
-    [SerializeField] private TextButtonComponent InteractBtn;
-    [SerializeField] private ButtonComponent HomeBtn;
-    [SerializeField] private Transform ItemContainer;
-    [SerializeField] private RectTransform Content;
-    
-    private CollectionItem[] Selection;
-    
+    [SerializeField] TextButtonComponent InteractBtn;
+    [SerializeField] ButtonComponent HomeBtn;
+    [SerializeField] Transform ItemContainer;
+    [SerializeField] RectTransform Content;
 
+    protected override CollectionItem[] Selection { get; set; }
+    protected override int Index { get; set; }
     protected override int Length => Selection.Length;
+
+    PlayerView activePlayer;
+    PlayerView oldPlayer;
     
-    protected override void Start()
+    void Start()
     {
-        ItemNumber = Account.CollectionDefaultItemId;
+        Index = Account.CollectionDefaultItemId;
         Selection = Account.CollectionItems;
         HideCollection();
     }
+
+    void DisplayItem(int _Index, int _Direction = 0)
+    {
+        //Managing right button
+        RightBtn.SetActive(_Index + 1 != Length);
+
+        //Managing left button
+        LeftBtn.SetActive(_Index != 0);
+            
+        CreateItem(_Index);
+            
+        if (Length == 0)
+        {
+            RightBtn.SetActive(false);
+            LeftBtn.SetActive(false);
+        }
+
+        Vector3 shift = _Direction * ScreenScaler.CameraSize.x * Vector3.right;
+        
+        activePlayer.transform.position = - shift;
+
+        if(_Direction != 0)
+        {
+            oldPlayer.transform.DOMove(shift,
+                    SelectionManager.PlayerAnimationDuration)
+                .OnStart(() =>
+                {
+                    RightBtn.Interactable = false;
+                    LeftBtn.Interactable = false;
+                })
+                .OnComplete(() =>
+                {
+                    RightBtn.Interactable = true;
+                    LeftBtn.Interactable = true;
+                    Destroy(oldPlayer.gameObject);
+                });
+            
+            activePlayer.transform.DOMove(Vector3.zero, 
+                SelectionManager.PlayerAnimationDuration);
+        }
+    }
     
-    private PlayerView activePlayer;
-    private PlayerView oldPlayer;
-    protected override void CreateItem(int _Index)
+    void CreateItem(int _Index)
     {
         oldPlayer = activePlayer;
         GameObject collectionPuzzle = Selection[_Index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides);
@@ -46,45 +86,21 @@ public class CollectionSelector : SelectorBase
         activePlayer = Instantiate(collectionPuzzle, ItemContainer).GetComponent<PlayerView>();
     }
 
-    protected override void DisplayItem(int _Index, int _Direction = 0)
-    {
-        base.DisplayItem(_Index, _Direction);
-        activePlayer.transform.position = - _Direction * ScreenScaler.CameraSize.x * Vector3.right;
-
-        if(_Direction != 0)
-        {
-            oldPlayer.transform.DOMove(_Direction * ScreenScaler.CameraSize.x * Vector3.right,
-                    SelectionManager.PlayerAnimationDuration)
-                .OnStart(() =>
-                {
-                    RightArrow.GetComponent<Button>().interactable = false;
-                    LeftArrow.GetComponent<Button>().interactable = false;
-                })
-                .OnComplete(() =>
-                {
-                    RightArrow.GetComponent<Button>().interactable = true;
-                    LeftArrow.GetComponent<Button>().interactable = true;
-                    Destroy(oldPlayer.gameObject);
-                });
-            
-            activePlayer.transform.DOMove(Vector3.zero, 
-                SelectionManager.PlayerAnimationDuration);
-        }
-    }
-
-    private void ShowCollection()
+    void ShowCollection()
     {
         Content.gameObject.SetActive(true);
-        DisplayItem(ItemNumber);
+        DisplayItem(Index);
 
         activePlayer.transform.localPosition += Vector3.up * ScreenScaler.CameraSize.y;
+        
         activePlayer.transform.DOMove(Vector3.zero, SelectionManager.UiAnimationDuration)
             .SetDelay(SelectionManager.UiAnimationDuration / 2);
+        
         Content.DOAnchorPos(Vector2.zero, SelectionManager.UiAnimationDuration)
             .SetDelay(SelectionManager.UiAnimationDuration / 2);
     }
     
-    private void HideCollection(float _Duration = 0)
+    void HideCollection(float _Duration = 0)
     {
         if (activePlayer != null)
         {
@@ -99,7 +115,7 @@ public class CollectionSelector : SelectorBase
         
     }
 
-    private void ChoosePlayer(float _Duration)
+    void ChoosePlayer(float _Duration)
     {
         if (Math.Abs(_Duration) > Mathf.Epsilon)
             Content.DOAnchorPos(Vector3.up * Screen.height, SelectionManager.UiAnimationDuration);
@@ -107,20 +123,32 @@ public class CollectionSelector : SelectorBase
             Content.position += Vector3.up * Screen.height;
     }
 
-    public void OnChoose()
+    void OnChoose()
     {
-        Account.CollectionDefaultItemId = ItemNumber;
+        Account.CollectionDefaultItemId = Index;
         ChoosePlayer(SelectionManager.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(activePlayer));
     }
 
-    public void OnBack()
+    void OnBack()
     {
         HideCollection(SelectionManager.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
     
-    void OnEnable()
+    protected override void MoveLeft()
+    {
+        Index--;
+        DisplayItem(Index, 1);
+    }
+
+    protected override void MoveRight()
+    {
+        Index++;
+        DisplayItem(Index, -1);
+    }
+
+    protected override void OnEnable()
     {
         base.OnEnable();
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
@@ -128,7 +156,7 @@ public class CollectionSelector : SelectorBase
         HomeBtn.OnClick += OnBack;
     }
     
-    void OnDisable()
+    protected override void OnDisable()
     {
         base.OnDisable();
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
@@ -136,7 +164,7 @@ public class CollectionSelector : SelectorBase
         HomeBtn.OnClick -= OnBack;
     }
     
-    private void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
+    void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
         ShowCollection();
     }
