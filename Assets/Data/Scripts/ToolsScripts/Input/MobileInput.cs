@@ -1,11 +1,25 @@
 using System;
-using System.Diagnostics;
 
 namespace Data.Scripts.Tools.Input
 {
     public class MobileInput
     {
-        public static bool Condition => true;
-        public static event Action OnSwipe; //TODO
+        public static Action<bool> OnInputConditionChanged;
+        
+        public static bool Condition
+        {
+            get => condition;
+            
+            set
+            {
+                if (value != condition)
+                {
+                    condition = value;
+                    OnInputConditionChanged?.Invoke(condition);
+                }
+            }
+        }
+
+        static bool condition = true;
     }
 }

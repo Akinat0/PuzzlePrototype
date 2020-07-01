@@ -1,5 +1,6 @@
 ﻿using Abu.Tools;
 using Abu.Tools.UI;
+using Data.Scripts.Tools.Input;
 using ScreensScripts;
 using UnityEngine.UI;
 using UnityEngine;
@@ -33,7 +34,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         Selection = Account.LevelConfigs;
         Index = Account.DefaultLevelId;
-        DisplayItem();
+        ShowUI();
     }
     
     protected override void MoveLeft()
@@ -85,7 +86,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             LeftBtn.SetActive(false);
             RightBtn.SetActive(false);
         }
-        
     }
 
     void ManagingButtons()
@@ -141,6 +141,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             var tweenerPlayer = oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), PlayerAnimationDuration);
             tweenerPlayer.onPlay = () =>
             {
+                MobileInput.Condition = false;
                 RightBtn.Interactable = false;
                 LeftBtn.Interactable = false;
             };
@@ -150,7 +151,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
                 // It takes a bit more time for player to finish animation,
                 // so we will destroy old level prefab in player's finish animation code
                 if(_OldLevelView != null)
-                    Destroy(_OldLevelView.gameObject); 
+                    Destroy(_OldLevelView.gameObject);
+                MobileInput.Condition = true;
                 RightBtn.Interactable = true;
                 LeftBtn.Interactable = true;
             };
@@ -214,19 +216,17 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         interactBtnTweener.onComplete = () => InteractBtn.SetActive(false);
         
         HideCollectionButton(UiAnimationDuration);
+
+        IsFocused = false;
     }
 
     void ShowUI()
     {
-        RectTransform rightBtnRect = RightBtn.GetComponent<RectTransform>();
-        RectTransform leftBtnRect = LeftBtn.GetComponent<RectTransform>();
-        RectTransform interactBtnRect = InteractBtn.GetComponent<RectTransform>();
+        RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
+        LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         
-        rightBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        leftBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
-        Tweener interactBtnTweener = interactBtnRect.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        interactBtnTweener.onPlay = () =>
+        InteractBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f)
+            .onPlay = () =>
         {
             InteractBtn.Interactable = true;
             InteractBtn.SetActive(true);
@@ -240,6 +240,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ClearContainers();
         
         DisplayItem();
+
+        IsFocused = true;
     }
     
     void BringBackUI(PlayerView _NewPlayer)
@@ -272,6 +274,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
         }
 
+        IsFocused = true;
     }
 
     void HideActivePlayer()
@@ -328,11 +331,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
         else
         {
-            LeftBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
-            RightBtn.GetComponent<Image>().color = colorScheme.ArrowColor;
-            InteractBtn.GetComponent<Image>().color = colorScheme.ButtonColor;
+            LeftBtn.Color = colorScheme.ArrowColor;
+            RightBtn.Color = colorScheme.ArrowColor;
+            InteractBtn.Color = colorScheme.ButtonColor;
             InteractBtn.TextField.color = colorScheme.TextColor;
-            CollectionBtn.GetComponent<Image>().color = colorScheme.ButtonColor;
+            CollectionBtn.Color = colorScheme.ButtonColor;
             CollectionBtn.TextField.color = colorScheme.TextColor;
         }
     }
@@ -358,8 +361,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         base.OnEnable();
         
-        //MobileInput.OnSwipe += MobileSwipeEvent_handler; TODO input refactoring
-        
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
@@ -372,8 +373,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         base.OnDisable();
         
-        //MobileInput.OnSwipe -= MobileSwipeEvent_handler; TODO input refactoring
-        
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
@@ -382,21 +381,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         CollectionBtn.OnClick -= OnCollection;
     }
 
-    void MobileSwipeEvent_handler(SwipeType swipe)
-    {
-        //TODO Refactor input
-//        switch (swipe)
-//        {
-//            case SwipeType.Left:
-//                OnRightBtnClick();
-//                break;
-//            
-//            case SwipeType.Right:
-//                OnLeftBtnClick();
-//                break;
-//        }
-    }
-    
     void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         HideUI();

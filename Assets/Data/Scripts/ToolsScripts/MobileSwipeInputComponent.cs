@@ -1,4 +1,5 @@
 using System;
+using Data.Scripts.Tools.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +15,9 @@ namespace Abu.Tools
     
     public class MobileSwipeInputComponent : MonoBehaviour
     {
+        [SerializeField, Range(0, 1)] float HorizontalSensitivity = 0.23f;
+        [SerializeField, Range(0, 1)] float VerticalSensitivity = 0.23f; 
+        
         public Action<SwipeType> OnSwipe;
         
         //inside class
@@ -37,7 +41,7 @@ namespace Abu.Tools
                 
                 Touch t = Input.GetTouch(0);
                 
-                if (EventSystem.current.IsPointerOverGameObject(t.fingerId))
+                if (EventSystem.current.IsPointerOverGameObject(t.fingerId) || !MobileInput.Condition)
                     //Touch on UI element
                     return;
                 
@@ -52,34 +56,46 @@ namespace Abu.Tools
                     secondPressPos = new Vector2(t.position.x,t.position.y);
                            
                     //create vector from the two points
-                    currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
+                    currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
                
-                    //normalize the 2d vector
-                    currentSwipe.Normalize();
- 
-                    //swipe upwards
-                    if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                    Vector2 cameraSize = ScreenScaler.CameraSize;
+
+                    if (Mathf.Abs(currentSwipe.x) < cameraSize.x * HorizontalSensitivity ||
+                        Mathf.Abs(currentSwipe.y) < cameraSize.y * VerticalSensitivity)
+                        return;
+                
+                    Vector2 normalizedSwipe = currentSwipe.normalized;
+
+                    if(Mathf.Abs(normalizedSwipe.x) > Mathf.Abs(normalizedSwipe.y)) //Horizontal or verical swipe
                     {
-                        OnSwipe?.Invoke(SwipeType.Up);
-                        Debug.Log("Swipe up");
+                        //swipe left
+                        if(currentSwipe.x < 0)
+                        {
+                            OnSwipe?.Invoke(SwipeType.Left);
+                            Debug.Log("Swipe left");
+                        }
+                        else 
+                            //swipe right
+                        {
+                            OnSwipe?.Invoke(SwipeType.Right);
+                            Debug.Log("Swipe right");
+                        }
                     }
-                    //swipe down
-                    if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                    else
                     {
-                        OnSwipe?.Invoke(SwipeType.Down);
-                        Debug.Log("Swipe down");
-                    }
-                    //swipe left
-                    if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-                    {
-                        OnSwipe?.Invoke(SwipeType.Left);
-                        Debug.Log("Swipe left");
-                    }
-                    //swipe right
-                    if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-                    {
-                        OnSwipe?.Invoke(SwipeType.Right);
-                        Debug.Log("Swipe right");
+                        //swipe upwards
+                        if(currentSwipe.y > 0)
+                        {
+                            OnSwipe?.Invoke(SwipeType.Up);
+                            Debug.Log("Swipe up");
+                        }
+                        else
+                            //swipe down
+                        if(currentSwipe.y < 0)
+                        {
+                            OnSwipe?.Invoke(SwipeType.Down);
+                            Debug.Log("Swipe down");
+                        }
                     }
                 }
             }
@@ -87,9 +103,13 @@ namespace Abu.Tools
         
         private void SwipeMouse()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                //Mouse on UI element
+            //Mouse on UI element
+            if (EventSystem.current.IsPointerOverGameObject() || !MobileInput.Condition)
+            {
+                firstPressPos = Vector2.zero;
                 return;
+            }
+                
             
             if(Input.GetMouseButtonDown(0))
             {
@@ -103,34 +123,47 @@ namespace Abu.Tools
        
                 //create vector from the two points
                 currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
-           
-                //normalize the 2d vector
-                currentSwipe.Normalize();
+
+                Vector2 cameraSize = ScreenScaler.CameraSize;
+
+                if (Mathf.Abs(currentSwipe.x) < cameraSize.x * HorizontalSensitivity ||
+                    Mathf.Abs(currentSwipe.y) < cameraSize.y * VerticalSensitivity)
+                    return;
                 
-                //swipe upwards
-                if(currentSwipe.y > 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                Vector2 normalizedSwipe = currentSwipe.normalized;
+
+                if(Mathf.Abs(normalizedSwipe.x) > Mathf.Abs(normalizedSwipe.y)) //Horizontal or verical swipe
                 {
-                    OnSwipe?.Invoke(SwipeType.Up);
-                    Debug.Log("Swipe up");
+                    //swipe left
+                    if(currentSwipe.x < 0)
+                    {
+                        OnSwipe?.Invoke(SwipeType.Left);
+                        Debug.Log("Swipe left");
+                    }
+                    else 
+                    //swipe right
+                    {
+                        OnSwipe?.Invoke(SwipeType.Right);
+                        Debug.Log("Swipe right");
+                    }
                 }
-                //swipe down
-                if(currentSwipe.y < 0 && currentSwipe.x > -0.5f && currentSwipe.x < 0.5f)
+                else
                 {
-                    OnSwipe?.Invoke(SwipeType.Down);
-                    Debug.Log("Swipe down");
+                    //swipe upwards
+                    if(currentSwipe.y > 0)
+                    {
+                        OnSwipe?.Invoke(SwipeType.Up);
+                        Debug.Log("Swipe up");
+                    }
+                    else
+                    //swipe down
+                    if(currentSwipe.y < 0)
+                    {
+                        OnSwipe?.Invoke(SwipeType.Down);
+                        Debug.Log("Swipe down");
+                    }
                 }
-                //swipe left
-                if(currentSwipe.x < 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-                {
-                    OnSwipe?.Invoke(SwipeType.Left);
-                    Debug.Log("Swipe left");
-                }
-                //swipe right
-                if(currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
-                {
-                    OnSwipe?.Invoke(SwipeType.Right);
-                    Debug.Log("Swipe right");
-                }
+                
             }
         }
     }

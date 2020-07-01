@@ -1,6 +1,7 @@
 ﻿using System;
 using Abu.Tools;
 using Abu.Tools.UI;
+using Data.Scripts.Tools.Input;
 using DG.Tweening;
 using ScreensScripts;
 using UnityEngine;
@@ -52,11 +53,13 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
                     LevelSelectorComponent.PlayerAnimationDuration)
                 .OnStart(() =>
                 {
+                    MobileInput.Condition = false;
                     RightBtn.Interactable = false;
                     LeftBtn.Interactable = false;
                 })
                 .OnComplete(() =>
                 {
+                    MobileInput.Condition = true;
                     RightBtn.Interactable = true;
                     LeftBtn.Interactable = true;
                     Destroy(oldPlayer.gameObject);
@@ -86,6 +89,15 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         activePlayer = Instantiate(collectionPuzzle, ItemContainer).GetComponent<PlayerView>();
     }
 
+    void SetupColors(LevelColorScheme colorScheme)
+    {
+        LeftBtn.Color = colorScheme.ArrowColor;
+        RightBtn.Color = colorScheme.ArrowColor;
+        InteractBtn.Color = colorScheme.ButtonColor;
+        HomeBtn.Color = colorScheme.ButtonColor;
+        InteractBtn.TextField.color = colorScheme.TextColor;
+    }
+    
     void ShowCollection()
     {
         Content.gameObject.SetActive(true);
@@ -98,6 +110,10 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         
         Content.DOAnchorPos(Vector2.zero, LevelSelectorComponent.UiAnimationDuration)
             .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
+
+        SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
+        
+        IsFocused = true;
     }
     
     void HideCollection(float _Duration = 0)
@@ -112,7 +128,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
         else
             Content.position += Vector3.up * Screen.height;
-        
+
+        IsFocused = false;
     }
 
     void ChoosePlayer(float _Duration)
@@ -121,6 +138,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
         else
             Content.position += Vector3.up * Screen.height;
+
+        IsFocused = false;
     }
 
     void OnChoose()
