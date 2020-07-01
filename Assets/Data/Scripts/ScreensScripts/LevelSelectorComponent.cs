@@ -14,10 +14,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     PlayerView m_PlayerView;
 
+    //TODO what's it?
     BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
 
     protected override int Index
     {
+        get => base.Index;
         set
         {
             base.Index = value;
@@ -39,7 +41,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void MoveLeft()
     {
-        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable)
+        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable || !MobileInput.Condition)
         {
             Debug.Log("Selection's already on the first element or left button disabled");
             return;
@@ -51,7 +53,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     protected override void MoveRight()
     {
-        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable)
+        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable || !MobileInput.Condition)
         {
             Debug.Log("Selection's already on the last element or right button disabled");
             return;

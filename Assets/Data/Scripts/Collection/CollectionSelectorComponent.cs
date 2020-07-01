@@ -13,10 +13,6 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     [SerializeField] Transform ItemContainer;
     [SerializeField] RectTransform Content;
 
-    protected override CollectionItem[] Selection { get; set; }
-    protected override int Index { get; set; }
-    protected override int Length => Selection.Length;
-
     PlayerView activePlayer;
     PlayerView oldPlayer;
     
@@ -157,12 +153,24 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     
     protected override void MoveLeft()
     {
+        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable || !MobileInput.Condition)
+        {
+            Debug.Log("Selection's already on the first element or left button disabled");
+            return;
+        }
+        
         Index--;
         DisplayItem(Index, 1);
     }
 
     protected override void MoveRight()
     {
+        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable || !MobileInput.Condition)
+        {
+            Debug.Log("Selection's already on the last element or right button disabled");
+            return;
+        }
+        
         Index++;
         DisplayItem(Index, -1);
     }
