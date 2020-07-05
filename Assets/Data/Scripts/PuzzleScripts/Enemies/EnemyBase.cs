@@ -65,11 +65,15 @@ namespace PuzzleScripts
 
         public virtual Transform Die()
         {
-            GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
-            effect.transform.right = transform.right;
-            effect.transform.position = transform.position;
-            effect.transform.localScale *= transform.localScale.x;
-            
+            GameObject effect = null;
+            if (vfx)
+            {
+                effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
+                effect.transform.right = transform.right;
+                effect.transform.position = transform.position;
+                effect.transform.localScale *= transform.localScale.x;
+            }
+
             if(sfx != null)
                 SoundManager.Instance.PlayOneShot(sfx);
             
@@ -81,7 +85,7 @@ namespace PuzzleScripts
             
             Destroy(gameObject);
 
-            return effect.transform;
+            return effect != null ? effect.transform : null;
         }
         
         public void Move()
