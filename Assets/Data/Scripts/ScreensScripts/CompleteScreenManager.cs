@@ -1,3 +1,4 @@
+using Abu.Tools.UI;
 using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,32 +6,34 @@ using UnityEngine.UI;
 public class CompleteScreenManager : ManagerView
 {
     [SerializeField] private GameObject CompleteScreen;
-    [SerializeField] private Button menuButton;
+    [SerializeField] private TextButtonComponent MenuButton;
+    
+    //TODO bad solution
+    [SerializeField] private FlatFXState StartCompleteState;
+    [SerializeField] private FlatFXState EndCompleteState;
 
-    [SerializeField] private FlatFXState startCompleteState;
-    [SerializeField] private FlatFXState endCompleteState;
-
-    [SerializeField] private StarsView starsView;
+    [SerializeField] private StarsView StarsView;
     
 
     private void Start()
     {
         CompleteScreen.SetActive(false);
+        MenuButton.OnClick += OnMenuClick;
     }
 
-    public void ToMenu()
+    public void OnMenuClick()
     {
         StopAllCoroutines();
         VFXManager.Instance.StopLevelCompleteSunshineEffect();
 
-        if (starsView == null)
+        if (StarsView == null)
         {
             GameSceneManager.Instance.InvokeLevelClosed();
             CompleteScreen.SetActive(false);
         }
         else
         {
-            starsView.HideStars(() => {
+            StarsView.HideStars(() => {
                 GameSceneManager.Instance.InvokeLevelClosed();
                 CompleteScreen.SetActive(false); 
             });
@@ -43,9 +46,9 @@ public class CompleteScreenManager : ManagerView
         
         int stars = remainHp.Remap(0, totalHp, 0, 3); //Get stars amount from hp
 
-        if (starsView != null)
+        if (StarsView != null)
         {
-            starsView.ShowStars(stars, CallEffects);
+            StarsView.ShowStars(stars, CallEffects);
         }
         else
         {
@@ -57,13 +60,13 @@ public class CompleteScreenManager : ManagerView
     {
         VFXManager.Instance.CallConfettiEffect();
         VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.Player.transform.position,
-            startCompleteState, endCompleteState);
+            StartCompleteState, EndCompleteState);
         VFXManager.Instance.CallWinningSound();
     }
     
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        levelColorScheme.SetButtonColor(menuButton);
+        levelColorScheme.SetButtonColor(MenuButton);
     }
 
 }

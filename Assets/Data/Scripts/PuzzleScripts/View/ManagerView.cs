@@ -40,7 +40,7 @@ namespace Puzzle
         
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
-        protected IEnumerator CountdownRoutine(Text timerField, Action onFinish)
+        protected IEnumerator CountdownRoutine(TextMeshProUGUI timerField, Action onFinish)
         {
             if(!timerField.gameObject.activeSelf)
                 timerField.gameObject.SetActive(true);

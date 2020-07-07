@@ -8,17 +8,16 @@ using TMPro;
 
 public class AttemptManager : ManagerView
 {
-    private int _attemptNumber;
+    private int attemptNumber;
 
     [SerializeField]
-    private TextMeshProUGUI _textPlaceholder;
-
-    [SerializeField]
-    private string _textOfNotification = "Attempt #";
+    private TextMeshProUGUI TextPlaceholder;
+    
+    const string TextOfNotification = "Attempt #";
 
     void Awake()
     {
-        _attemptNumber = 0;
+        attemptNumber = 0;
     }
 
     protected override void OnEnable()
@@ -35,14 +34,14 @@ public class AttemptManager : ManagerView
 
     void GameStartedEvent_Handler()
     {
-        _attemptNumber++;
-        _textPlaceholder.text = _textOfNotification + _attemptNumber;
-        ShowInstant(_textPlaceholder);
-        HideLong(_textPlaceholder);
+        attemptNumber++;
+        TextPlaceholder.text = TextOfNotification + attemptNumber;
+        ShowInstant(TextPlaceholder);
+        HideLong(TextPlaceholder);
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        _textPlaceholder.color = levelColorScheme.TextColor2;
+        TextPlaceholder.color = levelColorScheme.TextColor2;
     }
 }

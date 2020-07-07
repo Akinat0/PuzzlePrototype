@@ -1,4 +1,5 @@
 ﻿using System;
+using Abu.Tools.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,28 @@ public class LevelColorScheme
     public Color TextColor => _TextColor;
     public Color TextColor2 => _TextColor2;
 
+    public void SetButtonColor(ButtonComponent button)
+    {
+        if (button == null)
+        {
+            Debug.LogError("ButtonComponent is null");
+            return;
+        }
+
+        button.Color = ButtonColor;
+    }
+    
+    public void SetButtonColor(TextButtonComponent button)
+    {
+        if (button == null)
+        {
+            Debug.LogError("ButtonComponent is null");
+            return;
+        }
+
+        button.Color = ButtonColor;
+        button.TextField.color = TextColor;
+    }
     public void SetButtonColor(Button button)
     {
         if (button == null)
@@ -49,7 +72,6 @@ public class LevelColorScheme
 
         text.color = alternateColor ? _TextColor2 : _TextColor;
     }
-    
     public void SetTextColor(TextMeshProUGUI text, bool alternateColor = false)
     {
         if (text == null)
@@ -60,4 +82,5 @@ public class LevelColorScheme
 
         text.color = alternateColor ? _TextColor2 : _TextColor;
     }
+    
 }

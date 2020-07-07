@@ -1,62 +1,70 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using Abu.Tools.UI;
+using UnityEngine;
 using Puzzle;
+using TMPro;
 
 namespace ScreensScripts
 {
     public class ReplayScreenManager : ManagerView
     {
-        [SerializeField] private GameObject replayScreen;
-        [SerializeField] private Button reviveButton;
-        [SerializeField] private Button replayButton;
-        [SerializeField] private Button menuButton;
-        [SerializeField] private Text timerField;
+        [SerializeField] private GameObject ReplayScreen;
+        [SerializeField] private TextButtonComponent ReviveButton;
+        [SerializeField] private TextButtonComponent ReplayButton;
+        [SerializeField] private ButtonComponent MenuButton;
+        [SerializeField] private ButtonComponent PauseButton;
+        [SerializeField] private TextMeshProUGUI TimerField;
 
         private void Start()
         {
-            replayScreen.SetActive(false);
+            ReplayScreen.SetActive(false);
+            ReviveButton.OnClick += OnReviveClick;
+            ReplayButton.OnClick += OnReplayClick;
+            MenuButton.OnClick += OnMenuClick;
         }
 
-        public void Replay()
+        private void OnReplayClick()
         {
             GameSceneManager.Instance.InvokeResetLevel();
-            replayScreen.SetActive(false);
+            ReplayScreen.SetActive(false);
+            PauseButton.SetActive(true);
         }
 
-        public void Revive()
+        private void OnReviveClick()
         {
-            if (timerField != null)
+            if (TimerField != null)
             {
-                replayScreen.SetActive(false);
-                StartCoroutine(CountdownRoutine(timerField, () =>
+                ReplayScreen.SetActive(false);
+                StartCoroutine(CountdownRoutine(TimerField, () =>
                 {
-                    timerField.gameObject.SetActive(false);
+                    TimerField.gameObject.SetActive(false);
                     GameSceneManager.Instance.InvokePlayerRevive();
+                    PauseButton.SetActive(true);
                 }));
             }
             else
             {
-                replayScreen.SetActive(false);
+                ReplayScreen.SetActive(false);
                 GameSceneManager.Instance.InvokePlayerRevive();
             }
         }
 
-        public void ToMenu()
+        private void OnMenuClick()
         {
             GameSceneManager.Instance.InvokeLevelClosed();
-            replayScreen.SetActive(false);
+            ReplayScreen.SetActive(false);
         }
 
         public void CreateReplyScreen()
         {
-            replayScreen.SetActive(true);
+            ReplayScreen.SetActive(true);
+            PauseButton.SetActive(false);
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
-            levelColorScheme.SetButtonColor(replayButton);
-            levelColorScheme.SetButtonColor(reviveButton);
-            levelColorScheme.SetButtonColor(menuButton);
+            levelColorScheme.SetButtonColor(ReplayButton);
+            levelColorScheme.SetButtonColor(ReviveButton);
+            levelColorScheme.SetButtonColor(MenuButton);
         }
     }
 }

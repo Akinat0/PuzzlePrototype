@@ -8,20 +8,20 @@ namespace Puzzle
 {
     public class ScoreManager : ManagerView
     {
-        private int _score = 0;
-        private int _tempScore = 0;
-        private TextMeshProUGUI _scoreText;
+        private int score = 0;
+        private int tempScore = 0;
+        private TextMeshProUGUI scoreText;
 
-        private string Score => $"Score: {_tempScore}";
+        private string Score => $"Score: {tempScore}";
         
         private string Text {
             
             set
             {
-                float prevFontSize = _scoreText.fontSize;
-                _scoreText.text = value;
-                _scoreText.ForceMeshUpdate();
-                float newFontSize = _scoreText.fontSize;
+                float prevFontSize = scoreText.fontSize;
+                scoreText.text = value;
+                scoreText.ForceMeshUpdate();
+                float newFontSize = scoreText.fontSize;
 
                 if (!Mathf.Approximately(prevFontSize, newFontSize))
                     InvokeChangeSharedFontSize(newFontSize);
@@ -30,36 +30,36 @@ namespace Puzzle
 
         void Awake()
         {
-            _scoreText = GetComponent<TextMeshProUGUI>();
+            scoreText = GetComponent<TextMeshProUGUI>();
             Text = Score;
         }
 
         void Start()
         {
-            InvokeChangeSharedFontSize(_scoreText.fontSize);
+            InvokeChangeSharedFontSize(scoreText.fontSize);
         }
 
         void AddScore(int score)
         {
-            _score += score;
+            this.score += score;
             StartCoroutine(ScrollScore());
         }
 
         private IEnumerator ScrollScore()
         {
-            float delay = 0.5f / (_score - _tempScore);
-            while (_tempScore != _score)
+            float delay = 0.5f / (score - tempScore);
+            while (tempScore < score)
             {
-                _tempScore++;
+                tempScore++;
                 Text = Score;
-                ShowShort(_scoreText);
+                ShowShort(scoreText); //TODO I don't like the solution
                 yield return new WaitForSeconds(delay);
             }
         }
         
         void SaveScore()
         {
-            PlayerPrefs.SetInt("score", _score);
+            PlayerPrefs.SetInt("score", score);
         }
 
         protected override void OnEnable()
@@ -83,7 +83,10 @@ namespace Puzzle
         
         void ResetLevelEvent_Handler()
         {
-            _score = 0;
+            score = 0;
+            tempScore = 0;
+            StopAllCoroutines();
+            HideInstant(scoreText);
         }
 
         void PlayerDiedEvent_Handler()
@@ -99,14 +102,14 @@ namespace Puzzle
         void PauseLevelEvent_Handler(bool pause)
         {
             if (pause)
-                ShowInstant(_scoreText);
+                ShowInstant(scoreText);
             else
-                HideLong(_scoreText);
+                HideLong(scoreText);
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
-            levelColorScheme.SetTextColor(_scoreText, true);
+            levelColorScheme.SetTextColor(scoreText, true);
         }
         
     }

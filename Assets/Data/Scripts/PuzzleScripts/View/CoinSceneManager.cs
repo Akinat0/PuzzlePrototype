@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class CoinSceneManager : ManagerView
 {
-    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI CoinText;
 
     private void Start()
     {
-        coinText.text = Account.Coins.ToString();
-        Color textColor = coinText.color;
-        coinText.color = textColor;
+        CoinText.text = Account.Coins.ToString();
+        Color textColor = CoinText.color;
+        CoinText.color = textColor;
     }
 
     protected override void OnEnable()
@@ -32,26 +32,26 @@ public class CoinSceneManager : ManagerView
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        coinText.color = levelColorScheme.TextColor2;
+        CoinText.color = levelColorScheme.TextColor2;
     }
 
     private void BalanceChangedEvent_Handler(int balance)
     {
-        coinText.text = balance.ToString();
-        ShowShort(coinText);
+        CoinText.text = balance.ToString();
+        ShowShort(CoinText);
     }
     
     void PauseLevelEvent_Handler(bool pause)
     {
         if (pause)
-            ShowInstant(coinText);
+            ShowInstant(CoinText);
         else
-            HideLong(coinText);
+            HideLong(CoinText);
     }
     
     private void ChangeSharedFontSize_Handler(float sharedFontSize)
     {
-        if (!Mathf.Approximately(coinText.fontSize, sharedFontSize))
-            coinText.fontSize = sharedFontSize;
+        if (!Mathf.Approximately(CoinText.fontSize, sharedFontSize))
+            CoinText.fontSize = sharedFontSize;
     }
 }
