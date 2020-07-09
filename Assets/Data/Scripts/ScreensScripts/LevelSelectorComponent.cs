@@ -354,11 +354,25 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void OnCollection()
     {
+        ShowCollection();
+    }
+
+    protected override void OnSwipeDown()
+    {
+        base.OnSwipeDown();
+        ShowCollection();
+    }
+
+    void ShowCollection()
+    {
+        if (!Current.CollectionEnabled)
+            return;
+        
         LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(Current.ColorScheme));
         HideUI();
         HideActivePlayer();
     }
-
+    
     protected override void OnEnable()
     {
         base.OnEnable();

@@ -53,6 +53,19 @@ namespace Abu.Tools.UI
                 swipeInput.OnSwipe -= OnSwipeEvent_Handler;
         }
 
+        protected virtual void OnSwipeUp(){}
+        protected virtual void OnSwipeDown(){}
+
+        protected virtual void OnSwipeRight()
+        {
+            MoveLeft();
+        }
+
+        protected virtual void OnSwipeLeft()
+        {
+            MoveRight();
+        }
+        
         void OnSwipeEvent_Handler(SwipeType swipeType)
         {
             if (!IsFocused)
@@ -61,10 +74,16 @@ namespace Abu.Tools.UI
             switch (swipeType)
             {
                 case SwipeType.Right:
-                    MoveLeft();
+                    OnSwipeRight();
                     break;
                 case SwipeType.Left:
-                    MoveRight();
+                    OnSwipeLeft();
+                    break;
+                case SwipeType.Down:
+                    OnSwipeDown();
+                    break;
+                case SwipeType.Up:
+                    OnSwipeUp();
                     break;
             }
         }

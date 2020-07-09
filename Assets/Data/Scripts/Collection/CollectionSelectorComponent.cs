@@ -147,6 +147,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     void OnBack()
     {
+        Back();
+    }
+
+    void Back()
+    {
         HideCollection(LevelSelectorComponent.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
@@ -173,6 +178,12 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         
         Index++;
         DisplayItem(Index, -1);
+    }
+
+    protected override void OnSwipeUp()
+    {
+        base.OnSwipeUp();
+        Back();
     }
 
     protected override void OnEnable()
