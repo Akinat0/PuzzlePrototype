@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WalletManager : MonoBehaviour
 {
-    [SerializeField, Obsolete("Use it only for console or tests")] public WalletData WalletData;
+    [SerializeField] private WalletData WalletData;
 
     public int Coins => WalletData.Coins;
 

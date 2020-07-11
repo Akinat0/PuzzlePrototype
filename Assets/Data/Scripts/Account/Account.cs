@@ -6,7 +6,7 @@ public class Account : MonoBehaviour
 {
     private static Account instance;
 
-    public static Action<int> BalanceChangedEvent;
+    public static event Action<int> BalanceChangedEvent;
 
     WalletManager WalletManager
     {
@@ -48,14 +48,16 @@ public class Account : MonoBehaviour
     #region Wallet
 
     public static int Coins => instance.WalletManager.Coins;
+
     public static void AddCoins(int amount)
     {
         instance.WalletManager.AddCoins(amount);
-        InvokeBalanceChanged(instance.WalletManager.Coins);
+        InvokeBalanceChanged();
     }
 
-    private static void InvokeBalanceChanged(int balance)
+    private static void InvokeBalanceChanged()
     {
+        int balance = instance.WalletManager.Coins;
         Debug.Log($"[Account] BalanceChangedEvent invoked. New balance is {balance}.");
         BalanceChangedEvent?.Invoke(balance);
     }

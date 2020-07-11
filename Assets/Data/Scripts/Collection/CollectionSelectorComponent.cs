@@ -15,7 +15,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     PlayerView activePlayer;
     PlayerView oldPlayer;
-    
+
     void Start()
     {
         Index = Account.CollectionDefaultItemId;
@@ -109,7 +109,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
         SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
         
-        IsFocused = true;
+        this.Invoke(()=> IsFocused = true, LevelSelectorComponent.UiAnimationDuration);
     }
     
     void HideCollection(float _Duration = 0)

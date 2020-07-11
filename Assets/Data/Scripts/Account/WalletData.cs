@@ -6,9 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new WalletData", menuName = "Account/WalletData", order = 51)]
 public class WalletData : SaveableScriptableObject
 {
-    [SerializeField, Obsolete("Use it only for console or tests")] public int coins = 0;
-    
+    [SerializeField] private int coins = 0;
+
     public int Coins => coins;
+    
 
     public void AddCoins(int amount)
     {

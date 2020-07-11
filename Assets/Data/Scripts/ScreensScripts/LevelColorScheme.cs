@@ -2,6 +2,7 @@
 using Abu.Tools.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UI;
 
 [Serializable]
@@ -11,11 +12,13 @@ public class LevelColorScheme
     [SerializeField] private Color _ButtonColor = Color.white;
     [SerializeField] private Color _TextColor = Color.black;
     [SerializeField] private Color _TextColor2 = Color.black;
+    [SerializeField] private Color _TextColorLauncher = Color.black;
 
     public Color ArrowColor => _ArrowColor;
     public Color ButtonColor => _ButtonColor;
     public Color TextColor => _TextColor;
     public Color TextColor2 => _TextColor2;
+    public Color TextColorLauncher => _TextColorLauncher;
 
     public void SetButtonColor(ButtonComponent button)
     {

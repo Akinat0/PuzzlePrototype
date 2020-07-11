@@ -51,7 +51,6 @@ namespace Abu.Console
 
         public string Process(object[] args, Console console)
         {
-            var walletManager = Object.FindObjectOfType<WalletManager>();
             string result = "Success";
             
             if (args.Length < 2)
@@ -59,7 +58,7 @@ namespace Abu.Console
             
             try
             {
-                walletManager.WalletData.coins = Convert.ToInt32(args[1]);
+                Account.AddCoins(int.Parse(args[1].ToString()));;
             }
             catch (Exception e)
             {

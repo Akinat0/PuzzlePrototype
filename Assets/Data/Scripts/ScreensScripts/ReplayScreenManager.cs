@@ -37,12 +37,19 @@ namespace ScreensScripts
                 StartCoroutine(CountdownRoutine(TimerField, () =>
                 {
                     TimerField.gameObject.SetActive(false);
+                    
+//                    if(!PauseButton.ActiveSelf)
+//                        PauseButton.SetActive(true);
+                    
                     GameSceneManager.Instance.InvokePlayerRevive();
                     PauseButton.SetActive(true);
                 }));
             }
             else
             {
+//                if(!PauseButton.ActiveSelf)
+//                    PauseButton.SetActive(true);
+                
                 ReplayScreen.SetActive(false);
                 GameSceneManager.Instance.InvokePlayerRevive();
             }

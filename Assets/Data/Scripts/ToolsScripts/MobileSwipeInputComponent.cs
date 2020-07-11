@@ -28,7 +28,8 @@ namespace Abu.Tools
         private void Update()
         {
 #if UNITY_EDITOR
-            SwipeMouse();            
+            //SwipeMouse(); toggle if you want to use mouse swipe
+            SwipeButtons();
 #else
             SwipeMobile();
 #endif
@@ -165,6 +166,37 @@ namespace Abu.Tools
                 }
                 
             }
+        }
+
+        private void SwipeButtons()
+        {
+            if (!MobileInput.Condition)
+                return;
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                OnSwipe?.Invoke(SwipeType.Down);
+                Debug.Log("Swipe down");
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                OnSwipe?.Invoke(SwipeType.Up);
+                Debug.Log("Swipe up");
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                OnSwipe?.Invoke(SwipeType.Right);
+                Debug.Log("Swipe right");
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                OnSwipe?.Invoke(SwipeType.Left);
+                Debug.Log("Swipe left");
+            }
+
         }
     }
 }

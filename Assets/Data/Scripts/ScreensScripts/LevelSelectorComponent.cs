@@ -242,8 +242,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ClearContainers();
         
         DisplayItem();
-
-        IsFocused = true;
+        
+        this.Invoke(() => IsFocused = true, UiAnimationDuration);
     }
     
     void BringBackUI(PlayerView _NewPlayer)
@@ -276,7 +276,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
         }
 
-        IsFocused = true;
+        this.Invoke(() => IsFocused = true, UiAnimationDuration);
     }
 
     void HideActivePlayer()
@@ -412,5 +412,4 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         BringBackUI(_Args.PlayerView);
     }
-
 }

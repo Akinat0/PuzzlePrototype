@@ -37,8 +37,7 @@ public class PauseManager : ManagerView
                 StartCoroutine(CountdownRoutine(TimerField, () =>
                 {
                     TimerField.gameObject.SetActive(false);
-                    paused = false;
-                    GameSceneManager.Instance.InvokePauseLevel(false);
+                    Resume();
                 }));
             }
             else
@@ -62,7 +61,9 @@ public class PauseManager : ManagerView
     
     private void OnReplayClick()
     {
+        paused = false;
         PauseMenu.SetActive(false);
+        PauseButton.SetActive(true);
         GameSceneManager.Instance.InvokeResetLevel();
     }
 
@@ -70,6 +71,7 @@ public class PauseManager : ManagerView
     {
         paused = true;
         PauseMenu.SetActive(true);
+        PauseButton.SetActive(false);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
 
@@ -77,6 +79,7 @@ public class PauseManager : ManagerView
     {
         paused = false;
         PauseMenu.SetActive(false);
+        PauseButton.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(false);
     }
     

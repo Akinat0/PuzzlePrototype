@@ -34,7 +34,12 @@ namespace Abu.Console
 
         private void Update()
         {
-            if (Input.touchCount > 2 || Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F))
+            bool mobileInput = Input.touchCount > 2 && (Input.touches[0].phase == TouchPhase.Began ||
+                Input.touches[1].phase == TouchPhase.Began);
+
+            bool computerInput = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F); 
+            
+            if (mobileInput || computerInput)
                 IsConsoleActive = !IsConsoleActive;
 
             if (!IsConsoleActive)
