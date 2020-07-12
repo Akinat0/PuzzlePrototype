@@ -37,6 +37,8 @@ namespace Puzzle
         void Start()
         {
             InvokeChangeSharedFontSize(scoreText.fontSize);
+            AlphaSetter = alpha => scoreText.alpha = alpha;
+            AlphaGetter = () => scoreText.alpha;
         }
 
         void AddScore(int score)
@@ -52,7 +54,7 @@ namespace Puzzle
             {
                 tempScore++;
                 Text = Score;
-                ShowShort(scoreText); //TODO I don't like the solution
+                ShowShort(); //TODO I don't like the solution
                 yield return new WaitForSeconds(delay);
             }
         }
@@ -86,7 +88,7 @@ namespace Puzzle
             score = 0;
             tempScore = 0;
             StopAllCoroutines();
-            HideInstant(scoreText);
+            HideInstant();
         }
 
         void PlayerDiedEvent_Handler()
@@ -102,9 +104,9 @@ namespace Puzzle
         void PauseLevelEvent_Handler(bool pause)
         {
             if (pause)
-                ShowInstant(scoreText);
+                ShowInstant();
             else
-                HideLong(scoreText);
+                HideLong();
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)

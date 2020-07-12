@@ -18,6 +18,8 @@ public class AttemptManager : ManagerView
     void Awake()
     {
         attemptNumber = 0;
+        AlphaSetter = alpha => TextPlaceholder.alpha = alpha;
+        AlphaGetter = () => TextPlaceholder.alpha;
     }
 
     protected override void OnEnable()
@@ -36,8 +38,8 @@ public class AttemptManager : ManagerView
     {
         attemptNumber++;
         TextPlaceholder.text = TextOfNotification + attemptNumber;
-        ShowInstant(TextPlaceholder);
-        HideLong(TextPlaceholder);
+        ShowInstant();
+        HideLong();
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)

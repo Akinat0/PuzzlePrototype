@@ -3,7 +3,6 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Puzzle
 {
@@ -13,6 +12,9 @@ namespace Puzzle
         protected const float APPEAR_TIME = 1.0f;
         protected const float DISAPPEAR_TIME = 1.0f;
         protected const float DISAPPEAR_TIME_LONG = 3.0f;
+
+        protected Action<float> AlphaSetter;
+        protected Func<float> AlphaGetter;
 
         protected static event Action<float> ChangeSharedFontSize;
 
@@ -40,6 +42,8 @@ namespace Puzzle
         
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
+        #region timer
+        
         protected IEnumerator CountdownRoutine(TextMeshProUGUI timerField, Action onFinish)
         {
             if(!timerField.gameObject.activeSelf)
@@ -56,6 +60,8 @@ namespace Puzzle
             onFinish?.Invoke();
         }
         
+        #endregion
+        
         protected virtual void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(false);
@@ -66,32 +72,55 @@ namespace Puzzle
             gameObject.SetActive(true);
         }
 
-        protected void ShowShort(TextMeshProUGUI text)
+        IEnumerator AlphaRoutine(float endValue, float duration, Action finished = null)
         {
-            text.DOKill();
-            text.DOFade(1.0f, APPEAR_TIME).onComplete += () => text.DOFade(0.0f, DISAPPEAR_TIME);
-        }
-        
-        protected void HideLong(TextMeshProUGUI text)
-        {
-            text.DOKill();
-            text.Invoke(() => text.DOFade(0.0f, DISAPPEAR_TIME_LONG), TIME_TO_DISAPPEAR);
+            float startValue = AlphaGetter();
+            endValue = Mathf.Clamp01(endValue);
+
+            float time = 0;
+
+            while (time < duration)
+            {
+                yield return null;
+
+                time += Time.deltaTime;
+                AlphaSetter(Mathf.Lerp(startValue, endValue, time / duration));
+            }
+
+            AlphaSetter(endValue);
+            yield return null;
+            
+            finished?.Invoke();
         }
 
-        protected void ShowInstant(TextMeshProUGUI text)
+        //Probably there will be a problem,
+        //because we are stoppin' only tweens, but not Invoke's coroutines
+        
+        protected void ShowShort()
         {
-            text.DOKill();
-            Color color = text.color;
-            color.a = 1;
-            text.color = color;
+            StopAllCoroutines();
+            StartCoroutine(AlphaRoutine(1, APPEAR_TIME, 
+                () => StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME))));
         }
         
-        protected void HideInstant(TextMeshProUGUI text)
+        protected void HideLong()
         {
-            text.DOKill();
-            Color color = text.color;
-            color.a = 0;
-            text.color = color;
+            StopAllCoroutines();
+            this.Invoke(
+                () => { StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME_LONG)); },
+                TIME_TO_DISAPPEAR);
+        }
+
+        protected void ShowInstant()
+        {
+            StopAllCoroutines();
+            AlphaSetter(1);
+        }
+        
+        protected void HideInstant()
+        {
+            StopAllCoroutines();
+            AlphaSetter(1);
         }
 
         protected void InvokeChangeSharedFontSize(float fontSize)
