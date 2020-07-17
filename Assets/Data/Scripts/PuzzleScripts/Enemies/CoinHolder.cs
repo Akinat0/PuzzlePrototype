@@ -26,7 +26,7 @@ public class CoinHolder : MonoBehaviour
     protected virtual void CreateEffects()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
         particles = Instantiate(Resources.Load<GameObject>("Prefabs/CoinParticles"),
             transform.position,
             transform.rotation,

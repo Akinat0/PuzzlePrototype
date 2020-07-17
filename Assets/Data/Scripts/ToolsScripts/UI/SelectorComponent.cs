@@ -1,3 +1,4 @@
+using System;
 using Data.Scripts.Tools.Input;
 using UnityEngine;
 
@@ -10,82 +11,64 @@ namespace Abu.Tools.UI
         
         protected virtual int Index { get; set; }
 
-        protected virtual bool IsFocused
+        protected virtual bool IsFocused { get; set; }
+
+        float offset;
+        protected float Offset
         {
-            get => isFocused;
+            get => offset;
             set
             {
-                isFocused = value;
-                if (swipeInput)
-                    swipeInput.enabled = value;
-            }
-        }
+                if (Mathf.Approximately(offset, value))
+                    return;
+
+                offset = value;
+                
+                ProcessOffset();
+            } }
 
         protected virtual T Current => Selection[Index];
+
+        protected MobileSwipe MobileSwipe => mobileSwipe;
         
-        MobileSwipeInputComponent swipeInput;
-        bool isFocused;
+        MobileSwipe mobileSwipe = new MobileSwipe();
         
         protected abstract void MoveLeft();
 
         protected abstract void MoveRight();
 
-        protected virtual void Awake()
+        protected virtual void Update()
         {
-            swipeInput = GetComponent<MobileSwipeInputComponent>();
+            mobileSwipe.Update();
         }
-        
+
         protected virtual void OnEnable()
         {
+            mobileSwipe.OnTouchStart += OnTouchDown_Handler;
+            mobileSwipe.OnTouchMove += OnTouchMove_Handler;
+            mobileSwipe.OnTouchCancel += OnTouchCancel_Handler;
             RightBtn.OnClick += MoveRight;
             LeftBtn.OnClick += MoveLeft;
-        
-            if(swipeInput)
-                swipeInput.OnSwipe += OnSwipeEvent_Handler;
         }
 
         protected virtual void OnDisable()
         {
+            mobileSwipe.OnTouchStart -= OnTouchDown_Handler;
+            mobileSwipe.OnTouchMove -= OnTouchMove_Handler;
+            mobileSwipe.OnTouchCancel -= OnTouchCancel_Handler;
             RightBtn.OnClick -= MoveRight;
             LeftBtn.OnClick -= MoveLeft;
-            
-            if(swipeInput)
-                swipeInput.OnSwipe -= OnSwipeEvent_Handler;
         }
 
-        protected virtual void OnSwipeUp(){}
-        protected virtual void OnSwipeDown(){}
-
-        protected virtual void OnSwipeRight()
-        {
-            MoveLeft();
-        }
-
-        protected virtual void OnSwipeLeft()
-        {
-            MoveRight();
-        }
+        protected virtual void OnTouchDown_Handler(Vector2 position)
+        { }
         
-        void OnSwipeEvent_Handler(SwipeType swipeType)
-        {
-            if (!IsFocused)
-                return;
-            
-            switch (swipeType)
-            {
-                case SwipeType.Right:
-                    OnSwipeRight();
-                    break;
-                case SwipeType.Left:
-                    OnSwipeLeft();
-                    break;
-                case SwipeType.Down:
-                    OnSwipeDown();
-                    break;
-                case SwipeType.Up:
-                    OnSwipeUp();
-                    break;
-            }
-        }
+        protected virtual void OnTouchMove_Handler(Vector2 delta)
+        { }
+        
+        protected virtual void OnTouchCancel_Handler(Vector2 position)
+        { }
+        
+        protected abstract void ProcessOffset();
     }
 }

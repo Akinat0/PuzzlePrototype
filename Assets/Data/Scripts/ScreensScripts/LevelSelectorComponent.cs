@@ -1,22 +1,25 @@
-﻿using Abu.Tools;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
 using ScreensScripts;
-using UnityEngine.UI;
 using UnityEngine;
 using DG.Tweening;
 
 public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 {
+    #region serialized
+    
     [SerializeField] Transform LevelContainer;
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
+
+    #endregion
     
     PlayerView m_PlayerView;
-
-    //TODO what's it?
-    BoolToggle m_ShowPlayerAnimated = new BoolToggle(false);
-
+    
     protected override int Index
     {
         get => base.Index;
@@ -24,19 +27,30 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         {
             base.Index = value;
             Account.DefaultLevelId = value;
+
+            ProcessIndex();
         }
     }
+    
+    Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
 
-    //Constants
+    IEnumerator AfterTouchRoutine;
+
+    #region constants
+    
     public const float MainButtonsOffset = 500; 
     public const float PlayerAnimationDuration = 0.5f; 
     public const float UiAnimationDuration = 0.5f;
-
+    
+    #endregion
+    
     public void Start()
     {
         Selection = Account.LevelConfigs;
         Index = Account.DefaultLevelId;
+        Offset = Index;
         ShowUI();
+        ProcessIndex();
     }
     
     protected override void MoveLeft()
@@ -81,7 +95,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         ManagingButtons();
         
-        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
+        
+//        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
         
         if (Length == 0)
         {
@@ -90,6 +105,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
 
+    
     void ManagingButtons()
     {
         //Managing right button
@@ -171,11 +187,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
         else
         {
-            if (m_ShowPlayerAnimated.Value)
-            {
-                _PlayerPrefab.transform.localPosition += Vector3.down * camSize.y;
-                _PlayerPrefab.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
-            }
             return _PlayerPrefab.GetComponent<PlayerView>();
         }
     }
@@ -239,10 +250,13 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         else
             HideCollectionButton(UiAnimationDuration);
         
-        ClearContainers();
+        //ClearContainers();
+        //DisplayItem();
         
-        DisplayItem();
-        
+        CreateLevel(Index);
+        CreateLevel(Index - 1);
+        CreateLevel(Index + 1);
+
         this.Invoke(() => IsFocused = true, UiAnimationDuration);
     }
     
@@ -350,16 +364,16 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     void OnInteract()
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
+
+        foreach (KeyValuePair<int, LevelRootView> levelContainer in levelContainers)
+        {
+            if(levelContainer.Key != Index)
+                levelContainer.Value.gameObject.SetActive(false);
+        }
     }
 
     void OnCollection()
     {
-        ShowCollection();
-    }
-
-    protected override void OnSwipeDown()
-    {
-        base.OnSwipeDown();
         ShowCollection();
     }
 
@@ -372,6 +386,110 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         HideUI();
         HideActivePlayer();
     }
+
+    void CreateLevel(int index)
+    {
+        if (levelContainers.ContainsKey(index) || index < 0 || index >= Length)
+            return;
+            
+        Transform level = Instantiate(Selection[index].LevelRootPrefab, LevelContainer).transform;
+        level.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
+        levelContainers[index] = level.GetComponent<LevelRootView>();
+    }
+
+    IEnumerator TimedAfterTouchRoutine(float duration)
+    {
+        float startOffset = Offset;
+        float targetOffset = Mathf.Round(startOffset);
+
+        float time = 0;
+        
+        while (time <= duration)
+        {
+            Offset = Mathf.Lerp(startOffset, targetOffset, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+    }
+    
+    #region Offset
+    protected override void ProcessOffset()
+    {
+        LevelContainer.position = - Offset * ScreenScaler.CameraSize.x * Vector3.right;
+
+        int nextLevelIndex = Mathf.CeilToInt(Offset);
+        
+        if(!levelContainers.ContainsKey(nextLevelIndex))
+            CreateLevel(nextLevelIndex);
+        
+        if(!levelContainers.ContainsKey(nextLevelIndex - 1))
+            CreateLevel(nextLevelIndex - 1);
+
+        ProcessColors();
+        
+        int closestIndex = Mathf.RoundToInt(Offset);
+        if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
+            Index = closestIndex;
+    }
+
+    
+    void ProcessColors()
+    {
+        int nextLevel = Offset > Index ? Index + 1 : Index - 1;
+        if(nextLevel >= 0 && nextLevel < Length)
+            InteractBtn.Color = Color.Lerp(Current.ColorScheme.ButtonColor, Selection[nextLevel].ColorScheme.ButtonColor,
+                Mathf.Abs(Offset - Index) / 1);
+    }
+    #endregion
+    
+    #region Index
+
+    void ProcessIndex()
+    {
+        if(AfterTouchRoutine != null)
+            StopCoroutine(AfterTouchRoutine);
+        
+        CreateLevel(Index - 1);
+        CreateLevel(Index + 1);
+
+        if(levelContainers.ContainsKey(Index))
+            m_PlayerView = levelContainers[Index].PlayerView;
+        else
+            Debug.LogError("Key doesn't exists " + Index);
+        
+        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
+        
+        Offset = Index;
+        
+        LevelContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
+        
+        ProcessNameByIndex();
+        ProcessButtonsByIndex();
+        ProcessColorsByIndex();
+    }
+
+    void ProcessNameByIndex()
+    {
+        InteractBtn.Text = Current.Name;
+    }
+
+    void ProcessButtonsByIndex()
+    {
+        //Managing right button
+        RightBtn.SetActive(Index + 1 < Length);
+
+        //Managing left button
+        LeftBtn.SetActive(Index > 0);
+    }
+    #endregion
+
+    void ProcessColorsByIndex()
+    {
+        CollectionBtn.Color = Current.ColorScheme.ButtonColor;
+        InteractBtn.Color = Current.ColorScheme.ButtonColor;
+    }
+
+    #region event handlers
     
     protected override void OnEnable()
     {
@@ -396,7 +514,35 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
     }
+    
+    
+    protected override void OnTouchDown_Handler(Vector2 position)
+    {
+        if(AfterTouchRoutine != null)
+            StopCoroutine(AfterTouchRoutine);
+        
+        Debug.LogWarning($"Touch down at {position}");
+    }
 
+    protected override void OnTouchMove_Handler(Vector2 delta)
+    {
+        float offsetDelta = - delta.x / ScreenScaler.ScreenSize.x;
+
+        bool shouldMove = Offset + offsetDelta >= 0 && Offset + offsetDelta < Length - 1;
+        
+        if(shouldMove)
+            Offset += offsetDelta;
+        
+        Debug.LogWarning($"Touch moved at {delta}, offset increased on {offsetDelta}, now offset is {Offset} ");
+    }
+
+    protected override void OnTouchCancel_Handler(Vector2 position)
+    {
+        StartCoroutine(AfterTouchRoutine = TimedAfterTouchRoutine(0.6f));
+        
+        Debug.LogWarning($"Touch ended at {position}");
+    }
+    
     void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
     {
         HideUI();
@@ -412,4 +558,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         BringBackUI(_Args.PlayerView);
     }
+    
+    #endregion
 }

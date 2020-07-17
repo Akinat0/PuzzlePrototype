@@ -28,7 +28,7 @@ namespace Abu.Tools
         private void Update()
         {
 #if UNITY_EDITOR
-            //SwipeMouse(); toggle if you want to use mouse swipe
+            //SwipeMouse(); //toggle if you want to use mouse swipe
             SwipeButtons();
 #else
             SwipeMobile();

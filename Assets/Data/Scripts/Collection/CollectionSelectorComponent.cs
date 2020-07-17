@@ -180,11 +180,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         DisplayItem(Index, -1);
     }
 
-    protected override void OnSwipeUp()
-    {
-        base.OnSwipeUp();
-        Back();
-    }
+//]    protected override void OnSwipeUp()
+//    {
+////        base.OnSwipeUp();
+//        Back();
+//    }
 
     protected override void OnEnable()
     {
@@ -201,7 +201,12 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         InteractBtn.OnClick -= OnChoose;
         HomeBtn.OnClick -= OnBack;
     }
-    
+
+    protected override void ProcessOffset()
+    {
+//        throw new NotImplementedException();
+    }
+
     void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
         ShowCollection();

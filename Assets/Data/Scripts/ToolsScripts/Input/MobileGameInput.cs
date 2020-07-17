@@ -10,8 +10,8 @@ public interface ITouchProcessor
 
 public class MobileGameInput : MonoBehaviour
 {
-    public static Action<Touch> TouchOnTheScreen;
-    public static Action<Touch> TouchRegistered; //Called each time your touch was registered
+    public static event Action<Touch> TouchOnTheScreen;
+    public static event Action<Touch> TouchRegistered; //Called each time your touch was registered
 
     public virtual bool Condition { get; protected set; }
 

@@ -26,6 +26,8 @@ namespace Abu.Tools
             }
         }
 
+        public static Vector2 ScreenSize => new Vector2(Screen.width, Screen.height);
+
         public static Vector3 WorldToScreenNormalized(Vector3 worldPosition)
         {
             Vector2 camSize = CameraSize;

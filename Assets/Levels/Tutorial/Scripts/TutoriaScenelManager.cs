@@ -148,7 +148,7 @@ public class TutoriaScenelManager : GameSceneManager
 
     
     
-    private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
