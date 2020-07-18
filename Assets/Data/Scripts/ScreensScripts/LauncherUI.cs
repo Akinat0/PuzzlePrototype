@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using Abu.Tools;
-using Abu.Tools.UI;
 using Puzzle;
 using Debug = UnityEngine.Debug;
 
@@ -22,6 +21,8 @@ namespace ScreensScripts
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject backgroundContainer;
+
+        [field: SerializeField] public MainMenuUIManager UiManager { get; private set; }
 
         // ReSharper disable once InconsistentNaming
         private GameSceneManager GameSceneManager;

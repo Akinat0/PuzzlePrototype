@@ -25,7 +25,8 @@ namespace Abu.Tools.UI
                 offset = value;
                 
                 ProcessOffset();
-            } }
+            } 
+        }
 
         protected virtual T Current => Selection[Index];
 

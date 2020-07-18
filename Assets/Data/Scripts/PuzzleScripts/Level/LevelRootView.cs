@@ -5,7 +5,14 @@ public class LevelRootView : MonoBehaviour
     [SerializeField] private PlayerView m_PlayerView; 
     [SerializeField] private BackgroundView m_BackgroundView;
 
+    Renderer[] renderers;
+    Renderer[] Renderers => renderers ?? (renderers = GetComponentsInChildren<Renderer>());
 
+    public void SetActiveLevelRoot(bool value)
+    {
+        foreach (Renderer renderer in Renderers)
+            renderer.enabled = value;
+    }
 
     public PlayerView PlayerView
     {

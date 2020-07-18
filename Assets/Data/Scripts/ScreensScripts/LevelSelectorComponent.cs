@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -32,7 +33,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
     
-    Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
+    readonly Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
 
     IEnumerator AfterTouchRoutine;
 
@@ -41,6 +42,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     public const float MainButtonsOffset = 500; 
     public const float PlayerAnimationDuration = 0.5f; 
     public const float UiAnimationDuration = 0.5f;
+
+    public const float TouchSensitivity = 0.8f;
     
     #endregion
     
@@ -86,9 +89,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
         }
 
-        if(_Direction == 0)
-            SetupColors();
-        
         DisplayLevel(_Direction);
 
         InteractBtn.Text = Current.Name;
@@ -180,8 +180,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
             playerView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
             playerView.transform.DOMove(Vector3.zero, PlayerAnimationDuration);
-
-            SetupColors(PlayerAnimationDuration);
 
             return playerView;
         }
@@ -321,54 +319,26 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
 
-    void SetupColors(float _Duration = 0)
-    {
-        LevelColorScheme colorScheme = Current.ColorScheme;
-
-        if (_Duration > 0)
-        {
-            DOTween.To(() => LeftBtn.Color,
-                x => LeftBtn.Color = x, colorScheme.ArrowColor, _Duration);
-
-            DOTween.To(() => RightBtn.Color,
-                x => RightBtn.Color = x, colorScheme.ArrowColor, _Duration);
-
-            DOTween.To(() => InteractBtn.Color,
-                x => InteractBtn.Color = x, colorScheme.ButtonColor, _Duration);
-            
-            DOTween.To(() => InteractBtn.TextField.color,
-                x => InteractBtn.TextField.color = x, colorScheme.TextColor, _Duration);
-            
-            DOTween.To(() => CollectionBtn.Color,
-                x => CollectionBtn.Color = x, colorScheme.ButtonColor, _Duration);
-            
-            DOTween.To(() => CollectionBtn.TextField.color,
-                x => CollectionBtn.TextField.color = x, colorScheme.TextColor, _Duration);
-        }
-        else
-        {
-            LeftBtn.Color = colorScheme.ArrowColor;
-            RightBtn.Color = colorScheme.ArrowColor;
-            InteractBtn.Color = colorScheme.ButtonColor;
-            InteractBtn.TextField.color = colorScheme.TextColor;
-            CollectionBtn.Color = colorScheme.ButtonColor;
-            CollectionBtn.TextField.color = colorScheme.TextColor;
-        }
-    }
-    void ClearContainers()
-    {
-        foreach (Transform go in LevelContainer.transform)
-            Destroy(go.gameObject, 0);
-    }
-
     void OnInteract()
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
+        
+        CleanContainers();
+        
+        IsFocused = false;
+    }
 
-        foreach (KeyValuePair<int, LevelRootView> levelContainer in levelContainers)
+    void CleanContainers()
+    {
+        int count = levelContainers.Count;
+        
+        for (int i = 0; i < count; i++)
         {
-            if(levelContainer.Key != Index)
-                levelContainer.Value.gameObject.SetActive(false);
+            if (i != Index)
+            {
+                Destroy(levelContainers[i].gameObject);
+                levelContainers.Remove(i);
+            }
         }
     }
 
@@ -389,9 +359,15 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void CreateLevel(int index)
     {
-        if (levelContainers.ContainsKey(index) || index < 0 || index >= Length)
+        if (index < 0 || index >= Length)
             return;
-            
+
+        if (levelContainers.ContainsKey(index))
+        {
+            levelContainers[index].SetActiveLevelRoot(true);
+            return;
+        }
+        
         Transform level = Instantiate(Selection[index].LevelRootPrefab, LevelContainer).transform;
         level.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
         levelContainers[index] = level.GetComponent<LevelRootView>();
@@ -417,14 +393,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         LevelContainer.position = - Offset * ScreenScaler.CameraSize.x * Vector3.right;
 
-        int nextLevelIndex = Mathf.CeilToInt(Offset);
-        
-        if(!levelContainers.ContainsKey(nextLevelIndex))
-            CreateLevel(nextLevelIndex);
-        
-        if(!levelContainers.ContainsKey(nextLevelIndex - 1))
-            CreateLevel(nextLevelIndex - 1);
-
+        ProcessLevels();
         ProcessColors();
         
         int closestIndex = Mathf.RoundToInt(Offset);
@@ -432,14 +401,60 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             Index = closestIndex;
     }
 
+    void ProcessLevels()
+    {
+        int nextLevel = GetNextLevel();
+        
+        if(!HasLevel(nextLevel))
+            return;
+        
+        CreateLevel(nextLevel);
+    }
     
     void ProcessColors()
     {
-        int nextLevel = Offset > Index ? Index + 1 : Index - 1;
-        if(nextLevel >= 0 && nextLevel < Length)
-            InteractBtn.Color = Color.Lerp(Current.ColorScheme.ButtonColor, Selection[nextLevel].ColorScheme.ButtonColor,
-                Mathf.Abs(Offset - Index) / 1);
+        int nextLevel = GetNextLevel();
+
+        if (!HasLevel(nextLevel))
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index) / 1; 
+
+        Color buttonsColor = Color.Lerp(Current.ColorScheme.ButtonColor,
+            Selection[nextLevel].ColorScheme.ButtonColor,
+            phase
+        );
+        
+        Color walletTextColor = Color.Lerp(Current.ColorScheme.TextColorLauncher,
+            Selection[nextLevel].ColorScheme.TextColorLauncher,
+            phase
+        );
+        
+        Color buttonsTextColor = Color.Lerp(Current.ColorScheme.TextColor,
+            Selection[nextLevel].ColorScheme.TextColor,
+            phase
+        );
+
+        InteractBtn.Color = buttonsColor;
+        CollectionBtn.Color = buttonsColor;
+        LauncherUI.Instance.UiManager.Wallet.Text.color = walletTextColor;
+        InteractBtn.TextField.color = buttonsTextColor;
+        CollectionBtn.TextField.color = buttonsTextColor;
+
     }
+
+    bool HasLevel(int levelIndex)
+    {
+        return levelIndex >= 0 && levelIndex < Length;
+    }
+
+    int GetNextLevel()
+    {
+        int diff = Mathf.CeilToInt(Mathf.Abs(Offset - Index));
+        int nextLevel = Offset > Index ? Index + diff : Index - diff;
+        return nextLevel;
+    }
+    
     #endregion
     
     #region Index
@@ -450,6 +465,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             StopCoroutine(AfterTouchRoutine);
         
         CreateLevel(Index - 1);
+        CreateLevel(Index);
         CreateLevel(Index + 1);
 
         if(levelContainers.ContainsKey(Index))
@@ -462,12 +478,25 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         Offset = Index;
         
         LevelContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
-        
+
+        ProcessLevelsByIndex();
         ProcessNameByIndex();
         ProcessButtonsByIndex();
         ProcessColorsByIndex();
     }
 
+
+    void ProcessLevelsByIndex()
+    {
+        CreateLevel(Index - 1);
+        CreateLevel(Index + 1);
+
+        foreach (KeyValuePair<int, LevelRootView> levelContainer in levelContainers)
+        {
+            if(levelContainer.Key != Index - 1 && levelContainer.Key != Index && levelContainer.Key != Index + 1)
+                levelContainer.Value.SetActiveLevelRoot(false);
+        }
+    }
     void ProcessNameByIndex()
     {
         InteractBtn.Text = Current.Name;
@@ -487,6 +516,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         CollectionBtn.Color = Current.ColorScheme.ButtonColor;
         InteractBtn.Color = Current.ColorScheme.ButtonColor;
+        LauncherUI.Instance.UiManager.Wallet.Text.color = Current.ColorScheme.TextColorLauncher;
+        InteractBtn.TextField.color = Current.ColorScheme.TextColor;
+        CollectionBtn.TextField.color = Current.ColorScheme.TextColor;
     }
 
     #region event handlers
@@ -518,6 +550,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void OnTouchDown_Handler(Vector2 position)
     {
+        if (!IsFocused)
+            return;
+        
         if(AfterTouchRoutine != null)
             StopCoroutine(AfterTouchRoutine);
         
@@ -526,7 +561,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     protected override void OnTouchMove_Handler(Vector2 delta)
     {
-        float offsetDelta = - delta.x / ScreenScaler.ScreenSize.x;
+        if (!IsFocused)
+            return;
+        
+        float offsetDelta = - delta.x / ScreenScaler.ScreenSize.x * TouchSensitivity; 
 
         bool shouldMove = Offset + offsetDelta >= 0 && Offset + offsetDelta < Length - 1;
         
@@ -538,6 +576,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     protected override void OnTouchCancel_Handler(Vector2 position)
     {
+        if (!IsFocused)
+            return;
+        
         StartCoroutine(AfterTouchRoutine = TimedAfterTouchRoutine(0.6f));
         
         Debug.LogWarning($"Touch ended at {position}");

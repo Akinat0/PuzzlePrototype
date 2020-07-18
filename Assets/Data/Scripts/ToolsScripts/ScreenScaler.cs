@@ -106,8 +106,7 @@ namespace Abu.Tools
         private static float ScaleToFillWidth(float width, float pixelsPerUnit)
         {
             float aspectRatio = (float) Screen.width / Screen.height;
-            Camera.main.aspect = aspectRatio;
-            
+
             float camHeight = pixelsPerUnit * Camera.main.orthographicSize * 2;
             float camWidth = camHeight * aspectRatio;
             

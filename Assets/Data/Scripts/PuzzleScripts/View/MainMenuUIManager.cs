@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace Puzzle
 {
-    public class ScreensManager : MonoBehaviour
+    public class MainMenuUIManager : MonoBehaviour
     {
-        [SerializeField] WalletComponent Wallet;
+        [field: SerializeField] public WalletComponent Wallet { get; private set; }
 
         void OnEnable()
         {
