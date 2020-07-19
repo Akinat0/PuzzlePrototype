@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -35,7 +33,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     readonly Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
 
-    IEnumerator AfterTouchRoutine;
+    IEnumerator afterTouchRoutine;
+    IEnumerator moveToIndexRoutine;
 
     #region constants
     
@@ -50,7 +49,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     public void Start()
     {
         Selection = Account.LevelConfigs;
-        Index = Account.DefaultLevelId;
+        Index = Mathf.Clamp(0, Length - 1, Account.DefaultLevelId);
         Offset = Index;
         ShowUI();
         ProcessIndex();
@@ -58,162 +57,14 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void MoveLeft()
     {
-        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable || !MobileInput.Condition)
-        {
-            Debug.Log("Selection's already on the first element or left button disabled");
-            return;
-        }
-        
-        Index--;
-        DisplayItem(1);
+        if(HasLevel(Index - 1) &&  LeftBtn.gameObject.activeInHierarchy && LeftBtn.Interactable && MobileInput.Condition)
+            StartCoroutine(moveToIndexRoutine = MoveToIndexRoutine(Index - 1, UiAnimationDuration));
     }
 
     protected override void MoveRight()
     {
-        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable || !MobileInput.Condition)
-        {
-            Debug.Log("Selection's already on the last element or right button disabled");
-            return;
-        }
-
-        Index++;
-        DisplayItem(-1);
-    }
-
-    private void DisplayItem(int _Direction = 0)
-    {
-        if (Selection.Length == 0) //If nothing remains in shop 
-        {
-            LevelContainer.gameObject.SetActive(false);
-            InteractBtn.SetActive(false);
-            return;
-        }
-
-        DisplayLevel(_Direction);
-
-        InteractBtn.Text = Current.Name;
-
-        ManagingButtons();
-        
-        
-//        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
-        
-        if (Length == 0)
-        {
-            LeftBtn.SetActive(false);
-            RightBtn.SetActive(false);
-        }
-    }
-
-    
-    void ManagingButtons()
-    {
-        //Managing right button
-        RightBtn.SetActive(Index + 1 != Length);
-
-        //Managing left button
-        LeftBtn.SetActive(Index != 0);
-    }
-
-    LevelRootView DisplayLevel(int _Direction)
-    {
-        LevelRootView oldPrefab = LevelContainer.GetComponentInChildren<LevelRootView>();
-
-        if (oldPrefab != null && _Direction != 0)
-        {
-            LevelRootView levelRootView = Instantiate(Current.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
-            m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject, oldPrefab.transform);
-            DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject, oldPrefab.transform);
-            return levelRootView;
-        }
-        else
-        {
-            LevelRootView levelRootView = Instantiate(Current.LevelRootPrefab, LevelContainer).GetComponent<LevelRootView>();
-            m_PlayerView = DisplayPlayer(_Direction, levelRootView.PlayerView.gameObject);
-            DisplayBackground(_Direction, levelRootView.BackgroundView.gameObject);
-            return levelRootView;
-        }
-    }
-
-    PlayerView DisplayPlayer(int _Direction, GameObject _PlayerPrefab, Transform _OldLevelView = null)
-    {
-        Vector2 camSize = ScreenScaler.CameraSize;
-        
-        PlayerView oldPrefab = null;
-
-        if(_OldLevelView != null)
-            oldPrefab = _OldLevelView.GetComponentInChildren<PlayerView>();
-
-        if (Current.CollectionEnabled)
-        {
-            GameObject defaultCollectionPlayer = Instantiate(Account.CollectionDefaultItem.GetPuzzleVariant(Current.PuzzleSides), _PlayerPrefab.transform.parent, true);
-            DestroyImmediate(_PlayerPrefab);
-            _PlayerPrefab = defaultCollectionPlayer;
-            ShowCollectionButton(PlayerAnimationDuration);
-        }
-        else 
-            HideCollectionButton(_Direction == 0 ? 0 : PlayerAnimationDuration);
-        
-        if (_Direction != 0 && oldPrefab != null)
-        {
-            var tweenerPlayer = oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), PlayerAnimationDuration);
-            tweenerPlayer.onPlay = () =>
-            {
-                MobileInput.Condition = false;
-                RightBtn.Interactable = false;
-                LeftBtn.Interactable = false;
-            };
-
-            tweenerPlayer.onComplete = () =>
-            {
-                // It takes a bit more time for player to finish animation,
-                // so we will destroy old level prefab in player's finish animation code
-                if(_OldLevelView != null)
-                    Destroy(_OldLevelView.gameObject);
-                MobileInput.Condition = true;
-                RightBtn.Interactable = true;
-                LeftBtn.Interactable = true;
-            };
-
-            //Create new prefab
-            PlayerView playerView = _PlayerPrefab.GetComponent<PlayerView>();
-
-            playerView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
-            playerView.transform.DOMove(Vector3.zero, PlayerAnimationDuration);
-
-            return playerView;
-        }
-        else
-        {
-            return _PlayerPrefab.GetComponent<PlayerView>();
-        }
-    }
-
-    BackgroundView DisplayBackground(int _Direction, GameObject _BackgroundPrefab, Transform _OldLevelView = null)
-    {
-        Vector2 camSize = ScreenScaler.CameraSize;
-        
-        BackgroundView oldPrefab = null;
-
-        if(_OldLevelView != null)
-            oldPrefab = _OldLevelView.GetComponentInChildren<BackgroundView>();
-        
-        if (_Direction != 0 && oldPrefab != null)
-        {
-
-            oldPrefab.transform.DOMove(new Vector3(camSize.x * Mathf.Sign(_Direction), 0), 0.25f);
-            BackgroundView backgroundView = _BackgroundPrefab.GetComponent<BackgroundView>();
-
-            backgroundView.transform.position += new Vector3(-camSize.x * Mathf.Sign(_Direction), 0);
-            backgroundView.transform.DOMove(Vector3.zero, 0.25f);
-
-            return backgroundView;
-        }
-        else
-        {
-            //Create new prefab
-            return _BackgroundPrefab.GetComponent<BackgroundView>();
-        }
+        if(HasLevel(Index + 1) &&  RightBtn.gameObject.activeInHierarchy && RightBtn.Interactable && MobileInput.Condition)
+            StartCoroutine(moveToIndexRoutine = MoveToIndexRoutine(Index + 1, UiAnimationDuration));
     }
 
     void HideUI()
@@ -247,10 +98,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             ShowCollectionButton(UiAnimationDuration, 0.25f);
         else
             HideCollectionButton(UiAnimationDuration);
-        
-        //ClearContainers();
-        //DisplayItem();
-        
+
         CreateLevel(Index);
         CreateLevel(Index - 1);
         CreateLevel(Index + 1);
@@ -260,7 +108,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void BringBackUI(PlayerView _NewPlayer)
     {
-        ManagingButtons();
 
         RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
@@ -387,6 +234,20 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             yield return null;
         }
     }
+
+    IEnumerator MoveToIndexRoutine(int index, float duration)
+    {
+        float time = 0;
+        float startOffset = Offset;
+        while (time < duration)
+        {
+            Offset = Mathf.Lerp(startOffset, index, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        Index = index;
+    } 
     
     #region Offset
     protected override void ProcessOffset()
@@ -461,8 +322,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void ProcessIndex()
     {
-        if(AfterTouchRoutine != null)
-            StopCoroutine(AfterTouchRoutine);
+        if(afterTouchRoutine != null)
+            StopCoroutine(afterTouchRoutine);
+
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
         
         CreateLevel(Index - 1);
         CreateLevel(Index);
@@ -553,8 +417,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!IsFocused)
             return;
         
-        if(AfterTouchRoutine != null)
-            StopCoroutine(AfterTouchRoutine);
+        if(afterTouchRoutine != null)
+            StopCoroutine(afterTouchRoutine);
+
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+
         
         Debug.LogWarning($"Touch down at {position}");
     }
@@ -579,7 +447,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!IsFocused)
             return;
         
-        StartCoroutine(AfterTouchRoutine = TimedAfterTouchRoutine(0.6f));
+        StartCoroutine(afterTouchRoutine = TimedAfterTouchRoutine(0.6f));
         
         Debug.LogWarning($"Touch ended at {position}");
     }
