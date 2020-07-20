@@ -15,7 +15,7 @@ public class LevelsManager : MonoBehaviour
 
     public LevelConfig DefaultLevel => LevelsData.DefaultItem;
     
-    void Start()
+    void Awake()
     {
         LevelsData.LoadSettings();
     }

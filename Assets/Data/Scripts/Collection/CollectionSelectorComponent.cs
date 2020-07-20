@@ -25,19 +25,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     void DisplayItem(int _Index, int _Direction = 0)
     {
-        //Managing right button
-        RightBtn.SetActive(_Index + 1 != Length);
 
-        //Managing left button
-        LeftBtn.SetActive(_Index != 0);
-            
         CreateItem(_Index);
-            
-        if (Length == 0)
-        {
-            RightBtn.SetActive(false);
-            LeftBtn.SetActive(false);
-        }
 
         Vector3 shift = _Direction * ScreenScaler.CameraSize.x * Vector3.right;
         

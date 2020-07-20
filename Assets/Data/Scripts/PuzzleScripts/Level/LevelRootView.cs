@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering;
 
 public class LevelRootView : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class LevelRootView : MonoBehaviour
     Renderer[] renderers;
     Renderer[] Renderers => renderers ?? (renderers = GetComponentsInChildren<Renderer>());
 
+    SortingGroup sortingGroup;
+
+    void Awake()
+    {
+        sortingGroup = gameObject.AddComponent<SortingGroup>();
+    }
+    
     public void SetActiveLevelRoot(bool value)
     {
         foreach (Renderer renderer in Renderers)
@@ -23,7 +31,16 @@ public class LevelRootView : MonoBehaviour
             m_PlayerView.transform.SetParent(transform);
         }
     }
+
+    public void SetSortingPriorityHigh()
+    {
+        sortingGroup.sortingOrder = 1;
+    }
     
+    public void SetSortingPriorityLow()
+    {
+        sortingGroup.sortingOrder = 0;
+    }
     public BackgroundView BackgroundView => m_BackgroundView;
 
 }

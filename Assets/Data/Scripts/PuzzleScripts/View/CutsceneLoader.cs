@@ -19,7 +19,7 @@ public class CutsceneLoader : MonoBehaviour
         {
             AsyncOperation loader = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
             StartCoroutine(
-                Extensions.WaitUntil(() => loader.isDone,
+                Utility.WaitUntil(() => loader.isDone,
                     () =>
                     {
                         foreach (var root in SceneManager.GetSceneByName(scene).GetRootGameObjects())
@@ -58,7 +58,7 @@ public class CutsceneLoader : MonoBehaviour
         {
             if (!scene.isLoaded)
             {
-                StartCoroutine(Extensions.WaitUntil(
+                StartCoroutine(Utility.WaitUntil(
                     () => scene.isLoaded,
                     () =>
                     {

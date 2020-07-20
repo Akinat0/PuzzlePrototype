@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
 using Abu.Tools.UI;
@@ -6,6 +7,7 @@ using Data.Scripts.Tools.Input;
 using ScreensScripts;
 using UnityEngine;
 using DG.Tweening;
+using Debug = UnityEngine.Debug;
 
 public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 {
@@ -31,6 +33,16 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
     
+    int NextLevel
+    {
+        get
+        {
+            int diff = Mathf.CeilToInt(Mathf.Abs(Offset - Index));
+            int nextLevel = Offset > Index ? Index + diff : Index - diff;
+            return nextLevel;
+        }
+    }
+
     readonly Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
 
     IEnumerator afterTouchRoutine;
@@ -49,7 +61,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     public void Start()
     {
         Selection = Account.LevelConfigs;
-        Index = Mathf.Clamp(0, Length - 1, Account.DefaultLevelId);
+        Index = Mathf.Clamp(Account.DefaultLevelId, 0, Length - 1);
         Offset = Index;
         ShowUI();
         ProcessIndex();
@@ -57,14 +69,28 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void MoveLeft()
     {
-        if(HasLevel(Index - 1) &&  LeftBtn.gameObject.activeInHierarchy && LeftBtn.Interactable && MobileInput.Condition)
-            StartCoroutine(moveToIndexRoutine = MoveToIndexRoutine(Index - 1, UiAnimationDuration));
+        if (HasLevel(Index - 1) && LeftBtn.Interactable && MobileInput.Condition)
+        {
+            float phase = Mathf.Abs(Offset - Index) / 1;
+            
+            if(moveToIndexRoutine != null)
+                StopCoroutine(moveToIndexRoutine);
+            StartCoroutine(moveToIndexRoutine =
+                MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration, () => moveToIndexRoutine = null));
+        }
     }
 
     protected override void MoveRight()
     {
-        if(HasLevel(Index + 1) &&  RightBtn.gameObject.activeInHierarchy && RightBtn.Interactable && MobileInput.Condition)
-            StartCoroutine(moveToIndexRoutine = MoveToIndexRoutine(Index + 1, UiAnimationDuration));
+        if (HasLevel(Index + 1) && RightBtn.Interactable && MobileInput.Condition)
+        {
+            float phase = Mathf.Abs(Offset - Index) / 1;
+            
+            if(moveToIndexRoutine != null)
+                StopCoroutine(moveToIndexRoutine);
+            StartCoroutine(moveToIndexRoutine =
+                MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration, () => moveToIndexRoutine = null));
+        }
     }
 
     void HideUI()
@@ -220,22 +246,25 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         levelContainers[index] = level.GetComponent<LevelRootView>();
     }
 
-    IEnumerator TimedAfterTouchRoutine(float duration)
+    IEnumerator TimedAfterTouchRoutine(float duration, Action finished = null)
     {
         float startOffset = Offset;
-        float targetOffset = Mathf.Round(startOffset);
+        int targetIndex = Mathf.RoundToInt(startOffset);
 
         float time = 0;
         
         while (time <= duration)
         {
-            Offset = Mathf.Lerp(startOffset, targetOffset, time / duration);
+            Offset = Mathf.Lerp(startOffset, targetIndex, time / duration);
             time += Time.deltaTime;
             yield return null;
         }
+
+        Index = targetIndex;
+        finished?.Invoke();
     }
 
-    IEnumerator MoveToIndexRoutine(int index, float duration)
+    IEnumerator MoveToIndexRoutine(int index, float duration, Action finished = null)
     {
         float time = 0;
         float startOffset = Offset;
@@ -247,24 +276,59 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
 
         Index = index;
+        finished?.Invoke();
     } 
     
     #region Offset
+    
     protected override void ProcessOffset()
     {
         LevelContainer.position = - Offset * ScreenScaler.CameraSize.x * Vector3.right;
 
         ProcessLevels();
         ProcessColors();
+        ProcessButtons();
         
         int closestIndex = Mathf.RoundToInt(Offset);
         if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
             Index = closestIndex;
     }
 
+    void ProcessButtons()
+    {
+        int nextLevel = NextLevel;
+
+        if (!HasLevel(nextLevel))
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index) / 1;
+
+        int direction = Index > nextLevel ? 1 : -1;
+
+        Color startLeftBtnColor = HasLevel(Index - 1) ? Color.white : Color.clear;
+        Color startRightBtnColor = HasLevel(Index + 1) ? Color.white : Color.clear;
+        
+        Color targetLeftBtnColor = HasLevel(Index - direction - 1) ? Color.white : Color.clear;
+        Color targetRightBtnColor = HasLevel(Index - direction + 1) ? Color.white : Color.clear;
+
+        LeftBtn.Color = Color.Lerp(startLeftBtnColor, targetLeftBtnColor, phase);
+        RightBtn.Color = Color.Lerp(startRightBtnColor, targetRightBtnColor, phase);
+
+        //TODO
+        Vector2 startCollectionBtnSizeFactor = CollectionBtn.RectTransform.GetAnchorsSize();
+        Vector2 targetCollectionBtnSizeFactor = CollectionBtn.RectTransform.GetAnchorsSize();
+
+        startCollectionBtnSizeFactor *= Current.CollectionEnabled ? Vector2.one : new Vector2(0, 1);
+        targetCollectionBtnSizeFactor *= Selection[NextLevel].CollectionEnabled ? Vector2.one : new Vector2(0, 1);
+        
+        CollectionBtn.RectTransform.sizeDelta = Vector2.Lerp(startCollectionBtnSizeFactor, targetCollectionBtnSizeFactor, phase);    
+            
+
+    }
+    
     void ProcessLevels()
     {
-        int nextLevel = GetNextLevel();
+        int nextLevel = NextLevel;
         
         if(!HasLevel(nextLevel))
             return;
@@ -274,7 +338,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void ProcessColors()
     {
-        int nextLevel = GetNextLevel();
+        int nextLevel = NextLevel;
 
         if (!HasLevel(nextLevel))
             return;
@@ -303,19 +367,14 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         CollectionBtn.TextField.color = buttonsTextColor;
 
     }
+    
+    
 
     bool HasLevel(int levelIndex)
     {
         return levelIndex >= 0 && levelIndex < Length;
     }
 
-    int GetNextLevel()
-    {
-        int diff = Mathf.CeilToInt(Mathf.Abs(Offset - Index));
-        int nextLevel = Offset > Index ? Index + diff : Index - diff;
-        return nextLevel;
-    }
-    
     #endregion
     
     #region Index
@@ -343,13 +402,23 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         LevelContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
 
+        ProcessSortingOrderByIndex();
         ProcessLevelsByIndex();
         ProcessNameByIndex();
         ProcessButtonsByIndex();
         ProcessColorsByIndex();
     }
 
-
+    void ProcessSortingOrderByIndex()
+    {
+        levelContainers[Index].SetSortingPriorityHigh();
+        
+        if(levelContainers.ContainsKey(Index - 1))
+            levelContainers[Index - 1].SetSortingPriorityLow();
+        if(levelContainers.ContainsKey(Index + 1))
+            levelContainers[Index + 1].SetSortingPriorityLow();
+    }
+    
     void ProcessLevelsByIndex()
     {
         CreateLevel(Index - 1);
@@ -369,10 +438,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     void ProcessButtonsByIndex()
     {
         //Managing right button
-        RightBtn.SetActive(Index + 1 < Length);
+        RightBtn.Interactable = Index + 1 < Length;
 
         //Managing left button
-        LeftBtn.SetActive(Index > 0);
+        LeftBtn.Interactable = Index > 0;
     }
     #endregion
 
