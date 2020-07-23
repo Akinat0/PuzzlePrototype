@@ -175,6 +175,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 //        Back();
 //    }
 
+    protected override void ProcessIndex()
+    {
+//        throw new NotImplementedException();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();

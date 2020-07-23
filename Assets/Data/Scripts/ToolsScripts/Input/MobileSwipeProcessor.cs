@@ -45,6 +45,7 @@ public class MobileSwipe
                 case TouchPhase.Moved:
                     SwipeMoved(t.position);
                     break;
+                case TouchPhase.Ended:
                 case TouchPhase.Canceled:
                     SwipeEnded(t.position);
                     break;
@@ -95,7 +96,6 @@ public class MobileSwipe
     {
         inProgress = false;
         
-        Debug.LogError($"Touch canceled. Delta {latestPressPos - previousPressPos}" );
         previousPressPos = Vector2.zero;
         latestPressPos = Vector2.zero;
         OnTouchCancel?.Invoke(position);

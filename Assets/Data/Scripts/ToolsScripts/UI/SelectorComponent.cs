@@ -8,8 +8,18 @@ namespace Abu.Tools.UI
     {
         [SerializeField] protected ButtonComponent RightBtn;
         [SerializeField] protected ButtonComponent LeftBtn;
-        
-        protected virtual int Index { get; set; }
+
+        int index;
+
+        protected virtual int Index
+        {
+            get => index;
+            set
+            {
+                index = value;
+                ProcessIndex();
+            }
+        }
 
         protected virtual bool IsFocused { get; set; }
 
@@ -31,8 +41,8 @@ namespace Abu.Tools.UI
         protected virtual T Current => Selection[Index];
 
         protected MobileSwipe MobileSwipe => mobileSwipe;
-        
-        MobileSwipe mobileSwipe = new MobileSwipe();
+
+        readonly MobileSwipe mobileSwipe = new MobileSwipe();
         
         protected abstract void MoveLeft();
 
@@ -43,6 +53,10 @@ namespace Abu.Tools.UI
             mobileSwipe.Update();
         }
 
+        protected abstract void ProcessOffset();
+        
+        protected abstract void ProcessIndex();
+        
         protected virtual void OnEnable()
         {
             mobileSwipe.OnTouchStart += OnTouchDown_Handler;
@@ -69,7 +83,5 @@ namespace Abu.Tools.UI
         
         protected virtual void OnTouchCancel_Handler(Vector2 position)
         { }
-        
-        protected abstract void ProcessOffset();
     }
 }

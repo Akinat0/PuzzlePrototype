@@ -18,18 +18,16 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     [SerializeField] TextButtonComponent CollectionBtn;
 
     #endregion
-    
-    PlayerView m_PlayerView;
-    
+
+    #region properties
+
     protected override int Index
     {
         get => base.Index;
         set
         {
-            base.Index = value;
             Account.DefaultLevelId = value;
-
-            ProcessIndex();
+            base.Index = value;
         }
     }
     
@@ -43,10 +41,18 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
 
+    #endregion
+    
+    #region attributes
+
     readonly Dictionary<int, LevelRootView> levelContainers = new Dictionary<int, LevelRootView>();
 
     IEnumerator afterTouchRoutine;
     IEnumerator moveToIndexRoutine;
+
+    PlayerView playerView;
+
+    #endregion
 
     #region constants
     
@@ -54,11 +60,22 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     public const float PlayerAnimationDuration = 0.5f; 
     public const float UiAnimationDuration = 0.5f;
 
-    public const float TouchSensitivity = 0.8f;
+    public const float TouchSensitivity = 2;
+
+    static readonly Vector2 EnabledCollectionMaxAnchor = new Vector2(0.48f, 0.3f);
+    static readonly Vector2 DisabledCollectionMaxAnchor = new Vector2(0.14f, 0.3f);
     
+    static readonly Vector2 EnabledPlayMaxAnchor = new Vector2(0.86f,0.3f);
+    static readonly Vector2 DisabledPlayMaxAnchor = new Vector2(0.75f,0.3f);
+    
+    static readonly Vector2 EnabledPlayMinAnchor = new Vector2(0.515f,0.24f);
+    static readonly Vector2 DisabledPlayMinAnchor = new Vector2(0.25f,0.24f);
+
     #endregion
+
+    #region private
     
-    public void Start()
+    void Start()
     {
         Selection = Account.LevelConfigs;
         Index = Mathf.Clamp(Account.DefaultLevelId, 0, Length - 1);
@@ -71,12 +88,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         if (HasLevel(Index - 1) && LeftBtn.Interactable && MobileInput.Condition)
         {
-            float phase = Mathf.Abs(Offset - Index) / 1;
+            float phase = Mathf.Abs(Offset - Index);
             
             if(moveToIndexRoutine != null)
                 StopCoroutine(moveToIndexRoutine);
             StartCoroutine(moveToIndexRoutine =
-                MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration, () => moveToIndexRoutine = null));
+                MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
         }
     }
 
@@ -84,18 +101,17 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         if (HasLevel(Index + 1) && RightBtn.Interactable && MobileInput.Condition)
         {
-            float phase = Mathf.Abs(Offset - Index) / 1;
+            float phase = Mathf.Abs(Offset - Index);
             
             if(moveToIndexRoutine != null)
                 StopCoroutine(moveToIndexRoutine);
             StartCoroutine(moveToIndexRoutine =
-                MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration, () => moveToIndexRoutine = null));
+                MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
         }
     }
-
+    
     void HideUI()
     {
-
         RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtn.SetActive(false);
         LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtn.SetActive(false);
         
@@ -110,6 +126,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void ShowUI()
     {
+        RightBtn.SetActive(true);
+        LeftBtn.SetActive(true);
         RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         
@@ -120,10 +138,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             InteractBtn.SetActive(true);
         };
 
-        if(Current.CollectionEnabled)
-            ShowCollectionButton(UiAnimationDuration, 0.25f);
-        else
-            HideCollectionButton(UiAnimationDuration);
+        ShowCollectionButton(UiAnimationDuration, 0.25f);
 
         CreateLevel(Index);
         CreateLevel(Index - 1);
@@ -145,20 +160,17 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             InteractBtn.SetActive(true);
         };
 
-        if(Current.CollectionEnabled)
-            ShowCollectionButton(UiAnimationDuration, 0.25f);
-        else
-            HideCollectionButton(UiAnimationDuration);
-
+        ShowCollectionButton(UiAnimationDuration, 0.25f);
+        
         if (_NewPlayer != null)
         {    
-            DestroyImmediate(m_PlayerView.gameObject);
-            m_PlayerView = _NewPlayer;
-            LevelContainer.GetComponentInChildren<LevelRootView>().PlayerView = m_PlayerView;
+            DestroyImmediate(playerView.gameObject);
+            playerView = _NewPlayer;
+            LevelContainer.GetComponentInChildren<LevelRootView>().PlayerView = playerView;
         }
         else
         {
-            m_PlayerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
+            playerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
         }
 
         this.Invoke(() => IsFocused = true, UiAnimationDuration);
@@ -166,7 +178,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void HideActivePlayer()
     {
-        m_PlayerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
+        playerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
     }
 
     void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
@@ -192,32 +204,18 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         }
     }
 
-    void OnInteract()
-    {
-        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
-        
-        CleanContainers();
-        
-        IsFocused = false;
-    }
-
     void CleanContainers()
     {
         int count = levelContainers.Count;
         
         for (int i = 0; i < count; i++)
         {
-            if (i != Index)
+            if (i != Index && levelContainers.ContainsKey(i))
             {
                 Destroy(levelContainers[i].gameObject);
                 levelContainers.Remove(i);
             }
         }
-    }
-
-    void OnCollection()
-    {
-        ShowCollection();
     }
 
     void ShowCollection()
@@ -244,6 +242,20 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         Transform level = Instantiate(Selection[index].LevelRootPrefab, LevelContainer).transform;
         level.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
         levelContainers[index] = level.GetComponent<LevelRootView>();
+    }
+
+    void OnInteract()
+    {
+        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
+        
+        CleanContainers();
+        
+        IsFocused = false;
+    }
+
+    void OnCollection()
+    {
+        ShowCollection();
     }
 
     IEnumerator TimedAfterTouchRoutine(float duration, Action finished = null)
@@ -279,6 +291,13 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         finished?.Invoke();
     } 
     
+    bool HasLevel(int levelIndex)
+    {
+        return levelIndex >= 0 && levelIndex < Length;
+    }
+    
+    #endregion
+    
     #region Offset
     
     protected override void ProcessOffset()
@@ -288,6 +307,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessLevels();
         ProcessColors();
         ProcessButtons();
+        ProcessSideButtons();
         
         int closestIndex = Mathf.RoundToInt(Offset);
         if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
@@ -295,6 +315,44 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     }
 
     void ProcessButtons()
+    {
+        int nextLevel = NextLevel;
+
+        if (!HasLevel(nextLevel))
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index) / 1;
+        
+        Vector2 startCollectionBtnMaxAnchor = 
+            Current.CollectionEnabled ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+        Vector2 targetCollectionBtnMaxAnchor = 
+            Selection[nextLevel].CollectionEnabled ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+
+        CollectionBtn.RectTransform.anchorMax =
+            Vector2.Lerp(startCollectionBtnMaxAnchor, targetCollectionBtnMaxAnchor, phase * phase);
+
+        Vector2 startPlayBtnMinAnchor = 
+            Current.CollectionEnabled ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+        Vector2 targetPlayBtnMinAnchor = 
+            Selection[nextLevel].CollectionEnabled ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+        
+        Vector2 startPlayBtnMaxAnchor = 
+            Current.CollectionEnabled ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+        Vector2 targetPlayBtnMaxAnchor = 
+            Selection[nextLevel].CollectionEnabled ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+        
+        InteractBtn.RectTransform.anchorMin =
+            Vector2.Lerp(startPlayBtnMinAnchor, targetPlayBtnMinAnchor, phase * phase);
+        InteractBtn.RectTransform.anchorMax =
+            Vector2.Lerp(startPlayBtnMaxAnchor, targetPlayBtnMaxAnchor, phase * phase);
+        
+        float startCollectionTextAlpha = Current.CollectionEnabled ? 1 : 0;
+        float targetCollectionTextAlpha = Selection[nextLevel].CollectionEnabled ? 1 : 0;
+
+        CollectionBtn.TextField.SetAlpha(Mathf.Lerp(startCollectionTextAlpha, targetCollectionTextAlpha, phase * phase));
+    }
+    
+    void ProcessSideButtons()
     {
         int nextLevel = NextLevel;
 
@@ -311,19 +369,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         Color targetLeftBtnColor = HasLevel(Index - direction - 1) ? Color.white : Color.clear;
         Color targetRightBtnColor = HasLevel(Index - direction + 1) ? Color.white : Color.clear;
 
-        LeftBtn.Color = Color.Lerp(startLeftBtnColor, targetLeftBtnColor, phase);
-        RightBtn.Color = Color.Lerp(startRightBtnColor, targetRightBtnColor, phase);
-
-        //TODO
-        Vector2 startCollectionBtnSizeFactor = CollectionBtn.RectTransform.GetAnchorsSize();
-        Vector2 targetCollectionBtnSizeFactor = CollectionBtn.RectTransform.GetAnchorsSize();
-
-        startCollectionBtnSizeFactor *= Current.CollectionEnabled ? Vector2.one : new Vector2(0, 1);
-        targetCollectionBtnSizeFactor *= Selection[NextLevel].CollectionEnabled ? Vector2.one : new Vector2(0, 1);
+        LeftBtn.Color = Color.Lerp(startLeftBtnColor, targetLeftBtnColor, phase * phase);
+        RightBtn.Color = Color.Lerp(startRightBtnColor, targetRightBtnColor, phase * phase);
         
-        CollectionBtn.RectTransform.sizeDelta = Vector2.Lerp(startCollectionBtnSizeFactor, targetCollectionBtnSizeFactor, phase);    
-            
-
     }
     
     void ProcessLevels()
@@ -368,18 +416,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     }
     
-    
-
-    bool HasLevel(int levelIndex)
-    {
-        return levelIndex >= 0 && levelIndex < Length;
-    }
-
     #endregion
     
     #region Index
 
-    void ProcessIndex()
+    protected override void ProcessIndex()
     {
         if(afterTouchRoutine != null)
             StopCoroutine(afterTouchRoutine);
@@ -392,23 +433,34 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         CreateLevel(Index + 1);
 
         if(levelContainers.ContainsKey(Index))
-            m_PlayerView = levelContainers[Index].PlayerView;
+            playerView = levelContainers[Index].PlayerView;
         else
             Debug.LogError("Key doesn't exists " + Index);
         
-        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(m_PlayerView, Current));
+        LauncherUI.Instance.InvokeLevelChanged(new LevelChangedEventArgs(playerView, Current));
         
         Offset = Index;
         
         LevelContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
-
+        
         ProcessSortingOrderByIndex();
         ProcessLevelsByIndex();
         ProcessNameByIndex();
-        ProcessButtonsByIndex();
+        ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
+        ProcessButtonsByIndex();
     }
 
+    void ProcessButtonsByIndex()
+    {
+        CollectionBtn.RectTransform.anchorMax = Current.CollectionEnabled ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+        
+        InteractBtn.RectTransform.anchorMax = Current.CollectionEnabled ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+        InteractBtn.RectTransform.anchorMin = Current.CollectionEnabled ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+        
+        CollectionBtn.TextField.SetAlpha(Current.CollectionEnabled ? 1 : 0);
+    }
+    
     void ProcessSortingOrderByIndex()
     {
         levelContainers[Index].SetSortingPriorityHigh();
@@ -435,16 +487,15 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.Text = Current.Name;
     }
 
-    void ProcessButtonsByIndex()
+    void ProcessSideButtonsByIndex()
     {
-        //Managing right button
+        RightBtn.Color = Index + 1 < Length ? Color.white : Color.clear;
+        LeftBtn.Color = Index > 0 ? Color.white : Color.clear;
+        
         RightBtn.Interactable = Index + 1 < Length;
-
-        //Managing left button
         LeftBtn.Interactable = Index > 0;
     }
-    #endregion
-
+    
     void ProcessColorsByIndex()
     {
         CollectionBtn.Color = Current.ColorScheme.ButtonColor;
@@ -453,6 +504,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.TextField.color = Current.ColorScheme.TextColor;
         CollectionBtn.TextField.color = Current.ColorScheme.TextColor;
     }
+    
+    #endregion
 
     #region event handlers
     
@@ -479,8 +532,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
     }
-    
-    
+
     protected override void OnTouchDown_Handler(Vector2 position)
     {
         if (!IsFocused)
@@ -491,9 +543,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         if(moveToIndexRoutine != null)
             StopCoroutine(moveToIndexRoutine);
-
-        
-        Debug.LogWarning($"Touch down at {position}");
     }
 
     protected override void OnTouchMove_Handler(Vector2 delta)
@@ -508,7 +557,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if(shouldMove)
             Offset += offsetDelta;
         
-        Debug.LogWarning($"Touch moved at {delta}, offset increased on {offsetDelta}, now offset is {Offset} ");
     }
 
     protected override void OnTouchCancel_Handler(Vector2 position)
@@ -516,9 +564,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!IsFocused)
             return;
         
-        StartCoroutine(afterTouchRoutine = TimedAfterTouchRoutine(0.6f));
+        StartCoroutine(afterTouchRoutine = TimedAfterTouchRoutine(0.3f));
         
-        Debug.LogWarning($"Touch ended at {position}");
     }
     
     void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
@@ -538,4 +585,5 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     }
     
     #endregion
+    
 }
