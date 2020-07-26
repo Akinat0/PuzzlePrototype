@@ -440,7 +440,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         LevelsContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
         
-        ProcessSortingOrderByIndex();
         ProcessLevelsByIndex();
         ProcessNameByIndex();
         ProcessSideButtonsByIndex();
@@ -456,16 +455,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.RectTransform.anchorMin = Current.CollectionEnabled ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
         
         CollectionBtn.TextField.SetAlpha(Current.CollectionEnabled ? 1 : 0);
-    }
-    
-    void ProcessSortingOrderByIndex()
-    {
-        levelContainers[Index].SetSortingPriorityHigh();
-        
-        if(levelContainers.ContainsKey(Index - 1))
-            levelContainers[Index - 1].SetSortingPriorityLow();
-        if(levelContainers.ContainsKey(Index + 1))
-            levelContainers[Index + 1].SetSortingPriorityLow();
     }
     
     void ProcessLevelsByIndex()
