@@ -99,8 +99,8 @@ namespace Puzzle
         protected void ShowShort()
         {
             StopAllCoroutines();
-            StartCoroutine(AlphaRoutine(1, APPEAR_TIME, 
-                () => StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME))));
+            AlphaSetter(1);
+            this.Invoke(() => StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME)), APPEAR_TIME);
         }
         
         protected void HideLong()
