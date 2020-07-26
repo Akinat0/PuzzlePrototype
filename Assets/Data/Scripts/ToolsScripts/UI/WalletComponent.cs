@@ -93,6 +93,7 @@ namespace Abu.Tools.UI
         void OnBalanceChangedHandler(int amount)
         {
             Text.text = amount.ToString();
+            CoinImage.transform.DOKill();
             CoinImage.transform.DOPunchScale(new Vector3(1.1f, 1.1f, 1.1f), 0.3f, 2, 0.6f);
         }
         
