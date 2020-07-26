@@ -267,7 +267,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!newPlayerViewPrefab)
             return;
             
-        DestroyImmediate(levelRootView.PlayerView.gameObject);
+        Destroy(levelRootView.PlayerView.gameObject);
 
         PlayerView newPlayerView = Instantiate(newPlayerViewPrefab).GetComponent<PlayerView>();
 
