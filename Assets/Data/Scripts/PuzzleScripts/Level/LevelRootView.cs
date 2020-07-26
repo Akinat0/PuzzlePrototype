@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.Rendering;
 
 public class LevelRootView : MonoBehaviour
@@ -7,7 +8,20 @@ public class LevelRootView : MonoBehaviour
     [SerializeField] private BackgroundView m_BackgroundView;
 
     Renderer[] renderers;
-    Renderer[] Renderers => renderers ?? (renderers = GetComponentsInChildren<Renderer>());
+
+    Renderer[] Renderers
+    {
+        get
+        {
+            if (renderers == null)
+                renderers = GetComponentsInChildren<Renderer>();
+
+            if(renderers.Any(r => r == null))
+                renderers = GetComponentsInChildren<Renderer>();
+            
+            return renderers;
+        }
+    }
 
     SortingGroup sortingGroup;
 
@@ -24,11 +38,12 @@ public class LevelRootView : MonoBehaviour
 
     public PlayerView PlayerView
     {
-        get { return m_PlayerView;}
+        get => m_PlayerView;
         set
         {
             m_PlayerView = value;
             m_PlayerView.transform.SetParent(transform);
+            m_PlayerView.transform.localPosition = Vector3.zero;
         }
     }
 

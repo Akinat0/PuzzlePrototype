@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -8,70 +10,86 @@ using UnityEngine;
 
 public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 {
+    #region serialized
+    
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] ButtonComponent HomeBtn;
-    [SerializeField] Transform ItemContainer;
+    [SerializeField] Transform ItemsContainer;
     [SerializeField] RectTransform Content;
 
-    PlayerView activePlayer;
-    PlayerView oldPlayer;
+    #endregion
+    
+    #region propeties
+    
+    int NextItem
+    {
+        get
+        {
+            int diff = Mathf.CeilToInt(Mathf.Abs(Offset - Index));
+            int nextLevel = Offset > Index ? Index + diff : Index - diff;
+            return nextLevel;
+        }
+    }
+    
+    #endregion
+    
+    #region attributes
 
+    readonly Dictionary<int, PlayerView> itemContainers = new Dictionary<int, PlayerView>();
+    
+    IEnumerator afterTouchRoutine;
+    IEnumerator moveToIndexRoutine;
+
+    #endregion
+    
+    #region private
+    
     void Start()
     {
-        Index = Account.CollectionDefaultItemId;
+        ItemsContainer.SetY(ScreenScaler.CameraSize.y);
         Selection = Account.CollectionItems;
         HideCollection();
     }
 
-    void DisplayItem(int _Index, int _Direction = 0)
+    protected override void MoveLeft()
     {
-
-        CreateItem(_Index);
-
-        Vector3 shift = _Direction * ScreenScaler.CameraSize.x * Vector3.right;
+        if (!HasItem(Index - 1) || !LeftBtn.Interactable || !MobileInput.Condition) 
+            return;
         
-        activePlayer.transform.position = - shift;
-
-        if(_Direction != 0)
-        {
-            oldPlayer.transform.DOMove(shift,
-                    LevelSelectorComponent.PlayerAnimationDuration)
-                .OnStart(() =>
-                {
-                    MobileInput.Condition = false;
-                    RightBtn.Interactable = false;
-                    LeftBtn.Interactable = false;
-                })
-                .OnComplete(() =>
-                {
-                    MobileInput.Condition = true;
-                    RightBtn.Interactable = true;
-                    LeftBtn.Interactable = true;
-                    Destroy(oldPlayer.gameObject);
-                });
+        float phase = Mathf.Abs(Offset - Index);
             
-            activePlayer.transform.DOMove(Vector3.zero, 
-                LevelSelectorComponent.PlayerAnimationDuration);
-        }
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+        StartCoroutine(moveToIndexRoutine =
+            MoveToIndexRoutine(Index - 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () => moveToIndexRoutine = null));
     }
-    
-    void CreateItem(int _Index)
-    {
-        oldPlayer = activePlayer;
-        GameObject collectionPuzzle = Selection[_Index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides);
 
-        //TODO ignore unsupported puzzles
-//        for (int i = 0; i < Length; i++)
-//        {
-//            collectionPuzzle = Selection[_Index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides);
-//            if (collectionPuzzle != null)
-//                break;
-//            
-//            Debug.LogError($"Collection item {_Index} has no suitable variant");
-//        }
-//        
+    protected override void MoveRight()
+    {
+        if (!HasItem(Index + 1) || !RightBtn.Interactable || !MobileInput.Condition) 
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index);
             
-        activePlayer = Instantiate(collectionPuzzle, ItemContainer).GetComponent<PlayerView>();
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+        StartCoroutine(moveToIndexRoutine =
+            MoveToIndexRoutine(Index + 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () => moveToIndexRoutine = null));
+    }
+
+    void CreateItem(int index)
+    {
+        if (index < 0 || index >= Length)
+            return;
+
+        if (itemContainers.ContainsKey(index))
+            return;
+
+        Transform collectionItem =
+            Instantiate(Selection[index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides), ItemsContainer)
+                .transform;
+        collectionItem.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
+        itemContainers[index] = collectionItem.GetComponent<PlayerView>();
     }
 
     void SetupColors(LevelColorScheme colorScheme)
@@ -85,57 +103,72 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     
     void ShowCollection()
     {
-        Content.gameObject.SetActive(true);
-        DisplayItem(Index);
-
-        activePlayer.transform.localPosition += Vector3.up * ScreenScaler.CameraSize.y;
+        SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
         
-        activePlayer.transform.DOMove(Vector3.zero, LevelSelectorComponent.UiAnimationDuration)
-            .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
+        Index = Account.CollectionDefaultItemId;
+        
+        Content.gameObject.SetActive(true);
+
+        CreateItem(Index);
+        CreateItem(Index - 1);
+        CreateItem(Index + 1);
         
         Content.DOAnchorPos(Vector2.zero, LevelSelectorComponent.UiAnimationDuration)
             .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
 
-        SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
+        Vector3 targetContainerPosition = ItemsContainer.position;
+        targetContainerPosition.y = 0;
         
+        ItemsContainer.DOMove(targetContainerPosition, LevelSelectorComponent.UiAnimationDuration)
+            .SetDelay(LevelSelectorComponent.UiAnimationDuration / 2);
+
         this.Invoke(()=> IsFocused = true, LevelSelectorComponent.UiAnimationDuration);
     }
     
     void HideCollection(float _Duration = 0)
     {
-        if (activePlayer != null)
-        {
-            activePlayer.transform.DOMove(Vector3.up * ScreenScaler.CameraSize.y,
-                LevelSelectorComponent.UiAnimationDuration).onComplete = () => Destroy(activePlayer.gameObject);
-        }
-
         if (Math.Abs(_Duration) > Mathf.Epsilon)
             Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
         else
             Content.position += Vector3.up * Screen.height;
 
+        Vector3 targetContainerPosition = ItemsContainer.position;
+        targetContainerPosition.y = ScreenScaler.CameraSize.y;
+
+        ItemsContainer.DOMove(targetContainerPosition, LevelSelectorComponent.UiAnimationDuration);
+
         IsFocused = false;
     }
 
-    void ChoosePlayer(float _Duration)
+    void CleanContainers()
     {
-        if (Math.Abs(_Duration) > Mathf.Epsilon)
-            Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
-        else
-            Content.position += Vector3.up * Screen.height;
-
-        IsFocused = false;
+        foreach (int key in itemContainers.Keys)
+            DestroyImmediate(itemContainers[key].gameObject);
+        
+        itemContainers.Clear();
     }
-
+    
     void OnChoose()
     {
+        if (!IsFocused || !itemContainers.ContainsKey(Index))
+            return;
+
+        PlayerView newPlayerView = itemContainers[Index];
+        itemContainers.Remove(Index);
+        CleanContainers();
+
         Account.CollectionDefaultItemId = Index;
-        ChoosePlayer(LevelSelectorComponent.UiAnimationDuration);
-        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(activePlayer));
+        
+        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(newPlayerView));
+
+        HideCollection();
     }
 
     void OnBack()
     {
+        if (!IsFocused)
+            return;
+        
         Back();
     }
 
@@ -144,41 +177,89 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         HideCollection(LevelSelectorComponent.UiAnimationDuration);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
+
+    bool HasItem(int levelIndex)
+    {
+        return levelIndex >= 0 && levelIndex < Length;
+    }
     
-    protected override void MoveLeft()
+    #endregion
+    
+    #region Offset
+
+    protected override void ProcessOffset()
     {
-        if (Index == 0 || !LeftBtn.gameObject.activeInHierarchy || !LeftBtn.Interactable || !MobileInput.Condition)
-        {
-            Debug.Log("Selection's already on the first element or left button disabled");
-            return;
-        }
-        
-        Index--;
-        DisplayItem(Index, 1);
+        ItemsContainer.SetX(- Offset * ScreenScaler.CameraSize.x);
+
+        ProcessItems();
+        ProcessSideButtons();
     }
 
-    protected override void MoveRight()
+    void ProcessItems()
     {
-        if (Index == Length - 1 || !RightBtn.gameObject.activeInHierarchy || !RightBtn.Interactable || !MobileInput.Condition)
-        {
-            Debug.Log("Selection's already on the last element or right button disabled");
-            return;
-        }
+        int nextItem = NextItem;
         
-        Index++;
-        DisplayItem(Index, -1);
+        if(!HasItem(nextItem))
+            return;
+        
+        CreateItem(nextItem);
     }
+    
+    void ProcessSideButtons()
+    {
+        int nextItem = NextItem;
 
-//]    protected override void OnSwipeUp()
-//    {
-////        base.OnSwipeUp();
-//        Back();
-//    }
+        if (!HasItem(nextItem))
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index) / 1;
+
+        int direction = Index > nextItem ? 1 : -1;
+
+        Color startLeftBtnColor = HasItem(Index - 1) ? Color.white : Color.clear;
+        Color startRightBtnColor = HasItem(Index + 1) ? Color.white : Color.clear;
+        
+        Color targetLeftBtnColor = HasItem(Index - direction - 1) ? Color.white : Color.clear;
+        Color targetRightBtnColor = HasItem(Index - direction + 1) ? Color.white : Color.clear;
+
+        LeftBtn.Color = Color.Lerp(startLeftBtnColor, targetLeftBtnColor, phase * phase);
+        RightBtn.Color = Color.Lerp(startRightBtnColor, targetRightBtnColor, phase * phase);
+        
+    }
+    #endregion
+    
+    #region Index
 
     protected override void ProcessIndex()
     {
-//        throw new NotImplementedException();
+        if(afterTouchRoutine != null)
+            StopCoroutine(afterTouchRoutine);
+
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+        
+        CreateItem(Index - 1);
+        CreateItem(Index);
+        CreateItem(Index + 1);
+        
+        Offset = Index;
+        
+        ItemsContainer.SetX(- Index * ScreenScaler.CameraSize.x);
+        
+        ProcessSideButtonsByIndex();
     }
+    
+    void ProcessSideButtonsByIndex()
+    {
+        RightBtn.Interactable = Index + 1 < Length;
+        LeftBtn.Interactable = Index > 0;
+        
+        RightBtn.Color = Index + 1 < Length ? Color.white : Color.clear;
+        LeftBtn.Color = Index > 0 ? Color.white : Color.clear;
+    }
+    #endregion
+    
+    #region event handlers
 
     protected override void OnEnable()
     {
@@ -195,14 +276,48 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         InteractBtn.OnClick -= OnChoose;
         HomeBtn.OnClick -= OnBack;
     }
-
-    protected override void ProcessOffset()
+    
+    protected override void OnTouchDown_Handler(Vector2 position)
     {
-//        throw new NotImplementedException();
+        if (!IsFocused)
+            return;
+        
+        if(afterTouchRoutine != null)
+            StopCoroutine(afterTouchRoutine);
+
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
     }
 
+    protected override void OnTouchMove_Handler(Vector2 delta)
+    {
+        if (!IsFocused)
+            return;
+        
+        float offsetDelta = - delta.x / ScreenScaler.ScreenSize.x * TouchSensitivity; 
+
+        bool shouldMove = Offset + offsetDelta >= 0 && Offset + offsetDelta < Length - 1;
+        
+        if(shouldMove)
+            Offset += offsetDelta;
+        
+    }
+
+    protected override void OnTouchCancel_Handler(Vector2 position)
+    {
+        if (!IsFocused)
+            return;
+        
+        StartCoroutine(afterTouchRoutine = TimedAfterTouchRoutine(0.3f));
+        
+    }
+    
     void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
         ShowCollection();
     }
+    
+    #endregion
+
+    
 }

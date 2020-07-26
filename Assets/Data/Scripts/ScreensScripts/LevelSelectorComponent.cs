@@ -13,7 +13,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 {
     #region serialized
     
-    [SerializeField] Transform LevelContainer;
+    [SerializeField] Transform LevelsContainer;
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
 
@@ -56,11 +56,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     #region constants
     
-    public const float MainButtonsOffset = 500; 
-    public const float PlayerAnimationDuration = 0.5f; 
+    public const float MainButtonsOffset = 500;
     public const float UiAnimationDuration = 0.5f;
-
-    public const float TouchSensitivity = 2;
 
     static readonly Vector2 EnabledCollectionMaxAnchor = new Vector2(0.48f, 0.3f);
     static readonly Vector2 DisabledCollectionMaxAnchor = new Vector2(0.14f, 0.3f);
@@ -86,34 +83,34 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void MoveLeft()
     {
-        if (HasLevel(Index - 1) && LeftBtn.Interactable && MobileInput.Condition)
-        {
-            float phase = Mathf.Abs(Offset - Index);
+        if (!HasLevel(Index - 1) || !LeftBtn.Interactable || !MobileInput.Condition) 
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index);
             
-            if(moveToIndexRoutine != null)
-                StopCoroutine(moveToIndexRoutine);
-            StartCoroutine(moveToIndexRoutine =
-                MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
-        }
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+        StartCoroutine(moveToIndexRoutine =
+            MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
     }
 
     protected override void MoveRight()
     {
-        if (HasLevel(Index + 1) && RightBtn.Interactable && MobileInput.Condition)
-        {
-            float phase = Mathf.Abs(Offset - Index);
+        if (!HasLevel(Index + 1) || !RightBtn.Interactable || !MobileInput.Condition) 
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index);
             
-            if(moveToIndexRoutine != null)
-                StopCoroutine(moveToIndexRoutine);
-            StartCoroutine(moveToIndexRoutine =
-                MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
-        }
+        if(moveToIndexRoutine != null)
+            StopCoroutine(moveToIndexRoutine);
+        StartCoroutine(moveToIndexRoutine =
+            MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
     }
     
     void HideUI()
     {
-        RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration).onComplete = () => RightBtn.SetActive(false);
-        LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration).onComplete = () => LeftBtn.SetActive(false);
+        RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration);
+        LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration);
         
         Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, InteractBtn.RectTransform.rect.y - MainButtonsOffset), UiAnimationDuration);
         interactBtnTweener.onPlay = () => InteractBtn.Interactable = false; 
@@ -147,9 +144,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         this.Invoke(() => IsFocused = true, UiAnimationDuration);
     }
     
-    void BringBackUI(PlayerView _NewPlayer)
+    void BringBackUI(PlayerView newPlayerView)
     {
-
+        
         RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         
@@ -162,14 +159,25 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         ShowCollectionButton(UiAnimationDuration, 0.25f);
         
-        if (_NewPlayer != null)
+        if (newPlayerView != null)
         {    
+            //Remove the old player view with new one
             DestroyImmediate(playerView.gameObject);
-            playerView = _NewPlayer;
-            LevelContainer.GetComponentInChildren<LevelRootView>().PlayerView = playerView;
+            playerView = newPlayerView;
+            levelContainers[Index].PlayerView = playerView;
+            
+            foreach (int levelIndex in levelContainers.Keys)
+            {
+                if (levelIndex == Index)
+                    continue;
+            
+                SetLevelDefaultPlayerView(levelIndex);
+            }
+            
         }
         else
         {
+            //Bring back old player view
             playerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
         }
 
@@ -206,7 +214,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void CleanContainers()
     {
-        int count = levelContainers.Count;
+        int count = Length;
         
         for (int i = 0; i < count; i++)
         {
@@ -238,12 +246,34 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             levelContainers[index].SetActiveLevelRoot(true);
             return;
         }
-        
-        Transform level = Instantiate(Selection[index].LevelRootPrefab, LevelContainer).transform;
+
+        Transform level = Instantiate(Selection[index].LevelRootPrefab, LevelsContainer).transform;
         level.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
-        levelContainers[index] = level.GetComponent<LevelRootView>();
+        LevelRootView levelRootView = level.GetComponent<LevelRootView>();
+        levelContainers[index] = levelRootView;
+
+        SetLevelDefaultPlayerView(index);
     }
 
+    void SetLevelDefaultPlayerView(int index)
+    {
+        if (index < 0 || index >= Length || !Selection[index].CollectionEnabled)
+            return;
+
+        LevelRootView levelRootView = levelContainers[index];
+        
+        GameObject newPlayerViewPrefab = Account.CollectionDefaultItem.GetPuzzleVariant(Selection[index].PuzzleSides);
+
+        if (!newPlayerViewPrefab)
+            return;
+            
+        DestroyImmediate(levelRootView.PlayerView.gameObject);
+
+        PlayerView newPlayerView = Instantiate(newPlayerViewPrefab).GetComponent<PlayerView>();
+
+        levelRootView.PlayerView = newPlayerView;
+    }
+        
     void OnInteract()
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
@@ -258,39 +288,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ShowCollection();
     }
 
-    IEnumerator TimedAfterTouchRoutine(float duration, Action finished = null)
-    {
-        float startOffset = Offset;
-        int targetIndex = Mathf.RoundToInt(startOffset);
-
-        float time = 0;
-        
-        while (time <= duration)
-        {
-            Offset = Mathf.Lerp(startOffset, targetIndex, time / duration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        Index = targetIndex;
-        finished?.Invoke();
-    }
-
-    IEnumerator MoveToIndexRoutine(int index, float duration, Action finished = null)
-    {
-        float time = 0;
-        float startOffset = Offset;
-        while (time < duration)
-        {
-            Offset = Mathf.Lerp(startOffset, index, time / duration);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        Index = index;
-        finished?.Invoke();
-    } 
-    
     bool HasLevel(int levelIndex)
     {
         return levelIndex >= 0 && levelIndex < Length;
@@ -302,7 +299,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     protected override void ProcessOffset()
     {
-        LevelContainer.position = - Offset * ScreenScaler.CameraSize.x * Vector3.right;
+        LevelsContainer.position = - Offset * ScreenScaler.CameraSize.x * Vector3.right;
 
         ProcessLevels();
         ProcessColors();
@@ -441,7 +438,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         Offset = Index;
         
-        LevelContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
+        LevelsContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
         
         ProcessSortingOrderByIndex();
         ProcessLevelsByIndex();

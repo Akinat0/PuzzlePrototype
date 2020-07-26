@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using Abu.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -46,11 +45,18 @@ public static class Utility
         textMesh.color = color;
     }
     
-    //RectTransform
-    public static Vector2 GetAnchorsSize(this RectTransform rt)
+    //Transform
+    public static void SetX(this Transform transform, float value)
     {
-        Vector2 screenSize = ScreenScaler.ScreenSize;
-        return new Vector2((rt.anchorMax.x - rt.anchorMin.x) * screenSize.x,
-            (rt.anchorMax.y - rt.anchorMin.y) * screenSize.y);
+        Vector3 position = transform.position;
+        position.x = value;
+        transform.position = position;
+    }
+    
+    public static void SetY(this Transform transform, float value)
+    {
+        Vector3 position = transform.position;
+        position.y = value;
+        transform.position = position;
     }
 }
