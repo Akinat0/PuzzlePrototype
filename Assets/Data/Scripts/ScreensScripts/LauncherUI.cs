@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using Abu.Tools;
 using Puzzle;
@@ -15,7 +16,8 @@ namespace ScreensScripts
         public static event Action GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
-        public static event Action<CloseCollectionEventArgs> CloseCollectionEvent; 
+        public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
+        public static event Action OpenCollectionMenuEvent;
 
 
         [SerializeField] private AsyncLoader asyncLoader;
@@ -85,6 +87,11 @@ namespace ScreensScripts
                 playerEntity = args.PlayerView.transform;
             
             CloseCollectionEvent?.Invoke(args);
+        }
+
+        public void InvokeOpenCollectionMenu()
+        {
+            Debug.Log("OpenCollection Invoked");
         }
     }
 }
