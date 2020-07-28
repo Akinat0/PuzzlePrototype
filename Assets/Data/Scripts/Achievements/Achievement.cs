@@ -28,7 +28,7 @@ public abstract class Achievement
 
     public abstract float TargetProgress { get; }
 
-    string Key => GetType().GetHashCode().ToString();
+    string Key => Name;
 
     string ProgressKey => Key + "Progress";
     string IsReceivedKey => Key + "IsReceived";
@@ -43,7 +43,13 @@ public abstract class Achievement
 
         set
         {
-            progress = value;
+            if (IsReceived)
+            {
+                progress = TargetProgress;
+                return;
+            }
+            
+            progress = Mathf.Clamp(value, 0, TargetProgress);
             ProcessProgress();
         }
     }

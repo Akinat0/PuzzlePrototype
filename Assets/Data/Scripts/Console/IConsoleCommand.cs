@@ -1,4 +1,7 @@
 using System;
+using System.Linq;
+using System.Runtime.InteropServices;
+using Boo.Lang;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -87,4 +90,101 @@ namespace Abu.Console
             return result;
         }
     }
+
+    public class AchievementsListCommand : IConsoleCommand
+    {
+        public string Command => "achievements";
+
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 2)
+            {
+                switch (args[1].ToString())
+                {
+                    case "list":
+                        return List;
+                    case "reset":
+                        return Reset;
+                    default:
+                        return Help;
+                }
+            }
+            else
+            {
+                return Help;
+            }
+
+        }
+
+        string List
+        {
+            get
+            {
+                string result = String.Empty;
+
+                foreach (var achievement in Account.Achievements)
+                    result += achievement.Name + Environment.NewLine;
+
+                return result;
+            }
+        }
+
+        string Reset
+        {
+            get
+            {
+                foreach (var achievement in Account.Achievements)
+                    achievement.Progress = 0;
+
+                return "All achievements have been reset";
+            }
+        }
+
+        string Help => $"\"list\" to print all achievements. {Environment.NewLine}" +
+                       $"\"reset\" to reset all achievements {Environment.NewLine}";
+
+    }
+    
+    public class AchievementsSetProgressCommand : IConsoleCommand
+    {
+        public string Command => "setprogress";
+
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 3)
+            {
+                return SetProgress(args[1], args[2]);
+            }
+            else
+            {
+                return Help;
+            }
+
+        }
+
+
+        string SetProgress(object achievement, object progress)
+        {
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                Account.Achievements.FirstOrDefault(a =>
+                        String.Equals(a.Name.Replace(" ", ""), achievement.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                    .Progress = float.Parse(progress.ToString());
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+
+            return "Success.";
+        }
+
+
+        string Help => $"\"achievement name\" (without whitespaces) \"progress\" to to set achievement progress. ";
+
+
+    }
+    
+    
 }

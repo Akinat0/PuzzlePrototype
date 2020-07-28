@@ -15,7 +15,9 @@ namespace Abu.Console
                 new HelpConsoleCommand(),
                 new ClearConsoleCommand(),
                 new WalletConsoleCommand(),
-                new DefaultCollectionItemCommand()
+                new DefaultCollectionItemCommand(),
+                new AchievementsListCommand(),
+                new AchievementsSetProgressCommand(),
             };
         }
 

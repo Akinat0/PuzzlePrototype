@@ -39,6 +39,7 @@ namespace Data.Scripts.ScreensScripts
         public Transform Create()
         {
             entity = Object.Instantiate(Prefab);
+            entity.name = achievement.Name + " achievement";
             entity.Text = achievement.Name;
             entity.SetupProgress(achievement.Progress, 0, achievement.TargetProgress);
 
