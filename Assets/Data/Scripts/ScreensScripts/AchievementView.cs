@@ -1,16 +1,22 @@
 using System;
 using System.Net.Mime;
 using Abu.Tools.UI;
+using Puzzle;
 using TMPro;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Data.Scripts.ScreensScripts
 {
-    [CreateAssetMenu(fileName = "New PuzzleAchievementItem", menuName = "Puzzle/CreateAchievementItem", order = 51)]
-    public class AchievementData : ScriptableObject, IListElement
+    public class AchievementView : IListElement
     {
-        [SerializeField] string Description;
+        public AchievementView(Achievement achievement)
+        {
+            this.achievement = achievement;
+        }
 
+        Achievement achievement;
+        
         public Vector2 Size => entity.RectTransform.rect.size;
         
         TextButtonComponent entity;
@@ -32,12 +38,11 @@ namespace Data.Scripts.ScreensScripts
 
         public Transform Create()
         {
-            entity = Instantiate(Prefab);
-            entity.Text = Description;
+            entity = Object.Instantiate(Prefab);
+            entity.Text = achievement.Name;
 
             return entity.transform;
         }
-
         
     }
 }

@@ -1,16 +1,18 @@
+using System.Linq;
 using Abu.Tools.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Data.Scripts.ScreensScripts
 {
-    public class AchievementScrollList : VerticalScrollListComponent<AchievementData>
+    public class AchievementScrollList : VerticalScrollListComponent<AchievementView>
     {
-        //TODO move to account, when achievement system will be done
-        [SerializeField] AchievementData[] Achievements;
+        protected override void Start()
+        {
+            Selection = Account.Achievements.Select(A => new AchievementView(A)).ToArray();
+            base.Start();
+        }
 
-        protected override AchievementData[] Selection => Achievements;
-        
         protected override void AddElement(IListElement listElement)
         {
             base.AddElement(listElement);

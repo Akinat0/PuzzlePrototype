@@ -19,7 +19,7 @@ namespace Abu.Tools.UI
         protected LayoutGroup Layout => layout;
 
 
-        protected virtual void Awake()
+        protected virtual void Start()
         {
             CreateList();
         }
