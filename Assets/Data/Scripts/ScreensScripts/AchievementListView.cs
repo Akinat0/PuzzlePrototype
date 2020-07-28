@@ -8,29 +8,29 @@ using Object = UnityEngine.Object;
 
 namespace Data.Scripts.ScreensScripts
 {
-    public class AchievementView : IListElement
+    public class AchievementListView : IListElement
     {
-        public AchievementView(Achievement achievement)
+        public AchievementListView(Achievement achievement)
         {
             this.achievement = achievement;
         }
 
-        Achievement achievement;
+        readonly Achievement achievement;
         
         public Vector2 Size => entity.RectTransform.rect.size;
         
-        TextButtonComponent entity;
+        AchievementViewComponent entity;
 
-        const string pathToPrefab = "UI/TextButton Variant";
+        const string pathToPrefab = "UI/AchievementView";
 
-        static TextButtonComponent prefab;
+        static AchievementViewComponent prefab;
         
-        static TextButtonComponent Prefab
+        static AchievementViewComponent Prefab
         {
             get
             {
                 if (prefab == null)
-                    prefab = Resources.Load<TextButtonComponent>(pathToPrefab);
+                    prefab = Resources.Load<AchievementViewComponent>(pathToPrefab);
 
                 return prefab;
             }        
@@ -40,6 +40,7 @@ namespace Data.Scripts.ScreensScripts
         {
             entity = Object.Instantiate(Prefab);
             entity.Text = achievement.Name;
+            entity.SetupProgress(achievement.Progress, 0, achievement.TargetProgress);
 
             return entity.transform;
         }

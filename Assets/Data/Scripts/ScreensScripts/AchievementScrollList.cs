@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 namespace Data.Scripts.ScreensScripts
 {
-    public class AchievementScrollList : VerticalScrollListComponent<AchievementView>
+    public class AchievementScrollList : VerticalScrollListComponent<AchievementListView>
     {
         protected override void Start()
         {
-            Selection = Account.Achievements.Select(A => new AchievementView(A)).ToArray();
+            Selection = Account.Achievements.Select(A => new AchievementListView(A)).ToArray();
             base.Start();
         }
 
