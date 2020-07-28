@@ -70,7 +70,7 @@ namespace Abu.Tools.UI
             {
                 OnClick?.Invoke();
                 
-                if(Sound != null)
+                if(Sound != null && SoundManager.Instance != null)
                     SoundManager.Instance.PlayOneShot(Sound);
             }
         }

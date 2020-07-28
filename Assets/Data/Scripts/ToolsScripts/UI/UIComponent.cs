@@ -6,11 +6,11 @@ namespace Abu.Tools.UI
 {
     public abstract class UIComponent : MonoBehaviour
     {
-        public void SetActive(bool enable)
+        public void SetActive(bool value)
         {
-            gameObject.SetActive(enable);
+            gameObject.SetActive(value);
         }
-
+        
         public bool ActiveInHierarchy => gameObject.activeInHierarchy;
         public bool ActiveSelf => gameObject.activeSelf;
         
