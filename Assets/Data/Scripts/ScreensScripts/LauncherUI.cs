@@ -17,7 +17,6 @@ namespace ScreensScripts
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
-        public static event Action OpenCollectionMenuEvent;
 
 
         [SerializeField] private AsyncLoader asyncLoader;
@@ -89,9 +88,5 @@ namespace ScreensScripts
             CloseCollectionEvent?.Invoke(args);
         }
 
-        public void InvokeOpenCollectionMenu()
-        {
-            Debug.Log("OpenCollection Invoked");
-        }
     }
 }

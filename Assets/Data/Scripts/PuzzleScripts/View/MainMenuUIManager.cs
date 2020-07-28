@@ -13,11 +13,16 @@ namespace Puzzle
         [SerializeField] ButtonComponent collectionButton;
         [SerializeField] ButtonComponent achievementButton;
         [SerializeField] ButtonComponent levelsButton;
+        [SerializeField] ButtonComponent closeButton;
+
+        [SerializeField] GameObject AchievementScreen;
         
         public WalletComponent Wallet => wallet;
-        public ButtonComponent CollectionButton => collectionButton;
-        public ButtonComponent AchievementButton => achievementButton;
-        public ButtonComponent LevelsButton => levelsButton;
+
+        void Awake()
+        {
+            HideAllScreens();
+        }
 
         void HideMiniButtons()
         {
@@ -28,26 +33,41 @@ namespace Puzzle
         {
             miniButtonsContainer.DOAnchorPosY(0, LevelSelectorComponent.UiAnimationDuration).SetDelay(0.25f);
         }
+
+        void HideAllScreens()
+        {
+            closeButton.SetActive(false);
+            AchievementScreen.SetActive(false);
+        }
+
+        void CollectionButtonOnClick()
+        {
+            closeButton.SetActive(true);
+            AchievementScreen.SetActive(true);
+        }
+
+        void CloseButtonOnClick()
+        {
+            HideAllScreens();
+        }
         
         void OnEnable()
         {
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
-            CollectionButton.OnClick += CollectionButtonOnClick;
+            collectionButton.OnClick += CollectionButtonOnClick;
+            closeButton.OnClick += CloseButtonOnClick;
         }
 
         void OnDisable()
         {
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
-            CollectionButton.OnClick -= CollectionButtonOnClick;
+            collectionButton.OnClick -= CollectionButtonOnClick;
+            closeButton.OnClick -= CloseButtonOnClick;
         }
-        
-        void CollectionButtonOnClick()
-        {
-            LauncherUI.Instance.InvokeOpenCollectionMenu();
-        }
-        
+
+
         void PlayLauncherEvent_Handler(PlayLauncherEventArgs _ )
         {
             HideMiniButtons();
