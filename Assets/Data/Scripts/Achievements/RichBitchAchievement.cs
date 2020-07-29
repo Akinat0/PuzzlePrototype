@@ -1,6 +1,4 @@
 
-using UnityEngine;
-
 public class RichBitchAchievement : Achievement
 {
     
@@ -10,8 +8,12 @@ public class RichBitchAchievement : Achievement
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
     
+    readonly CoinsReward reward = new CoinsReward(1000);
+    
     public override string Name => "Rich Bitch";
-    public override float TargetProgress => 1000;
+    public override string Description => "Collect 1000 coins";
+    public override Reward Reward => reward;
+    public override float Goal => 1000;
     
     void BalanceChangedEvent_Handler(int balance)
     {

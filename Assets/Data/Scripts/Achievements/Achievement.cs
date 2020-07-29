@@ -1,39 +1,62 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Achievement
 {
+    public enum AchievementState
+    {
+        InProgress = 0,
+        Received = 1, 
+        Claimed = 2
+    }
+    
+    public event Action<float> ProgressChangedEvent;
+    public event Action AchievementReceivedEvent;
+    public event Action AchievementClaimedEvent; 
+    
     public static Achievement[] CreateAllAchievements()
     {
-        List<Achievement> achievements = new List<Achievement>();
-
-        achievements.Add(new TutorialAchievement());
-        achievements.Add(new RichBitchAchievement());
+        List<Achievement> achievements = new List<Achievement>
+        {
+            new TutorialAchievement(),
+            new RichBitchAchievement()
+        };
         
         return achievements.ToArray();
     }
 
     protected Achievement()
     {
-        int IsReceivedCode = PlayerPrefs.GetInt(IsReceivedKey, 0);
+        int StateCode = PlayerPrefs.GetInt(StateKey, 0);
         
         //Convert int to bool
-        IsReceived = IsReceivedCode != 0; 
+        State = (AchievementState)StateCode;
 
         Progress = PlayerPrefs.GetFloat(ProgressKey, 0.0f);
     }
 
-    public abstract string Name { get; } 
-
-    public abstract float TargetProgress { get; }
-
+    public abstract string Name { get; }
+    public abstract string Description { get; }
+    public abstract Reward Reward { get; }
+    public abstract float Goal { get; }
+    
     string Key => Name;
-
     string ProgressKey => Key + "Progress";
-    string IsReceivedKey => Key + "IsReceived";
+    string StateKey => Key + "State";
 
-    public bool IsReceived;
+    AchievementState state;
+
+    public AchievementState State
+    {
+        get => state;
+        protected set
+        {
+            state = value;
+            SaveStateAndProgress();
+        }
+    }
 
     float progress;
 
@@ -43,30 +66,52 @@ public abstract class Achievement
 
         set
         {
-            if (IsReceived)
+            if (State == AchievementState.Received || State == AchievementState.Claimed)
             {
-                progress = TargetProgress;
+                progress = Goal;
                 return;
             }
             
-            progress = Mathf.Clamp(value, 0, TargetProgress);
-            ProcessProgress();
+            progress = Mathf.Clamp(value, 0, Goal);
+            
+            SaveStateAndProgress();
+            
+            if (Progress >= Goal || Mathf.Approximately(Progress, Goal))
+                ReceiveAchievement();
+            
+            ProgressChangedEvent?.Invoke(progress);
         }
     }
 
-    protected virtual void ProcessProgress()
+    public void Claim()
     {
-        if (Progress >= TargetProgress)
-            EarnAchievement();
+        if (State != AchievementState.Received)
+            return;
         
-        PlayerPrefs.SetFloat(ProgressKey, Progress);
-        PlayerPrefs.Save();
+        State = AchievementState.Claimed;
+        Reward.Claim();
+        AchievementClaimedEvent?.Invoke();
+    }
+    
+
+    protected virtual void ReceiveAchievement()
+    {
+        State = AchievementState.Received;
+
+        AchievementReceivedEvent?.Invoke();
     }
 
-    protected virtual void EarnAchievement()
+    [Obsolete("Use it only in console commands")]
+    public void ResetAchievement()
     {
-        IsReceived = true;
-        PlayerPrefs.SetInt(IsReceivedKey, 1);
+        State = AchievementState.InProgress;
+        Progress = 0;
+    }
+
+    void SaveStateAndProgress()
+    {
+        PlayerPrefs.SetInt(StateKey, (int) State);
+        PlayerPrefs.SetFloat(ProgressKey, Progress);
         PlayerPrefs.Save();
     }
 }

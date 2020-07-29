@@ -1,8 +1,4 @@
-using System;
-using System.Net.Mime;
 using Abu.Tools.UI;
-using Puzzle;
-using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -13,6 +9,9 @@ namespace Data.Scripts.ScreensScripts
         public AchievementListView(Achievement achievement)
         {
             this.achievement = achievement;
+            achievement.ProgressChangedEvent += ProgressChangedEvent_Handler;
+            achievement.AchievementReceivedEvent += AchievementReceivedEvent_Handler;
+            achievement.AchievementClaimedEvent += AchievementClaimedEvent_Handler;
         }
 
         readonly Achievement achievement;
@@ -36,15 +35,65 @@ namespace Data.Scripts.ScreensScripts
             }        
         }
 
-        public Transform Create()
+        public void Create(Transform container)
         {
-            entity = Object.Instantiate(Prefab);
+            entity = Object.Instantiate(Prefab, container);
             entity.name = achievement.Name + " achievement";
             entity.Text = achievement.Name;
-            entity.SetupProgress(achievement.Progress, 0, achievement.TargetProgress);
+            entity.DescriptionText = achievement.Description;
+            entity.CreateReward(achievement.Reward);
+            
+            UpdateView();
 
-            return entity.transform;
+            entity.OnClick += () =>
+            {
+                if (achievement.State == Achievement.AchievementState.Received)
+                    achievement.Claim();
+            };
+        }
+
+        void UpdateView()
+        {
+            
+            entity.SetupProgressBar(achievement.Progress, 0, achievement.Goal);
+            entity.Interactable = achievement.State == Achievement.AchievementState.Received;
+
+            Color achievementColor;
+
+            switch (achievement.State)
+            {
+                case Achievement.AchievementState.InProgress:
+                    achievementColor = Color.gray;
+                    break;
+                case Achievement.AchievementState.Received:
+                    achievementColor = Color.green;
+                    break;
+                case Achievement.AchievementState.Claimed:
+                    achievementColor = Color.yellow;
+                    break;
+                default:
+                    achievementColor = Color.magenta;
+                    break;
+            }
+
+            entity.Color = achievementColor;
+            
+            
         }
         
+        void ProgressChangedEvent_Handler(float progress)
+        {
+            UpdateView();
+        }
+        
+        void AchievementReceivedEvent_Handler()
+        {
+            UpdateView();
+        }
+        
+        void AchievementClaimedEvent_Handler()
+        {
+            UpdateView();
+        }
     }
 }

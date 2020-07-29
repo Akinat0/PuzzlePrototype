@@ -6,7 +6,7 @@ namespace Abu.Tools.UI
 
     public interface IListElement
     {
-        Transform Create();
+        void Create(Transform container);
         Vector2 Size { get; }
     }
     
@@ -34,7 +34,7 @@ namespace Abu.Tools.UI
         
         protected virtual void AddElement(IListElement listElement)
         {
-            listElement.Create().SetParent(Layout.transform);
+            listElement.Create(Layout.transform);
             Content.offsetMin -= new Vector2(0, listElement.Size.y);
         }
         

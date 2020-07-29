@@ -23,6 +23,9 @@ namespace Abu.Console
             {
                 _isConsoleActive = value;
                 console.SetActive(value);
+                
+                if (console.activeInHierarchy)
+                    inputField.Select();
             }
         }
 
@@ -56,7 +59,8 @@ namespace Abu.Console
         public void Process()
         {
             output.text = output.text + inputField.text + Environment.NewLine;
-            output.text += Console.Process(inputField.text) + Environment.NewLine;
+            string result = Console.Process(inputField.text) + Environment.NewLine;
+            output.text += result;
             inputField.text = "";
         }
     }

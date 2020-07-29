@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
-using System.Runtime.InteropServices;
-using Boo.Lang;
+using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -37,7 +36,7 @@ namespace Abu.Console
 
         public string Process(object[] args, Console console)
         {
-            MonoBehaviour consoleView = Object.FindObjectOfType<ConsoleView>();
+            ConsoleView consoleView = Object.FindObjectOfType<ConsoleView>();
             Text text = consoleView.GetComponentInChildren<Text>();
             text.text = "";
             return "";
@@ -134,8 +133,8 @@ namespace Abu.Console
             get
             {
                 foreach (var achievement in Account.Achievements)
-                    achievement.Progress = 0;
-
+                    achievement.ResetAchievement();
+                
                 return "All achievements have been reset";
             }
         }
