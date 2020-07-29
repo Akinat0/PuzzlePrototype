@@ -42,6 +42,7 @@ namespace Data.Scripts.ScreensScripts
             entity.Text = achievement.Name;
             entity.DescriptionText = achievement.Description;
             entity.CreateReward(achievement.Reward);
+            entity.Icon = achievement.Icon;
             
             UpdateView();
 

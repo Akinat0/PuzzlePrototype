@@ -8,6 +8,7 @@ public class AchievementViewComponent : TextButtonComponent
 {
      [SerializeField] protected TextMeshProUGUI Description;
      [SerializeField] public RectTransform RewardContainer;
+     [SerializeField] protected Image iconImage;
      
      Slider progressBar;
 
@@ -15,19 +16,6 @@ public class AchievementViewComponent : TextButtonComponent
      {
           get => Description.text;
           set => Description.text = value;
-     }
-     
-     
-     
-     private Slider ProgressBar
-     {
-          get
-          {
-               if (progressBar == null)
-                    progressBar = GetComponentInChildren<Slider>();
-               
-               return progressBar;
-          }
      }
 
      public void CreateReward(Reward reward)
@@ -41,4 +29,23 @@ public class AchievementViewComponent : TextButtonComponent
           ProgressBar.maxValue = maxValue;
           ProgressBar.value = value;
      }
+
+     public Sprite Icon
+     {
+          set => iconImage.sprite = value;
+     }
+     
+     Slider ProgressBar
+     {
+          get
+          {
+               if (progressBar == null)
+                    progressBar = GetComponentInChildren<Slider>();
+               
+               return progressBar;
+          }
+     }
+
+     
+     
 }

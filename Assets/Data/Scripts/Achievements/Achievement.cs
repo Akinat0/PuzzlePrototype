@@ -31,7 +31,6 @@ public abstract class Achievement
     {
         int StateCode = PlayerPrefs.GetInt(StateKey, 0);
         
-        //Convert int to bool
         State = (AchievementState)StateCode;
 
         Progress = PlayerPrefs.GetFloat(ProgressKey, 0.0f);
@@ -41,7 +40,8 @@ public abstract class Achievement
     public abstract string Description { get; }
     public abstract Reward Reward { get; }
     public abstract float Goal { get; }
-    
+    public virtual Sprite Icon => Resources.Load<Sprite>("Achievements/DefaultAchievement");
+
     string Key => Name;
     string ProgressKey => Key + "Progress";
     string StateKey => Key + "State";
@@ -101,6 +101,13 @@ public abstract class Achievement
         AchievementReceivedEvent?.Invoke();
     }
 
+    void SaveStateAndProgress()
+    {
+        PlayerPrefs.SetInt(StateKey, (int) State);
+        PlayerPrefs.SetFloat(ProgressKey, Progress);
+        PlayerPrefs.Save();
+    }
+    
     [Obsolete("Use it only in console commands")]
     public void ResetAchievement()
     {
@@ -108,12 +115,6 @@ public abstract class Achievement
         Progress = 0;
     }
 
-    void SaveStateAndProgress()
-    {
-        PlayerPrefs.SetInt(StateKey, (int) State);
-        PlayerPrefs.SetFloat(ProgressKey, Progress);
-        PlayerPrefs.Save();
-    }
 }
 
 
