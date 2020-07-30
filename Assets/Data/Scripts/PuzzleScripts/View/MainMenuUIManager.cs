@@ -16,6 +16,7 @@ namespace Puzzle
         [SerializeField] ButtonComponent closeButton;
 
         [SerializeField] GameObject AchievementScreen;
+        [SerializeField] GameObject CollectionScreen;
         
         public WalletComponent Wallet => wallet;
 
@@ -38,12 +39,21 @@ namespace Puzzle
         {
             closeButton.SetActive(false);
             AchievementScreen.SetActive(false);
+            CollectionScreen.SetActive(false);
         }
 
-        void CollectionButtonOnClick()
+        void AchievementButtonOnClick()
         {
+            HideAllScreens();
             closeButton.SetActive(true);
             AchievementScreen.SetActive(true);
+        }
+        
+        void CollectionButtonOnClick()
+        {
+            HideAllScreens();
+            closeButton.SetActive(true);
+            CollectionScreen.SetActive(true);
         }
 
         void CloseButtonOnClick()
@@ -56,6 +66,7 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
             collectionButton.OnClick += CollectionButtonOnClick;
+            achievementButton.OnClick += AchievementButtonOnClick;
             closeButton.OnClick += CloseButtonOnClick;
         }
 
@@ -64,6 +75,7 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
             collectionButton.OnClick -= CollectionButtonOnClick;
+            achievementButton.OnClick -= AchievementButtonOnClick;
             closeButton.OnClick -= CloseButtonOnClick;
         }
 

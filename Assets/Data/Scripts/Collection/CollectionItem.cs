@@ -8,6 +8,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PuzzleCollectionItem", menuName = "Puzzle/CreateCollectionItem", order = 51)]
 public class CollectionItem : ScriptableObject
 {
+    [SerializeField] public string Name; 
     [SerializeField] private PuzzleVariant[] puzzleVariants;
 
 

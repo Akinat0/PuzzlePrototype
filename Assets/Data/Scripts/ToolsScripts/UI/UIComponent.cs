@@ -13,7 +13,7 @@ namespace Abu.Tools.UI
         
         public bool ActiveInHierarchy => gameObject.activeInHierarchy;
         public bool ActiveSelf => gameObject.activeSelf;
-        
-        protected abstract void OnValidate();
+
+        protected virtual void OnValidate() { }
     }
 }
