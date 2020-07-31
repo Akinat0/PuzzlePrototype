@@ -5,8 +5,10 @@ using Abu.Tools;
 using Puzzle;
 using UnityEngine;
 
-public class SetPuzzlesForCamera : MonoBehaviour
+public class RuntimePuzzleAtlas : MonoBehaviour
 {
+    public static RuntimePuzzleAtlas Instance;
+    
     [SerializeField] CollectionItem[] items;
 
     readonly Dictionary<int, Transform> inactiveItems = new Dictionary<int, Transform>();
@@ -15,18 +17,34 @@ public class SetPuzzlesForCamera : MonoBehaviour
     public event Action RebuildPuzzlesAtlas;
 
     Camera renderCamera;
+    RenderTexture atlasTexture;
+
+    Vector2 ScreenSize;
+    Vector2 CameraSize;
+    
     
     void Awake()
     {
+        Instance = this;
+        
+        ScreenSize = ScreenScaler.ScreenSize;
+        CameraSize = ScreenScaler.CameraSize;
+        
+        atlasTexture = Resources.Load<RenderTexture>("Collection/CollectionRenderTexture");
+        atlasTexture.width = Mathf.CeilToInt(ScreenSize.x);
+        atlasTexture.height = Mathf.CeilToInt(ScreenSize.y);
+        
         renderCamera = GetComponent<Camera>();
+        renderCamera.rect = new Rect(0, 0, 1, ScreenSize.y / ScreenSize.x );
 
         foreach (var item in items)
         {
             inactiveItems[item.ID] = Instantiate(item.GetAnyPuzzleVariant(), transform).transform;
-            inactiveItems[item.ID].localPosition = ScreenScaler.CameraSize * 3;
+            inactiveItems[item.ID].localPosition = CameraSize * 3;
         }
     }
 
+    
     public Rect GetPuzzleRectInAtlas(int id)
     {
         if (!activeItems.ContainsKey(id))
@@ -37,8 +55,6 @@ public class SetPuzzlesForCamera : MonoBehaviour
     
     public void DeactivateItem(int id)
     {
-        Debug.Log($"Deactivate {id}");
-        
         if (activeItems.ContainsKey(id))
         {
             inactiveItems[id] = activeItems[id];
@@ -49,18 +65,17 @@ public class SetPuzzlesForCamera : MonoBehaviour
             return;
         
         //Set invalid position
-        inactiveItems[id].position = ScreenScaler.ScreenSize * 3; 
+        inactiveItems[id].position = ScreenSize * 3; 
         
         CreateActiveItems();
     }
+    
     
     void RequestItem(int id)
     {
         if (activeItems.ContainsKey(id))
             return;
 
-        Debug.Log($"Activate {id}");
-        
         activeItems[id] = inactiveItems[id];
         inactiveItems.Remove(id);
         
@@ -78,8 +93,8 @@ public class SetPuzzlesForCamera : MonoBehaviour
             int column = i % 4;
             int row = i / 4;
             
-            float xPos = - ScreenScaler.CameraSize.x / 2.0f + ScreenScaler.CameraSize.x / 4.0f * column + ScreenScaler.CameraSize.x / 8f;
-            float yPos = ScreenScaler.CameraSize.y / 2.0f - ScreenScaler.CameraSize.x / 4.0f  * row - ScreenScaler.CameraSize.x / 8f;
+            float xPos = - CameraSize.x / 2.0f + CameraSize.x / 4.0f * column + CameraSize.x / 8f;
+            float yPos = CameraSize.y / 2.0f - CameraSize.x / 4.0f  * row - CameraSize.x / 8f;
             float zPos = 10;
             
             Vector3 position = new Vector3(xPos, yPos, zPos);
@@ -97,7 +112,7 @@ public class SetPuzzlesForCamera : MonoBehaviour
         if(!activeItems.ContainsKey(id))
             return Rect.zero;
 
-        Vector2 halfCameraSize = ScreenScaler.CameraSize / 2f;
+        Vector2 halfCameraSize = CameraSize / 2f;
         
         //To camera coordinates
         Vector3 position = activeItems[id].localPosition + new Vector3(halfCameraSize.x, halfCameraSize.y);
@@ -105,7 +120,7 @@ public class SetPuzzlesForCamera : MonoBehaviour
         int column = 0;
         int row = 0;
         
-        float step = ScreenScaler.CameraSize.x / 4;
+        float step = CameraSize.x / 4;
             
         float minRange = 0;
         float maxRange = step;
@@ -120,8 +135,8 @@ public class SetPuzzlesForCamera : MonoBehaviour
             maxRange += step;
         }
         
-        minRange = ScreenScaler.CameraSize.y - step;
-        maxRange = ScreenScaler.CameraSize.y;
+        minRange = CameraSize.y - step;
+        maxRange = CameraSize.y;
         
         while (!(position.y >= minRange && position.y <= maxRange || counter >= 100))
         {
@@ -132,9 +147,9 @@ public class SetPuzzlesForCamera : MonoBehaviour
         }
         
         float xPos = column * 0.25f;
-        float yPos = 1 - (row + 1) * ScreenScaler.CameraSize.x / ScreenScaler.CameraSize.y * 0.25f;
+        float yPos = 1 - (row + 1) * CameraSize.x / CameraSize.y * 0.25f;
         float width = 0.25f;
-        float height = ScreenScaler.CameraSize.x / ScreenScaler.CameraSize.y * 0.25f;
+        float height = CameraSize.x / CameraSize.y * 0.25f;
 
         return new Rect(xPos, yPos, width, height);
     }
