@@ -35,10 +35,10 @@ namespace Data.Scripts.ScreensScripts
         public void Create(Transform container)
         {
             entity = Object.Instantiate(Prefab, container);
-            entity.Icon = GetSprite(collectionItem);
+            entity.PuzzleID = collectionItem.ID; 
             entity.Text = collectionItem.Name;
-//            TODO add name to puzzles
-//            entity.name = collectionItem. + " achievement";
+            entity.name = collectionItem.Name + " puzzle";
+
 //            entity.Text = achievement.Name;
 
 //            entity.DescriptionText = achievement.Description;

@@ -9,8 +9,6 @@ public class RuntimePuzzleAtlas : MonoBehaviour
 {
     public static RuntimePuzzleAtlas Instance;
     
-    [SerializeField] CollectionItem[] items;
-
     readonly Dictionary<int, Transform> inactiveItems = new Dictionary<int, Transform>();
     readonly Dictionary<int, Transform> activeItems = new Dictionary<int, Transform>();
 
@@ -26,7 +24,7 @@ public class RuntimePuzzleAtlas : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        
+
         ScreenSize = ScreenScaler.ScreenSize;
         CameraSize = ScreenScaler.CameraSize;
         
@@ -37,7 +35,7 @@ public class RuntimePuzzleAtlas : MonoBehaviour
         renderCamera = GetComponent<Camera>();
         renderCamera.rect = new Rect(0, 0, 1, ScreenSize.y / ScreenSize.x );
 
-        foreach (var item in items)
+        foreach (var item in Account.CollectionItems)
         {
             inactiveItems[item.ID] = Instantiate(item.GetAnyPuzzleVariant(), transform).transform;
             inactiveItems[item.ID].localPosition = CameraSize * 3;

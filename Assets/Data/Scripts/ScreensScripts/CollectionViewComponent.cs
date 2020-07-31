@@ -4,9 +4,11 @@ namespace Data.Scripts.ScreensScripts
 {
     public class CollectionViewComponent : TextButtonComponent
     {
-        public Sprite Icon
+        UIPuzzleView puzzleView;
+        
+        public int PuzzleID
         {
-            set => Background.sprite = value;
+            set => puzzleView = UIPuzzleView.Create(value, RectTransform);
         }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using Abu.Tools;
 using Puzzle;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 namespace ScreensScripts
@@ -33,6 +34,7 @@ namespace ScreensScripts
         private void Awake()
         {
             Instance = this;
+            SceneManager.LoadScene("PuzzleAtlasScene", LoadSceneMode.Additive);
         }
 
         void PlayLevel(LevelConfig config)

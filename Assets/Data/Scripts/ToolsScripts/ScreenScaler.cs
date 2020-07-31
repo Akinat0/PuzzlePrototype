@@ -8,17 +8,28 @@ namespace Abu.Tools
 {
     public static class ScreenScaler
     {
-        public static Camera camera = Camera.main;
-        
+        static Camera mainCamera;
+        public static Camera MainCamera
+        {
+            get
+            {
+                if(mainCamera == null)
+                    mainCamera = Camera.main;
+
+                return mainCamera;
+            }
+            set => mainCamera = value;
+        }
+
         public static Vector2 CameraSize
         {
             get{
                 
-                if (camera == null)
+                if (MainCamera == null)
                     return Vector2.one;
 
-                float width = camera.aspect * 2f * camera.orthographicSize;
-                float height = 2f * camera.orthographicSize;
+                float width = MainCamera.aspect * 2f * MainCamera.orthographicSize;
+                float height = 2f * MainCamera.orthographicSize;
 
                 return new Vector2(width, height);
             }
@@ -95,7 +106,7 @@ namespace Abu.Tools
 
         private static float ScaleToFillHeight(float height, float pixelsPerUnit)
         {
-            float camHeight = pixelsPerUnit * camera.orthographicSize * 2;
+            float camHeight = pixelsPerUnit * MainCamera.orthographicSize * 2;
             float y_scale = camHeight / height;
             
             return y_scale;
@@ -105,7 +116,7 @@ namespace Abu.Tools
         {
             float aspectRatio = (float) Screen.width / Screen.height;
 
-            float camHeight = pixelsPerUnit * camera.orthographicSize * 2;
+            float camHeight = pixelsPerUnit * MainCamera.orthographicSize * 2;
             float camWidth = camHeight * aspectRatio;
             
             float x_scale = camWidth / width;

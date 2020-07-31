@@ -3,6 +3,7 @@ using System.Collections;
 using Abu.Tools;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Utility 
 {
@@ -76,8 +77,8 @@ public static class Utility
         Vector2 screenSize = ScreenScaler.ScreenSize;
         
         return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
-
-
+        
     }
+    
     
 }

@@ -9,7 +9,7 @@ namespace Abu.Tools.UI
         void Awake()
         {
             camera = GetComponent<Camera>();
-            ScreenScaler.camera = camera;
+            ScreenScaler.MainCamera = camera;
         }
     }
 }
