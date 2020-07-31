@@ -232,8 +232,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
         
         LauncherUI.Instance.InvokeShowCollection(new ShowCollectionEventArgs(Current.ColorScheme));
-        HideUI();
-        HideActivePlayer();
     }
 
     void CreateLevel(int index)
@@ -501,6 +499,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
         
         InteractBtn.OnClick += OnInteract;
@@ -513,6 +512,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
         
         InteractBtn.OnClick -= OnInteract;
@@ -568,6 +568,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     void CloseCollectionEvent_Handler(CloseCollectionEventArgs _Args)
     {
         BringBackUI(_Args.PlayerView);
+    }
+    
+    void ShowCollectionEvent_Handler(ShowCollectionEventArgs _)
+    {
+        HideUI();
+        HideActivePlayer();
     }
     
     #endregion

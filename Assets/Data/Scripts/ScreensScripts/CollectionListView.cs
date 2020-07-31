@@ -39,27 +39,23 @@ namespace Data.Scripts.ScreensScripts
             entity.Text = collectionItem.Name;
             entity.name = collectionItem.Name + " puzzle";
 
-//            entity.Text = achievement.Name;
+            entity.OnClick += () =>
+            {
+                LauncherUI.Instance.InvokeShowCollection(
+                    new ShowCollectionEventArgs(LauncherUI.Instance.LevelConfig.ColorScheme, collectionItem.ID));
+            };
 
-//            entity.DescriptionText = achievement.Description;
-//            entity.CreateReward(achievement.Reward);
-//            entity.Icon = achievement.Icon;
-//            
-//            UpdateView();
-
-//            entity.OnClick += () =>
-//            {
-//                if (achievement.State == Achievement.AchievementState.Received)
-//                    achievement.Claim();
-//            };
+            entity.OnHoldDown += () =>
+            {
+                entity.PuzzleView.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            };
+            
+            entity.OnHoldUp += () =>
+            {
+                entity.PuzzleView.transform.localScale = new Vector3(1f, 1f, 1f);
+            };
 
         }
-        
-        static Sprite GetSprite(CollectionItem item)
-        { 
-            return Resources.Load<Sprite>("Achievements/DefaultAchievement");
-        }
-        
         
     }
 }

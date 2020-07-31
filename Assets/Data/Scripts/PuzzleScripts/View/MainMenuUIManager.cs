@@ -65,6 +65,7 @@ namespace Puzzle
         {
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+            LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             collectionButton.OnClick += CollectionButtonOnClick;
             achievementButton.OnClick += AchievementButtonOnClick;
             closeButton.OnClick += CloseButtonOnClick;
@@ -74,12 +75,16 @@ namespace Puzzle
         {
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+            LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
             closeButton.OnClick -= CloseButtonOnClick;
         }
-
-
+        
+        void ShowCollectionEvent_Handler(ShowCollectionEventArgs _)
+        {
+            HideAllScreens();
+        }
         void PlayLauncherEvent_Handler(PlayLauncherEventArgs _ )
         {
             HideMiniButtons();

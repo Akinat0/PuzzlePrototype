@@ -4,11 +4,11 @@ namespace Data.Scripts.ScreensScripts
 {
     public class CollectionViewComponent : TextButtonComponent
     {
-        UIPuzzleView puzzleView;
+        public UIPuzzleView PuzzleView { get; protected set; }
         
         public int PuzzleID
         {
-            set => puzzleView = UIPuzzleView.Create(value, RectTransform);
+            set => PuzzleView = UIPuzzleView.Create(value, RectTransform);
         }
     }
 }

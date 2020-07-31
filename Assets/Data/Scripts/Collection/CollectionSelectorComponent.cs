@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -101,11 +102,18 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         InteractBtn.TextField.color = colorScheme.TextColor;
     }
     
-    void ShowCollection()
+    void ShowCollection(int? ItemID)
     {
         SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
+
+        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? "Select" : "Set As Default";
         
-        Index = Account.CollectionDefaultItemId;
+        int index = Account.CollectionDefaultItemId; 
+        
+        if (ItemID != null)
+            index = Array.FindIndex(Selection, (entry) => entry.ID == ItemID);
+
+        Index = index; 
         
         Content.gameObject.SetActive(true);
 
@@ -135,7 +143,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         Vector3 targetContainerPosition = ItemsContainer.position;
         targetContainerPosition.y = ScreenScaler.CameraSize.y;
 
-        ItemsContainer.DOMove(targetContainerPosition, LevelSelectorComponent.UiAnimationDuration);
+        ItemsContainer.DOMove(targetContainerPosition, LevelSelectorComponent.UiAnimationDuration).onComplete += CleanContainers;
 
         IsFocused = false;
     }
@@ -153,9 +161,10 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (!IsFocused || !itemContainers.ContainsKey(Index))
             return;
 
-        PlayerView newPlayerView = itemContainers[Index];
-        itemContainers.Remove(Index);
-        CleanContainers();
+        PlayerView newPlayerView = LauncherUI.Instance.LevelConfig.CollectionEnabled ? itemContainers[Index] : null;
+        
+        if(LauncherUI.Instance.LevelConfig.CollectionEnabled)
+            itemContainers.Remove(Index);
 
         Account.CollectionDefaultItemId = Index;
         
@@ -314,7 +323,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     
     void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
-        ShowCollection();
+        ShowCollection(_Args.ItemID);
     }
     
     #endregion
