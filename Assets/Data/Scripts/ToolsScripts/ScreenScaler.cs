@@ -15,10 +15,7 @@ namespace Abu.Tools
             get{
                 
                 if (camera == null)
-                {
-                    Debug.LogError("Main Camera is null");
                     return Vector2.one;
-                }
 
                 float width = camera.aspect * 2f * camera.orthographicSize;
                 float height = 2f * camera.orthographicSize;
@@ -70,7 +67,7 @@ namespace Abu.Tools
             Sprite sprite = spriteRenderer.sprite;
             return ScaleToFillHeight(sprite.rect.height, sprite.pixelsPerUnit);
         }
-        
+
         //For quadratic only
         public static float ScaleToFillPartOfScreen(SpriteRenderer spriteRenderer, float part)
         {

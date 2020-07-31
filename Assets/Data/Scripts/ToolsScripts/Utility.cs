@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Abu.Tools;
 using TMPro;
 using UnityEngine;
 
@@ -59,4 +60,24 @@ public static class Utility
         position.y = value;
         transform.position = position;
     }
+    
+    //RectTransform
+    public static bool IsVisibleOnTheScreen(this RectTransform rt)
+    {
+        Vector3[] corners = new Vector3[4];
+        rt.GetWorldCorners (corners);
+ 
+        float maxY = Mathf.Max (corners [0].y, corners [1].y, corners [2].y, corners [3].y);
+        float minY = Mathf.Min (corners [0].y, corners [1].y, corners [2].y, corners [3].y);
+
+        float maxX = Mathf.Max (corners [0].x, corners [1].x, corners [2].x, corners [3].x);
+        float minX = Mathf.Min (corners [0].x, corners [1].x, corners [2].x, corners [3].x);
+
+        Vector2 screenSize = ScreenScaler.ScreenSize;
+        
+        return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
+
+
+    }
+    
 }

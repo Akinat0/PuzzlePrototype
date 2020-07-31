@@ -12,9 +12,16 @@ public class CollectionItem : ScriptableObject
     [SerializeField] private PuzzleVariant[] puzzleVariants;
 
 
+    public int ID => Name.GetHashCode();
+
     public GameObject GetPuzzleVariant(PuzzleSides sides)
     {
         return puzzleVariants.FirstOrDefault(variant => variant.Sides == sides).Puzzle;
+    }
+
+    public GameObject GetAnyPuzzleVariant()
+    {
+        return puzzleVariants.FirstOrDefault().Puzzle;
     }
 }
 

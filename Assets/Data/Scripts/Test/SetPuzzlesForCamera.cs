@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
 using Puzzle;
@@ -8,45 +9,98 @@ public class SetPuzzlesForCamera : MonoBehaviour
 {
     [SerializeField] CollectionItem[] items;
 
-    readonly Dictionary<string, Transform> activeItems = new Dictionary<string, Transform>();
+    readonly Dictionary<int, Transform> inactiveItems = new Dictionary<int, Transform>();
+    readonly Dictionary<int, Transform> activeItems = new Dictionary<int, Transform>();
+
+    public event Action RebuildPuzzlesAtlas;
 
     Camera renderCamera;
-    //TODO move all to local position and set objects as children of renderCamera
+    
     void Awake()
     {
-        Debug.LogError("Camera size " + ScreenScaler.CameraSize);
-        
         renderCamera = GetComponent<Camera>();
 
-        for (int i = 0; i < items.Length; i++)
+        foreach (var item in items)
         {
-            CollectionItem item = items[i];
-            Transform puzzle = Instantiate(item.GetPuzzleVariant(new PuzzleSides(true, true, true, true))).transform;
+            inactiveItems[item.ID] = Instantiate(item.GetAnyPuzzleVariant(), transform).transform;
+            inactiveItems[item.ID].localPosition = ScreenScaler.CameraSize * 3;
+        }
+    }
+
+    public Rect GetPuzzleRectInAtlas(int id)
+    {
+        if (!activeItems.ContainsKey(id))
+            RequestItem(id);
+        
+        return GetItemUV(id);
+    }
+    
+    public void DeactivateItem(int id)
+    {
+        Debug.Log($"Deactivate {id}");
+        
+        if (activeItems.ContainsKey(id))
+        {
+            inactiveItems[id] = activeItems[id];
+            activeItems.Remove(id);
+        }
+
+        if (inactiveItems[id] == null)
+            return;
+        
+        //Set invalid position
+        inactiveItems[id].position = ScreenScaler.ScreenSize * 3; 
+        
+        CreateActiveItems();
+    }
+    
+    void RequestItem(int id)
+    {
+        if (activeItems.ContainsKey(id))
+            return;
+
+        Debug.Log($"Activate {id}");
+        
+        activeItems[id] = inactiveItems[id];
+        inactiveItems.Remove(id);
+        
+        CreateActiveItems();
+    }
+
+    void CreateActiveItems()
+    {
+        int i = 0;
+        
+        foreach (int key in activeItems.Keys)
+        {
+            Transform puzzle = activeItems[key];
 
             int column = i % 4;
             int row = i / 4;
-            Debug.LogError("ROW " + row);
+            
             float xPos = - ScreenScaler.CameraSize.x / 2.0f + ScreenScaler.CameraSize.x / 4.0f * column + ScreenScaler.CameraSize.x / 8f;
             float yPos = ScreenScaler.CameraSize.y / 2.0f - ScreenScaler.CameraSize.x / 4.0f  * row - ScreenScaler.CameraSize.x / 8f;
+            float zPos = 10;
             
-            Vector3 position = new Vector3(xPos, yPos);
+            Vector3 position = new Vector3(xPos, yPos, zPos);
 
-            puzzle.position = position;
+            puzzle.localPosition = position;
 
-            activeItems[item.Name] = puzzle;
+            i++;
         }
-
+        
+        RebuildPuzzlesAtlas?.Invoke();
     }
 
-    public Rect GetPuzzleUV(string itemName)
+    Rect GetItemUV(int id)
     {
-        if(!activeItems.ContainsKey(itemName))
+        if(!activeItems.ContainsKey(id))
             return Rect.zero;
 
         Vector2 halfCameraSize = ScreenScaler.CameraSize / 2f;
         
         //To camera coordinates
-        Vector3 position = activeItems[itemName].position + new Vector3(halfCameraSize.x, halfCameraSize.y);
+        Vector3 position = activeItems[id].localPosition + new Vector3(halfCameraSize.x, halfCameraSize.y);
 
         int column = 0;
         int row = 0;
@@ -76,8 +130,6 @@ public class SetPuzzlesForCamera : MonoBehaviour
             minRange -= step;
             maxRange -= step;
         }
-
-        Debug.LogError($"Item {itemName} row {row} column {column}");
         
         float xPos = column * 0.25f;
         float yPos = 1 - (row + 1) * ScreenScaler.CameraSize.x / ScreenScaler.CameraSize.y * 0.25f;
