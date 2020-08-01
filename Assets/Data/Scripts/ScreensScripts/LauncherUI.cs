@@ -24,8 +24,7 @@ namespace ScreensScripts
         [SerializeField] private GameObject backgroundContainer;
 
         [field: SerializeField] public MainMenuUIManager UiManager { get; private set; }
-
-        // ReSharper disable once InconsistentNaming
+        
         private GameSceneManager GameSceneManager;
 
         private LevelConfig _levelConfig;
@@ -54,7 +53,7 @@ namespace ScreensScripts
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameSceneLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, backgroundContainer, gameObject, _levelConfig); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
         }
 
@@ -62,7 +61,10 @@ namespace ScreensScripts
         {
             Debug.Log("GameSceneUnloaded Invoked");
             GameSceneUnloadedEvent?.Invoke();
-            Time.timeScale = 1;
+            
+            //Unpause game anyway
+            TimeManager.DefaultTimeScale = 1;
+            TimeManager.Unpause();
         }
 
         public void InvokeLevelChanged(LevelChangedEventArgs args)

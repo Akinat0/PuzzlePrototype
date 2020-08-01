@@ -66,7 +66,7 @@ namespace Puzzle
             _gameCameraAnimator.SetTrigger(Shake);
         }
 
-        public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
+        public void SetupScene(GameObject _player, LevelConfig config)
         {
             player = _player.AddComponent<Player>();
             player.sides = config.PuzzleSides.ToArray();
@@ -87,8 +87,9 @@ namespace Puzzle
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
 
-            // TODO  actions with background and gameRoot
-            
+            foreach (Booster booster in Account.GetActiveBoosters())
+                booster.Apply();
+
             InvokeResetLevel();
         }
 
@@ -163,7 +164,11 @@ namespace Puzzle
 
         public void InvokePauseLevel(bool pause)
         {
-            Time.timeScale = pause ? 0 : 1;
+            if (pause)
+                TimeManager.Pause();
+            else
+                TimeManager.Unpause();
+            
             Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
             PauseLevelEvent?.Invoke(pause);
         }

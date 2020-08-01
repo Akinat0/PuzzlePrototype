@@ -66,6 +66,7 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
             LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
+            LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
             collectionButton.OnClick += CollectionButtonOnClick;
             achievementButton.OnClick += AchievementButtonOnClick;
             closeButton.OnClick += CloseButtonOnClick;
@@ -95,6 +96,11 @@ namespace Puzzle
         {
             ShowMiniButtons();
             Wallet.Alpha = 1;
+        }
+
+        void LevelChangedEvent_Handler(LevelChangedEventArgs args)
+        {
+            closeButton.Color = args.LevelConfig.ColorScheme.ButtonColor;
         }
     }
 }

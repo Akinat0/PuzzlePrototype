@@ -4,11 +4,12 @@ using System.Linq;
 using System.Security.Cryptography;
 using Puzzle;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class LevelSoundPlayer : MonoBehaviour
 {
     protected Dictionary<AudioSource, AnimationCurve> audioSources = new Dictionary<AudioSource, AnimationCurve>();
-    
+
     protected virtual void Update()
     {
         foreach (AudioSource audioSource in audioSources.Keys)
@@ -56,6 +57,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PlayAudioEvent += PlayAudioEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+        TimeManager.DefaultTimeScaleValueChanged += DefaultTimeScaleValueChanged_Handler;
     }
 
     protected virtual void OnDisable()
@@ -63,6 +65,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PlayAudioEvent -= PlayAudioEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+        TimeManager.DefaultTimeScaleValueChanged -= DefaultTimeScaleValueChanged_Handler;
     }
 
     void PlayAudioEvent_Handler(LevelPlayAudioEventArgs args)
@@ -78,6 +81,8 @@ public class LevelSoundPlayer : MonoBehaviour
                     Destroy(audioSource);
                 },
                 audioSource.clip.length);
+        
+        audioSource.pitch = TimeManager.TimeScale;
 
         audioSource.Play();
     }
@@ -90,6 +95,12 @@ public class LevelSoundPlayer : MonoBehaviour
     void ResetLevelEvent_Handler()
     {
         ClearAudio();
+    }
+
+    void DefaultTimeScaleValueChanged_Handler(float timeScale)
+    {
+        foreach (AudioSource audioSource in audioSources.Keys)
+            audioSource.pitch = timeScale;
     }
 
 }

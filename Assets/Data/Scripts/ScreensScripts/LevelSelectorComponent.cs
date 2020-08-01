@@ -165,20 +165,19 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             DestroyImmediate(playerView.gameObject);
             playerView = newPlayerView;
             levelContainers[Index].PlayerView = playerView;
-            
-            foreach (int levelIndex in levelContainers.Keys)
-            {
-                if (levelIndex == Index)
-                    continue;
-            
-                SetLevelDefaultPlayerView(levelIndex);
-            }
-            
         }
         else
         {
             //Bring back old player view
             playerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
+        }
+        
+        foreach (int levelIndex in levelContainers.Keys)
+        {
+            if (levelIndex == Index)
+                continue;
+            
+            SetLevelDefaultPlayerView(levelIndex);
         }
 
         this.Invoke(() => IsFocused = true, UiAnimationDuration);
@@ -255,6 +254,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void SetLevelDefaultPlayerView(int index)
     {
+        //TODO check if default item really has changed or it's the same 
         if (index < 0 || index >= Length || !Selection[index].CollectionEnabled)
             return;
 

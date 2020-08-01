@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -36,8 +37,10 @@ public class Account : MonoBehaviour
         }
     }
     public static Achievement[] Achievements => instance.achievements;
+    public static Booster[] Boosters => instance.boosters;
 
-    Achievement[] achievements; 
+    Achievement[] achievements;
+    Booster[] boosters;
     WalletManager walletManager;
     CollectionManager collectionManager;
     LevelsManager levelsManager;
@@ -47,7 +50,17 @@ public class Account : MonoBehaviour
     {
         instance = this;
         achievements = Achievement.CreateAllAchievements();
+        boosters = Booster.CreateAllBoosters();
     }
+    
+    #region Boosters
+
+    public static Booster[] GetActiveBoosters()
+    {
+        return instance.boosters.Where(booster => booster.IsActivated).ToArray();
+    } 
+    
+    #endregion
 
     #region Achievement
     

@@ -185,5 +185,89 @@ namespace Abu.Console
 
     }
     
-    
+ 
+    public class BoosterCommand : IConsoleCommand
+    {
+        public string Command => "booster";
+
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length > 1)
+            {
+                switch (args[1])
+                {
+                    case "list":
+                        return List;
+                    case "add":
+                        return Add(args[2], args[3]);
+                    case "activate":
+                        return Activate(args[2]);
+                    default:
+                        return Help;
+                }
+            }
+            else
+                return Help;
+            
+        }
+
+        string List
+        {
+            get
+            {
+                string result = string.Empty;
+
+                foreach (Booster booster in Account.Boosters)
+                    result += booster.Name + Environment.NewLine;
+
+                return result;
+            }
+        }
+
+        string Add(object name, object amount)
+        {
+            Booster booster;
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                booster = Account.Boosters.FirstOrDefault(b =>
+                        String.Equals(b.Name.Replace(" ", ""), name.ToString(), StringComparison.InvariantCultureIgnoreCase));
+
+                booster.Amount += int.Parse(amount.ToString());
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+
+            return $"Success. Now amount of {booster.Name} is {booster.Amount}";
+        }
+
+        string Activate(object name)
+        {
+            Booster booster;
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                booster = Account.Boosters.FirstOrDefault(b =>
+                    String.Equals(b.Name.Replace(" ", ""), name.ToString(), StringComparison.InvariantCultureIgnoreCase));
+
+                if (booster.Amount <= 0)
+                    booster.Amount++;
+                
+                booster.Activate();
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+
+            return $"Success. Now {booster.Name} is active";
+        }
+
+        string Help => $"\"list\" to print all boosters. {Environment.NewLine}" +
+                       $"\"add\" \"name\" \"amount\" to add this amount of boosters {Environment.NewLine}" +
+                       $"\"activate\" \"name\" to add this amount of boosters {Environment.NewLine}";
+        
+    }
 }

@@ -18,6 +18,7 @@ namespace Abu.Console
                 new DefaultCollectionItemCommand(),
                 new AchievementsListCommand(),
                 new AchievementsSetProgressCommand(),
+                new BoosterCommand(),
             };
         }
 
