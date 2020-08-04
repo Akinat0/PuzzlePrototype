@@ -9,6 +9,8 @@ namespace Abu.Tools.UI
             Color color = Color;
             color.a = Phase;
             Color = color;
+
+            Background.raycastTarget = Phase > Mathf.Epsilon;
         }
     }
 }

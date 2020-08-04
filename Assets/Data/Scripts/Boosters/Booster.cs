@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Booster
@@ -13,7 +12,9 @@ public abstract class Booster
     {
         //Convert int to bool
         IsActivated = PlayerPrefs.GetInt(IsActivatedKey, 0) != 0;
-        Amount = PlayerPrefs.GetInt(AmountKey, 0);
+        
+        Amount = PlayerPrefs.GetInt(AmountKey, 0); 
+            
     }
     
     public event Action BoosterActivatedEvent;
@@ -32,7 +33,7 @@ public abstract class Booster
     
             isActivated = value;
             
-            SaveAmountAndActive();
+            SaveActive();
             
             if (isActivated)
                 BoosterActivatedEvent?.Invoke();
@@ -41,7 +42,7 @@ public abstract class Booster
         }
     }
 
-    int amount = 1;
+    int amount = 2;
     public int Amount
     {
         get => amount;
@@ -51,7 +52,7 @@ public abstract class Booster
                 return;
 
             amount = value;
-            SaveAmountAndActive();
+            SaveAmount();
             AmountChangedEvent?.Invoke();
         }
     }
@@ -80,10 +81,15 @@ public abstract class Booster
     string AmountKey => Key + " Amount";
     string IsActivatedKey => Key + " IsActivated";
 
-    void SaveAmountAndActive()
+    void SaveAmount()
     {
         PlayerPrefs.SetInt(AmountKey, Amount);
+        PlayerPrefs.Save();
+    }
+    void SaveActive()
+    {
         PlayerPrefs.SetInt(IsActivatedKey, IsActivated ? 1 : 0);
+        PlayerPrefs.Save();
     }
     
     public abstract string Name { get; }

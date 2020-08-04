@@ -54,7 +54,7 @@ public abstract class Achievement
         protected set
         {
             state = value;
-            SaveStateAndProgress();
+            SaveState();
         }
     }
 
@@ -74,7 +74,7 @@ public abstract class Achievement
             
             progress = Mathf.Clamp(value, 0, Goal);
             
-            SaveStateAndProgress();
+            SaveProgress();
             
             if (Progress >= Goal || Mathf.Approximately(Progress, Goal))
                 ReceiveAchievement();
@@ -101,12 +101,18 @@ public abstract class Achievement
         AchievementReceivedEvent?.Invoke();
     }
 
-    void SaveStateAndProgress()
+    void SaveState()
     {
         PlayerPrefs.SetInt(StateKey, (int) State);
+        PlayerPrefs.Save();
+    }
+    
+    void SaveProgress()
+    {
         PlayerPrefs.SetFloat(ProgressKey, Progress);
         PlayerPrefs.Save();
     }
+    
     
     [Obsolete("Use it only in console commands")]
     public void ResetAchievement()

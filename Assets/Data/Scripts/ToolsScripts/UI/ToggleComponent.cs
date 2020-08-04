@@ -6,9 +6,10 @@ namespace Abu.Tools.UI
     public class ToggleComponent : ButtonComponent
     {
         public event Action<bool> ToggleValueChanged;
-        
+
+        [SerializeField] public Color InactiveButtonColor = Color.white;
         [SerializeField] bool isOn;
-        protected virtual bool IsOn
+        public virtual bool IsOn
         {
             get => isOn;
             set
@@ -36,6 +37,7 @@ namespace Abu.Tools.UI
         protected virtual void ProcessToggleValueChanged()
         {
             ToggleImage.Index = IsOn ? 1 : 0;
+            Color = IsOn ? ButtonColor : InactiveButtonColor;
             ToggleValueChanged?.Invoke(IsOn);
         }
         
@@ -46,7 +48,8 @@ namespace Abu.Tools.UI
 
         protected override void OnValidate()
         {
-            base.OnValidate();
+            //We won't call base.OnValidate() because
+            //we handle the same behaviour in ProcessToggleValueChanged()
             ProcessToggleValueChanged();
         }
     }

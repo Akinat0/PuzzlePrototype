@@ -1,6 +1,5 @@
-
-using System;
 using Abu.Tools.UI;
+using Data.Scripts.Boosters;
 using DG.Tweening;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ public class BoostersToggleComponent : ToggleComponent
     const float AnimationDuration = 0.6f;
     
     [SerializeField] RectTransform Content;
+    [SerializeField] BoosterView timeFreezeBoosterView; 
 
     FadeOverlayView fade;
 
@@ -26,6 +26,13 @@ public class BoostersToggleComponent : ToggleComponent
         }
     }
 
+    protected virtual void Start()
+    {
+        timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
+        
+    }
+
+
     void OnEnable()
     {
         ToggleValueChanged += ToggleValueChanged_Handler;
@@ -35,7 +42,7 @@ public class BoostersToggleComponent : ToggleComponent
     {
         ToggleValueChanged -= ToggleValueChanged_Handler;
     }
-    
+
     void ToggleValueChanged_Handler(bool value)
     {
         if(!Application.IsPlaying(this))

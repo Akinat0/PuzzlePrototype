@@ -55,6 +55,11 @@ public class Account : MonoBehaviour
     
     #region Boosters
 
+    public static T GetBooster<T>() where T : Booster
+    {
+        return instance.boosters.FirstOrDefault(booster => booster.GetType() == typeof(T)) as T;
+    }
+    
     public static Booster[] GetActiveBoosters()
     {
         return instance.boosters.Where(booster => booster.IsActivated).ToArray();
@@ -66,7 +71,7 @@ public class Account : MonoBehaviour
     
     public static T GetAchievement<T>() where T : Achievement
     {
-        return instance.achievements.FirstOrDefault(achievement => typeof(Achievement) == typeof(T)) as T;
+        return instance.achievements.FirstOrDefault(achievement => achievement.GetType() == typeof(T)) as T;
     }
 
     #endregion
