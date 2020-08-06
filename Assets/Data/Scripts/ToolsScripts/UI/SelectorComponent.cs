@@ -51,7 +51,7 @@ namespace Abu.Tools.UI
 
         #region properties
         
-        protected virtual float TouchSensitivity => 1.7f;
+        protected virtual float TouchSensitivity => 2.2f;
         protected virtual T Current => Selection[Index];
         protected virtual bool IsFocused { get; set; }
         protected MobileSwipe MobileSwipe => mobileSwipe;

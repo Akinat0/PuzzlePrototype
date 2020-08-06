@@ -65,6 +65,35 @@ public static class Utility
     //RectTransform
     public static bool IsVisibleOnTheScreen(this RectTransform rt)
     {
+        switch (rt.GetComponentInParent<Canvas>().renderMode)
+        {
+            case RenderMode.ScreenSpaceCamera:
+                return rt.IsVisibleOnTheScreenCamera();
+            case RenderMode.ScreenSpaceOverlay:
+                return rt.IsVisibleOnTheScreenOverlay();
+            default:
+                return rt.IsVisibleOnTheScreenOverlay();
+        }
+    }
+
+    public static bool IsVisibleOnTheScreenCamera(this RectTransform rt)
+    {
+        Vector3[] corners = new Vector3[4];
+        rt.GetWorldCorners (corners);
+ 
+        float maxY = Mathf.Max (corners [0].y, corners [1].y, corners [2].y, corners [3].y);
+        float minY = Mathf.Min (corners [0].y, corners [1].y, corners [2].y, corners [3].y);
+
+        float maxX = Mathf.Max (corners [0].x, corners [1].x, corners [2].x, corners [3].x);
+        float minX = Mathf.Min (corners [0].x, corners [1].x, corners [2].x, corners [3].x);
+
+        Vector2 cameraSize = ScreenScaler.CameraSize;
+        
+        return maxY > -cameraSize.y / 2 && minY < cameraSize.y / 2 && maxX > -cameraSize.x / 2 && minX < cameraSize.x / 2;
+    }
+    
+    public static bool IsVisibleOnTheScreenOverlay(this RectTransform rt)
+    {
         Vector3[] corners = new Vector3[4];
         rt.GetWorldCorners (corners);
  
@@ -77,8 +106,6 @@ public static class Utility
         Vector2 screenSize = ScreenScaler.ScreenSize;
         
         return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
-        
     }
-    
     
 }

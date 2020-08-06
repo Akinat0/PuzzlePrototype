@@ -8,7 +8,7 @@ namespace Abu.Tools.UI
     {
         [SerializeField] Color blurColor = Color.white;
 
-        int downRes = 2;
+        int downRes = 1;
 
         public Material blurMaterial;
         protected Material BlurMaterial
@@ -71,6 +71,10 @@ namespace Abu.Tools.UI
             bool isEnabled = Phase > Mathf.Epsilon;
             BlurImage.enabled = isEnabled;
             Background.enabled = isEnabled;
+
+            bool isRaycastTarget = Mathf.Approximately(Phase, 1);
+            BlurImage.raycastTarget = isRaycastTarget;
+            Background.raycastTarget = isRaycastTarget;
         }
 
         protected override void OnValidate()

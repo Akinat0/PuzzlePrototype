@@ -23,11 +23,9 @@ public class UIPuzzleView : UIComponent
     
     public static UIPuzzleView Create(int id, RectTransform parent)
     {
-        UIPuzzleView puzzleView = Instantiate(Prefab, parent); 
+        UIPuzzleView puzzleView = Instantiate(Prefab, parent);
         
         puzzleView.ID = id;
-        puzzleView.FitIntoParent();
-        
         return puzzleView;
     }
 
@@ -65,20 +63,6 @@ public class UIPuzzleView : UIComponent
         }
     }
 
-    public void FitIntoParent()
-    {
-        RectTransform parent = RectTransform.parent as RectTransform;
-        
-        if(parent == null)
-            return;
-
-        float targetEdgeSize = parent.rect.width > parent.rect.height ? parent.rect.height : parent.rect.width;
-        
-        float sizeDelta = RectTransform.rect.width - targetEdgeSize;
-        
-        RectTransform.sizeDelta = new Vector2(sizeDelta, sizeDelta);
-    }
-    
     protected virtual void Start()
     {
         PuzzleImage.uvRect = RuntimePuzzleAtlas.Instance.GetPuzzleRectInAtlas(ID);
