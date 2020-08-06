@@ -72,16 +72,10 @@ namespace Puzzle
             player.sides = config.PuzzleSides.ToArray();
             _player.AddComponent<PlayerInput>();
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
-            if (Camera.main != null)
-            {
-                _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
-                _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
-            }
-            else
-            {
-                Debug.LogError("Camera is null");
-            }
             
+            _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
+            _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
+
             _levelConfig = config;
 
             if (config.ColorScheme != null)

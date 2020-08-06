@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Abu.Tools;
+using Abu.Tools.UI;
 using Puzzle;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -23,12 +24,17 @@ namespace ScreensScripts
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject backgroundContainer;
 
-        [field: SerializeField] public MainMenuUIManager UiManager { get; private set; }
+        [SerializeField] MainMenuUIManager uiManager;
+        [SerializeField] MainCameraComponent mainCamera;
+
+        public MainMenuUIManager UiManager => uiManager;
+        public MainCameraComponent MainCamera => mainCamera; 
+
+        public LevelConfig LevelConfig => _levelConfig;
         
         private GameSceneManager GameSceneManager;
 
         private LevelConfig _levelConfig;
-        public LevelConfig LevelConfig => _levelConfig;
 
         private void Awake()
         {

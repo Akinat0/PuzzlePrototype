@@ -10,16 +10,17 @@ public class BoostersToggleComponent : ToggleComponent
     [SerializeField] RectTransform Content;
     [SerializeField] BoosterView timeFreezeBoosterView; 
 
-    FadeOverlayView fade;
+    BlurOverlayView fade;
 
-    public FadeOverlayView Fade
+    public BlurOverlayView Fade
     {
         get
         {
             if (fade == null)
             {
-                fade = OverlayView.Create<FadeOverlayView>(RectTransform.parent, RectTransform.GetSiblingIndex());
-                fade.OnClick += () => IsOn = false;
+                fade = OverlayView.Create<BlurOverlayView>(RectTransform.parent, RectTransform.GetSiblingIndex());
+                fade.BlurColor = new Color(0.7f, 0.7f, 0.7f, 1);
+                fade.OnClick += OnButtonClick;
             }
 
             return fade;
@@ -29,9 +30,8 @@ public class BoostersToggleComponent : ToggleComponent
     protected virtual void Start()
     {
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
-        
+        //TODO add here other boosters initialization
     }
-
 
     void OnEnable()
     {
@@ -50,7 +50,10 @@ public class BoostersToggleComponent : ToggleComponent
         
         if (value)
         {
-            Fade.ChangePhase(0.5f, AnimationDuration/2);
+            if(Mathf.Approximately(Fade.Phase, 0))
+                Fade.RecreateBlurTexture();
+            
+            Fade.ChangePhase(1, AnimationDuration/2);
             RectTransform.DOAnchorPos(Vector2.left * Content.rect.width, AnimationDuration);
         }
         else
@@ -62,6 +65,7 @@ public class BoostersToggleComponent : ToggleComponent
 
     protected virtual void OnDestroy()
     {
-        Destroy(Fade);
+        if(fade != null && fade.gameObject != null)
+            Destroy(fade.gameObject);
     }
 }

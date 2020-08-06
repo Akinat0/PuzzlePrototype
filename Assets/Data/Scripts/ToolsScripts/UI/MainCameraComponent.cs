@@ -11,5 +11,12 @@ namespace Abu.Tools.UI
             camera = GetComponent<Camera>();
             ScreenScaler.MainCamera = camera;
         }
+
+        public void RenderIntoTexture(RenderTexture renderTexture)
+        {
+            camera.targetTexture = renderTexture;
+            camera.Render();
+            camera.targetTexture = null;
+        }
     }
 }
