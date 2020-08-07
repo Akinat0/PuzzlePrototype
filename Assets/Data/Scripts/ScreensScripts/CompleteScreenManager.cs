@@ -48,7 +48,7 @@ public class CompleteScreenManager : ManagerView
 
         if (StarsView != null)
         {
-            StarsView.ShowStars(stars, CallEffects);
+            StarsView.ShowStarsAnimation(stars, CallEffects);
         }
         else
         {

@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
-public class LevelConfig : ScriptableObject
+public partial class LevelConfig : ScriptableObject
 {
     [SerializeField] private string m_LevelName;
     [SerializeField] private string m_SceneID;
@@ -22,4 +22,6 @@ public class LevelConfig : ScriptableObject
     public bool CollectionEnabled => m_CollectionEnabled;
     
     public PuzzleSides PuzzleSides => m_PuzzleSides;
+    
+    
 }

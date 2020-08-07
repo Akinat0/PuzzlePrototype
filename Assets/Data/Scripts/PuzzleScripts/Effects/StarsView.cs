@@ -13,25 +13,46 @@ public class StarsView : MonoBehaviour
     private Dictionary<Animator, AnimationEventBehaviour> showEventBehaviours = new Dictionary<Animator, AnimationEventBehaviour>();
     private Dictionary<Animator, AnimationEventBehaviour> hideEventBehaviours = new Dictionary<Animator, AnimationEventBehaviour>();
 
-    private static readonly int Show = Animator.StringToHash("Show");
-    private static readonly int Highlight = Animator.StringToHash("Highlight");
-    private static readonly int Hide = Animator.StringToHash("Hide");
+    private static readonly int ShowID = Animator.StringToHash("Show");
+    private static readonly int HighlightID = Animator.StringToHash("Highlight");
+    private static readonly int HideID = Animator.StringToHash("Hide");
+    private static readonly int InstantID = Animator.StringToHash("Instant");
 
     public static string ShowState => "Show";
     public static string HideState => "Hide";
 
     private int ShownStars { get; set; }
 
-    private void Start()
+    #region factory
+
+    static StarsView prefab;
+
+    public static StarsView Prefab
     {
-        //Calculate scale for single star as if it's a single element and then use it for hole view
+        get
+        {
+            if (prefab == null)
+                prefab = Resources.Load<StarsView>("Prefabs/StarsView");
+            return prefab;
+        }
+    }
+    public static StarsView Create(Transform parent)
+    {
+        StarsView starsView = Instantiate(Prefab, parent);
+        return starsView;
+    }
+        
+    #endregion
+    
+    private void Awake()
+    {
+        //Calculate scale for single star as if it's a single element and then use it for whole view
         float singleImageScale =
-            ScreenScaler.FitHorizontalPart(starAnimators.First().GetComponent<SpriteRenderer>(), 0.35f);
+            ScreenScaler.FitHorizontalPart(starAnimators.First().GetComponent<SpriteRenderer>(), 0.3f);
 
         transform.localScale = singleImageScale * Vector3.one;
         
-        
-        transform.localPosition = new Vector3(0, ScreenScaler.PartOfScreen(0.15f).y, 0);
+        transform.localPosition = new Vector3(0, ScreenScaler.PartOfScreen(0.25f).y, 0);
         //
 
         if (!(starAnimators == null || starAnimators.Length == 0))
@@ -45,41 +66,47 @@ public class StarsView : MonoBehaviour
 
     }
     
-    public void ShowStars(int stars, Action finish)
+    public void ShowStarsInstant(int stars)
     {
+        stars = Mathf.Clamp(stars, 0, 3);
+        ShownStars = stars;
+
+        if (stars == 0) 
+            return;
+
+        for (int i = 0; i < stars; i++)
+        {
+            starAnimators[i].SetBool(InstantID, true);
+            starAnimators[i].SetTrigger(ShowID);
+        }
+    }
+    
+    public void ShowStarsAnimation(int stars, Action finish)
+    {
+        stars = Mathf.Clamp(stars, 0, 3);
         ShownStars = stars;
         
-        if (stars > 0)
+        if (stars == 0) 
+            return;
+        
+        //setup sounds ans invokes
+        for (int i = 0; i < stars; i++)
         {
-            //setup sounds
-            for (int i = 0; i < stars; i++)
-            {
-                int indexClosure = i;
-                showEventBehaviours[starAnimators[i]].OnStateCompleteEvent += _ =>
-                    SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
-            }
-            
-            for (int i = 0; i < stars - 1; i++)
-            {
-                int indexClosure = i;
+            int indexClosure = i;
                 
-                //Set next animator show trigger after completing
-                showEventBehaviours[starAnimators[i]].OnStateCompleteEvent += _ => starAnimators[indexClosure + 1].SetTrigger(Show);
-            }
-            
-            //Set trigger to the last animator to play highlight
-            showEventBehaviours[starAnimators[stars - 1]].OnStateCompleteEvent += _ =>
-            {
-                for (int i = 0; i < stars; i++)
-                    starAnimators[i].SetTrigger(Highlight);
+            showEventBehaviours[starAnimators[i]].OnStateExitEvent += _ =>
+                SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
                 
-                finish?.Invoke();
-            };
-
-            //Start first star animation
-            starAnimators.First().SetTrigger(Show);
+            this.Invoke( () => starAnimators[indexClosure].SetTrigger(ShowID), 0.7f * indexClosure);
         }
 
+        showEventBehaviours[starAnimators[stars - 1]].OnStateExitEvent += _ =>
+        {
+            for (int i = 0; i < stars; i++)
+                starAnimators[i].SetTrigger(HighlightID);
+                
+            finish?.Invoke();
+        };
     }
 
     public void HideStars(Action finish)
@@ -91,9 +118,11 @@ public class StarsView : MonoBehaviour
         }
 
         for (int i = 0; i < ShownStars; i++)
-            starAnimators[i].SetTrigger(Hide);
+            starAnimators[i].SetTrigger(HideID);
         
         hideEventBehaviours[starAnimators.First()].OnStateExitEvent += _ => finish?.Invoke();
+
+        ShownStars = 0;
     }
     
 #if UNITY_EDITOR
@@ -109,21 +138,42 @@ public class StarsView : MonoBehaviour
     public void EditorCallThreeStars()
     {
         if (Application.IsPlaying(this))
-            ShowStars(3, () => Debug.LogError("Animation finished"));
+            ShowStarsAnimation(3, () => Debug.LogError("Animation finished"));
     }
     
     [ContextMenu("2 stars")]
     public void EditorCallTwoStars()
     {
         if (Application.IsPlaying(this))
-            ShowStars(2, () => Debug.LogError("Animation finished"));
+            ShowStarsAnimation(2, () => Debug.LogError("Animation finished"));
     }
     
     [ContextMenu("1 star")]
     public void EditorCallOneStar()
     {
         if (Application.IsPlaying(this))
-            ShowStars(1, () => Debug.LogError("Animation finished"));
+            ShowStarsAnimation(1, () => Debug.LogError("Animation finished"));
+    }
+    
+    [ContextMenu("3 star instant")]
+    public void EditorCallThreeStarsInstant()
+    {
+        if (Application.IsPlaying(this))
+            ShowStarsInstant(3);
+    }
+    
+    [ContextMenu("2 star instant")]
+    public void EditorCallTwoStarsInstant()
+    {
+        if (Application.IsPlaying(this))
+            ShowStarsInstant(2);
+    }
+    
+    [ContextMenu("1 star instant")]
+    public void EditorCallStarInstant()
+    {
+        if (Application.IsPlaying(this))
+            ShowStarsInstant(1);
     }
 #endif
 }

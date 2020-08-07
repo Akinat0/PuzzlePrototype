@@ -249,6 +249,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LevelRootView levelRootView = level.GetComponent<LevelRootView>();
         levelContainers[index] = levelRootView;
 
+        StarsView stars = StarsView.Create(level);
+        stars.ShowStarsInstant(Selection[index].StarsAmount);
+
         SetLevelDefaultPlayerView(index);
     }
 
