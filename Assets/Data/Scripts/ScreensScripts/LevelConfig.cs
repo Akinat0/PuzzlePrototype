@@ -14,12 +14,15 @@ public partial class LevelConfig : ScriptableObject
     
     [Space(10)]
     [SerializeField] private bool m_CollectionEnabled = false;
+    [SerializeField] private bool m_StarsEnabled = true;
     
     public string Name => m_LevelName;
     public string SceneID => m_SceneID;
     public GameObject LevelRootPrefab => m_LevelRootPrefab;
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
     public bool CollectionEnabled => m_CollectionEnabled;
+    public bool StarsEnabled => m_StarsEnabled;
+    
     
     public PuzzleSides PuzzleSides => m_PuzzleSides;
     

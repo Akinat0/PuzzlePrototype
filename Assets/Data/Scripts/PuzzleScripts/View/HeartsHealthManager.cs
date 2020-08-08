@@ -51,4 +51,10 @@ public class HeartsHealthManager : HealthManagerBase
             heart.Hide();
     }
 
+    protected override void LevelClosedEvent_Handler()
+    {
+        base.LevelClosedEvent_Handler();
+        foreach (HeartView heart in hearts)
+            heart.Hide();
+    }
 }

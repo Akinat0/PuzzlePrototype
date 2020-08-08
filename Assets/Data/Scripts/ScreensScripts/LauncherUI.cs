@@ -14,7 +14,7 @@ namespace ScreensScripts
         
         public static event Action<PlayLauncherEventArgs> PlayLauncherEvent;
         public static event Action<GameSceneManager> GameSceneLoadedEvent;
-        public static event Action GameSceneUnloadedEvent;
+        public static event Action<GameSceneUnloadedArgs> GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
@@ -36,6 +36,7 @@ namespace ScreensScripts
 
         private LevelConfig _levelConfig;
 
+        LevelRootView actualLevelRootView;
         private void Awake()
         {
             Instance = this;
@@ -52,6 +53,7 @@ namespace ScreensScripts
         {
             Debug.Log("PlayLauncher Invoked");
             _levelConfig = args.LevelConfig;
+            actualLevelRootView = args.LevelRootView;
             PlayLevel(args.LevelConfig);
             PlayLauncherEvent?.Invoke(args);
         }
@@ -59,14 +61,14 @@ namespace ScreensScripts
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameSceneLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig, actualLevelRootView); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
         }
 
-        public void InvokeGameSceneUnloaded()
+        public void InvokeGameSceneUnloaded(GameSceneUnloadedArgs args)
         {
             Debug.Log("GameSceneUnloaded Invoked");
-            GameSceneUnloadedEvent?.Invoke();
+            GameSceneUnloadedEvent?.Invoke(args);
             
             //Unpause game anyway
             TimeManager.DefaultTimeScale = 1;

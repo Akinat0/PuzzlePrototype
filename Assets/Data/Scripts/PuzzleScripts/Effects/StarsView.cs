@@ -17,17 +17,15 @@ public class StarsView : MonoBehaviour
     private static readonly int HighlightID = Animator.StringToHash("Highlight");
     private static readonly int HideID = Animator.StringToHash("Hide");
     private static readonly int InstantID = Animator.StringToHash("Instant");
+    private static readonly int ActiveID = Animator.StringToHash("Active");
 
     public static string ShowState => "Show";
     public static string HideState => "Hide";
 
-    private int ShownStars { get; set; }
-
     #region factory
 
     static StarsView prefab;
-
-    public static StarsView Prefab
+    static StarsView Prefab
     {
         get
         {
@@ -69,35 +67,35 @@ public class StarsView : MonoBehaviour
     public void ShowStarsInstant(int stars)
     {
         stars = Mathf.Clamp(stars, 0, 3);
-        ShownStars = stars;
 
-        if (stars == 0) 
-            return;
-
-        for (int i = 0; i < stars; i++)
+        for (int i = 0; i < 3; i++)
         {
             starAnimators[i].SetBool(InstantID, true);
             starAnimators[i].SetTrigger(ShowID);
+            starAnimators[i].SetBool(ActiveID, i < stars);
         }
     }
     
-    public void ShowStarsAnimation(int stars, Action finish)
+    public void ShowStarsAnimation(int stars, Action finish = null)
     {
         stars = Mathf.Clamp(stars, 0, 3);
-        ShownStars = stars;
-        
-        if (stars == 0) 
-            return;
-        
-        //setup sounds ans invokes
-        for (int i = 0; i < stars; i++)
+
+        //setup sounds and invokes
+        for (int i = 0; i < 3; i++)
         {
             int indexClosure = i;
                 
             showEventBehaviours[starAnimators[i]].OnStateExitEvent += _ =>
                 SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
                 
-            this.Invoke( () => starAnimators[indexClosure].SetTrigger(ShowID), 0.7f * indexClosure);
+            //TODO check what does it implicitly captured closure really mean
+            this.Invoke( () =>
+                {
+                    starAnimators[indexClosure].SetBool(InstantID, false);
+                    starAnimators[indexClosure].SetTrigger(ShowID);
+                    starAnimators[indexClosure].SetBool(ActiveID, indexClosure < stars);
+                },
+                0.7f * indexClosure);
         }
 
         showEventBehaviours[starAnimators[stars - 1]].OnStateExitEvent += _ =>
@@ -109,20 +107,12 @@ public class StarsView : MonoBehaviour
         };
     }
 
-    public void HideStars(Action finish)
+    public void HideStars(Action finish = null)
     {
-        if (ShownStars == 0)
-        {
-            finish?.Invoke();
-            return;
-        }
-
-        for (int i = 0; i < ShownStars; i++)
-            starAnimators[i].SetTrigger(HideID);
+        foreach (Animator starAnimator in starAnimators)
+            starAnimator.SetTrigger(HideID);
         
-        hideEventBehaviours[starAnimators.First()].OnStateExitEvent += _ => finish?.Invoke();
-
-        ShownStars = 0;
+        hideEventBehaviours[starAnimators.Last()].OnStateExitEvent += _ => finish?.Invoke();
     }
     
 #if UNITY_EDITOR

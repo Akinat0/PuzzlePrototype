@@ -12,9 +12,10 @@ public class CompleteScreenManager : ManagerView
     [SerializeField] private FlatFXState StartCompleteState;
     [SerializeField] private FlatFXState EndCompleteState;
 
-    [SerializeField] private StarsView StarsView;
+    StarsView StarsView => GameSceneManager.Instance.LevelRootView.StarsView;
+    bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
     
-
+    
     private void Start()
     {
         CompleteScreen.SetActive(false);
@@ -25,35 +26,19 @@ public class CompleteScreenManager : ManagerView
     {
         StopAllCoroutines();
         VFXManager.Instance.StopLevelCompleteSunshineEffect();
-
-        if (StarsView == null)
-        {
-            GameSceneManager.Instance.InvokeLevelClosed();
-            CompleteScreen.SetActive(false);
-        }
-        else
-        {
-            StarsView.HideStars(() => {
-                GameSceneManager.Instance.InvokeLevelClosed();
-                CompleteScreen.SetActive(false); 
-            });
-        }
+        
+        GameSceneManager.Instance.InvokeLevelClosed();
+        CompleteScreen.SetActive(false);
     }
     
-    public void CreateReplyScreen(int remainHp, int totalHp)
+    public void CreateReplyScreen(int stars)
     {
         CompleteScreen.SetActive(true);
-        
-        int stars = remainHp.Remap(0, totalHp, 0, 3); //Get stars amount from hp
 
-        if (StarsView != null)
-        {
+        if (StarsEnabled)
             StarsView.ShowStarsAnimation(stars, CallEffects);
-        }
         else
-        {
             CallEffects();
-        }
     }
 
     void CallEffects()

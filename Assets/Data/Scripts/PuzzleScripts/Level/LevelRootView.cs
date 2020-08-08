@@ -4,9 +4,9 @@ using UnityEngine.Rendering;
 
 public class LevelRootView : MonoBehaviour
 {
-    [SerializeField] private PlayerView m_PlayerView; 
-    [SerializeField] private BackgroundView m_BackgroundView;
+    [SerializeField] private PlayerView m_PlayerView;
 
+    StarsView starsView;
     Renderer[] renderers;
 
     Renderer[] Renderers
@@ -47,15 +47,13 @@ public class LevelRootView : MonoBehaviour
         }
     }
 
-    public void SetSortingPriorityHigh()
+    public StarsView StarsView
     {
-        sortingGroup.sortingOrder = 1;
+        get
+        {
+            if (starsView == null)
+                starsView = StarsView.Create(transform);
+            return starsView;
+        }
     }
-    
-    public void SetSortingPriorityLow()
-    {
-        sortingGroup.sortingOrder = 0;
-    }
-    public BackgroundView BackgroundView => m_BackgroundView;
-
 }

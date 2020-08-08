@@ -36,9 +36,11 @@ namespace Puzzle
 
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => _levelConfig;
+        public LevelRootView LevelRootView => _levelRootView;
 
         public Player Player => player;
 
+        LevelRootView _levelRootView;
         private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
@@ -66,7 +68,7 @@ namespace Puzzle
             _gameCameraAnimator.SetTrigger(Shake);
         }
 
-        public void SetupScene(GameObject _player, LevelConfig config)
+        public void SetupScene(GameObject _player, LevelConfig config, LevelRootView levelRootView)
         {
             player = _player.AddComponent<Player>();
             player.sides = config.PuzzleSides.ToArray();
@@ -77,6 +79,7 @@ namespace Puzzle
             _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
 
             _levelConfig = config;
+            _levelRootView = levelRootView; 
 
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
@@ -100,9 +103,9 @@ namespace Puzzle
             replayScreenManager.CreateReplyScreen();
         }
 
-        void CallCompleteMenu()
+        void CallCompleteMenu(int stars)
         {
-            completeScreenManager.CreateReplyScreen(Player.Hp, Player.DEFAULT_HP);
+            completeScreenManager.CreateReplyScreen(stars);
         }
         
         //TODO move it to player view
@@ -213,14 +216,19 @@ namespace Puzzle
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
             UnloadScene();
-            LauncherUI.Instance.InvokeGameSceneUnloaded();
+            LauncherUI.Instance.InvokeGameSceneUnloaded(
+                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed));
         }
         
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
             LevelCompletedEvent?.Invoke();
-            CallCompleteMenu();
+            
+            //Get stars amount from hp
+            int stars = Player.Hp.Remap(0, Player.DEFAULT_HP, 0, 3);
+            LevelConfig.StarsAmount = stars;
+            CallCompleteMenu(stars);
         }
         
         public void InvokePlayAudio(LevelPlayAudioEventArgs args)

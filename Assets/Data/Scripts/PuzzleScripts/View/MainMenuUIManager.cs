@@ -92,7 +92,7 @@ namespace Puzzle
             Wallet.Alpha = 0;
         }
 
-        void GameSceneUnloadedEvent_Handler()
+        void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
         {
             ShowMiniButtons();
             Wallet.Alpha = 1;

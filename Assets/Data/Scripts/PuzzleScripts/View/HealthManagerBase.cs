@@ -16,6 +16,7 @@ public abstract class HealthManagerBase : MonoBehaviour
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
+        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
     }
 
     protected virtual void OnDisable()
@@ -25,6 +26,7 @@ public abstract class HealthManagerBase : MonoBehaviour
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
+        GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
 
     protected virtual void ResetLevelEvent_Handler()
@@ -49,4 +51,10 @@ public abstract class HealthManagerBase : MonoBehaviour
     protected virtual void GameStartedEvent_Handler()
     {
     }
+
+    protected virtual void LevelClosedEvent_Handler()
+    {
+        
+    }
+    
 }

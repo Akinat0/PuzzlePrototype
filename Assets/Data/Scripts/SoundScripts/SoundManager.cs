@@ -67,7 +67,7 @@ public class SoundManager : MonoBehaviour
         PauseTheme();   
     }
     
-    void GameSceneUnloadedEvent_Handler()
+    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
     {
         PlayTheme(launcherTheme);   
     }

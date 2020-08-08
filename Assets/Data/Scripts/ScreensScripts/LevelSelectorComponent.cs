@@ -214,7 +214,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     void CleanContainers()
     {
         int count = Length;
-        
+
         for (int i = 0; i < count; i++)
         {
             if (i != Index && levelContainers.ContainsKey(i))
@@ -249,10 +249,20 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LevelRootView levelRootView = level.GetComponent<LevelRootView>();
         levelContainers[index] = levelRootView;
 
-        StarsView stars = StarsView.Create(level);
-        stars.ShowStarsInstant(Selection[index].StarsAmount);
-
         SetLevelDefaultPlayerView(index);
+
+        CreateStars(index);
+    }
+
+    void CreateStars(int index, bool animated = false)
+    {
+        if (index < 0 || index >= Length || !Selection[index].StarsEnabled)
+            return;
+
+        if (animated)
+            levelContainers[index].StarsView.ShowStarsAnimation(Selection[index].StarsAmount);
+        else
+            levelContainers[index].StarsView.ShowStarsInstant(Selection[index].StarsAmount);
     }
 
     void SetLevelDefaultPlayerView(int index)
@@ -277,10 +287,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
     void OnInteract()
     {
-        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current));
-        
+        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
-        
+        levelContainers[Index].StarsView.HideStars();
         IsFocused = false;
     }
 
@@ -517,7 +526,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
-        
+
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
     }
@@ -562,8 +571,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         HideUI();
     }
 
-    void GameSceneUnloadedEvent_Handler()
+    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs args)
     {
+        if(args.Reason == GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed)
+            CreateStars(Index);
+        
         ShowUI();   
     }
 

@@ -16,7 +16,10 @@ public partial class LevelConfig
         get
         {
             if (!isStarsAmountLoaded)
+            {
                 starsAmount = PlayerPrefs.GetInt(StarsKey, 0);
+                isStarsAmountLoaded = true;
+            }
 
             return starsAmount;
         }
@@ -29,7 +32,8 @@ public partial class LevelConfig
 
             starsAmount = value;
             
-            PlayerPrefs.SetInt(StarsKey, StarsAmount);
+            PlayerPrefs.SetInt(StarsKey, starsAmount);
+            PlayerPrefs.Save();
         }
     }
     
@@ -47,7 +51,10 @@ public partial class LevelConfig
         get
         {
             if (!isScoreLoaded)
+            {
                 score = PlayerPrefs.GetInt(ScoreKey, 0);
+                isScoreLoaded = true;
+            }
 
             return score;
         }
@@ -59,6 +66,7 @@ public partial class LevelConfig
             score = value;
             
             PlayerPrefs.SetInt(ScoreKey, Score);
+            PlayerPrefs.Save();
         }
     }
     
