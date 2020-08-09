@@ -1,6 +1,7 @@
 using Abu.Tools.UI;
 using Data.Scripts.Boosters;
 using DG.Tweening;
+using ScreensScripts;
 using UnityEngine;
 
 public class BoostersToggleComponent : ToggleComponent
@@ -36,11 +37,15 @@ public class BoostersToggleComponent : ToggleComponent
     void OnEnable()
     {
         ToggleValueChanged += ToggleValueChanged_Handler;
+        LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
+        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
     }
 
     void OnDisable()
     {
         ToggleValueChanged -= ToggleValueChanged_Handler;
+        LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
+        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
     }
 
     void ToggleValueChanged_Handler(bool value)
@@ -63,6 +68,18 @@ public class BoostersToggleComponent : ToggleComponent
         }
     }
 
+    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _)
+    {
+        Interactable = false;
+        RectTransform.DOAnchorPos(Vector2.right * RectTransform.rect.width, AnimationDuration);
+    }
+
+    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
+    {
+        Interactable = true;
+        RectTransform.DOAnchorPos(Vector2.zero, AnimationDuration);
+    }
+    
     protected virtual void OnDestroy()
     {
         if(fade != null && fade.gameObject != null)
