@@ -54,6 +54,7 @@ public class StarsView : MonoBehaviour
         //
 
         if (!(starAnimators == null || starAnimators.Length == 0))
+        {
             foreach (Animator starAnimator in starAnimators)
             {
                 showEventBehaviours[starAnimator] = starAnimator.GetBehaviours<AnimationEventBehaviour>()
@@ -61,6 +62,15 @@ public class StarsView : MonoBehaviour
                 hideEventBehaviours[starAnimator] = starAnimator.GetBehaviours<AnimationEventBehaviour>()
                     .First(_B => _B.StateId == HideState);
             }
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            int indexClosure = i;
+
+            showEventBehaviours[starAnimators[i]].OnStateExitEvent += _ =>
+                SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
+        }
 
     }
     
@@ -84,10 +94,7 @@ public class StarsView : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             int indexClosure = i;
-                
-            showEventBehaviours[starAnimators[i]].OnStateExitEvent += _ =>
-                SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
-                
+            
             //TODO check what does it implicitly captured closure really mean
             this.Invoke( () =>
                 {
@@ -98,11 +105,17 @@ public class StarsView : MonoBehaviour
                 0.7f * indexClosure);
         }
 
+        bool hasInvoked = false;
+
         showEventBehaviours[starAnimators[stars - 1]].OnStateExitEvent += _ =>
         {
+            if (hasInvoked)
+                return;
+
             for (int i = 0; i < stars; i++)
                 starAnimators[i].SetTrigger(HighlightID);
-                
+
+            hasInvoked = true;
             finish?.Invoke();
         };
     }
@@ -111,8 +124,17 @@ public class StarsView : MonoBehaviour
     {
         foreach (Animator starAnimator in starAnimators)
             starAnimator.SetTrigger(HideID);
+
+        bool hasInvoked = false;
         
-        hideEventBehaviours[starAnimators.Last()].OnStateExitEvent += _ => finish?.Invoke();
+        hideEventBehaviours[starAnimators.Last()].OnStateExitEvent += _ =>
+        {
+            if (hasInvoked)
+                return;
+            
+            hasInvoked = true;
+            finish?.Invoke();
+        };
     }
     
 #if UNITY_EDITOR

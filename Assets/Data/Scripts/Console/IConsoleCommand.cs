@@ -270,4 +270,41 @@ namespace Abu.Console
                        $"\"activate\" \"name\" to add this amount of boosters {Environment.NewLine}";
         
     }
+    
+    public class SetStarsCommand : IConsoleCommand
+    {
+        public string Command => "stars";
+
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 3)
+                return SetStars(args[1], args[2]);
+            else
+                return Help;
+            
+
+        }
+        
+        string SetStars(object level, object stars)
+        {
+            try
+            {
+                // ReSharper disable once PossibleNullReferenceException
+                Account.LevelConfigs.FirstOrDefault(_level =>
+                        String.Equals(_level.Name.Replace(" ", ""), level.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                    .StarsAmount = int.Parse(stars.ToString());
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+
+            return "Success.";
+        }
+
+
+        string Help => $"stars \"level name\" (without whitespaces) \"progress\" to stars amount. ";
+
+
+    }
 }

@@ -573,8 +573,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs args)
     {
-        if(args.Reason == GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed)
-            CreateStars(Index);
+        if(args.Reason == GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed || args.ShowStars)
+            CreateStars(Index, true);
         
         ShowUI();   
     }

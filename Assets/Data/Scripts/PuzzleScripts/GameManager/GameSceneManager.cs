@@ -103,9 +103,9 @@ namespace Puzzle
             replayScreenManager.CreateReplyScreen();
         }
 
-        void CallCompleteMenu(int stars)
+        void CallCompleteMenu(int stars, bool isNewRecord)
         {
-            completeScreenManager.CreateReplyScreen(stars);
+            completeScreenManager.CreateReplyScreen(stars, isNewRecord);
         }
         
         //TODO move it to player view
@@ -210,14 +210,14 @@ namespace Puzzle
             CreateEnemyEvent?.Invoke(@params);
         }
         
-        public void InvokeLevelClosed()
+        public void InvokeLevelClosed(bool showStars = true)
         {
             InvokePauseLevel(true);
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
             UnloadScene();
             LauncherUI.Instance.InvokeGameSceneUnloaded(
-                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed));
+                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars));
         }
         
         public void InvokeLevelCompleted()
@@ -227,8 +227,13 @@ namespace Puzzle
             
             //Get stars amount from hp
             int stars = Player.Hp.Remap(0, Player.DEFAULT_HP, 0, 3);
-            LevelConfig.StarsAmount = stars;
-            CallCompleteMenu(stars);
+
+            bool isNewRecord = LevelConfig.StarsAmount < stars; 
+            
+            if(isNewRecord)
+                LevelConfig.StarsAmount = stars;
+            
+            CallCompleteMenu(stars, isNewRecord);
         }
         
         public void InvokePlayAudio(LevelPlayAudioEventArgs args)

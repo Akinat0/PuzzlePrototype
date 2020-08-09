@@ -69,7 +69,7 @@ namespace ScreensScripts
         {
             Debug.Log("GameSceneUnloaded Invoked");
             GameSceneUnloadedEvent?.Invoke(args);
-            
+
             //Unpause game anyway
             TimeManager.DefaultTimeScale = 1;
             TimeManager.Unpause();

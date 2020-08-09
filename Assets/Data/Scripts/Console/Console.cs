@@ -19,6 +19,7 @@ namespace Abu.Console
                 new AchievementsListCommand(),
                 new AchievementsSetProgressCommand(),
                 new BoosterCommand(),
+                new SetStarsCommand(),
             };
         }
 

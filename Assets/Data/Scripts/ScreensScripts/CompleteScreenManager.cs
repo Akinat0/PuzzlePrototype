@@ -14,7 +14,8 @@ public class CompleteScreenManager : ManagerView
 
     StarsView StarsView => GameSceneManager.Instance.LevelRootView.StarsView;
     bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
-    
+
+    bool? IsNewRecord = null;
     
     private void Start()
     {
@@ -26,14 +27,21 @@ public class CompleteScreenManager : ManagerView
     {
         StopAllCoroutines();
         VFXManager.Instance.StopLevelCompleteSunshineEffect();
+
+        bool hideStars = IsNewRecord != null && !IsNewRecord.Value; 
         
-        GameSceneManager.Instance.InvokeLevelClosed();
+        if (hideStars)
+            StarsView.HideStars();
+        
+        GameSceneManager.Instance.InvokeLevelClosed(hideStars);
         CompleteScreen.SetActive(false);
     }
     
-    public void CreateReplyScreen(int stars)
+    public void CreateReplyScreen(int stars, bool isNewRecord)
     {
         CompleteScreen.SetActive(true);
+        
+        IsNewRecord = isNewRecord;
 
         if (StarsEnabled)
             StarsView.ShowStarsAnimation(stars, CallEffects);
@@ -48,7 +56,7 @@ public class CompleteScreenManager : ManagerView
             StartCompleteState, EndCompleteState);
         VFXManager.Instance.CallWinningSound();
     }
-    
+
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
         levelColorScheme.SetButtonColor(MenuButton);
