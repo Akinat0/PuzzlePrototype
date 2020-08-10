@@ -56,7 +56,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     #region constants
     
-    public const float MainButtonsOffset = 500;
     public const float UiAnimationDuration = 0.5f;
 
     static readonly Vector2 EnabledCollectionMaxAnchor = new Vector2(0.48f, 0.3f);
@@ -86,12 +85,19 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!HasLevel(Index - 1) || !LeftBtn.Interactable || !MobileInput.Condition) 
             return;
         
+        IsFocused = false;
+        
         float phase = Mathf.Abs(Offset - Index);
-            
+
         if(moveToIndexRoutine != null)
             StopCoroutine(moveToIndexRoutine);
+        
         StartCoroutine(moveToIndexRoutine =
-            MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
+            MoveToIndexRoutine(Index - 1, (1 - phase) * UiAnimationDuration / 2, () =>
+            {
+                moveToIndexRoutine = null;
+                IsFocused = true;
+            }));
     }
 
     protected override void MoveRight()
@@ -99,12 +105,18 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!HasLevel(Index + 1) || !RightBtn.Interactable || !MobileInput.Condition) 
             return;
         
+        IsFocused = false;
+        
         float phase = Mathf.Abs(Offset - Index);
-            
+
         if(moveToIndexRoutine != null)
             StopCoroutine(moveToIndexRoutine);
         StartCoroutine(moveToIndexRoutine =
-            MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration / 2, () => moveToIndexRoutine = null));
+            MoveToIndexRoutine(Index + 1, (1 - phase) * UiAnimationDuration / 2, () =>
+            {
+                moveToIndexRoutine = null;
+                IsFocused = true;
+            }));
     }
     
     void HideUI()
@@ -112,7 +124,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration);
         LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration);
         
-        Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, InteractBtn.RectTransform.rect.y - MainButtonsOffset), UiAnimationDuration);
+        Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, -ScreenScaler.ScreenSize.y), UiAnimationDuration);
         interactBtnTweener.onPlay = () => InteractBtn.Interactable = false; 
         interactBtnTweener.onComplete = () => InteractBtn.SetActive(false);
         
@@ -200,11 +212,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         if (_Duration < Mathf.Epsilon)
         {
-            CollectionBtn.RectTransform.anchoredPosition = new Vector2(0, CollectionBtn.RectTransform.rect.y - MainButtonsOffset);
+            CollectionBtn.RectTransform.anchoredPosition = new Vector2(0, -ScreenScaler.ScreenSize.y);
         }
         else
         {
-            CollectionBtn.RectTransform.DOAnchorPos(new Vector2(0, CollectionBtn.RectTransform.rect.y - MainButtonsOffset), _Duration)
+            CollectionBtn.RectTransform.DOAnchorPos(new Vector2(0, -ScreenScaler.ScreenSize.y), _Duration)
                 .OnStart(() => { CollectionBtn.Interactable = false; })
                 .SetUpdate(true)
                 .onComplete = () => CollectionBtn.SetActive(false);
@@ -260,7 +272,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
 
         if (animated)
-            levelContainers[index].StarsView.ShowStarsAnimation(Selection[index].StarsAmount);
+            levelContainers[index].StarsView.ShowStarsTogether(Selection[index].StarsAmount);
         else
             levelContainers[index].StarsView.ShowStarsInstant(Selection[index].StarsAmount);
     }
@@ -429,12 +441,18 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     protected override void ProcessIndex()
     {
-        if(afterTouchRoutine != null)
+        if (afterTouchRoutine != null)
+        {
             StopCoroutine(afterTouchRoutine);
+            IsFocused = true;
+        }
 
-        if(moveToIndexRoutine != null)
+        if (moveToIndexRoutine != null)
+        {
             StopCoroutine(moveToIndexRoutine);
-        
+            IsFocused = true;
+        }
+
         CreateLevel(Index - 1);
         CreateLevel(Index);
         CreateLevel(Index + 1);
@@ -592,5 +610,4 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     }
     
     #endregion
-    
 }

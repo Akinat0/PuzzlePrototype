@@ -14,7 +14,11 @@ public class MobileSwipe
 
     public void Update()
     {
+#if UNITY_EDITOR
         SwipeMouse();
+#else
+        SwipeMobile();
+#endif
     }
 
     public event Action<Vector2> OnTouchStart;  //start position
@@ -25,32 +29,32 @@ public class MobileSwipe
     
     private void SwipeMobile()
     {
-        if(Input.touches.Length > 0)
+        if (Input.touches.Length <= 0)
+            return;
+
+        Touch t = Input.GetTouch(0);
+
+        if (EventSystem.current.IsPointerOverGameObject(t.fingerId) || !MobileInput.Condition)
         {
-            
-            Touch t = Input.GetTouch(0);
-
-            if (EventSystem.current.IsPointerOverGameObject(t.fingerId) || !MobileInput.Condition)
-            {
-                if (inProgress)
-                    SwipeEnded(t.position);
-                return;
-            }
-
-            switch (t.phase)
-            {
-                case TouchPhase.Began:
-                    SwipeBegan(t.position);
-                    break;
-                case TouchPhase.Moved:
-                    SwipeMoved(t.position);
-                    break;
-                case TouchPhase.Ended:
-                case TouchPhase.Canceled:
-                    SwipeEnded(t.position);
-                    break;
-            }
+            if (inProgress)
+                SwipeEnded(t.position);
+            return;
         }
+
+        switch (t.phase)
+        {
+            case TouchPhase.Began:
+                SwipeBegan(t.position);
+                break;
+            case TouchPhase.Moved:
+                SwipeMoved(t.position);
+                break;
+            case TouchPhase.Ended:
+            case TouchPhase.Canceled:
+                SwipeEnded(t.position);
+                break;
+        }
+    
     }
 
     private void SwipeMouse()

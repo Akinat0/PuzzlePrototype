@@ -19,8 +19,10 @@ public class StarsView : MonoBehaviour
     private static readonly int InstantID = Animator.StringToHash("Instant");
     private static readonly int ActiveID = Animator.StringToHash("Active");
 
-    public static string ShowState => "Show";
-    public static string HideState => "Hide";
+    static string ShowState => "Show";
+    static string HideState => "Hide";
+
+    bool playSound; 
 
     #region factory
 
@@ -69,13 +71,32 @@ public class StarsView : MonoBehaviour
             int indexClosure = i;
 
             showEventBehaviours[starAnimators[i]].OnStateExitEvent += _ =>
-                SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
+            {
+                if (playSound)
+                    SoundManager.Instance.PlayOneShot(starClips[indexClosure], 0.7f);
+            };
         }
 
+    }
+
+    public void ShowStarsTogether(int stars)
+    {
+        playSound = false;
+        
+        stars = Mathf.Clamp(stars, 0, 3);
+        
+        for (int i = 0; i < 3; i++)
+        {
+            starAnimators[i].SetBool(InstantID, false);
+            starAnimators[i].SetTrigger(ShowID);
+            starAnimators[i].SetBool(ActiveID, i < stars);
+        }
     }
     
     public void ShowStarsInstant(int stars)
     {
+        playSound = false;
+        
         stars = Mathf.Clamp(stars, 0, 3);
 
         for (int i = 0; i < 3; i++)
@@ -88,6 +109,8 @@ public class StarsView : MonoBehaviour
     
     public void ShowStarsAnimation(int stars, Action finish = null)
     {
+        playSound = true;
+        
         stars = Mathf.Clamp(stars, 0, 3);
 
         //setup sounds and invokes

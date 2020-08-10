@@ -56,26 +56,38 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         if (!HasItem(Index - 1) || !LeftBtn.Interactable || !MobileInput.Condition) 
             return;
+
+        IsFocused = false;
         
         float phase = Mathf.Abs(Offset - Index);
             
         if(moveToIndexRoutine != null)
             StopCoroutine(moveToIndexRoutine);
         StartCoroutine(moveToIndexRoutine =
-            MoveToIndexRoutine(Index - 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () => moveToIndexRoutine = null));
+            MoveToIndexRoutine(Index - 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () =>
+            {
+                moveToIndexRoutine = null;
+                IsFocused = true;
+            }));
     }
 
     protected override void MoveRight()
     {
         if (!HasItem(Index + 1) || !RightBtn.Interactable || !MobileInput.Condition) 
             return;
+
+        IsFocused = false;
         
         float phase = Mathf.Abs(Offset - Index);
             
         if(moveToIndexRoutine != null)
             StopCoroutine(moveToIndexRoutine);
         StartCoroutine(moveToIndexRoutine =
-            MoveToIndexRoutine(Index + 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () => moveToIndexRoutine = null));
+            MoveToIndexRoutine(Index + 1, (1 - phase) * LevelSelectorComponent.UiAnimationDuration / 2, () =>
+            {
+                moveToIndexRoutine = null;
+                IsFocused = true;
+            }));
     }
 
     void CreateItem(int index)
@@ -133,12 +145,12 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         this.Invoke(()=> IsFocused = true, LevelSelectorComponent.UiAnimationDuration);
     }
     
-    void HideCollection(float _Duration = 0)
+    void HideCollection(bool animated = false)
     {
-        if (Math.Abs(_Duration) > Mathf.Epsilon)
-            Content.DOAnchorPos(Vector3.up * Screen.height, LevelSelectorComponent.UiAnimationDuration);
+        if (animated)
+            Content.DOAnchorPos(Vector3.up * ScreenScaler.ScreenSize.y, LevelSelectorComponent.UiAnimationDuration);
         else
-            Content.position += Vector3.up * Screen.height;
+            Content.anchoredPosition = Vector3.up * ScreenScaler.ScreenSize.y;
 
         Vector3 targetContainerPosition = ItemsContainer.position;
         targetContainerPosition.y = ScreenScaler.CameraSize.y;
@@ -170,7 +182,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(newPlayerView));
 
-        HideCollection();
+        HideCollection(true);
     }
 
     void OnBack()
@@ -183,7 +195,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     void Back()
     {
-        HideCollection(LevelSelectorComponent.UiAnimationDuration);
+        HideCollection(true);
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
     }
 

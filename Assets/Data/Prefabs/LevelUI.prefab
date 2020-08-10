@@ -190,7 +190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.62055486, y: 0.81052387}
   m_AnchorMax: {x: 0.957, y: 0.8843335}
-  m_AnchoredPosition: {x: -0.50006, y: 0}
+  m_AnchoredPosition: {x: -0.50006104, y: 0}
   m_SizeDelta: {x: -1.0000916, y: 0.000030517578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3844081618665348122
@@ -696,21 +696,20 @@ MonoBehaviour:
   MenuButton: {fileID: 7428371461235162827}
   StartCompleteState:
     position: {x: 0, y: 0}
-    size: 0
-    thickness: 0
-    rotation: 0
-    innerColor: {r: 0, g: 0, b: 0, a: 0}
-    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    size: 10
+    thickness: 10
+    rotation: 1
+    innerColor: {r: 1, g: 0, b: 0.9197521, a: 1}
+    outerColor: {r: 0, g: 0.2391901, b: 1, a: 0.8}
     seed: 0
   EndCompleteState:
     position: {x: 0, y: 0}
-    size: 0
-    thickness: 0
-    rotation: 0
-    innerColor: {r: 0, g: 0, b: 0, a: 0}
-    outerColor: {r: 0, g: 0, b: 0, a: 0}
+    size: 10
+    thickness: 10
+    rotation: 1
+    innerColor: {r: 0.9176471, g: 0.23137257, b: 0.8941177, a: 1}
+    outerColor: {r: 0.039215688, g: 0.26666668, b: 0.9607844, a: 0.85882354}
     seed: 0
-  StarsView: {fileID: 0}
 --- !u!114 &3844081620010751883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,7 +882,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 73.3
+  m_fontSize: 51.2
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1

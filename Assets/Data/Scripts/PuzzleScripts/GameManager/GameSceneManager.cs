@@ -72,6 +72,7 @@ namespace Puzzle
         {
             player = _player.AddComponent<Player>();
             player.sides = config.PuzzleSides.ToArray();
+            
             _player.AddComponent<PlayerInput>();
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
             

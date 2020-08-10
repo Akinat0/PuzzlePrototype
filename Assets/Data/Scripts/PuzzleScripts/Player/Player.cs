@@ -20,10 +20,9 @@ namespace Puzzle
         public PlayerView PlayerView => _view;
         public int Hp => _health;
         
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             _view = GetComponent<PlayerView>();
-            _immuneFramesEnabled = false;
         }
         
         private void OnTriggerEnter2D(Collider2D other)
