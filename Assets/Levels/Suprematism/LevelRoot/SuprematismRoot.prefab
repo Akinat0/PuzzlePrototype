@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9077675037809344197
 Transform:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ PlayableDirector:
   m_GameObject: {fileID: 4396439755969541175}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -529,6 +529,10 @@ PlayableDirector:
   - key: {fileID: 7647077780714157433, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
     value: {fileID: 0}
   - key: {fileID: -2366354441053149257, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+    value: {fileID: 3299606205061107757}
+  - key: {fileID: 7647077780714157433, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2366354441053149257, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
     value: {fileID: 3299606205061107757}
   m_ExposedReferences:
     m_References: []
@@ -823,7 +827,7 @@ Animator:
   m_GameObject: {fileID: 6375479999667011655}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 627ab4cfcd6cf0245800f19fc8381ab0, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
