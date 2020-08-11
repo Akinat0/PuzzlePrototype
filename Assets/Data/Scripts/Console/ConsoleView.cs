@@ -6,9 +6,26 @@ namespace Abu.Console
 {
     public class ConsoleView : MonoBehaviour
     {
+        public static Texture DebugTexture
+        {
+            set
+            {
+                Print("DebugImage updated");
+                instance.DebugImage.texture = value;
+            }
+        }  
+        
+        static ConsoleView instance;
+        public static void Print(string log)
+        {
+            instance.output.text += log + Environment.NewLine + "--------" + Environment.NewLine;
+            Debug.Log("[Console] " + log);
+        } 
+        
         [SerializeField] private InputField inputField;
         [SerializeField] private Text output;
         [SerializeField] private GameObject console;
+        [SerializeField] RawImage DebugImage;
 
         private Console Console;
         
@@ -31,6 +48,7 @@ namespace Abu.Console
 
         private void Start()
         {
+            instance = this;   
             IsConsoleActive = false;
             Console = new Console();
         }
@@ -62,6 +80,11 @@ namespace Abu.Console
             string result = Console.Process(inputField.text) + Environment.NewLine;
             output.text += result;
             inputField.text = "";
+        }
+
+        public static void ToggleDebugImage()
+        {
+            instance.DebugImage.gameObject.SetActive(!instance.DebugImage.gameObject.activeSelf);
         }
     }
 }

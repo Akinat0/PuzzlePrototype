@@ -304,7 +304,18 @@ namespace Abu.Console
 
 
         string Help => $"stars \"level name\" (without whitespaces) \"progress\" to stars amount. ";
-
-
     }
+    
+    public class DebugImageCommand : IConsoleCommand
+    {
+        public string Command => "debugimage";
+
+        public string Process(object[] args, Console console)
+        {
+            ConsoleView.ToggleDebugImage();
+            return "Success.";
+        }
+        
+    }
+    
 }

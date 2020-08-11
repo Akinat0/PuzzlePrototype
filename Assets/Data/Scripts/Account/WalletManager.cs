@@ -12,7 +12,7 @@ public class WalletManager : MonoBehaviour
         WalletData.AddCoins(amount);
     }
     
-    private void Start()
+    private void Awake()
     {
         WalletData.LoadSettings();
     }
