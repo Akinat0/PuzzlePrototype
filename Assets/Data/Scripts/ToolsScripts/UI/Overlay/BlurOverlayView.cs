@@ -55,7 +55,9 @@ namespace Abu.Tools.UI
         
         protected virtual void Awake()
         {
-            renderTexture = new RenderTexture(Screen.width >> downRes, Screen.height >> downRes, 0);
+            renderTexture = new RenderTexture(Screen.width >> downRes, Screen.height >> downRes, 16, RenderTextureFormat.ARGB32);
+            renderTexture.Create();
+            
             BlurImage.texture = renderTexture;
             ConsoleView.Print($"BlurOverlay awoke. Blur texture size {renderTexture.width} : {renderTexture.height}");
         }

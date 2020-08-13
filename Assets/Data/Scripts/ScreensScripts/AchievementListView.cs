@@ -1,4 +1,6 @@
+using Abu.Tools;
 using Abu.Tools.UI;
+using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -6,18 +8,23 @@ namespace Data.Scripts.ScreensScripts
 {
     public class AchievementListView : IListElement
     {
-        public AchievementListView(Achievement achievement)
+        public AchievementListView(Achievement achievement, TextGroup titleTextGroup, TextGroup descriptionTextGroup)
         {
             this.achievement = achievement;
+            this.titleTextGroup = titleTextGroup;
+            this.descriptionTextGroup = descriptionTextGroup;
+            
             achievement.ProgressChangedEvent += ProgressChangedEvent_Handler;
             achievement.AchievementReceivedEvent += AchievementReceivedEvent_Handler;
             achievement.AchievementClaimedEvent += AchievementClaimedEvent_Handler;
         }
 
         readonly Achievement achievement;
+        readonly TextGroup titleTextGroup;
+        readonly TextGroup descriptionTextGroup;
         
         public Vector2 Size => entity.RectTransform.rect.size;
-        
+
         AchievementViewComponent entity;
 
         const string pathToPrefab = "UI/AchievementView";
@@ -43,6 +50,9 @@ namespace Data.Scripts.ScreensScripts
             entity.DescriptionText = achievement.Description;
             entity.CreateReward(achievement.Reward);
             entity.Icon = achievement.Icon;
+            
+            titleTextGroup.Add(entity.TextField);
+            descriptionTextGroup.Add(entity.DescriptionField);
             
             UpdateView();
 
@@ -78,8 +88,6 @@ namespace Data.Scripts.ScreensScripts
             }
 
             entity.Color = achievementColor;
-            
-            
         }
         
         void ProgressChangedEvent_Handler(float progress)

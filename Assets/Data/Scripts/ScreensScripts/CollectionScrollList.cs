@@ -13,7 +13,7 @@ namespace Data.Scripts.ScreensScripts
             base.Start();
         }
 
-        protected override void AddElement(IListElement listElement)
+        protected override void AddElement(CollectionListView listElement)
         {
             base.AddElement(listElement);
             

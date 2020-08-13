@@ -12,6 +12,8 @@ public class AchievementViewComponent : TextButtonComponent
      
      Slider progressBar;
 
+     public TextMeshProUGUI DescriptionField => Description;
+
      public string DescriptionText
      {
           get => Description.text;
