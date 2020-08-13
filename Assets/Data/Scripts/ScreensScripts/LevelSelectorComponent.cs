@@ -121,8 +121,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void HideUI()
     {
-        RightBtn.RectTransform.DOAnchorPos(new Vector2(210, 0), UiAnimationDuration);
-        LeftBtn.RectTransform.DOAnchorPos(new Vector2(-210, 0), UiAnimationDuration);
+        float buttonsOffset = ScreenScaler.ScreenSize.x / 4;
+        RightBtn.RectTransform.DOAnchorPos(new Vector2(buttonsOffset, 0), UiAnimationDuration);
+        LeftBtn.RectTransform.DOAnchorPos(new Vector2(-buttonsOffset, 0), UiAnimationDuration);
         
         Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, -ScreenScaler.ScreenSize.y), UiAnimationDuration);
         interactBtnTweener.onPlay = () => InteractBtn.Interactable = false; 

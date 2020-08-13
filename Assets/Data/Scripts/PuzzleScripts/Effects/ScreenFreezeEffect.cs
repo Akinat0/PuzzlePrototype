@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Security.AccessControl;
 using Abu.Tools;
 using UnityEngine;
 
@@ -70,19 +71,19 @@ public class ScreenFreezeEffect : MonoBehaviour
             transform.localScale.z * transform.localScale.z / transform.lossyScale.z);
     }
     
-    public void Show()
+    public void Show(Action finished = null)
     {
         StopAllCoroutines();
-        StartCoroutine(ShowRoutine());
+        StartCoroutine(ShowRoutine(finished));
     }
 
-    public void Hide()
+    public void Hide(Action finished = null)
     {
         StopAllCoroutines();
-        StartCoroutine(HideRoutine());
+        StartCoroutine(HideRoutine(finished));
     }
     
-    IEnumerator ShowRoutine()
+    IEnumerator ShowRoutine(Action finished)
     {
         float time = 0;
         float duration = 1.5f;
@@ -93,15 +94,16 @@ public class ScreenFreezeEffect : MonoBehaviour
             Material.SetFloat(PhaseID, Mathf.Lerp(0, 0.4f, phase));
             Material.SetFloat(IntensityID, Mathf.Lerp(0, 0.5f, phase));
             time += Time.deltaTime;
-            Debug.LogError($"Hide time {time}");
             yield return null;
         }
         
         Material.SetFloat(PhaseID, 0.4f);
         Material.SetFloat(IntensityID, 0.5f);
+        
+        finished?.Invoke();
     }
     
-    IEnumerator HideRoutine()
+    IEnumerator HideRoutine(Action finished)
     {
         float time = 0;
         float duration = 1.5f;
@@ -112,12 +114,13 @@ public class ScreenFreezeEffect : MonoBehaviour
             Material.SetFloat(PhaseID, Mathf.Lerp(0.4f, 0, phase));
             Material.SetFloat(IntensityID, Mathf.Lerp(0.5f, 0, phase));
             time += Time.deltaTime;
-            Debug.LogError($"Show time {time}");
             yield return null;
         }
         
         Material.SetFloat(PhaseID, 0);
         Material.SetFloat(IntensityID, 0);
+        
+        finished?.Invoke();
     }
     
     
