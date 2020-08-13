@@ -1,4 +1,6 @@
 
+using Puzzle;
+
 public class TimeFreezeBooster : Booster
 {
     public override string Name => "Time Freeze";
@@ -6,6 +8,7 @@ public class TimeFreezeBooster : Booster
     public override void Apply()
     {
         TimeManager.DefaultTimeScale = 0.87f;
+        
     }
 
 }
