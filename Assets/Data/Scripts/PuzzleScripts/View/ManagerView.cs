@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Abu.Tools;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Puzzle
         protected Action<float> AlphaSetter;
         protected Func<float> AlphaGetter;
 
-        protected static event Action<float> ChangeSharedFontSize;
+        protected static readonly TextGroup TextGroup = new TextGroup();
 
         private void Awake()
         {
@@ -26,6 +27,7 @@ namespace Puzzle
 
         private void OnDestroy()
         {
+            TextGroup.RemoveAll();
             GameSceneManager.CutsceneStartedEvent -= CutsceneStartedEvent_Handler;
             GameSceneManager.CutsceneEndedEvent -= CutsceneEndedEvent_Handler;
         }
@@ -93,9 +95,6 @@ namespace Puzzle
             finished?.Invoke();
         }
 
-        //Probably there will be a problem,
-        //because we are stoppin' only tweens, but not Invoke's coroutines
-        
         protected void ShowShort()
         {
             StopAllCoroutines();
@@ -121,11 +120,6 @@ namespace Puzzle
         {
             StopAllCoroutines();
             AlphaSetter(1);
-        }
-
-        protected void InvokeChangeSharedFontSize(float fontSize)
-        {
-            ChangeSharedFontSize?.Invoke(fontSize);
         }
     }
 }

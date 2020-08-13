@@ -10,7 +10,9 @@ public class CoinSceneManager : ManagerView
     
     void Start()
     {
-        InvokeChangeSharedFontSize(Wallet.Text.fontSize);
+        //We must be sure that TMP has already updated
+        TextGroup.Add(Wallet.Text, true);
+        
         AlphaSetter = alpha => Wallet.Alpha = alpha;
         AlphaGetter = () => Wallet.Alpha;
     }
@@ -20,7 +22,6 @@ public class CoinSceneManager : ManagerView
         base.OnEnable();
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
-        ChangeSharedFontSize += ChangeSharedFontSize_Handler;
     }
 
     protected override void OnDisable()
@@ -28,7 +29,6 @@ public class CoinSceneManager : ManagerView
         base.OnDisable();
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
-        ChangeSharedFontSize -= ChangeSharedFontSize_Handler;
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
@@ -37,6 +37,8 @@ public class CoinSceneManager : ManagerView
     private void BalanceChangedEvent_Handler(int balance)
     {
         ShowShort();
+        
+        TextGroup?.ResolveTextSize();
     }
     
     void PauseLevelEvent_Handler(bool pause)

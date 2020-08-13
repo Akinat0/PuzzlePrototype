@@ -18,27 +18,25 @@ namespace Puzzle
             
             set
             {
-                float prevFontSize = scoreText.fontSize;
                 scoreText.text = value;
-                scoreText.ForceMeshUpdate();
-                float newFontSize = scoreText.fontSize;
-
-                if (!Mathf.Approximately(prevFontSize, newFontSize))
-                    InvokeChangeSharedFontSize(newFontSize);
+                TextGroup.ResolveTextSize();
             }
         }
 
         void Awake()
         {
             scoreText = GetComponent<TextMeshProUGUI>();
-            Text = Score;
         }
 
         void Start()
         {
-            InvokeChangeSharedFontSize(scoreText.fontSize);
             AlphaSetter = alpha => scoreText.alpha = alpha;
             AlphaGetter = () => scoreText.alpha;
+            
+            //We must be sure that TMP has already updated
+            Text = Score;
+            TextGroup.Add(scoreText, true);
+            
         }
 
         void AddScore(int score)
@@ -82,7 +80,7 @@ namespace Puzzle
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
 
         }
-        
+
         void ResetLevelEvent_Handler()
         {
             score = 0;

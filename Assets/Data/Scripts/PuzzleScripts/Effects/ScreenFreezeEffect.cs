@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Security.AccessControl;
 using Abu.Tools;
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class ScreenFreezeEffect : MonoBehaviour
 {
+    
     #region factory
     static ScreenFreezeEffect prefab;
     static ScreenFreezeEffect Prefab
@@ -26,6 +28,8 @@ public class ScreenFreezeEffect : MonoBehaviour
     }
     
     #endregion
+
+    [SerializeField] AudioClip FreezeSound;
 
     static readonly int PhaseID = Shader.PropertyToID("_Phase");
     static readonly int IntensityID = Shader.PropertyToID("_Intensity");
@@ -57,6 +61,7 @@ public class ScreenFreezeEffect : MonoBehaviour
     void Start()
     {
         Vector2 scale = ScreenScaler.ScaleToFillScreen(SpriteRenderer);
+        SpriteRenderer.sortingLayerName = RenderLayer.VFX;
         
         transform.localScale = new Vector3(scale.x, scale.y, 1);
         
@@ -73,6 +78,8 @@ public class ScreenFreezeEffect : MonoBehaviour
     
     public void Show(Action finished = null)
     {
+        AudioSource freezeSFX = SoundManager.Instance.PlayOneShot(FreezeSound);
+
         StopAllCoroutines();
         StartCoroutine(ShowRoutine(finished));
     }
@@ -86,7 +93,7 @@ public class ScreenFreezeEffect : MonoBehaviour
     IEnumerator ShowRoutine(Action finished)
     {
         float time = 0;
-        float duration = 1.5f;
+        float duration = 2.4f;
 
         while (time < duration)
         {
@@ -106,7 +113,7 @@ public class ScreenFreezeEffect : MonoBehaviour
     IEnumerator HideRoutine(Action finished)
     {
         float time = 0;
-        float duration = 1.5f;
+        float duration = 1f;
 
         while (time < duration)
         {

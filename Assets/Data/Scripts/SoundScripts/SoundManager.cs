@@ -24,9 +24,10 @@ public class SoundManager : MonoBehaviour
         oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
     }
 
-    public void PlayOneShot(AudioClip audioClip, float volume = 1)
+    public AudioSource PlayOneShot(AudioClip audioClip, float volume = 1)
     {
         oneShotPlayer.PlayOneShot(audioClip, volume);
+        return oneShotPlayer;
     }
 
     public void SetVolume(float volume)

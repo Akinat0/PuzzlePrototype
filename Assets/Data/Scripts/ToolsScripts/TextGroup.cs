@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,18 +12,34 @@ namespace Abu.Tools
 
         public TextGroup() { }
 
-        public void Add(TextMeshProUGUI text)
+        public void AddRange(IEnumerable<TextMeshProUGUI> range)
+        {
+            TextObjects.AddRange(range);
+        }
+        
+        public void Add(TextMeshProUGUI text, bool resolve = false)
         {
             TextObjects.Add(text);
+            
+            if(resolve)
+                ResolveTextSize();
         }
         
         public void Remove(TextMeshProUGUI text)
         {
             TextObjects.Remove(text);
         }
+
+        public void RemoveAll()
+        {
+            TextObjects.Clear();
+        }
         
         public void ResolveTextSize()
         {
+            if (TextObjects.Count == 0)
+                return;
+            
             //Keep in mind that TMP should be inited before resolve text size
             float sharedFontSize = float.MaxValue;
             
