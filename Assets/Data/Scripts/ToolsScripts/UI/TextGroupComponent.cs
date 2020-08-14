@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
 
 namespace Abu.Tools.UI
@@ -103,5 +104,21 @@ namespace Abu.Tools.UI
         }
     }
 
-    
+    public class TextObject
+    {
+        public readonly TextMeshProUGUI Target;
+
+        public bool IsSizeTarget;
+        public bool IsSizeSource;
+        public bool UpdateOnce;
+
+        public TextObject(TextMeshProUGUI target, bool isSizeTarget = true, bool isSizeSource = true, bool updateOnce = false)
+        {
+            Target = target;
+            IsSizeTarget = isSizeTarget;
+            IsSizeSource = isSizeSource;
+            UpdateOnce = updateOnce;
+        }
+
+    }
 }
