@@ -1,6 +1,5 @@
 using Abu.Tools;
 using Abu.Tools.UI;
-using TMPro;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -8,11 +7,15 @@ namespace Data.Scripts.ScreensScripts
 {
     public class AchievementListView : IListElement
     {
-        public AchievementListView(Achievement achievement, TextGroup titleTextGroup, TextGroup descriptionTextGroup)
+        readonly TextGroupComponent TitleTextGroup;
+        readonly TextGroupComponent DescriptionTextGroup;
+        
+        public AchievementListView(Achievement achievement, TextGroupComponent titleTextGroup, TextGroupComponent descriptionTextGroup)
         {
             this.achievement = achievement;
-            this.titleTextGroup = titleTextGroup;
-            this.descriptionTextGroup = descriptionTextGroup;
+
+            TitleTextGroup = titleTextGroup;
+            DescriptionTextGroup = descriptionTextGroup;
             
             achievement.ProgressChangedEvent += ProgressChangedEvent_Handler;
             achievement.AchievementReceivedEvent += AchievementReceivedEvent_Handler;
@@ -20,8 +23,6 @@ namespace Data.Scripts.ScreensScripts
         }
 
         readonly Achievement achievement;
-        readonly TextGroup titleTextGroup;
-        readonly TextGroup descriptionTextGroup;
         
         public Vector2 Size => entity.RectTransform.rect.size;
 
@@ -50,10 +51,10 @@ namespace Data.Scripts.ScreensScripts
             entity.DescriptionText = achievement.Description;
             entity.CreateReward(achievement.Reward);
             entity.Icon = achievement.Icon;
-            
-            titleTextGroup.Add(entity.TextField);
-            descriptionTextGroup.Add(entity.DescriptionField);
-            
+
+            TitleTextGroup.Add(new TextObject(entity.TextField, updateOnce: true));
+            DescriptionTextGroup.Add(new TextObject(entity.DescriptionField, updateOnce: true));
+
             UpdateView();
 
             entity.OnClick += () =>

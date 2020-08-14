@@ -17,8 +17,6 @@ namespace Puzzle
         protected Action<float> AlphaSetter;
         protected Func<float> AlphaGetter;
 
-        protected static readonly TextGroup TextGroup = new TextGroup();
-
         private void Awake()
         {
             GameSceneManager.CutsceneStartedEvent += CutsceneStartedEvent_Handler;
@@ -27,7 +25,6 @@ namespace Puzzle
 
         private void OnDestroy()
         {
-            TextGroup.RemoveAll();
             GameSceneManager.CutsceneStartedEvent -= CutsceneStartedEvent_Handler;
             GameSceneManager.CutsceneEndedEvent -= CutsceneEndedEvent_Handler;
         }

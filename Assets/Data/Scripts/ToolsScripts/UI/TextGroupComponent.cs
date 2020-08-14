@@ -1,37 +1,107 @@
-using TMPro;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Abu.Tools.UI
 {
     public class TextGroupComponent : UIComponent
     {
-        [SerializeField] TextMeshProUGUI[] TextObjects;
-
-        bool IsTextSizeDirty = false;
-        
-        readonly TextGroup textGroup = new TextGroup();
-        
-        void Awake()
+        public static TextGroupComponent AttachTo([NotNull] GameObject holder)
         {
-            IsTextSizeDirty = true;
-            textGroup.AddRange(TextObjects);
+            TextGroupComponent textGroupComponent = holder.AddComponent<TextGroupComponent>();
+            
+            return textGroupComponent;
         }
+        
+        [SerializeField] TextObject[] TextObjects = Array.Empty<TextObject>();
 
-        void OnWillRenderObject()
+        [SerializeField] float FontSize;
+
+        bool IsTextDirty = false;
+        
+        void Start()
         {
-            if (!IsTextSizeDirty)
+            if (TextObjects == null || TextObjects.Length <= 0)
                 return;
             
-            textGroup.ResolveTextSize();
-            IsTextSizeDirty = false;
+            IsTextDirty = true;
         }
 
-        protected override void OnValidate()
+        void LateUpdate()
         {
-            base.OnValidate();
-            textGroup.RemoveAll();
-            textGroup.AddRange(TextObjects);
-            textGroup.ResolveTextSize();
+            if (!IsTextDirty)
+                return;
+
+            FontSize = ResolveTextSize(TextObjects);
+            IsTextDirty = false;
+        }
+        
+        public void Add(TextObject textObject)
+        {
+            List<TextObject> objectsList = TextObjects.ToList();
+            objectsList.Add(textObject);
+            TextObjects = objectsList.ToArray();
+            
+            IsTextDirty = true;
+        }
+
+        public void Remove(TextObject textObject)
+        {
+            List<TextObject> objectsList = TextObjects.ToList();
+            objectsList.Remove(textObject);
+            TextObjects = objectsList.ToArray();
+            
+            IsTextDirty = true;
+        }
+
+        [ContextMenu("UpdateText")]
+        public void UpdateText()
+        {
+            IsTextDirty = true;
+        }
+        
+        public static float ResolveTextSize(TextObject[] textObjects)
+        {
+            if (textObjects.Length == 0)
+                return 0;
+            
+            //Keep in mind that TMP should be inited before resolve text size
+            float sharedFontSize = float.MaxValue;
+            
+            foreach (var textObject in textObjects)
+            {
+                if(textObject == null || textObject.Target == null)
+                    continue;
+
+                if (!textObject.IsSizeSource)
+                    continue;
+                
+                var text = textObject.Target;
+                
+                text.enableAutoSizing = true;
+                text.ForceMeshUpdate();
+                sharedFontSize = Mathf.Min(text.fontSize, sharedFontSize);
+                text.enableAutoSizing = false;
+            }
+
+            foreach (var textObject in textObjects)
+            {
+                if(textObject == null || textObject.Target == null || !textObject.IsSizeTarget)
+                    continue;
+                
+                textObject.Target.fontSize = sharedFontSize;
+
+                if (textObject.UpdateOnce)
+                    textObject.IsSizeTarget = false;
+
+
+            }
+
+            return sharedFontSize;
         }
     }
+
+    
 }

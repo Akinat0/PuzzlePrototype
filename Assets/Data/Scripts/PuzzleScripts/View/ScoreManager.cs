@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Abu.Tools;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
@@ -16,11 +17,7 @@ namespace Puzzle
         
         private string Text {
             
-            set
-            {
-                scoreText.text = value;
-                TextGroup.ResolveTextSize();
-            }
+            set => scoreText.text = value;
         }
 
         void Awake()
@@ -35,8 +32,6 @@ namespace Puzzle
             
             //We must be sure that TMP has already updated
             Text = Score;
-            TextGroup.Add(scoreText, true);
-            
         }
 
         void AddScore(int score)

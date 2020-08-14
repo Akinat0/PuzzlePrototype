@@ -1,4 +1,5 @@
-﻿using Abu.Tools.UI;
+﻿using Abu.Tools;
+using Abu.Tools.UI;
 using DG.Tweening;
 using Puzzle;
 using TMPro;
@@ -10,9 +11,6 @@ public class CoinSceneManager : ManagerView
     
     void Start()
     {
-        //We must be sure that TMP has already updated
-        TextGroup.Add(Wallet.Text, true);
-        
         AlphaSetter = alpha => Wallet.Alpha = alpha;
         AlphaGetter = () => Wallet.Alpha;
     }
@@ -37,8 +35,6 @@ public class CoinSceneManager : ManagerView
     private void BalanceChangedEvent_Handler(int balance)
     {
         ShowShort();
-        
-        TextGroup?.ResolveTextSize();
     }
     
     void PauseLevelEvent_Handler(bool pause)
