@@ -9,18 +9,21 @@ namespace Abu.Tools.UI
 {
     public class TextGroupComponent : UIComponent
     {
-        public static TextGroupComponent AttachTo([NotNull] GameObject holder)
+        public static TextGroupComponent AttachTo([NotNull] GameObject holder, float tolerance = 5f)
         {
             TextGroupComponent textGroupComponent = holder.AddComponent<TextGroupComponent>();
+            textGroupComponent.Tolerance = tolerance;
             
             return textGroupComponent;
         }
         
         [SerializeField] TextObject[] TextObjects = Array.Empty<TextObject>();
 
-        [SerializeField] float FontSize;
-
+        [SerializeField] public float FontSize;
+        [SerializeField] public float Tolerance;
         bool IsTextDirty = false;
+        
+        
         
         void Start()
         {
@@ -35,7 +38,7 @@ namespace Abu.Tools.UI
             if (!IsTextDirty)
                 return;
 
-            FontSize = ResolveTextSize(TextObjects);
+            FontSize = ResolveTextSize(TextObjects, Tolerance);
             IsTextDirty = false;
         }
         
@@ -57,13 +60,13 @@ namespace Abu.Tools.UI
             IsTextDirty = true;
         }
 
-        [ContextMenu("UpdateText")]
-        public void UpdateText()
+        [ContextMenu("UpdateTextSize")]
+        public void UpdateTextSize()
         {
             IsTextDirty = true;
         }
         
-        public static float ResolveTextSize(TextObject[] textObjects)
+        public static float ResolveTextSize(TextObject[] textObjects, float tolerance = 1f)
         {
             if (textObjects.Length == 0)
                 return 0;
@@ -71,7 +74,7 @@ namespace Abu.Tools.UI
             //Keep in mind that TMP should be inited before resolve text size
             float sharedFontSize = float.MaxValue;
             
-            foreach (var textObject in textObjects)
+            foreach (TextObject textObject in textObjects)
             {
                 if(textObject == null || textObject.Target == null)
                     continue;
@@ -79,45 +82,68 @@ namespace Abu.Tools.UI
                 if (!textObject.IsSizeSource)
                     continue;
                 
-                var text = textObject.Target;
+                var target = textObject.Target;
+                string defaultContent = target.text;
                 
-                text.enableAutoSizing = true;
-                text.ForceMeshUpdate();
-                sharedFontSize = Mathf.Min(text.fontSize, sharedFontSize);
-                text.enableAutoSizing = false;
+                int targetContentIndex = 0;
+
+                for (int i = 0; i < textObject.PossibleContents.Length; i++)
+                {
+                    if (textObject.PossibleContents[i].Length > textObject.PossibleContents[targetContentIndex].Length)
+                        targetContentIndex = i;
+                }    
+                    
+                target.text = textObject.PossibleContents[targetContentIndex];
+
+                target.enableAutoSizing = true;
+                target.ForceMeshUpdate();
+                sharedFontSize = Mathf.Min(target.fontSize, sharedFontSize);
+
+                target.text = defaultContent;
             }
 
-            foreach (var textObject in textObjects)
+            sharedFontSize -= tolerance;
+            
+            foreach (TextObject textObject in textObjects)
             {
                 if(textObject == null || textObject.Target == null || !textObject.IsSizeTarget)
                     continue;
+                
+                textObject.Target.enableAutoSizing = false;   
                 
                 textObject.Target.fontSize = sharedFontSize;
 
                 if (textObject.UpdateOnce)
                     textObject.IsSizeTarget = false;
-
-
+                
             }
 
             return sharedFontSize;
         }
     }
 
+    [Serializable]
     public class TextObject
     {
-        public readonly TextMeshProUGUI Target;
+        public TextMeshProUGUI Target;
+
+        public string[] PossibleContents;
 
         public bool IsSizeTarget;
         public bool IsSizeSource;
         public bool UpdateOnce;
 
-        public TextObject(TextMeshProUGUI target, bool isSizeTarget = true, bool isSizeSource = true, bool updateOnce = false)
+        public TextObject(TextMeshProUGUI target, string[] possibleContent = null, bool isSizeTarget = true, bool isSizeSource = true, bool updateOnce = false)
         {
             Target = target;
             IsSizeTarget = isSizeTarget;
             IsSizeSource = isSizeSource;
             UpdateOnce = updateOnce;
+
+            PossibleContents = new []{Target.text};
+
+            if (possibleContent != null)
+                PossibleContents = PossibleContents.Concat(possibleContent).ToArray();
         }
 
     }

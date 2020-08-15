@@ -8,11 +8,13 @@ using UnityEngine;
 public class CoinSceneManager : ManagerView
 {
     [SerializeField] private WalletComponent Wallet;
-    
+
     void Start()
     {
         AlphaSetter = alpha => Wallet.Alpha = alpha;
         AlphaGetter = () => Wallet.Alpha;
+        
+        TextGroup.Add(new TextObject(Wallet.Text));
     }
     
     protected override void OnEnable()
@@ -35,6 +37,7 @@ public class CoinSceneManager : ManagerView
     private void BalanceChangedEvent_Handler(int balance)
     {
         ShowShort();
+        TextGroup.UpdateTextSize();
     }
     
     void PauseLevelEvent_Handler(bool pause)

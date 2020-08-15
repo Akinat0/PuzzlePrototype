@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Abu.Tools;
+using Abu.Tools.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,6 +18,20 @@ namespace Puzzle
         protected Action<float> AlphaSetter;
         protected Func<float> AlphaGetter;
 
+        
+        static TextGroupComponent textGroup;
+
+        protected TextGroupComponent TextGroup
+        {
+            get
+            {
+                if (textGroup == null)
+                    textGroup = TextGroupComponent.AttachTo(transform.parent.gameObject, 0);
+            
+                return textGroup;
+            }
+        }
+        
         private void Awake()
         {
             GameSceneManager.CutsceneStartedEvent += CutsceneStartedEvent_Handler;
@@ -27,6 +42,7 @@ namespace Puzzle
         {
             GameSceneManager.CutsceneStartedEvent -= CutsceneStartedEvent_Handler;
             GameSceneManager.CutsceneEndedEvent -= CutsceneEndedEvent_Handler;
+            textGroup = null;
         }
 
         protected virtual void OnEnable()

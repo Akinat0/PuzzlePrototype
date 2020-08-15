@@ -37,10 +37,14 @@ namespace ScreensScripts
         private LevelConfig _levelConfig;
 
         LevelRootView actualLevelRootView;
+        
+        public TextGroupComponent LauncherTextGroup { get; private set; }
+        
         private void Awake()
         {
             Instance = this;
             SceneManager.LoadScene("PuzzleAtlasScene", LoadSceneMode.Additive);
+            LauncherTextGroup = TextGroupComponent.AttachTo(gameObject);
         }
 
         void PlayLevel(LevelConfig config)

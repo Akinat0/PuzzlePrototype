@@ -50,6 +50,9 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         ItemsContainer.SetY(ScreenScaler.CameraSize.y);
         Selection = Account.CollectionItems;
         HideCollection();
+
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField,
+            possibleContent: new[] {"Set as default"}));
     }
 
     protected override void MoveLeft()

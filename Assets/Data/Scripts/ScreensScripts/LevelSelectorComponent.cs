@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -78,8 +79,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         Offset = Index;
         ShowUI();
         ProcessIndex();
+        
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(CollectionBtn.TextField, isSizeSource: false));
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField, possibleContent: Selection.Select(config => config.Name).ToArray()));
     }
-    
+
     protected override void MoveLeft()
     {
         if (!HasLevel(Index - 1) || !LeftBtn.Interactable || !MobileInput.Condition) 
@@ -368,8 +372,13 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         float startCollectionTextAlpha = Current.CollectionEnabled ? 1 : 0;
         float targetCollectionTextAlpha = Selection[nextLevel].CollectionEnabled ? 1 : 0;
-
+        
         CollectionBtn.TextField.SetAlpha(Mathf.Lerp(startCollectionTextAlpha, targetCollectionTextAlpha, phase * phase));
+
+        float startCollectionFontSize = Current.CollectionEnabled ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
+        float targetCollectionFontSize = Selection[nextLevel].CollectionEnabled ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
+        
+        CollectionBtn.TextField.fontSize = Mathf.Lerp(startCollectionFontSize, targetCollectionFontSize, phase * phase);
     }
     
     void ProcessSideButtons()

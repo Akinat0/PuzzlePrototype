@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Abu.Tools;
+using Abu.Tools.UI;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
@@ -29,15 +30,16 @@ namespace Puzzle
         {
             AlphaSetter = alpha => scoreText.alpha = alpha;
             AlphaGetter = () => scoreText.alpha;
-            
-            //We must be sure that TMP has already updated
             Text = Score;
+            
+            TextGroup.Add(new TextObject(scoreText));
         }
 
         void AddScore(int score)
         {
             this.score += score;
             StartCoroutine(ScrollScore());
+            
         }
 
         private IEnumerator ScrollScore()
@@ -47,6 +49,8 @@ namespace Puzzle
             {
                 tempScore++;
                 Text = Score;
+                TextGroup.UpdateTextSize();
+                
                 ShowShort(); //TODO I don't like the solution
                 yield return new WaitForSeconds(delay);
             }
