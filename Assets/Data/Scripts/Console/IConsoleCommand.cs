@@ -317,5 +317,17 @@ namespace Abu.Console
         }
         
     }
+
+    public class DeleteLocalCommand : IConsoleCommand
+    {
+        public string Command => "deletelocal";
+
+        public string Process(object[] args, Console console)
+        {
+            PlayerPrefs.DeleteAll();
+            return "All local data deleted. Restart the application";
+        }
+
+    }
     
 }

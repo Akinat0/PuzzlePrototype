@@ -3,22 +3,39 @@ using UnityEngine;
 
 public class WalletManager : MonoBehaviour
 {
-    [SerializeField] private WalletData WalletData;
-
-    public int Coins => WalletData.Coins;
+    string Key => "Wallet";
+    
+    int coins;
+    
+    public int Coins
+    {
+        get => coins;
+        set
+        {
+            coins = value;
+            SaveCoins();
+        }
+    }
 
     public void AddCoins(int amount)
     {
-        WalletData.AddCoins(amount);
+        Coins += amount;
     }
     
     private void Awake()
     {
-        WalletData.LoadSettings();
+        Coins = PlayerPrefs.GetInt(Key, 0);
     }
 
-    private void OnApplicationQuit()
+//    private void OnApplicationQuit()
+//    {
+//        Uncomment this
+//        SaveCoins();
+//    }
+
+    void SaveCoins()
     {
-        WalletData.SaveSettings();
+        PlayerPrefs.SetInt(Key, Coins);
+        PlayerPrefs.Save();
     }
 }

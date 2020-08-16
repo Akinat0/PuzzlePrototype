@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Security.AccessControl;
 using Abu.Tools;
-using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -108,6 +106,7 @@ public class ScreenFreezeEffect : MonoBehaviour
         Material.SetFloat(IntensityID, 0.5f);
         
         finished?.Invoke();
+        CaptureUtility.Capture(SpriteRenderer);
     }
     
     IEnumerator HideRoutine(Action finished)

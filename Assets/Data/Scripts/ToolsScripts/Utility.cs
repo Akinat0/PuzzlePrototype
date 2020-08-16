@@ -2,6 +2,7 @@
 using System.Collections;
 using Abu.Tools;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -106,6 +107,34 @@ public static class Utility
         Vector2 screenSize = ScreenScaler.ScreenSize;
         
         return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
+    }
+    
+    
+    //Render texture
+    public static Texture2D ToTexture2D(
+        this RenderTexture renderTexture,
+        Texture2D targetTexture = null,
+        TextureFormat? format = null
+    )
+    {
+        if (targetTexture == null)
+            targetTexture = new Texture2D(1, 1, format ?? TextureFormat.RGB24, false);
+
+        int width = renderTexture.width;
+        int height = renderTexture.height;
+
+        targetTexture.Resize(width, height, format ?? targetTexture.format, targetTexture.mipmapCount > 1);
+
+        RenderTexture prev = RenderTexture.active;
+        RenderTexture.active = renderTexture;
+
+        targetTexture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+
+        RenderTexture.active = prev;
+
+        targetTexture.Apply(false, false);
+
+        return targetTexture;
     }
     
 }

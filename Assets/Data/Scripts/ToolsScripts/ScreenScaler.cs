@@ -48,6 +48,17 @@ namespace Abu.Tools
         {
             return CameraSize * part;
         }
+
+        public static Rect SpriteRectInWorld(SpriteRenderer spriteRenderer)
+        {
+            float xPos = spriteRenderer.transform.position.x;
+            float yPos = spriteRenderer.transform.position.y;
+
+            float width = spriteRenderer.sprite.rect.width / spriteRenderer.sprite.pixelsPerUnit;
+            float height = spriteRenderer.sprite.rect.height /  spriteRenderer.sprite.pixelsPerUnit;
+            
+            return new Rect(xPos, yPos, width, height);
+        }
         
         public static float BestFit(SpriteRenderer spriteRenderer)
         {

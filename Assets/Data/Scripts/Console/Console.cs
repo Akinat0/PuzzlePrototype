@@ -21,6 +21,7 @@ namespace Abu.Console
                 new BoosterCommand(),
                 new SetStarsCommand(),
                 new DebugImageCommand(),
+                new DeleteLocalCommand(),
             };
         }
 

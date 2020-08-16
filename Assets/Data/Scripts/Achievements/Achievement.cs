@@ -21,7 +21,7 @@ public abstract class Achievement
         List<Achievement> achievements = new List<Achievement>
         {
             new TutorialAchievement(),
-            new RichBitchAchievement()
+            new RichBitchAchievement(),
         };
         
         return achievements.ToArray();

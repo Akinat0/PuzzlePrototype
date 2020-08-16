@@ -5,4 +5,5 @@ public static class RenderLayer
     public static string Player => "Player";
     public static string Cutscenes => "Cutscenes";
     public static string UI => "UI";
+    public static string RenderTexture => "RenderTexture";
 }

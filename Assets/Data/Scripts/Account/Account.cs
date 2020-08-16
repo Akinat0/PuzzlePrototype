@@ -14,7 +14,7 @@ public class Account : MonoBehaviour
         get
         {
             if (walletManager == null)
-                walletManager = GetComponent<WalletManager>();
+                walletManager = gameObject.GetComponent<WalletManager>();
             return walletManager;
         }
     }
