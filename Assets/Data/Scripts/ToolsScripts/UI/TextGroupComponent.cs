@@ -22,8 +22,8 @@ namespace Abu.Tools.UI
         [SerializeField] public float FontSize;
         [SerializeField] public float Tolerance;
         bool IsTextDirty = false;
-        
-        
+
+        public event Action OnTextSizeResolved;  
         
         void Start()
         {
@@ -66,7 +66,7 @@ namespace Abu.Tools.UI
             IsTextDirty = true;
         }
         
-        public static float ResolveTextSize(TextObject[] textObjects, float tolerance = 1f)
+        float ResolveTextSize(TextObject[] textObjects, float tolerance = 1f)
         {
             if (textObjects.Length == 0)
                 return 0;
@@ -117,6 +117,8 @@ namespace Abu.Tools.UI
                     textObject.IsSizeTarget = false;
                 
             }
+            
+            OnTextSizeResolved?.Invoke();
 
             return sharedFontSize;
         }

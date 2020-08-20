@@ -10,7 +10,8 @@ namespace Abu.Tools.UI
     {
         [SerializeField] protected Sprite Sprite;
         [SerializeField, Range(0, 1)] protected float AlphaSelf = 1;
-
+        [SerializeField] protected float Spacing = 5;
+        
         RectTransform CoinImageTransform
         {
             get
@@ -62,7 +63,7 @@ namespace Abu.Tools.UI
         {
             CoinImage.sprite = Sprite;
             UpdateColor();
-            ProcessWalletLayout();
+//            ProcessWalletLayout();
         }
 
         void Start()
@@ -91,11 +92,16 @@ namespace Abu.Tools.UI
             }
         }
 
+        public void ForceUpdateLayout()
+        {
+            ProcessWalletLayout();
+        }
+        
         void ProcessWalletLayout()
         {
             Text.ForceMeshUpdate();
             float textWidth = Text.GetRenderedValues(false).x;
-            CoinImageTransform.anchoredPosition = new Vector2(- textWidth - CoinImageTransform.rect.width / 2, 0);
+            CoinImageTransform.anchoredPosition = new Vector2(- Spacing - textWidth - CoinImageTransform.rect.width / 2, 0);
         }
 
         protected virtual void OnEnable()
