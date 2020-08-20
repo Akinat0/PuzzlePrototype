@@ -1,5 +1,4 @@
-﻿using Abu.Tools.UI;
-using DG.Tweening;
+﻿using DG.Tweening;
 using ScreensScripts;
 using TMPro;
 using UnityEngine;
@@ -12,16 +11,17 @@ namespace Abu.Tools.UI
         [SerializeField] protected Sprite Sprite;
         [SerializeField, Range(0, 1)] protected float AlphaSelf = 1;
 
-        public float Alpha
+        RectTransform CoinImageTransform
         {
-            get => AlphaSelf;
-            set
+            get
             {
-                AlphaSelf = Mathf.Clamp01(value);
-                UpdateColor();
+                if (coinImageTransform == null)
+                    coinImageTransform = CoinImage.GetComponent<RectTransform>();
+                
+                return coinImageTransform;
             }
         }
-
+        
         Image CoinImage
         {
             get
@@ -30,6 +30,16 @@ namespace Abu.Tools.UI
                     coinImage = GetComponentInChildren<Image>();
 
                 return coinImage;
+            }
+        }
+        
+        public float Alpha
+        {
+            get => AlphaSelf;
+            set
+            {
+                AlphaSelf = Mathf.Clamp01(value);
+                UpdateColor();
             }
         }
 
@@ -44,6 +54,7 @@ namespace Abu.Tools.UI
             }
         }
 
+        RectTransform coinImageTransform;
         private TextMeshProUGUI text;
         private Image coinImage;
 
@@ -51,11 +62,13 @@ namespace Abu.Tools.UI
         {
             CoinImage.sprite = Sprite;
             UpdateColor();
+            ProcessWalletLayout();
         }
 
         void Start()
         {
             Text.text = Account.Coins.ToString();
+            ProcessWalletLayout();
         }
 
         void UpdateColor()
@@ -78,6 +91,13 @@ namespace Abu.Tools.UI
             }
         }
 
+        void ProcessWalletLayout()
+        {
+            Text.ForceMeshUpdate();
+            float textWidth = Text.GetRenderedValues(false).x;
+            CoinImageTransform.anchoredPosition = new Vector2(- textWidth - CoinImageTransform.rect.width / 2, 0);
+        }
+
         protected virtual void OnEnable()
         {
             LauncherUI.LevelChangedEvent += OnLevelChangedHandler;
@@ -93,6 +113,8 @@ namespace Abu.Tools.UI
         void OnBalanceChangedHandler(int amount)
         {
             Text.text = amount.ToString();
+
+            ProcessWalletLayout();            
             
             CoinImage.transform.DOKill();
             CoinImage.transform.localScale = Vector3.one;
