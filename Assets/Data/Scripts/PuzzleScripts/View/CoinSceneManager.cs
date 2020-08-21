@@ -15,6 +15,7 @@ public class CoinSceneManager : ManagerView
         AlphaGetter = () => Wallet.Alpha;
         
         TextGroup.Add(new TextObject(Wallet.Text));
+        TextGroup.OnTextSizeResolved += Wallet.ForceUpdateLayout;
     }
     
     protected override void OnEnable()

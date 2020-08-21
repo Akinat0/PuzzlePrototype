@@ -62,6 +62,14 @@ public static class Utility
         position.y = value;
         transform.position = position;
     }
+
+    public static void SetIndependentScale(this Transform transform)
+    {
+        transform.localScale = new Vector3(
+            transform.localScale.x * transform.localScale.x / transform.lossyScale.x,
+            transform.localScale.y * transform.localScale.y / transform.lossyScale.y,
+            transform.localScale.z * transform.localScale.z / transform.lossyScale.z);
+    }
     
     //RectTransform
     public static bool IsVisibleOnTheScreen(this RectTransform rt)
@@ -118,7 +126,7 @@ public static class Utility
     )
     {
         if (targetTexture == null)
-            targetTexture = new Texture2D(1, 1, format ?? TextureFormat.RGB24, false);
+            targetTexture = new Texture2D(1, 1, format ?? TextureFormat.ARGB32, false);
 
         int width = renderTexture.width;
         int height = renderTexture.height;

@@ -17,11 +17,8 @@ namespace Abu.Tools.UI
             get
             {
                 if (blurMaterial == null)
-                {
                     blurMaterial = Resources.Load<Material>("Materials/BlurMaterial");
-                    ConsoleView.Print("Blur material found " + (blurMaterial != null));
-                }
-
+                
                 return blurMaterial;
             }
         }
@@ -42,10 +39,7 @@ namespace Abu.Tools.UI
             get
             {
                 if (blurImage == null)
-                {
                     blurImage = GetComponentInChildren<RawImage>();
-                    ConsoleView.Print("Blur image found " + (blurImage != null));
-                }
 
                 return blurImage;
             }
@@ -59,15 +53,12 @@ namespace Abu.Tools.UI
             renderTexture.Create();
             
             BlurImage.texture = renderTexture;
-            ConsoleView.Print($"BlurOverlay awoke. Blur texture size {renderTexture.width} : {renderTexture.height}");
         }
 
         public void RecreateBlurTexture()
         {
             LauncherUI.Instance.MainCamera.RenderIntoTexture(renderTexture);
-            
-            ConsoleView.Print($"Blur texture recreated. Blur texture size {renderTexture.width} : {renderTexture.height}");
-            
+
             //We will use 2 iterations blur
             Graphics.Blit(renderTexture, renderTexture, BlurMaterial);
             Graphics.Blit(renderTexture, renderTexture, BlurMaterial);
@@ -86,11 +77,6 @@ namespace Abu.Tools.UI
             Background.enabled = isEnabled;
 
             bool isRaycastTarget = Mathf.Approximately(Phase, 1);
-
-            if (isRaycastTarget)
-            {
-                ConsoleView.Print($"Became raycast target. Alpha is {BlurColor.a}" );
-            }
 
             BlurImage.raycastTarget = isRaycastTarget;
             Background.raycastTarget = isRaycastTarget;
