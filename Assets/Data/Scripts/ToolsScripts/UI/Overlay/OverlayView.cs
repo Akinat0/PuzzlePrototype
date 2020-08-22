@@ -61,11 +61,5 @@ namespace Abu.Tools.UI
         }
 
         protected abstract void ProcessPhase();
-
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-            ProcessPhase();
-        }
     }
 }

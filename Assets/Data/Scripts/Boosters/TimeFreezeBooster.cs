@@ -1,4 +1,5 @@
 
+using Abu.Tools.UI;
 using Puzzle;
 using ScreensScripts;
 using UnityEngine;
@@ -8,16 +9,16 @@ public class TimeFreezeBooster : Booster
     public override string Name => "Time Freeze";
 
 
-    ScreenFreezeEffect screenFreeze;
+    FreezeOverlayView freeze;
 
-    ScreenFreezeEffect ScreenFreeze
+    FreezeOverlayView Freeze
     {
         get
         {
-            if(screenFreeze == null)
-                screenFreeze = ScreenFreezeEffect.Create(LauncherUI.Instance.transform);
+            if(freeze == null)
+                freeze = OverlayView.Create<FreezeOverlayView>(LauncherUI.Instance.UiManager.Root, 0);
             
-            return screenFreeze;
+            return freeze;
         }
     }
 
@@ -25,8 +26,8 @@ public class TimeFreezeBooster : Booster
     {
         TimeManager.DefaultTimeScale = 0.87f;
         
-        ScreenFreeze.gameObject.SetActive(true);
-        ScreenFreeze.Show();
+        Freeze.gameObject.SetActive(true);
+        Freeze.Show();
         
         bool isUsed = false;
         
@@ -36,7 +37,7 @@ public class TimeFreezeBooster : Booster
                 return;
 
             isUsed = true;
-            ScreenFreeze.Hide(() => ScreenFreeze.gameObject.SetActive(false));
+            Freeze.Hide(() => Freeze.gameObject.SetActive(false));
         }
 
         GameSceneManager.LevelCompletedEvent += HideFreezeScreen;

@@ -8,6 +8,7 @@ namespace Puzzle
 {
     public class MainMenuUIManager : MonoBehaviour
     {
+        [SerializeField] RectTransform root; 
         [SerializeField] WalletComponent wallet;
         [SerializeField] RectTransform miniButtonsContainer;
         [SerializeField] ButtonComponent collectionButton;
@@ -17,7 +18,8 @@ namespace Puzzle
 
         [SerializeField] GameObject AchievementScreen;
         [SerializeField] GameObject CollectionScreen;
-        
+
+        public RectTransform Root => root;
         public WalletComponent Wallet => wallet;
 
         void Awake()

@@ -5,30 +5,20 @@ namespace Abu.Tools
 {
     public static class CaptureUtility
     { 
-        public static Texture2D Capture(SpriteRenderer sprite)
+        public static Texture2D Capture(SpriteRenderer renderer)
         {
-            int prevSpriteLayer = sprite.gameObject.layer;
-            sprite.gameObject.layer = LayerMask.NameToLayer("RenderTexture");
+            int prevSpriteLayer = renderer.gameObject.layer;
+            renderer.gameObject.layer = LayerMask.NameToLayer("RenderTexture");
 
-            Rect spriteRect = ScreenScaler.SpriteRectInWorld(sprite);
+            Rect spriteRect = ScreenScaler.SpriteRectInWorld(renderer);
             
-            Camera camera = new GameObject().AddComponent<Camera>();
-            
+            Vector2 spriteScale = new Vector2(renderer.transform.lossyScale.x, renderer.transform.lossyScale.y);
+
+            Camera camera = CreateCameraForSprite(renderer);
             camera.cullingMask = 1 << LayerMask.NameToLayer("RenderTexture");
-            Vector2 spriteScale = new Vector2(sprite.transform.lossyScale.x, sprite.transform.lossyScale.y);
             
-            camera.orthographic = true;
-            camera.orthographicSize = spriteRect.height * spriteScale.y / 2;
-            
-            camera.transform.position = spriteRect.position;
-            camera.transform.position += Vector3.back;
-
-            camera.backgroundColor = Color.clear;
-            
-            camera.clearFlags = CameraClearFlags.SolidColor;
-            
-            int textureWidth = Mathf.CeilToInt(sprite.sprite.rect.width * spriteScale.x);
-            int textureHeight = Mathf.CeilToInt(sprite.sprite.rect.height * spriteScale.y);
+            int textureWidth = Mathf.CeilToInt(renderer.sprite.rect.width * spriteScale.x);
+            int textureHeight = Mathf.CeilToInt(renderer.sprite.rect.height * spriteScale.y);
             
             RenderTexture renderTexture = RenderTexture.GetTemporary(textureWidth, textureHeight);
             
@@ -40,11 +30,50 @@ namespace Abu.Tools
             Object.DestroyImmediate(camera.gameObject);
             RenderTexture.ReleaseTemporary(renderTexture);
 
-            sprite.gameObject.layer = prevSpriteLayer;
+            renderer.gameObject.layer = prevSpriteLayer;
 
             ConsoleView.DebugTexture = texture;
             
             return texture;
         }
+
+        public static Camera CreateCameraForSprite(SpriteRenderer renderer)
+        {
+            Rect spriteRect = ScreenScaler.SpriteRectInWorld(renderer);
+            
+            Camera camera = new GameObject(renderer.name + "_RenderCamera").AddComponent<Camera>();
+            
+            Vector2 spriteScale = new Vector2(renderer.transform.lossyScale.x, renderer.transform.lossyScale.y);
+            
+            camera.orthographic = true;
+            camera.orthographicSize = spriteRect.height * spriteScale.y / 2;
+            
+            camera.transform.position = spriteRect.position;
+            camera.transform.position += Vector3.back;
+
+            camera.backgroundColor = Color.clear;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+
+            return camera;
+        }
+
+        public static Camera CreateCameraForMesh(MeshRenderer mesh)
+        {
+            Bounds bounds = mesh.bounds;
+            Vector2 meshScale = new Vector2(mesh.transform.lossyScale.x, mesh.transform.lossyScale.y);
+            
+            Camera camera = new GameObject(mesh.name + "_RenderCamera").AddComponent<Camera>();
+            camera.orthographic = true;
+            camera.orthographicSize = bounds.size.y * meshScale.y / 2;
+            
+            camera.transform.position = mesh.transform.position;
+            camera.transform.position += Vector3.back;
+            
+            camera.backgroundColor = Color.clear;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+
+            return camera;
+        }
+        
     }
 }
