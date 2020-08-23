@@ -8,26 +8,12 @@ using UnityEngine.UI;
 public class FreezeOverlayView : OverlayView
 {
     
-    #region factory
-    static FreezeOverlayView prefab;
-    static FreezeOverlayView Prefab
-    {
-        get
-        {
-            if (prefab == null)
-                prefab = Resources.Load<FreezeOverlayView>("UI/FreezeOverlayView");
-            
-            return prefab;
-        }
-    }
-
-    #endregion
-
     [SerializeField] AudioClip FreezeSound;
 
     static readonly int PhaseID = Shader.PropertyToID("_Phase");
     static readonly int IntensityID = Shader.PropertyToID("_Intensity");
     static readonly int NoiseUvID = Shader.PropertyToID("_NoiseUV");
+    
     
     MeshRenderer meshRenderer;
     MeshRenderer MeshRenderer
@@ -83,8 +69,6 @@ public class FreezeOverlayView : OverlayView
     
     protected virtual void Awake()
     {
-//        MeshRenderer.sortingLayerName = RenderLayer.VFX; TODO
-
         Background.raycastTarget = false;
         
         renderTexture = new RenderTexture(Screen.width, Screen.height, 24, RenderTextureFormat.ARGB32);
@@ -151,19 +135,6 @@ public class FreezeOverlayView : OverlayView
     {
         Material.SetFloat(PhaseID, Mathf.Lerp(0, 0.4f, Phase));
         Material.SetFloat(IntensityID, Mathf.Lerp(0, 0.5f, Phase));
-
-        if (Mathf.Approximately(1, Phase))
-        {
-            
-        }
-        
-        if (Mathf.Approximately(0, Phase))
-        {
-            FXObject.SetActive(false);
-            renderCamera.gameObject.SetActive(false);
-            return;
-        }
-
     }
     
 #if UNITY_EDITOR
