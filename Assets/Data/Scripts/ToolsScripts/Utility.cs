@@ -119,6 +119,27 @@ public static class Utility
         return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
     }
     
+    //Texture2D
+    public static Texture2D Crop(this Texture2D texture, int width, int height)
+    {
+        float aspect = (float)width / height; 
+        if (texture.width < width)
+        {
+            width = texture.width;
+            height = (int) (1 / aspect * width);
+        }
+        
+        if (texture.height < height)
+        {
+            height = texture.height;
+            width = (int) (aspect * height);
+        }
+
+        Texture2D newTexture = new Texture2D(width, height, TextureFormat.ARGB32, false);
+        newTexture.SetPixels(texture.GetPixels(0, 0, width, height));
+        newTexture.Apply();
+        return newTexture;
+    }
     
     //Render texture
     public static Texture2D ToTexture2D(
@@ -191,5 +212,5 @@ public static class Utility
         System.IO.File.WriteAllBytes(fullPath, bytes);
         Debug.Log(bytes.Length/1024  + "Kb was saved as: " + fullPath);
     }
-    
+
 }

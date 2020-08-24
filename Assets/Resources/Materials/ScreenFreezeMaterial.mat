@@ -24,6 +24,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _FreezeTex:
+        m_Texture: {fileID: 2800000, guid: 7cae5f9c11c0f4237a0c704152f36839, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 72d28c181cd5891419c2247caff7d905, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -41,9 +45,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _Alpha: 1
     - _EnableExternalAlpha: 0
-    - _Intensity: 0
-    - _Phase: 0
+    - _Intensity: 0.7
+    - _Phase: 0.6
     m_Colors:
     - _Color: {r: 0.41037738, g: 0.9524479, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
