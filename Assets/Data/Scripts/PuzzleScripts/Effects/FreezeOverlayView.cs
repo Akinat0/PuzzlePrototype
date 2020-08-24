@@ -12,7 +12,7 @@ public class FreezeOverlayView : OverlayView
 
     static readonly int PhaseID = Shader.PropertyToID("_Phase");
     static readonly int IntensityID = Shader.PropertyToID("_Intensity");
-    static readonly int NoiseUvID = Shader.PropertyToID("_NoiseUV");
+    static readonly int NoiseTextureID = Shader.PropertyToID("_NoiseTex");
     
     
     MeshRenderer meshRenderer;
@@ -76,12 +76,6 @@ public class FreezeOverlayView : OverlayView
         renderCamera.targetTexture = renderTexture;
 
         FreezeImage.texture = renderTexture;
-
-        Vector2 cameraSize = ScreenScaler.CameraSize;
-
-        //Avoid division to zero
-        if(Math.Abs(cameraSize.y) > Mathf.Epsilon)
-            Material.SetVector(NoiseUvID, new Vector4(cameraSize.x / cameraSize.y, cameraSize.y/cameraSize.y));
     }
     
     public void Show(Action finished = null)
@@ -127,7 +121,7 @@ public class FreezeOverlayView : OverlayView
         meshRenderer = FXObject.AddComponent<MeshRenderer>();
         MeshFilter meshFilter = FXObject.AddComponent<MeshFilter>();
         meshFilter.mesh = ScreenScaler.GetMeshSizeOfScreen();
-        Material.mainTexture = Resources.Load<Texture2D>("Textures/white_pattern");
+        Material.SetTexture(NoiseTextureID, Utility.CreatePerlinNoiseTexture(Screen.width, Screen.height, 27));
         meshRenderer.material = Material;
     }
     

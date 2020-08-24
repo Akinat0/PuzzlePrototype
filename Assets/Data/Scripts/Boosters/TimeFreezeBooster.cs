@@ -1,13 +1,10 @@
-
 using Abu.Tools.UI;
 using Puzzle;
 using ScreensScripts;
-using UnityEngine;
 
 public class TimeFreezeBooster : Booster
 {
     public override string Name => "Time Freeze";
-
 
     FreezeOverlayView freeze;
 

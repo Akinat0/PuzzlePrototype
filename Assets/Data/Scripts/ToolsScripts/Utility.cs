@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using Abu.Tools;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public static class Utility 
 {
@@ -143,6 +145,51 @@ public static class Utility
         targetTexture.Apply(false, false);
 
         return targetTexture;
+    }
+    
+    //Perlin noise
+    public static Texture2D CreatePerlinNoiseTexture(int width, int height, float scale)
+    {
+        Debug.Log("TexSize " + width + " " + height);
+        
+        Texture2D noiseTex = new Texture2D(width, height);
+        Color[] pixels = new Color[width * height];
+        
+        float y = 0;
+        
+        while (y < noiseTex.height)
+        {
+            float x = 0.0F;
+            while (x < noiseTex.width)
+            {
+                //Here we suppose that height will be greater then width.
+                //We are using it to be sure that texture will have the same scale on both coordinates.
+                
+                float xCoord = x / height * scale; 
+                float yCoord = y / height * scale;
+                float sample = Mathf.PerlinNoise(xCoord, yCoord);
+                pixels[(int)y * noiseTex.width + (int)x] = new Color(sample, sample, sample);
+                x++;
+            }
+            y++;
+        }
+        
+        noiseTex.SetPixels(pixels);
+
+        noiseTex.Apply();
+
+        return noiseTex;
+    }
+    
+    //Editor
+    public static void SaveTextureAsPNG(Texture2D texture, string fullPath, bool force = false)
+    {
+        if(File.Exists(fullPath) && force)
+            File.Delete(fullPath);
+        
+        byte[] bytes = texture.EncodeToPNG();
+        System.IO.File.WriteAllBytes(fullPath, bytes);
+        Debug.Log(bytes.Length/1024  + "Kb was saved as: " + fullPath);
     }
     
 }
