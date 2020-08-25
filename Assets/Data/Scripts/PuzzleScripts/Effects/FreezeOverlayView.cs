@@ -10,11 +10,7 @@ public class FreezeOverlayView : OverlayView
     
     [SerializeField] AudioClip FreezeSound;
 
-    static readonly int PhaseID = Shader.PropertyToID("_Phase");
-    static readonly int IntensityID = Shader.PropertyToID("_Intensity");
-    static readonly int NoiseTextureID = Shader.PropertyToID("_NoiseTex");
-    static readonly int FreezeTextureID = Shader.PropertyToID("_FreezeTex");
-    
+    static readonly int VignetteID = Shader.PropertyToID("_Vignette");
     
     MeshRenderer meshRenderer;
     MeshRenderer MeshRenderer
@@ -34,7 +30,7 @@ public class FreezeOverlayView : OverlayView
         get
         {
             if (material == null)
-                material = Resources.Load<Material>("Materials/ScreenFreezeMaterial");
+                material = Resources.Load<Material>("Materials/FrostMaterial");
             
             return material;
         }    
@@ -64,8 +60,6 @@ public class FreezeOverlayView : OverlayView
             return freezeImage;
         }
     }
-
-    Texture2D FreezeTexture => Resources.Load<Texture2D>("Textures/FreezePattern");
 
     RenderTexture renderTexture;
     Camera renderCamera;
@@ -124,15 +118,14 @@ public class FreezeOverlayView : OverlayView
         meshRenderer = FXObject.AddComponent<MeshRenderer>();
         MeshFilter meshFilter = FXObject.AddComponent<MeshFilter>();
         meshFilter.mesh = ScreenScaler.GetMeshSizeOfScreen();
-        Material.SetTexture(NoiseTextureID, Utility.CreatePerlinNoiseTexture(Screen.width, Screen.height, 17));
-        Material.SetTexture(FreezeTextureID, FreezeTexture);
+        Material.SetFloat(VignetteID, 0);
+//        Material.SetTexture(NoiseTextureID, Utility.CreatePerlinNoiseTexture(Screen.width, Screen.height, 17));
         meshRenderer.material = Material;
     }
     
     protected override void ProcessPhase()
     {
-        Material.SetFloat(PhaseID, Mathf.Lerp(0, 0.6f, Phase));
-        Material.SetFloat(IntensityID, Mathf.Lerp(0, 0.7f, Phase));
+        Material.SetFloat(VignetteID, Phase);
     }
     
 #if UNITY_EDITOR
