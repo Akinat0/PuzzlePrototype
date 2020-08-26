@@ -11,6 +11,7 @@ public class FreezeOverlayView : OverlayView
     [SerializeField] AudioClip FreezeSound;
 
     static readonly int VignetteID = Shader.PropertyToID("_Vignette");
+    static readonly int NoiseTextureID = Shader.PropertyToID("_NoiseTex");
     
     MeshRenderer meshRenderer;
     MeshRenderer MeshRenderer
@@ -119,7 +120,7 @@ public class FreezeOverlayView : OverlayView
         MeshFilter meshFilter = FXObject.AddComponent<MeshFilter>();
         meshFilter.mesh = ScreenScaler.GetMeshSizeOfScreen();
         Material.SetFloat(VignetteID, 0);
-//        Material.SetTexture(NoiseTextureID, Utility.CreatePerlinNoiseTexture(Screen.width, Screen.height, 17));
+        Material.SetTexture(NoiseTextureID, Utility.CreatePerlinNoiseTexture(Screen.width, Screen.height, 17));
         meshRenderer.material = Material;
     }
     

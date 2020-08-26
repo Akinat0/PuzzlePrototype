@@ -3,6 +3,7 @@ Shader "Custom/FrostShader"
 	Properties
 	{
 		_BlendTex ("Image", 2D) = "" {}
+		_NoiseTex ("Noise", 2D) = "" {}
 		
 	    _BlendAmount ("BlendAmount", Float) = 0
 	    _EdgeSharpness ("EdgeSharpness", Float) = 1 // >= 1
@@ -10,6 +11,8 @@ Shader "Custom/FrostShader"
 	    
 	    _Intensity ("Intensity", Float) = 15
 	    _Vignette ("Vignette", Range(0, 1)) = 0.25
+	    
+	    _NoiseImpact ("NoiseImpact", Range(0, 1)) = 0.3
 	}
 	
 	
@@ -24,6 +27,7 @@ Shader "Custom/FrostShader"
 	};
 	
 	sampler2D _BlendTex;
+	sampler2D _NoiseTex;
 	
 	float _BlendAmount;
 	float _EdgeSharpness;
@@ -31,6 +35,7 @@ Shader "Custom/FrostShader"
 	float _Distortion;
 	float _Intensity;
 	float _Vignette;
+	float _NoiseImpact;
 		
 	v2f vert(appdata_img v)
 	{
@@ -54,6 +59,11 @@ Shader "Custom/FrostShader"
 	    
 		float4 blendColor = tex2D(_BlendTex, i.uv);
 		blendColor.a *= (1 - vig);
+		
+		float4 noiseColor = tex2D(_NoiseTex, i.uv);
+		noiseColor *= _NoiseImpact;
+		
+		blendColor.a = saturate(blendColor.a - noiseColor.r); //any channel insted alpha
 
 		float4 overlayColor = blendColor;
 		overlayColor.rgb = (blendColor.rgb + 0.5) * (blendColor.rgb + 0.5); //double overlay
