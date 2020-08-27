@@ -22,6 +22,7 @@ public abstract class Achievement
         {
             new TutorialAchievement(),
             new RichBitchAchievement(),
+            new FreezeBoosterAchievement(),
         };
         
         return achievements.ToArray();

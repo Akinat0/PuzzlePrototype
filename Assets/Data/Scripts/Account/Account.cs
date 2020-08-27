@@ -49,8 +49,8 @@ public class Account : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        achievements = Achievement.CreateAllAchievements();
         boosters = Booster.CreateAllBoosters();
+        achievements = Achievement.CreateAllAchievements();
     }
     
     #region Boosters

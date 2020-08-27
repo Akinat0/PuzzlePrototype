@@ -44,7 +44,7 @@ public abstract class HealthManagerBase : MonoBehaviour
         LoseHeart(_Hp);
     }
 
-    protected virtual void LevelCompletedEvent_Handler()
+    protected virtual void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
     {
     }
 

@@ -106,7 +106,7 @@ public class PauseManager : ManagerView
             levelColorScheme.SetTextColor(TimerField, true);
     }
 
-    void LevelCompletedEvent_Handler()
+    void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
     {
         PauseButton.gameObject.SetActive(false);
     }

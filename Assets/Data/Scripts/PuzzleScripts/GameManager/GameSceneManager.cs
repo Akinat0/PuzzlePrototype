@@ -22,7 +22,7 @@ namespace Puzzle
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
-        public static event Action LevelCompletedEvent;
+        public static event Action<LevelCompletedEventArgs> LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
         public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
@@ -86,7 +86,7 @@ namespace Puzzle
                 InvokeSetupLevel(config.ColorScheme);
 
             foreach (Booster booster in Account.GetActiveBoosters())
-                booster.Apply();
+                booster.Use();
 
             InvokeResetLevel();
         }
@@ -224,7 +224,7 @@ namespace Puzzle
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            LevelCompletedEvent?.Invoke();
+            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(_levelConfig));
             
             //Get stars amount from hp
             int stars = Player.Hp.Remap(0, Player.DEFAULT_HP, 0, 3);

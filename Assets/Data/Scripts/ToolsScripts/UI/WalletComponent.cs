@@ -106,6 +106,7 @@ namespace Abu.Tools.UI
 
         protected virtual void OnEnable()
         {
+            ProcessWalletLayout();
             LauncherUI.LevelChangedEvent += OnLevelChangedHandler;
             Account.BalanceChangedEvent += OnBalanceChangedHandler;
         }

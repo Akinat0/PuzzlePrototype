@@ -13,13 +13,13 @@ public abstract class Booster
         //Convert int to bool
         IsActivated = PlayerPrefs.GetInt(IsActivatedKey, 0) != 0;
         
-        Amount = PlayerPrefs.GetInt(AmountKey, 0); 
-            
+        Amount = PlayerPrefs.GetInt(AmountKey, 0);
     }
     
     public event Action BoosterActivatedEvent;
     public event Action BoosterDeactivatedEvent;
     public event Action AmountChangedEvent;
+    public event Action BoosterUsedEvent;
 
     bool isActivated;
     
@@ -74,7 +74,14 @@ public abstract class Booster
 
     public void Use()
     {
+        if (Amount <= 0)
+            return;
+        
+        BoosterUsedEvent?.Invoke();
+        
         Amount--;
+        Deactivate();
+        Apply();
     }
 
     string Key => Name;
@@ -93,6 +100,6 @@ public abstract class Booster
     }
     
     public abstract string Name { get; }
-    public abstract void Apply();
+    protected abstract void Apply();
     
 }

@@ -30,6 +30,8 @@ namespace Data.Scripts.Boosters
         public void Initialize(Booster booster)
         {
             Booster = booster;
+            
+            Interactable = Booster.Amount > 0;
             IsOn = Booster.IsActivated;
             AmountText = Booster.Amount.ToString();
             
@@ -41,7 +43,11 @@ namespace Data.Scripts.Boosters
                     Booster.Deactivate();
             };
 
-            Booster.AmountChangedEvent += () => AmountText = Booster.Amount.ToString();
+            Booster.AmountChangedEvent += () =>
+            {
+                Interactable = Booster.Amount > 0;
+                AmountText = Booster.Amount.ToString();
+            };
             Booster.BoosterActivatedEvent += () => IsOn = true;
             Booster.BoosterDeactivatedEvent += () => IsOn = false;
 

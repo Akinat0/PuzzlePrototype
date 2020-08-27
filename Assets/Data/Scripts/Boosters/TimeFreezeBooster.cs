@@ -1,3 +1,5 @@
+using System;
+using System.Runtime.InteropServices;
 using Abu.Tools.UI;
 using Puzzle;
 using ScreensScripts;
@@ -19,27 +21,42 @@ public class TimeFreezeBooster : Booster
         }
     }
 
-    public override void Apply()
+    Action HideFreezeScreen; 
+
+    protected override void Apply()
     {
         TimeManager.DefaultTimeScale = 0.87f;
         
         Freeze.gameObject.SetActive(true);
         Freeze.Show();
-        
-        bool isUsed = false;
-        
-        void HideFreezeScreen()
-        {
-            if (isUsed)
-                return;
 
-            isUsed = true;
-            Freeze.Hide(() => Freeze.gameObject.SetActive(false));
-        }
+        HideFreezeScreen = () => Freeze.Hide(() => Freeze.gameObject.SetActive(false));
 
-        GameSceneManager.LevelCompletedEvent += HideFreezeScreen;
-        GameSceneManager.LevelClosedEvent += HideFreezeScreen;
+        GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
+        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
     }
 
+    void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
+    {
+        InvokeHideFreezeScreen();
+    }
 
+    void LevelClosedEvent_Handler()
+    {
+        InvokeHideFreezeScreen();
+    }
+
+    void InvokeHideFreezeScreen()
+    {
+        if(HideFreezeScreen == null)
+            return;
+
+        Action action = HideFreezeScreen;
+        HideFreezeScreen = null;
+        
+        HideFreezeScreen?.Invoke();
+    }
+    
+    
+    
 }
