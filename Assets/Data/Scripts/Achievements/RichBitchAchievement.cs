@@ -1,10 +1,11 @@
 
-public class RichBitchAchievement : Achievement
+public sealed class RichBitchAchievement : Achievement
 {
-    
     public RichBitchAchievement()
     {
-        Progress = Account.Coins;
+        if (State == AchievementState.Claimed || State == AchievementState.Received)
+            return;
+        
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
     

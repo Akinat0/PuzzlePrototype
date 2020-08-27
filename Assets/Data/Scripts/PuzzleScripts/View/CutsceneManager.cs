@@ -15,6 +15,7 @@ public class CutsceneManager : MonoBehaviour
     private void Start()
     {
         progressBar.fillAmount = 0;
+        tipText.DOFade(0, 0.6f).SetUpdate(true);
     }
 
     void Update()
@@ -62,7 +63,7 @@ public class CutsceneManager : MonoBehaviour
     void ProcessTouchBegan()
     {
         tipText.DOKill();
-        tipText.DOFade(1, 0.6f).SetUpdate(true);
+        tipText.DOFade(1, 0.6f).SetUpdate(true); 
         progressBar.DOKill();
         progressBar.DOFade(1, 0.6f).SetUpdate(true);
     }

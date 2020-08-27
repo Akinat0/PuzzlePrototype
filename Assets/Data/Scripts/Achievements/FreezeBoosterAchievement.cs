@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class FreezeBoosterAchievement : Achievement
+public sealed class FreezeBoosterAchievement : Achievement
 {
     public FreezeBoosterAchievement()
     {
+        if (State == AchievementState.Claimed || State == AchievementState.Received)
+            return;
+        
         Account.GetBooster<TimeFreezeBooster>().BoosterUsedEvent += BoosterUsedEvent_Handler;
     }
     
