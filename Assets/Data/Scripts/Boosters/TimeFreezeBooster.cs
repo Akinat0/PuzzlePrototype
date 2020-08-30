@@ -54,7 +54,7 @@ public class TimeFreezeBooster : Booster
         Action action = HideFreezeScreen;
         HideFreezeScreen = null;
         
-        HideFreezeScreen?.Invoke();
+        action?.Invoke();
     }
     
     
