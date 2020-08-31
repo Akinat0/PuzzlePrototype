@@ -20,7 +20,7 @@ public class BoostersToggleComponent : ToggleComponent
             if (fade == null)
             {
                 fade = OverlayView.Create<BlurOverlayView>(RectTransform.parent, RectTransform.GetSiblingIndex());
-                fade.BlurColor = new Color(0.7f, 0.7f, 0.7f, 1);
+                fade.BlurColor = new Color(0.7f, 0.7f, 0.7f, 0); 
                 fade.OnClick += OnButtonClick;
             }
 

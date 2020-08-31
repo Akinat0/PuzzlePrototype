@@ -44,26 +44,40 @@ namespace Abu.Tools.UI
                 return blurImage;
             }
         }
-        
-        RenderTexture renderTexture;
-        
+
+        RenderTexture blurTexture;
+
+        public RenderTexture BlurTexture
+        {
+            get
+            {
+                if (blurTexture == null)
+                {
+                    blurTexture = new RenderTexture(Screen.width >> downRes, Screen.height >> downRes, 16,
+                        RenderTextureFormat.ARGB32);
+                    blurTexture.Create();
+                }
+
+                return blurTexture;
+            }
+        }
+
         protected virtual void Awake()
         {
-            renderTexture = new RenderTexture(Screen.width >> downRes, Screen.height >> downRes, 16, RenderTextureFormat.ARGB32);
-            renderTexture.Create();
-            
-            BlurImage.texture = renderTexture;
+            BlurImage.texture = BlurTexture;
         }
 
         public void RecreateBlurTexture()
         {
-            LauncherUI.Instance.MainCamera.RenderIntoTexture(renderTexture);
-
+            LauncherUI.Instance.MainCamera.RenderIntoTexture(BlurTexture); 
+            
+            RenderTexture temporary = RenderTexture.GetTemporary(BlurTexture.width, blurTexture.height, 16);
+            
             //We will use 2 iterations blur
-            Graphics.Blit(renderTexture, renderTexture, BlurMaterial);
-            Graphics.Blit(renderTexture, renderTexture, BlurMaterial);
-
-            ConsoleView.DebugTexture = renderTexture;
+            Graphics.Blit(BlurTexture, temporary, BlurMaterial);
+            Graphics.Blit(temporary, BlurTexture, BlurMaterial);
+            
+            RenderTexture.ReleaseTemporary(temporary);
         }
         
         protected override void ProcessPhase()

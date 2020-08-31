@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CoinsReward : Reward
 {
-
     public int Amount { get; }
     
     public CoinsReward(int amount)

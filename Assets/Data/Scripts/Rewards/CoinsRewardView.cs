@@ -47,6 +47,4 @@ public class CoinsRewardView : UIComponent
             return textField;
         }
     }
-
-    protected override void OnValidate() { }
 }

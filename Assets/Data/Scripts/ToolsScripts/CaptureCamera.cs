@@ -1,4 +1,5 @@
 using Abu.Console;
+using Abu.Tools.UI;
 using UnityEngine;
 
 namespace Abu.Tools
@@ -10,8 +11,6 @@ namespace Abu.Tools
             int prevSpriteLayer = renderer.gameObject.layer;
             renderer.gameObject.layer = LayerMask.NameToLayer("RenderTexture");
 
-            Rect spriteRect = ScreenScaler.SpriteRectInWorld(renderer);
-            
             Vector2 spriteScale = new Vector2(renderer.transform.lossyScale.x, renderer.transform.lossyScale.y);
 
             Camera camera = CreateCameraForSprite(renderer);
@@ -32,8 +31,6 @@ namespace Abu.Tools
 
             renderer.gameObject.layer = prevSpriteLayer;
 
-            ConsoleView.DebugTexture = texture;
-            
             return texture;
         }
 
@@ -69,6 +66,20 @@ namespace Abu.Tools
             camera.transform.position = mesh.transform.position;
             camera.transform.position += Vector3.back;
             
+            camera.backgroundColor = Color.clear;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+
+            return camera;
+        }
+
+        public static Camera CreateCameraForScreen(Camera mainCamera)
+        {
+            Camera camera = new GameObject( "Screen_RenderCamera").AddComponent<Camera>();
+            camera.orthographic = true;
+            camera.orthographicSize = mainCamera.orthographicSize;
+            
+            camera.transform.position = mainCamera.transform.position;
+
             camera.backgroundColor = Color.clear;
             camera.clearFlags = CameraClearFlags.SolidColor;
 

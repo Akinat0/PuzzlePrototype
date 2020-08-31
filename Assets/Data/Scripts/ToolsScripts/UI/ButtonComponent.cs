@@ -82,7 +82,7 @@ namespace Abu.Tools.UI
             }
         }
 
-        public virtual void Show(Action finished = null)
+        public virtual void ShowButton(Action finished = null)
         {
             if(CurrentScaleRoutine != null)
                 StopCoroutine(CurrentScaleRoutine);
@@ -90,7 +90,7 @@ namespace Abu.Tools.UI
             StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.one, 0.5f, finished));
         }
 
-        public virtual void Hide(Action finished = null)
+        public virtual void HideButton(Action finished = null)
         {
             if(CurrentScaleRoutine != null)
                 StopCoroutine(CurrentScaleRoutine);
@@ -144,13 +144,13 @@ namespace Abu.Tools.UI
         [ContextMenu("Show")]
         public void ShowEditor()
         {
-            Show(() => Debug.LogError("Shown"));
+            ShowButton(() => Debug.LogError("Shown"));
         }
         
         [ContextMenu("Hide")]
         public void HideEditor()
         {
-            Hide(() => Debug.LogError("Hidden"));
+            HideButton(() => Debug.LogError("Hidden"));
         }
     }
 }

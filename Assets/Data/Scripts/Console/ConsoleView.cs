@@ -10,7 +10,7 @@ namespace Abu.Console
         {
             set
             {
-                Print("DebugImage updated");
+                Print("DebugImage updated...");
                 instance.DebugImage.texture = value;
             }
         }  
@@ -32,10 +32,7 @@ namespace Abu.Console
         private bool _isConsoleActive = false;
         public bool IsConsoleActive
         {
-            get
-            {
-                return _isConsoleActive;
-            }
+            get => _isConsoleActive;
             private set
             {
                 _isConsoleActive = value;
