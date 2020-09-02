@@ -35,7 +35,7 @@ namespace Abu.Tools.UI
             }
         }
 
-        public void ChangePhase(float targetValue, float duration, Action finished = null)
+        public virtual void ChangePhase(float targetValue, float duration, Action finished = null)
         {
             StopAllCoroutines();
             StartCoroutine(ChangePhaseRoutine(Mathf.Clamp01(targetValue), duration, finished));
@@ -50,7 +50,7 @@ namespace Abu.Tools.UI
             {
                 yield return null;
 
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 Phase = Mathf.Lerp(startPhase, targetPhase, time / duration);
             }
 
@@ -58,6 +58,11 @@ namespace Abu.Tools.UI
             yield return null;
             
             finished?.Invoke();
+        }
+
+        void OnDestroy()
+        {
+            StopAllCoroutines();
         }
 
         protected abstract void ProcessPhase();

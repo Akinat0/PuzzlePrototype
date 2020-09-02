@@ -34,17 +34,21 @@ namespace Puzzle
         public virtual void DealDamage(int damage)
         {
             GameSceneManager.Instance.ShakeCamera();
-            if (!_immuneFramesEnabled) {
+            if (!_immuneFramesEnabled)
+            {
                 _health -= damage;
                 for (int i = 0; i < damage; i++)
                 {
                     GameSceneManager.Instance.InvokePlayerLosedHp(_health);
                 }
+
                 if (_health == 0)
                 {
-                    GameSceneManager.Instance.InvokePlayerDied();
+                    //We will wait one frame before kill the player
+                    StartCoroutine(Utility.WaitFrames(1, () => GameSceneManager.Instance.InvokePlayerDied()));
                 }
             }
+
             _immuneFramesEnabled = true;
             Invoke(nameof(DisableImmune), _immuneTime);
         }

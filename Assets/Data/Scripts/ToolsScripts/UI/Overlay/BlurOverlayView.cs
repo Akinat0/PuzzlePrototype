@@ -1,3 +1,4 @@
+using System;
 using ScreensScripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -149,6 +150,14 @@ namespace Abu.Tools.UI
 
             RenderTexture.ReleaseTemporary(temporary);
         }
+
+        public override void ChangePhase(float targetValue, float duration, Action finished = null)
+        {
+            base.ChangePhase(targetValue, duration, finished);
+            
+            if(targetValue >= Mathf.Epsilon)
+                RecreateBlurTexture();    
+        }
         
         protected override void ProcessPhase()
         {
@@ -169,7 +178,6 @@ namespace Abu.Tools.UI
         protected override void OnValidate()
         {
             base.OnValidate();
-            RecreateBlurTexture();
             BlurImage.color = BlurColor;
         }
 

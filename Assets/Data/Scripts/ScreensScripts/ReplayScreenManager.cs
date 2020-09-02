@@ -24,6 +24,7 @@ namespace ScreensScripts
 
         private void OnReplayClick()
         {
+            Overlay.ChangePhase(0, 0.5f);
             GameSceneManager.Instance.InvokeResetLevel();
             ReplayScreen.SetActive(false);
             PauseButton.SetActive(true);
@@ -31,25 +32,20 @@ namespace ScreensScripts
 
         private void OnReviveClick()
         {
+            Overlay.ChangePhase(0, 0.5f);
+            
             if (TimerField != null)
             {
                 ReplayScreen.SetActive(false);
                 StartCoroutine(CountdownRoutine(TimerField, () =>
                 {
                     TimerField.gameObject.SetActive(false);
-                    
-//                    if(!PauseButton.ActiveSelf)
-//                        PauseButton.SetActive(true);
-                    
                     GameSceneManager.Instance.InvokePlayerRevive();
                     PauseButton.SetActive(true);
                 }));
             }
             else
             {
-//                if(!PauseButton.ActiveSelf)
-//                    PauseButton.SetActive(true);
-                
                 ReplayScreen.SetActive(false);
                 GameSceneManager.Instance.InvokePlayerRevive();
             }
@@ -57,6 +53,7 @@ namespace ScreensScripts
 
         private void OnMenuClick()
         {
+            Overlay.ChangePhase(0, 0.5f);
             GameSceneManager.Instance.InvokeLevelClosed();
             ReplayScreen.SetActive(false);
         }
@@ -65,6 +62,7 @@ namespace ScreensScripts
         {
             ReplayScreen.SetActive(true);
             PauseButton.SetActive(false);
+            Overlay.ChangePhase(1, 0.5f);
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)

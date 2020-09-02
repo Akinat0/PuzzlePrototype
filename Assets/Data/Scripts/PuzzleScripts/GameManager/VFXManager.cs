@@ -43,11 +43,6 @@ namespace Puzzle
             SetConfettiHoldersPositions();
         }
 
-        public FadeEffect CallFadeEffect(Transform parent, string sortingLayer, int sortingOrder)
-        {
-            return new FadeEffect(parent, sortingLayer, sortingOrder);
-        }
-        
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
         {
             int effectNumber = FlatFXType.SunRays.GetHashCode();

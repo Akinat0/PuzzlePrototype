@@ -40,7 +40,19 @@ public static class Utility
         yield return new WaitUntil(predicate);
         finish?.Invoke();
     }
-    
+
+    public static IEnumerator WaitFrames(int frames, Action finish)
+    {
+        int count = 0;
+
+        while (count < frames)
+        {
+            yield return null;
+            count++;
+        }
+        
+        finish?.Invoke();
+    }
     
     //Colors
     public static void SetAlpha(this TextMeshProUGUI textMesh, float value)

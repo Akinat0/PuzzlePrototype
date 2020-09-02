@@ -55,9 +55,6 @@ public class BoostersToggleComponent : ToggleComponent
         
         if (value)
         {
-            if(Mathf.Approximately(Fade.Phase, 0))
-                Fade.RecreateBlurTexture();
-            
             Fade.ChangePhase(1, AnimationDuration/2);
             RectTransform.DOAnchorPos(Vector2.left * Content.rect.width, AnimationDuration);
         }

@@ -82,20 +82,40 @@ namespace Abu.Tools.UI
             }
         }
 
-        public virtual void ShowButton(Action finished = null)
+        public virtual void ShowComponent(float duration = 0.5f, Action finished = null)
         {
+            SetActive(true);
+            
+            if (!gameObject.activeInHierarchy)
+            {
+                finished?.Invoke();
+                return;
+            }
+            
             if(CurrentScaleRoutine != null)
                 StopCoroutine(CurrentScaleRoutine);
 
-            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.one, 0.5f, finished));
+            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.one, duration, finished));
         }
 
-        public virtual void HideButton(Action finished = null)
+        public virtual void HideComponent(float duration = 0.5f, Action finished = null)
         {
-            if(CurrentScaleRoutine != null)
+            if (!gameObject.activeInHierarchy)
+            {
+                finished?.Invoke();
+                return;
+            }
+
+            Interactable = false;
+            if (CurrentScaleRoutine != null)
                 StopCoroutine(CurrentScaleRoutine);
 
-            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.zero, 0.5f, finished));
+            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.zero, duration, () =>
+            {
+                SetActive(false);
+                Interactable = true;
+                finished?.Invoke();
+            }));
         }
 
         IEnumerator ScaleRoutine(Vector2 targetScale, float duration, Action finished)
@@ -106,7 +126,7 @@ namespace Abu.Tools.UI
             while (time < duration)
             {
                 RectTransform.localScale = Vector2.Lerp(startScale, targetScale, time / duration);
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return null;
             }
 
@@ -144,13 +164,13 @@ namespace Abu.Tools.UI
         [ContextMenu("Show")]
         public void ShowEditor()
         {
-            ShowButton(() => Debug.LogError("Shown"));
+            ShowComponent(finished:() => Debug.LogError("Shown"));
         }
         
         [ContextMenu("Hide")]
         public void HideEditor()
         {
-            HideButton(() => Debug.LogError("Hidden"));
+            HideComponent(finished:() => Debug.LogError("Hidden"));
         }
     }
 }

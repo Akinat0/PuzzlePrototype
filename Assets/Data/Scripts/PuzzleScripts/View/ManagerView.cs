@@ -18,20 +18,44 @@ namespace Puzzle
         protected Action<float> AlphaSetter;
         protected Func<float> AlphaGetter;
 
-        
+        //TODO
         static TextGroupComponent textGroup;
 
         protected TextGroupComponent TextGroup
         {
             get
             {
-                if (textGroup == null)
+                if (textGroup == null && transform != null)
                     textGroup = TextGroupComponent.AttachTo(transform.parent.gameObject, 0);
             
                 return textGroup;
             }
         }
-        
+
+        Canvas canvas;
+        Canvas Canvas
+        {
+            get
+            {
+                if (canvas == null)
+                    canvas = transform.GetComponentInParent<Canvas>();
+                return canvas;
+            }
+        }
+        static OverlayView overlay;
+        protected OverlayView Overlay
+        {
+            get
+            {
+                if (overlay == null)
+                    overlay = OverlayView.Create<BlurOverlayView>(Canvas.transform, 1);
+
+                return overlay;
+            }
+        }
+
+        protected RectTransform RectTransform => transform as RectTransform;
+
         private void Awake()
         {
             GameSceneManager.CutsceneStartedEvent += CutsceneStartedEvent_Handler;

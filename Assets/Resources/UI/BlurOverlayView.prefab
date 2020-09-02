@@ -146,8 +146,12 @@ MonoBehaviour:
   Sound: {fileID: 0}
   ButtonColor: {r: 1, g: 1, b: 1, a: 0}
   phase: 0
-  material: {fileID: 2100000, guid: cf916659817914830b32bd06f976cbd1, type: 2}
   blurColor: {r: 1, g: 1, b: 1, a: 0}
+  downRes: 1
+  interpolation: 1
+  iterations: 3
+  kernelSize: 1
+  gammaCorrection: 1
 --- !u!1 &8980948870007519150
 GameObject:
   m_ObjectHideFlags: 0

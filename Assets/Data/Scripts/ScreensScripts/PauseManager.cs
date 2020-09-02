@@ -34,6 +34,7 @@ public class PauseManager : ManagerView
             if (TimerField != null)
             {
                 PauseMenu.SetActive(false);
+                Overlay.ChangePhase(0, 0.5f);
                 StartCoroutine(CountdownRoutine(TimerField, () =>
                 {
                     TimerField.gameObject.SetActive(false);
@@ -47,12 +48,6 @@ public class PauseManager : ManagerView
         }
     }
     
-//    private void VolumeSliderValueChanged(float value)
-//    {
-//        value = Mathf.Clamp01(value);
-//        SoundManager.Instance.SetVolume(value);
-//    }
-
     private void OnMenuClick()
     {
         GameSceneManager.Instance.InvokeLevelClosed();
@@ -70,6 +65,9 @@ public class PauseManager : ManagerView
     private void Pause()
     {
         paused = true;
+        
+        Overlay.ChangePhase(1, 0.4f);
+        
         PauseMenu.SetActive(true);
         PauseButton.SetActive(false);
         GameSceneManager.Instance.InvokePauseLevel(true);
@@ -78,6 +76,10 @@ public class PauseManager : ManagerView
     private void Resume()
     {
         paused = false;
+        
+        if(Overlay.Phase > Mathf.Epsilon)
+            Overlay.ChangePhase(0, 0.4f);
+        
         PauseMenu.SetActive(false);
         PauseButton.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(false);
