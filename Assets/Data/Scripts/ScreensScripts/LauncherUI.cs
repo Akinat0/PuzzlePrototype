@@ -43,7 +43,6 @@ namespace ScreensScripts
         private void Awake()
         {
             Instance = this;
-            SceneManager.LoadScene("PuzzleAtlasScene", LoadSceneMode.Additive);
             LauncherTextGroup = TextGroupComponent.AttachTo(gameObject);
         }
 

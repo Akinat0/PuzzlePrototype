@@ -96,7 +96,7 @@ namespace Puzzle
             Destroy(player.GetComponent<PlayerInput>());
             Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
-            SceneManager.UnloadSceneAsync(gameObject.scene);
+            SceneManager.UnloadSceneAsync(LevelConfig.SceneID);
         }
 
         void CallEndgameMenu()
