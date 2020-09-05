@@ -26,7 +26,7 @@ namespace Puzzle
             get
             {
                 if (textGroup == null && transform != null)
-                    textGroup = TextGroupComponent.AttachTo(transform.parent.gameObject, 0);
+                    textGroup = TextGroupComponent.AttachTo(Canvas.gameObject, 0);
             
                 return textGroup;
             }
@@ -39,6 +39,10 @@ namespace Puzzle
             {
                 if (canvas == null)
                     canvas = transform.GetComponentInParent<Canvas>();
+                
+                if (canvas == null)
+                    canvas = transform.GetComponent<Canvas>();
+                
                 return canvas;
             }
         }

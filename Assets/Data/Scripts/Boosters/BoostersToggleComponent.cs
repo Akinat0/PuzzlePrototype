@@ -31,7 +31,7 @@ public class BoostersToggleComponent : ToggleComponent
     protected virtual void Start()
     {
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
-        //TODO add here other boosters initialization
+        //add here other boosters initialization
     }
 
     void OnEnable()
