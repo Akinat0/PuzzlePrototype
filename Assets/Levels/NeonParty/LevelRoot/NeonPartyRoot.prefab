@@ -279,7 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerView: {fileID: 5114909529988856529}
-  m_BackgroundView: {fileID: 6344100859751500784}
 --- !u!82 &7981331649366452584
 AudioSource:
   m_ObjectHideFlags: 0
@@ -665,6 +664,12 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8844076852876951287, guid: 6d91a6b73a37f4431bc9d1ef812be3d2,
+        type: 3}
+      propertyPath: HeartPrefab
+      value: 
+      objectReference: {fileID: 3336113581320411209, guid: f97b2b04ab6ba450caafb792e020271f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d91a6b73a37f4431bc9d1ef812be3d2, type: 3}
 --- !u!4 &29171235741934099 stripped
@@ -748,18 +753,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1115704630192876202}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6344100859751500784 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6300818924424044890, guid: 86c4470e43cc2425cb73f2ad8ea3d61e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1115704630192876202}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bb96011550475e419dab41df5059143, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3289236979274667857
 PrefabInstance:
   m_ObjectHideFlags: 0

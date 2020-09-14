@@ -56,6 +56,9 @@ namespace Abu.Tools
 
             float width = spriteRenderer.sprite.rect.width / spriteRenderer.sprite.pixelsPerUnit;
             float height = spriteRenderer.sprite.rect.height /  spriteRenderer.sprite.pixelsPerUnit;
+
+            width *= spriteRenderer.transform.lossyScale.x;
+            height *= spriteRenderer.transform.lossyScale.y;
             
             return new Rect(xPos, yPos, width, height);
         }
@@ -70,7 +73,8 @@ namespace Abu.Tools
         
         public static float FitHorizontalPart(SpriteRenderer spriteRenderer, float part)
         {
-            return FitHorizontal(spriteRenderer) * part;
+            float horizontalScale = FitHorizontal(spriteRenderer);
+            return horizontalScale * part;
         }
         
         public static float FitVerticalPart(SpriteRenderer spriteRenderer, float part)

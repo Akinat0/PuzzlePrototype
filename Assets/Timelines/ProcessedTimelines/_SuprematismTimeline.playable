@@ -714,6 +714,19 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-7254156207748926967
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ccee78a4edad442a23879985397732, type: 3}
+  m_Name: Level End Marker
+  m_EditorClassIdentifier: 
+  m_Time: 137.71666666666667
 --- !u!114 &-7247925917032344401
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1869,6 +1882,45 @@ MonoBehaviour:
     radialPosition: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-4272061952605895205
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c2b9628d54b40639415b79e12c0ac8, type: 3}
+  m_Name: Play Audio Marker
+  m_EditorClassIdentifier: 
+  m_Time: 3.116666666666665
+  looped: 0
+  audioClip: {fileID: 8300000, guid: 64e33fe52366e434b8b448e983e90e3b, type: 3}
+  soundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-4210598579384335456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2418,6 +2470,8 @@ MonoBehaviour:
     - {fileID: 7104704735959066203}
     - {fileID: -4205786730129725092}
     - {fileID: -2664480120915788561}
+    - {fileID: -4272061952605895205}
+    - {fileID: -7254156207748926967}
 --- !u!114 &-3397595333343798977
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74312,7 +74366,7 @@ MonoBehaviour:
   m_Version: 3
   m_AnimClip: {fileID: 0}
   m_Locked: 0
-  m_Muted: 0
+  m_Muted: 1
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
