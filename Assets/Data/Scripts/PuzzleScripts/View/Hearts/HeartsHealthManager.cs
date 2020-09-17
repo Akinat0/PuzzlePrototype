@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Abu.Tools;
-using Boo.Lang;
 using Puzzle;
 using UnityEngine;
 
@@ -12,20 +12,11 @@ public class HeartsHealthManager : MonoBehaviour
     [SerializeField] float HorizontalPadding = 0;
     [SerializeField] float HorizontalMargins = 0.05f;
 
-    private static readonly int AnimationReset = Animator.StringToHash("Reset");
+    static readonly int AnimationReset = Animator.StringToHash("Reset");
 
-    List<HeartView> Hearts;
-    
-    int DefaultPlayerHp = 5;
+    readonly List<HeartView> HeartViews = new List<HeartView>();
 
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-            StartAdditionalHeartAnimation();
-    }
-
-    protected int Hp { get; set; }
+    protected int Hp => GameSceneManager.Instance.CurrentHearts;
 
     Animator heartsAnimator;
     Animator HeartsAnimator
@@ -38,154 +29,169 @@ public class HeartsHealthManager : MonoBehaviour
             return heartsAnimator;
         }
     }
-    
-    protected virtual void LoseHeart(int _Hp)
+
+    void Setup(int heartsAmount)
     {
-        if (Hp < 0)
-            return;
-
-        HeartView heart = Hearts[Hp];
-
-        if (heart != null)
-            heart.Hide();
-        else
-            Debug.LogError($"Heart {Hp} is null");
-
-        Hp--;
-    }
-
-    protected virtual void ResetHealth()
-    {
-        if(Hearts == null)
-            CreateHearts();
-        
-        foreach (HeartView heart in Hearts)
-            heart.gameObject.SetActive(true);
-
-        if (HeartsAnimator != null)
-            HeartsAnimator.SetTrigger(AnimationReset);
-
-        Hp = Hearts.Count - 1;
-        foreach (var heart in Hearts)
-            heart.Show();
-    }
-
-    void CreateHearts()
-    {
-        if(Hearts == null)
-            Hearts = new List<HeartView>();
-        
-        for (int i = 0; i < DefaultPlayerHp; i++)
+        if (heartsAmount > HeartViews.Count)
         {
-            HeartView heart = Instantiate(HeartPrefab, transform);
-            heart.name = $"{HeartPrefab.name}_{i}";
-            Hearts.Add(heart);
+            for (int i = HeartViews.Count; i < heartsAmount; i++)
+            {
+                HeartViews.Add(Instantiate(HeartPrefab, transform));
+                HeartViews.Last().name = $"{HeartPrefab.name}_{i}";
+            }
+        }
+        
+        if (heartsAmount < HeartViews.Count)
+        {
+            for (int i = heartsAmount; i < HeartViews.Count; i++)
+                Destroy(HeartViews[i].gameObject);
+            
+            HeartViews.RemoveRange(heartsAmount, HeartViews.Count - heartsAmount);
+        }
+        
+        LayoutHearts();
+        
+        ProcessHearts(heartsAmount);
+        
+        ProcessHeartsAnimator();
+    }
+
+    void ProcessHeartsAnimator()
+    {
+        if (HeartsAnimator == null)
+            return;
+            
+        HeartsAnimator.SetTrigger(AnimationReset);
+        HeartsAnimator.Rebind();
+    }
+    
+    void ProcessHearts(int activeAmount)
+    {
+        if (activeAmount < 0 || activeAmount > HeartViews.Count)
+        {
+            Debug.LogError($"[HeartManager] Can't visualize Hp. Target amount {activeAmount}, hearts amount {HeartViews.Count}");
+            return;
         }
 
-        LayoutHearts();
-    }
+        for (int i = 0; i < HeartViews.Count; i++)
+        {
+            bool shouldBeVisible = i < activeAmount;
 
+            HeartView heart = HeartViews[i]; 
+            
+            if(heart.IsVisible && !shouldBeVisible)
+                heart.Hide();
+            
+            if(!heart.IsVisible && shouldBeVisible)
+                heart.Show();
+        }
+    }
+    
     void LayoutHearts()
     {
-        int length = Hearts.Count;
+        int length = HeartViews.Count;
 
         Vector2 camSize = ScreenScaler.CameraSize;
-
-
+        
         float partOfScreen = 1.0f / length - HorizontalPadding - HorizontalMargins * 2 / length; 
-        Vector3 targetScale = Vector3.one * ScreenScaler.FitHorizontalPart(Hearts.First().Background, partOfScreen);
+        Vector3 targetScale = Vector3.one * ScreenScaler.FitHorizontalPart(HeartViews.First().Background, partOfScreen);
 
         for (int i = 0; i < length; i++)
         {
-            Hearts[i].transform.localScale = targetScale;
+            HeartViews[i].transform.localScale = targetScale;
                 
             Vector2 heartPosition = new Vector2
-                (-camSize.x / 2 + Hearts[i].Size.x / 2 + camSize.x / length * i,
+                (-camSize.x / 2 + HeartViews[i].Size.x / 2 + camSize.x / length * i,
                 -camSize.y / 2 + camSize.y * 0.05f);
 
-            Hearts[i].transform.position = heartPosition;
+            HeartViews[i].transform.position = heartPosition;
         }
 
-        float xOffset = (Mathf.Abs(Hearts.Last().transform.position.x) - Mathf.Abs(Hearts.First().transform.position.x)) / 2;
+        float xOffset = (Mathf.Abs(HeartViews.Last().transform.position.x) - Mathf.Abs(HeartViews.First().transform.position.x)) / 2;
 
-        foreach (Transform heartTransform in Hearts.Select(heart => heart.transform))
+        foreach (Transform heartTransform in HeartViews.Select(heart => heart.transform))
             heartTransform.SetX(heartTransform.position.x - xOffset);
     }
 
     void StartAdditionalHeartAnimation()
     {
+        HeartView additionalHeart = Instantiate(HeartPrefab, transform);
+        additionalHeart.name = $"{HeartPrefab.name}_{HeartViews.Count}";
+        HeartViews.Add(additionalHeart);
+
+        additionalHeart.transform.position = new Vector3(0, -ScreenScaler.CameraSize.y / 4.0f, 0);
+        additionalHeart.transform.localScale =
+            Vector3.one * ScreenScaler.FitHorizontalPart(additionalHeart.Background, 0.4f);
+        additionalHeart.Show();
+
         StartCoroutine(AdditionalHeartRoutine());
     }
 
+
     IEnumerator AdditionalHeartRoutine(float duration = 0.8f, Action finished = null)
     {
-        HeartView additionalHeart = Instantiate(HeartPrefab, transform);
-        additionalHeart.name = $"{HeartPrefab.name}_{Hearts.Count}";
-        Hearts.Add(additionalHeart);
-
         Vector2 camSize = ScreenScaler.CameraSize;
 
-        additionalHeart.transform.position = new Vector3(0, -camSize.y / 4.0f, 0);
-        additionalHeart.transform.localScale = Vector3.one * ScreenScaler.FitHorizontalPart(additionalHeart.Background, 0.4f);
-
-        additionalHeart.Show();
-
-        int length = Hearts.Count;
+        int length = HeartViews.Count;
 
         List<Vector3> sourceScales = new List<Vector3>();
 
         float partOfScreen = 1.0f / length - HorizontalPadding - HorizontalMargins * 2 / length;
-        Vector3 targetScale = Vector3.one * ScreenScaler.FitHorizontalPart(Hearts.First().Background,
+        Vector3 targetScale = Vector3.one * ScreenScaler.FitHorizontalPart(HeartViews.First().Background,
                                   partOfScreen);
 
         List<Vector2> sourcePositions = new List<Vector2>();
         List<Vector2> targetPositions = new List<Vector2>();
         
-        for (int i = 0; i < Hearts.Count; i++)
+        for (int i = 0; i < HeartViews.Count; i++)
         {
             Vector2 heartPosition = new Vector2
-            (-camSize.x / 2 + Hearts[i].Size.x / Hearts[i].transform.localScale.x * targetScale.x / 2 + camSize.x / length * i,
+            (-camSize.x / 2 + HeartViews[i].Size.x / HeartViews[i].transform.localScale.x * targetScale.x / 2 + camSize.x / length * i,
                 -camSize.y / 2 + camSize.y * 0.05f);
 
             targetPositions.Add(heartPosition);
-            sourcePositions.Add(Hearts[i].transform.position);
-            sourceScales.Add(Hearts[i].transform.localScale);
+            sourcePositions.Add(HeartViews[i].transform.position);
+            sourceScales.Add(HeartViews[i].transform.localScale);
         }
         
         float xOffset = (Mathf.Abs(targetPositions.Last().x) - Mathf.Abs(targetPositions.First().x)) / 2;
         
-        for (int i = 0; i < Hearts.Count; i++)
+        for (int i = 0; i < HeartViews.Count; i++)
             targetPositions[i] -= Vector2.right * xOffset;
         
         yield return new WaitForSeconds(1.2f);
-        
+
         float time = 0;
 
         while (time <= duration)
         {
-            for (int i = 0; i < Hearts.Count; i++)
+            for (int i = 0; i < HeartViews.Count; i++)
             {
-                Hearts[i].transform.position = Vector3.Lerp(sourcePositions[i], targetPositions[i], time / duration);
-                Hearts[i].transform.localScale = Vector3.Lerp(sourceScales[i], targetScale, time / duration);
+                HeartViews[i].transform.position = Vector3.Lerp(sourcePositions[i], targetPositions[i], time / duration);
+                HeartViews[i].transform.localScale = Vector3.Lerp(sourceScales[i], targetScale, time / duration);
             }
 
             time += Time.deltaTime;
             yield return null;
         }
-        
-        for (int i = 0; i < Hearts.Count; i++)
+
+        //Rebind animator keeping the same time and progress
+        if (HeartsAnimator != null)
         {
-            Hearts[i].transform.position = targetPositions[i];
-            Hearts[i].transform.localScale = targetScale;
+            float animatorTime = HeartsAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            int stateHash = HeartsAnimator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+            HeartsAnimator.Rebind();
+            HeartsAnimator.Update(0);
+            HeartsAnimator.Play(stateHash, 0, animatorTime);
+        }
+
+        for (int i = 0; i < HeartViews.Count; i++)
+        {
+            HeartViews[i].transform.position = targetPositions[i];
+            HeartViews[i].transform.localScale = targetScale;
         }
         
         finished?.Invoke();
-    }
-
-    [ContextMenu("ShowBooster")]
-    void ShowBooster()
-    {
-        StartAdditionalHeartAnimation();
     }
     
     #region event handlers
@@ -193,55 +199,56 @@ public class HeartsHealthManager : MonoBehaviour
     protected virtual void OnEnable()
     {
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.PlayerReviveEvent += PlayerReviveEventHandler;
-        GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
+        GameSceneManager.PlayerReviveEvent += PlayerReviveEvent_Handler;
+        GameSceneManager.HeartsAmountChangedEvent += HeartsAmountChangedEvent_Handler;
+        GameSceneManager.ApplyBoosterEvent += ApplyBoosterEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
-        GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
     }
 
     protected virtual void OnDisable()
     {
-        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.PlayerReviveEvent -= PlayerReviveEventHandler;
-        GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
+        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler; 
+        GameSceneManager.PlayerReviveEvent -= PlayerReviveEvent_Handler; 
+        GameSceneManager.HeartsAmountChangedEvent -= HeartsAmountChangedEvent_Handler;
+        GameSceneManager.ApplyBoosterEvent -= ApplyBoosterEvent_Handler;
         GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
-        GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
     
+    void ResetLevelEvent_Handler()
+    {
+        Setup(GameSceneManager.Instance.CurrentHearts);
+    }
     
-
-    protected virtual void ResetLevelEvent_Handler()
+    void PlayerReviveEvent_Handler()
     {
-        ResetHealth();
+        Setup(GameSceneManager.Instance.CurrentHearts);
     }
 
-    protected virtual void PlayerReviveEventHandler()
+    void HeartsAmountChangedEvent_Handler(int amount)
     {
-        ResetHealth();
+        ProcessHearts(amount);
     }
 
-    protected virtual void PlayerLosedHpEvent_Handler(int _Hp)
+    void ApplyBoosterEvent_Handler(Booster booster)
     {
-        LoseHeart(_Hp);
+        if (booster is HeartBooster)
+            StartAdditionalHeartAnimation();
     }
 
-    protected virtual void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)
+    void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)
     {
-        foreach (HeartView heart in Hearts)
+        foreach (HeartView heart in HeartViews)
             heart.Hide();
     }
 
-    protected virtual void LevelClosedEvent_Handler()
+    void LevelClosedEvent_Handler()
     {
-        foreach (HeartView heart in Hearts)
+        foreach (HeartView heart in HeartViews)
             heart.Hide();
     }
 
-    protected virtual void GameStartedEvent_Handler()
-    {
-    }
     
     #endregion
 }

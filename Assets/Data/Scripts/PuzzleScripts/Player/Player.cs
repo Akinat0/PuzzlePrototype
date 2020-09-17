@@ -12,14 +12,10 @@ namespace Puzzle
         protected bool _immuneFramesEnabled;
         protected float _immuneTime = 0.2f;
 
-        public const int DEFAULT_HP = 5;
-        protected int _health = DEFAULT_HP;
-        
         public bool[] sides = {false, false, true, true}; //It's relative to Side // True means it's stick out
 
         public PlayerView PlayerView => _view;
-        public int Hp => _health;
-        
+
         protected virtual void Awake()
         {
             _view = GetComponent<PlayerView>();
@@ -36,17 +32,8 @@ namespace Puzzle
             GameSceneManager.Instance.ShakeCamera();
             if (!_immuneFramesEnabled)
             {
-                _health -= damage;
                 for (int i = 0; i < damage; i++)
-                {
-                    GameSceneManager.Instance.InvokePlayerLosedHp(_health);
-                }
-
-                if (_health == 0)
-                {
-                    //We will wait one frame before kill the player
-                    StartCoroutine(Utility.WaitFrames(1, () => GameSceneManager.Instance.InvokePlayerDied()));
-                }
+                    GameSceneManager.Instance.InvokePlayerLosedHp();
             }
 
             _immuneFramesEnabled = true;
@@ -65,34 +52,14 @@ namespace Puzzle
             _view.ChangeSides();
         }
 
-        private void ResetHp()
-        {
-            _health = DEFAULT_HP;
-        }
-
         private void OnEnable()
         {
-            GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-            GameSceneManager.PlayerReviveEvent += PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen += TouchOnScreen_Handler;
-
         }
 
         private void OnDisable()
         {
-            GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-            GameSceneManager.PlayerReviveEvent -= PlayerReviveEventHandler;
             MobileGameInput.TouchOnTheScreen -= TouchOnScreen_Handler;
-        }
-
-        void ResetLevelEvent_Handler()
-        {
-            ResetHp();
-        }
-        
-        void PlayerReviveEventHandler()
-        {
-            ResetHp();
         }
         
         void TouchOnScreen_Handler(Touch touch)

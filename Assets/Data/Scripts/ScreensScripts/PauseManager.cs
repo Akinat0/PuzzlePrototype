@@ -59,6 +59,7 @@ public class PauseManager : ManagerView
         paused = false;
         PauseMenu.SetActive(false);
         PauseButton.SetActive(true);
+        Overlay.ChangePhase(0, 0.5f);
         GameSceneManager.Instance.InvokeResetLevel();
     }
 

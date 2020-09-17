@@ -79,7 +79,7 @@ public class PlayerView : MonoBehaviour
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
 
-    void PlayerLosedHpEvent_Handler(int hp)
+    void PlayerLosedHpEvent_Handler()
     {
         _animator.SetTrigger(Damaged);
     }

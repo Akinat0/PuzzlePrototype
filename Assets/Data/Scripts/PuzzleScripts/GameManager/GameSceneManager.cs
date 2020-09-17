@@ -17,7 +17,7 @@ namespace Puzzle
         public static event Action<bool> PauseLevelEvent;
         public static event Action PlayerReviveEvent;
         public static event Action PlayerDiedEvent;
-        public static event Action<int> PlayerLosedHpEvent;
+        public static event Action PlayerLosedHpEvent;
         public static event Action<int> EnemyDiedEvent;
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action<LevelColorScheme> SetupLevelEvent;
@@ -27,24 +27,53 @@ namespace Puzzle
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
         public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
         public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
+        public static event Action<Booster> ApplyBoosterEvent;
+        public static event Action<int> HeartsAmountChangedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
         [SerializeField] private ReplayScreenManager replayScreenManager;
-        [SerializeField] private AudioClip theme;
         [SerializeField] private Transform gameSceneRoot;
 
         public Transform GameSceneRoot => gameSceneRoot;
-        public LevelConfig LevelConfig => _levelConfig;
-        public LevelRootView LevelRootView => _levelRootView;
+        public LevelConfig LevelConfig => levelConfig;
+        public LevelRootView LevelRootView => levelRootView;
 
         public Player Player => player;
 
-        LevelRootView _levelRootView;
+        public int CurrentHearts
+        {
+            get => currentHearts;
+            set
+            {
+                if (currentHearts == value)
+                    return;
+
+                currentHearts = value;
+
+                if (currentHearts > totalHearts)
+                    totalHearts = currentHearts;
+                
+                InvokeHeartsAmountChanged(currentHearts);
+            }
+        }
+
+        public int TotalHearts
+        {
+            get => totalHearts;
+            set => totalHearts = value;
+        }
+
+        const int DEFAULT_HEARTS = 5;
+        
+        int currentHearts = DEFAULT_HEARTS;
+        int totalHearts = DEFAULT_HEARTS;
+        
+        LevelRootView levelRootView;
         private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
-        private LevelConfig _levelConfig;
+        private LevelConfig levelConfig;
         
         protected BubbleDialog _currentDialog;
 
@@ -55,8 +84,6 @@ namespace Puzzle
             else
                 Debug.LogError("There's more than one GameSceneManager in the scene");
         }
-
-        protected virtual void Start() { }
 
         private void OnDestroy()
         {
@@ -79,16 +106,16 @@ namespace Puzzle
             _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
             _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
 
-            _levelConfig = config;
-            _levelRootView = levelRootView; 
+            levelConfig = config;
+            this.levelRootView = levelRootView; 
 
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
 
+            InvokeResetLevel();
+
             foreach (Booster booster in Account.GetActiveBoosters())
                 booster.Use();
-
-            InvokeResetLevel();
         }
 
         void UnloadScene()
@@ -140,8 +167,9 @@ namespace Puzzle
         }
 
         protected virtual void OnEnable() { }
+
         protected virtual void OnDisable() { }
-        
+
         //////////////////
         //Event Invokers//
         //////////////////
@@ -155,6 +183,10 @@ namespace Puzzle
         public void InvokeResetLevel()
         {
             Debug.Log("ResetLevel Invoked");
+
+            CurrentHearts = DEFAULT_HEARTS;
+            TotalHearts = DEFAULT_HEARTS;
+            
             ResetLevelEvent?.Invoke();
             GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
@@ -179,10 +211,15 @@ namespace Puzzle
             CallEndgameMenu();
         }
 
-        public void InvokePlayerLosedHp(int hp)
+        public void InvokePlayerLosedHp()
         {
-            Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
-            PlayerLosedHpEvent?.Invoke(hp);
+            Debug.Log("PlayerLosedHp Invoked");
+            PlayerLosedHpEvent?.Invoke();
+            
+            CurrentHearts--;
+            
+            if(CurrentHearts == 0)
+                InvokePlayerDied();
         }
 
         public void InvokeEnemyDied(int score)
@@ -201,6 +238,7 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
+            CurrentHearts = TotalHearts;
             PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
         }
@@ -224,10 +262,10 @@ namespace Puzzle
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(_levelConfig));
+            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig));
             
             //Get stars amount from hp
-            int stars = Player.Hp.Remap(0, Player.DEFAULT_HP, 0, 3);
+            int stars = CurrentHearts.Remap(0, TotalHearts, 0, 3);
 
             bool isNewRecord = LevelConfig.StarsAmount < stars; 
             
@@ -262,5 +300,19 @@ namespace Puzzle
             InvokePauseLevel(false);
             CutsceneEndedEvent?.Invoke(args);
         }
+
+        public void InvokeApplyBooster(Booster booster)
+        {
+            Debug.Log("Apply Booster Invoked " + booster.Name);
+            ApplyBoosterEvent?.Invoke(booster);
+        }
+        
+        void InvokeHeartsAmountChanged(int hearts)
+        {
+            Debug.Log("HeartsAmountChanged Invoked, new hearts amount " + hearts);
+            HeartsAmountChangedEvent?.Invoke(hearts);
+        }
+
+
     }
 }

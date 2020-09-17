@@ -1,11 +1,16 @@
 using System;
+using Puzzle;
 using UnityEngine;
 
 public abstract class Booster
 {
     public static Booster[] CreateAllBoosters()
     {
-        return new Booster[] {new TimeFreezeBooster(), };
+        return new Booster[]
+        {
+            new TimeFreezeBooster(),
+            new HeartBooster(), 
+        };
     }
 
     protected Booster()
@@ -81,7 +86,10 @@ public abstract class Booster
         
         Amount--;
         Deactivate();
+        
         Apply();
+        
+        GameSceneManager.Instance.InvokeApplyBooster(this);
     }
 
     string Key => Name;

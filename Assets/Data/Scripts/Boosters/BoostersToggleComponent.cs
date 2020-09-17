@@ -10,6 +10,7 @@ public class BoostersToggleComponent : ToggleComponent
     
     [SerializeField] RectTransform Content;
     [SerializeField] BoosterView timeFreezeBoosterView; 
+    [SerializeField] BoosterView heartBoosterView; 
 
     BlurOverlayView fade;
 
@@ -31,6 +32,7 @@ public class BoostersToggleComponent : ToggleComponent
     protected virtual void Start()
     {
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
+        heartBoosterView.Initialize(Account.GetBooster<HeartBooster>());
         //add here other boosters initialization
     }
 

@@ -52,7 +52,11 @@ namespace Puzzle
             get
             {
                 if (overlay == null)
-                    overlay = OverlayView.Create<BlurOverlayView>(Canvas.transform, 1);
+                {
+                    BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(Canvas.transform, 1);
+                    blurOverlay.RecreateWhileUpdate = true;
+                    overlay = blurOverlay;
+                }
 
                 return overlay;
             }

@@ -6,6 +6,8 @@ public class HeartView : MonoBehaviour
 {
     [SerializeField] private GameObject vfx;
 
+    public bool IsVisible { get; private set; }
+    
     private Animator animator;
     private static readonly int Visible = Animator.StringToHash("Visible");
 
@@ -32,12 +34,16 @@ public class HeartView : MonoBehaviour
 
     public void Hide(bool withVfx = true)
     {
+        IsVisible = false;
+        
         animator.SetBool(Visible, false);
         if(withVfx)
             Instantiate(vfx, transform);
     }
     public void Show(bool withVfx = true)
     {
+        IsVisible = true;
+        
         animator.SetBool(Visible, true);
         if(withVfx)
             Instantiate(vfx, transform);

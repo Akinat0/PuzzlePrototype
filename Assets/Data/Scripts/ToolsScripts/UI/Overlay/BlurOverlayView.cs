@@ -28,6 +28,8 @@ namespace Abu.Tools.UI
         
         [SerializeField] bool gammaCorrection = true;
 
+        [SerializeField] bool recreateWhileUpdate = false;
+
         #endregion
         
         #region public properties
@@ -72,6 +74,12 @@ namespace Abu.Tools.UI
             set => gammaCorrection = value;
         }
 
+        public bool RecreateWhileUpdate
+        {
+            get => recreateWhileUpdate;
+            set => recreateWhileUpdate = value;
+        }
+        
         #endregion
         
         #region private properties
@@ -161,6 +169,9 @@ namespace Abu.Tools.UI
         
         protected override void ProcessPhase()
         {
+            if(RecreateWhileUpdate)
+                RecreateBlurTexture();
+            
             Color color = BlurColor;
             color.a = Phase;
             BlurColor = color;

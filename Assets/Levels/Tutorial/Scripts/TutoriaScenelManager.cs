@@ -155,7 +155,7 @@ public class TutoriaScenelManager : GameSceneManager
         MobileGameInput.TouchOnTheScreen -= TouchOnTheScreen_Handler;
     }
     
-    private void PlayerLosedHpEvent_Handler(int hp)
+    private void PlayerLosedHpEvent_Handler()
     {
         ShowDialog("Hey! It was painful!", 2.5f);
         this.Invoke(() => ShowDialog("Let's try again =)", 2), 2.5f);
