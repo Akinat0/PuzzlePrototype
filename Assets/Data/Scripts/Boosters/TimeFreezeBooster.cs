@@ -34,6 +34,7 @@ public class TimeFreezeBooster : Booster
 
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
+        GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
     }
 
     void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
@@ -42,6 +43,11 @@ public class TimeFreezeBooster : Booster
     }
 
     void LevelClosedEvent_Handler()
+    {
+        InvokeHideFreezeScreen();
+    }
+    
+    void ResetLevelEvent_Handler()
     {
         InvokeHideFreezeScreen();
     }
@@ -56,7 +62,4 @@ public class TimeFreezeBooster : Booster
         
         action?.Invoke();
     }
-    
-    
-    
 }

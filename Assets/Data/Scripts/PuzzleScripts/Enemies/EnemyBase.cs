@@ -50,6 +50,8 @@ namespace PuzzleScripts
                 Move();
         }
         public EnemyType Type => type;
+
+        public int Score => score;
         
         public int Damage
         {
@@ -77,7 +79,7 @@ namespace PuzzleScripts
             if(sfx != null)
                 SoundManager.Instance.PlayOneShot(sfx);
             
-            GameSceneManager.Instance.InvokeEnemyDied(score);
+            GameSceneManager.Instance.InvokeEnemyDied(this);
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
             if (coinHolder != null)

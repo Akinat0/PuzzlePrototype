@@ -18,7 +18,7 @@ namespace Puzzle
         public static event Action PlayerReviveEvent;
         public static event Action PlayerDiedEvent;
         public static event Action PlayerLosedHpEvent;
-        public static event Action<int> EnemyDiedEvent;
+        public static event Action<EnemyBase> EnemyDiedEvent;
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
@@ -222,10 +222,10 @@ namespace Puzzle
                 InvokePlayerDied();
         }
 
-        public void InvokeEnemyDied(int score)
+        public void InvokeEnemyDied(EnemyBase enemy)
         {
             Debug.Log("EnemyDied Invoked");
-            EnemyDiedEvent?.Invoke(score);
+            EnemyDiedEvent?.Invoke(enemy);
         }
 
         public void InvokeGameStarted()
@@ -252,6 +252,7 @@ namespace Puzzle
         public void InvokeLevelClosed(bool showStars = true)
         {
             InvokePauseLevel(true);
+            InvokeResetLevel();
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
             UnloadScene();

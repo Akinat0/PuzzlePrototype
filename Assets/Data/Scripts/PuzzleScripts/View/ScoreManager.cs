@@ -2,6 +2,7 @@
 using Abu.Tools;
 using Abu.Tools.UI;
 using DG.Tweening;
+using PuzzleScripts;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
@@ -93,9 +94,9 @@ namespace Puzzle
             SaveScore();
         }
 
-        void EnemyDiedEvent_Handler(int score)
+        void EnemyDiedEvent_Handler(EnemyBase enemyBase)
         {
-            AddScore(score);
+            AddScore(enemyBase.Score);
         }
 
         void PauseLevelEvent_Handler(bool pause)
