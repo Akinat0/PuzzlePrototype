@@ -37,7 +37,8 @@ public class HeartView : MonoBehaviour
         IsVisible = false;
         
         animator.SetBool(Visible, false);
-        if(withVfx)
+        
+        if(withVfx && vfx != null)
             Instantiate(vfx, transform);
     }
     public void Show(bool withVfx = true)
@@ -45,7 +46,8 @@ public class HeartView : MonoBehaviour
         IsVisible = true;
         
         animator.SetBool(Visible, true);
-        if(withVfx)
+        
+        if(withVfx && vfx != null)
             Instantiate(vfx, transform);
     }
 }
