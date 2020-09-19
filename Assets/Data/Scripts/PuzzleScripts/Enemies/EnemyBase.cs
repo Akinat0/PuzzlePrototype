@@ -9,7 +9,8 @@ namespace PuzzleScripts
     {
         Puzzle, 
         Shit,
-        Virus
+        Virus,
+        LongPuzzle
     }
 
     public class EnemyBase : MonoBehaviour, IEnemy
@@ -171,6 +172,7 @@ namespace PuzzleScripts
         public float speed;
         public bool stickOut;
         [Range(0, 359)] public float radialPosition;
+        public float trailTime;
      
         public AudioClip sfx;
         [Range(0, 1)] public float volume;
