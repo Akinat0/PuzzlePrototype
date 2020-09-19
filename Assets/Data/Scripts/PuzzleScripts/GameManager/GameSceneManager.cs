@@ -252,7 +252,6 @@ namespace Puzzle
         public void InvokeLevelClosed(bool showStars = true)
         {
             InvokePauseLevel(true);
-            InvokeResetLevel();
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
             UnloadScene();

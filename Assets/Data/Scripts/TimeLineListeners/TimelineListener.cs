@@ -58,8 +58,6 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
-
     }
 
     protected virtual  void OnDisable()
@@ -67,7 +65,6 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
     
     protected virtual void GameStartedEvent_Handler()
@@ -101,10 +98,4 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         
         ReceiveNotifications = true;
     }
-
-    void LevelClosedEvent_Handler()
-    {
-        ReceiveNotifications = false;
-    }
-    
 }
