@@ -17,6 +17,9 @@ public class AnimationEventBehaviour : StateMachineBehaviour
     {
         if (stateInfo.normalizedTime >= 1)
         {
+            if(StateId == "Show")
+                Debug.Log("");
+            
             if(!completed)
                 OnStateCompleteEvent?.Invoke(StateId);
             completed = true;

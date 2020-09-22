@@ -12,7 +12,7 @@ public class CompleteScreenManager : ManagerView
     [SerializeField] private FlatFXState StartCompleteState;
     [SerializeField] private FlatFXState EndCompleteState;
 
-    StarsView StarsView => GameSceneManager.Instance.LevelRootView.StarsView;
+    StarsManager StarsManager => GameSceneManager.Instance.LevelRootView.GetStarsManager(GameSceneManager.Instance.LevelConfig);
     bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
 
     bool? IsNewRecord = null;
@@ -31,7 +31,7 @@ public class CompleteScreenManager : ManagerView
         bool hideStars = IsNewRecord != null && !IsNewRecord.Value; 
         
         if (hideStars)
-            StarsView.HideStars();
+            StarsManager.HideStars();
         
         GameSceneManager.Instance.InvokeLevelClosed(hideStars);
         CompleteScreen.SetActive(false);
@@ -44,7 +44,7 @@ public class CompleteScreenManager : ManagerView
         IsNewRecord = isNewRecord;
 
         if (StarsEnabled)
-            StarsView.ShowStarsAnimation(stars, CallEffects);
+            StarsManager.ShowStarsAnimation(stars, CallEffects);
         else
             CallEffects();
     }

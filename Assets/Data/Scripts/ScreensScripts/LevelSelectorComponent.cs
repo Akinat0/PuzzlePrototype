@@ -277,9 +277,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
 
         if (animated)
-            levelContainers[index].StarsView.ShowStarsTogether(Selection[index].StarsAmount);
+            levelContainers[index].GetStarsManager(Selection[index]).ShowStarsTogether(Selection[index].StarsAmount);
         else
-            levelContainers[index].StarsView.ShowStarsInstant(Selection[index].StarsAmount);
+            levelContainers[index].GetStarsManager(Selection[index]).ShowStarsInstant(Selection[index].StarsAmount);
     }
 
     void SetLevelDefaultPlayerView(int index)
@@ -306,7 +306,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
-        levelContainers[Index].StarsView.HideStars();
+        levelContainers[Index].GetStarsManager(Selection[Index]).HideStars();
         IsFocused = false;
     }
 

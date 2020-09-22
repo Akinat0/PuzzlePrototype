@@ -1,4 +1,5 @@
 ﻿using Puzzle;
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
@@ -14,14 +15,15 @@ public partial class LevelConfig : ScriptableObject
     
     [Space(10)]
     [SerializeField] private bool m_CollectionEnabled = false;
-    [SerializeField] private bool m_StarsEnabled = true;
+    [SerializeField] StarView m_StarView;
     
     public string Name => m_LevelName;
     public string SceneID => m_SceneID;
     public GameObject LevelRootPrefab => m_LevelRootPrefab;
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
     public bool CollectionEnabled => m_CollectionEnabled;
-    public bool StarsEnabled => m_StarsEnabled;
+    public bool StarsEnabled => StarView != null;
+    public StarView StarView => m_StarView;
     
     
     public PuzzleSides PuzzleSides => m_PuzzleSides;

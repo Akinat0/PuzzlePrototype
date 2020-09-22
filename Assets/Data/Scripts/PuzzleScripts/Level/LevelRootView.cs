@@ -6,7 +6,7 @@ public class LevelRootView : MonoBehaviour
 {
     [SerializeField] private PlayerView m_PlayerView;
 
-    StarsView starsView;
+    StarsManager starsManager;
     Renderer[] renderers;
 
     Renderer[] Renderers
@@ -47,13 +47,15 @@ public class LevelRootView : MonoBehaviour
         }
     }
 
-    public StarsView StarsView
+    public StarsManager GetStarsManager(LevelConfig config)
     {
-        get
-        {
-            if (starsView == null)
-                starsView = StarsView.Create(transform);
-            return starsView;
-        }
+        if (!config.StarsEnabled)
+            return null;
+
+        if (starsManager == null)
+            starsManager = StarsManager.Create(transform, config.StarView);
+        
+        return starsManager;
+    
     }
 }
