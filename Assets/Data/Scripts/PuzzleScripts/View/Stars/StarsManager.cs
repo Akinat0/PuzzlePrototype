@@ -85,24 +85,22 @@ public class StarsManager : MonoBehaviour
             count--;
             if (count > 0) 
                 return;
+        
+            for (int i = 0; i < stars; i++)
+                StarsView[i].Highlight();
             
-            finished?.Invoke();
+            this.Invoke(() => finished?.Invoke(), 1f);
         }
 
         for (int i = 0; i < 3; i++)
-        {
-            int indexClosure = i;
-
-            this.Invoke(() => { StarsView[indexClosure].Show(indexClosure < stars, finished: Finished); },
-                0.7f * indexClosure);
-        }
+            StarsView[i].Show(i < stars, finished: Finished);
     }
 
     public void HideStars(Action finished = null)
     {
         int count = StarsView.Length;
 
-        foreach (var star in StarsView)
+        foreach (StarView star in StarsView)
         {
             star.Hide(() =>
             {
