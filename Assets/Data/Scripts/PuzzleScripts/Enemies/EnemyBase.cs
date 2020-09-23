@@ -34,6 +34,19 @@ namespace PuzzleScripts
 
         private float _time = 0;
         private float _dist = 0;
+
+        Renderer renderer;
+
+        public Renderer Renderer
+        {
+            get
+            {
+                if (renderer == null)
+                    renderer = GetComponent<Renderer>();
+
+                return renderer;
+            }
+        }
         
         protected virtual void Update()
         {

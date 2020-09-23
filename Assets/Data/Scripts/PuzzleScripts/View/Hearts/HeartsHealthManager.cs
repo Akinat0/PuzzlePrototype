@@ -58,9 +58,9 @@ public class HeartsHealthManager : MonoBehaviour
 
     void ProcessHeartsAnimator()
     {
-        if (HeartsAnimator == null)
+        if (HeartsAnimator == null && !HeartsAnimator.isActiveAndEnabled)
             return;
-            
+        
         HeartsAnimator.SetTrigger(AnimationReset);
         HeartsAnimator.Rebind();
     }
