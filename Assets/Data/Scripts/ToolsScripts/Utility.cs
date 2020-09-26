@@ -76,7 +76,14 @@ public static class Utility
         position.y = value;
         transform.position = position;
     }
-
+    
+    public static void SetZ(this Transform transform, float value)
+    {
+        Vector3 position = transform.position;
+        position.z = value;
+        transform.position = position;
+    }
+    
     public static void SetIndependentScale(this Transform transform)
     {
         transform.localScale = new Vector3(

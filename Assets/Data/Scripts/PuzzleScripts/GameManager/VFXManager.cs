@@ -41,19 +41,39 @@ namespace Puzzle
 
         public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
         {
-            int effectNumber = FlatFXType.SunRays.GetHashCode();
-            m_LevelCompleteRoutine = StartCoroutine(LevelCompleteSunshineEffectRoutine(position, effectNumber, startState, endState));
+            int effectNumber = (int)FlatFXType.SunRays;
+            
+            FlatFx.settings[effectNumber].lifetime = 3.0f;
+            FlatFx.settings[effectNumber].sectorCount = 20;
+
+            if (startState != null)
+            {
+                FlatFx.settings[effectNumber].start.size = startState.size;
+                FlatFx.settings[effectNumber].start.thickness = startState.size;
+                FlatFx.settings[effectNumber].start.innerColor = startState.innerColor;
+                FlatFx.settings[effectNumber].start.outerColor = startState.outerColor;
+            }
+
+            if (endState != null)
+            {
+                FlatFx.settings[effectNumber].end.size = endState.size;
+                FlatFx.settings[effectNumber].end.thickness = endState.size;
+                FlatFx.settings[effectNumber].end.innerColor = endState.innerColor;
+                FlatFx.settings[effectNumber].end.outerColor = endState.outerColor;
+            }
+            
+            FlatFx.AddEffect(position, effectNumber);
         }
 
         public void StopLevelCompleteSunshineEffect()
         {
-            StopCoroutine(m_LevelCompleteRoutine);    
+            FlatFx.particles.Clear();
         }
 
         public void CallCrosslightEffect(Vector2 position)
         {
             FlatFx.useUnscaledTime = false;
-            FlatFx.AddEffect(position, FlatFXType.Crosslight.GetHashCode());
+            FlatFx.AddEffect(position, (int)FlatFXType.Crosslight);
         }
         
         public void CallConfettiEffect()
@@ -125,22 +145,10 @@ namespace Puzzle
         {
             while (true)
             {
-                FlatFx.settings[effectNumber].lifetime = 3.0f;
-                FlatFx.settings[effectNumber].sectorCount = 20;
 
                 if (start != null && end != null)
                 {
-                    FlatFx.settings[effectNumber].start.size = start.size;
-                    FlatFx.settings[effectNumber].end.size = end.size;
-
-                    FlatFx.settings[effectNumber].start.thickness = start.size;
-                    FlatFx.settings[effectNumber].end.thickness = end.size;
-
-                    FlatFx.settings[effectNumber].start.innerColor = start.innerColor;
-                    FlatFx.settings[effectNumber].start.outerColor = start.outerColor;
-
-                    FlatFx.settings[effectNumber].end.innerColor = end.innerColor;
-                    FlatFx.settings[effectNumber].end.outerColor = end.outerColor;
+                    
                 }
 
 

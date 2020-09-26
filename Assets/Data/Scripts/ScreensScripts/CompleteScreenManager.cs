@@ -1,3 +1,4 @@
+using System;
 using Abu.Tools.UI;
 using Puzzle;
 using UnityEngine;
@@ -8,14 +9,12 @@ public class CompleteScreenManager : ManagerView
     [SerializeField] private GameObject CompleteScreen;
     [SerializeField] private TextButtonComponent MenuButton;
     
-    //TODO bad solution
-    [SerializeField] private FlatFXState StartCompleteState;
-    [SerializeField] private FlatFXState EndCompleteState;
-
     StarsManager StarsManager => GameSceneManager.Instance.LevelRootView.GetStarsManager(GameSceneManager.Instance.LevelConfig);
     bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
 
     bool? IsNewRecord = null;
+
+    Action CallEffectsAction;
     
     private void Start()
     {
@@ -28,7 +27,7 @@ public class CompleteScreenManager : ManagerView
         StopAllCoroutines();
         VFXManager.Instance.StopLevelCompleteSunshineEffect();
 
-        bool hideStars = IsNewRecord != null && !IsNewRecord.Value; 
+        bool hideStars = IsNewRecord != null && !IsNewRecord.Value && StarsEnabled; 
         
         if (hideStars)
             StarsManager.HideStars();
@@ -43,20 +42,28 @@ public class CompleteScreenManager : ManagerView
         
         IsNewRecord = isNewRecord;
 
+        CallEffectsAction = CallEffects;
+        
         if (StarsEnabled)
-            StarsManager.ShowStarsAnimation(stars, CallEffects);
+            StarsManager.ShowStarsAnimation(stars, InvokeCallEffects);
         else
             CallEffects();
     }
 
     void CallEffects()
     {
-        VFXManager.Instance.CallConfettiEffect();
-        VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.Player.transform.position,
-            StartCompleteState, EndCompleteState);
         VFXManager.Instance.CallWinningSound();
     }
 
+    void InvokeCallEffects()
+    {
+        Action action = CallEffectsAction;
+        CallEffectsAction = null;
+        
+        action?.Invoke();
+    }
+    
+    
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
         levelColorScheme.SetButtonColor(MenuButton);

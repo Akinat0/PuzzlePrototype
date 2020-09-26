@@ -33,7 +33,9 @@ public class CoinSceneManager : ManagerView
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
-    { }
+    {
+        levelColorScheme.SetTextColor(Wallet.Text, true);
+    }
 
     private void BalanceChangedEvent_Handler(int balance)
     {
@@ -47,11 +49,5 @@ public class CoinSceneManager : ManagerView
             ShowInstant();
         else
             HideLong();
-    }
-    
-    private void ChangeSharedFontSize_Handler(float sharedFontSize)
-    {
-        if (!Mathf.Approximately(Wallet.Text.fontSize, sharedFontSize))
-            Wallet.Text.fontSize = sharedFontSize;
     }
 }

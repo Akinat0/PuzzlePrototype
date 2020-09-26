@@ -306,7 +306,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
-        levelContainers[Index].GetStarsManager(Selection[Index]).HideStars();
+        
+        if(Selection[Index].StarsEnabled)
+            levelContainers[Index].GetStarsManager(Selection[Index]).HideStars();
+        
         IsFocused = false;
     }
 
