@@ -45,9 +45,9 @@ public class CompleteScreenManager : ManagerView
         CallEffectsAction = CallEffects;
         
         if (StarsEnabled)
-            StarsManager.ShowStarsAnimation(stars, InvokeCallEffects);
-        else
-            CallEffects();
+            StarsManager.ShowStarsAnimation(stars);
+        
+        CallEffects();
     }
 
     void CallEffects()

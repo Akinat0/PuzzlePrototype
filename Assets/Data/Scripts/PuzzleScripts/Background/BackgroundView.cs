@@ -15,7 +15,7 @@ public class BackgroundView : MonoBehaviour
         get
         {
             if (spritesInChildren == null)
-                spritesInChildren = GetComponentsInChildren<SpriteRenderer>();
+                spritesInChildren = GetComponentsInChildren<SpriteRenderer>(true);
 
             return spritesInChildren;
         }
