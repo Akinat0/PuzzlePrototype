@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class NeonPartyPuzzleEnemy : PuzzleEnemy
 {
+    
+    SkinContainer skinContainer;
+
+    public SkinContainer SkinContainer
+    {
+        get
+        {
+            if (skinContainer == null)
+                skinContainer = GetComponent<SkinContainer>();
+
+            return skinContainer;
+        }
+    }
+    
     public override void Instantiate(EnemyParams @params)
     {
         base.Instantiate(@params);
-        GetComponent<SkinContainer>().Skin = @params.stickOut ? 0 : 1;
+        SkinContainer.Skin = @params.stickOut ? 0 : 1;
         
         if(@params.side == Side.Right)
             transform.Rotate(new Vector3(180, 0, 0));

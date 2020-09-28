@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class SkinContainer : SkinContainerBase
 {
     public int Length => _Sprites.Length;
