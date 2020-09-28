@@ -1,13 +1,16 @@
 ﻿
 public class PlayLauncherEventArgs
 {
-    private LevelConfig m_LevelConfig;
+    private readonly LevelConfig m_LevelConfig;
+    private readonly LevelRootView m_LevelRootView;
 
     public LevelConfig LevelConfig => m_LevelConfig;
+    public LevelRootView LevelRootView => m_LevelRootView;
 
-    public PlayLauncherEventArgs(LevelConfig _LevelConfig)
+    public PlayLauncherEventArgs(LevelConfig _LevelConfig, LevelRootView _LevelRootView)
     {
         m_LevelConfig = _LevelConfig;
+        m_LevelRootView = _LevelRootView;
     }
 }
 

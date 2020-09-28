@@ -18,8 +18,7 @@ public class TutoriaScenelManager : GameSceneManager
     private bool _tutorialStopped = false;
     private ITutorialStopReason _stopReason = null;
     private int _stage = 0;
-
-    private FadeEffect _fadeEffect;
+    
 
     private bool _firstPuzzleTip = true;
     private bool _firstShitTip = true;
@@ -38,12 +37,6 @@ public class TutoriaScenelManager : GameSceneManager
         }
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        _fadeEffect = VFXManager.Instance.CallFadeEffect(GameSceneRoot, RenderLayer.Default, 101);
-    }
-    
     public static bool TutorialStopped => ((TutoriaScenelManager) Instance)._tutorialStopped;
     public static ITutorialStopReason StopReason => ((TutoriaScenelManager) Instance)._stopReason;
 
@@ -57,7 +50,6 @@ public class TutoriaScenelManager : GameSceneManager
                 {
                     if (Player.sides[puzzleEnemy.side.GetHashCode()] == puzzleEnemy.stickOut) //Sides shouldn't be equal
                     {
-                        _fadeEffect.setActive(false);
                         VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, Player.transform,
                             () => { VFXManager.Instance.CallTutorialTapEffect(Player.transform); }, null, 0.8f);
 
@@ -79,7 +71,6 @@ public class TutoriaScenelManager : GameSceneManager
 
                 if (enemy.Type == EnemyType.Shit && enemy is TutorialEnemyShit)
                 {
-                    _fadeEffect.setActive(false);
                     VignetteAnimator.FocusAndFollow(VFXManager.Instance.Vignette, enemy.transform,
                         () => { VFXManager.Instance.CallTutorialTapEffect(enemy.transform); }, null, 0.8f);
                     
@@ -113,7 +104,6 @@ public class TutoriaScenelManager : GameSceneManager
         switch (Stage)
         {
             case 0:
-                _fadeEffect.setActive(true);
                 VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
                 InvokeOnStopTutorial(false);
                 InvokeDisableInput();
@@ -139,7 +129,6 @@ public class TutoriaScenelManager : GameSceneManager
         switch (Stage)
         {
             case 1:
-                _fadeEffect.Sprite.DOFade(0, 1f); //Fadeout
                 ShowDialog("Great!", 2);
                 this.Invoke(() => ShowDialog("Try it yourself now =)", 5), 2);
                 break;
@@ -148,7 +137,7 @@ public class TutoriaScenelManager : GameSceneManager
 
     
     
-    private void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
@@ -166,7 +155,7 @@ public class TutoriaScenelManager : GameSceneManager
         MobileGameInput.TouchOnTheScreen -= TouchOnTheScreen_Handler;
     }
     
-    private void PlayerLosedHpEvent_Handler(int hp)
+    private void PlayerLosedHpEvent_Handler()
     {
         ShowDialog("Hey! It was painful!", 2.5f);
         this.Invoke(() => ShowDialog("Let's try again =)", 2), 2.5f);
@@ -177,8 +166,6 @@ public class TutoriaScenelManager : GameSceneManager
     {
         VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
         Stage = 0;
-        _fadeEffect.setActive(true);
-        _fadeEffect.Sprite.DOFade(FadeEffect.DefaultAlpha, 0);
     }
     
     private void TouchOnTheScreen_Handler(Touch touch)

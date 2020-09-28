@@ -1,7 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using Abu.Tools;
+using Abu.Tools.UI;
 using Puzzle;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 namespace ScreensScripts
@@ -12,78 +14,94 @@ namespace ScreensScripts
         
         public static event Action<PlayLauncherEventArgs> PlayLauncherEvent;
         public static event Action<GameSceneManager> GameSceneLoadedEvent;
-        public static event Action GameSceneUnloadedEvent;
+        public static event Action<GameSceneUnloadedArgs> GameSceneUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
-        public static event Action<CloseCollectionEventArgs> CloseCollectionEvent; 
+        public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
 
 
         [SerializeField] private AsyncLoader asyncLoader;
         [SerializeField] private Transform playerEntity;
         [SerializeField] private GameObject backgroundContainer;
-        [SerializeField] private Canvas launcherCanvas;
 
-        // ReSharper disable once InconsistentNaming
+        [SerializeField] MainMenuUIManager uiManager;
+        [SerializeField] MainCameraComponent mainCamera;
+
+        public MainMenuUIManager UiManager => uiManager;
+        public MainCameraComponent MainCamera => mainCamera; 
+
+        public LevelConfig LevelConfig => _levelConfig;
+        
         private GameSceneManager GameSceneManager;
 
         private LevelConfig _levelConfig;
-        public LevelConfig LevelConfig => _levelConfig;
 
+        LevelRootView actualLevelRootView;
+        
+        public TextGroupComponent LauncherTextGroup { get; private set; }
+        
         private void Awake()
         {
             Instance = this;
+            SceneManager.LoadScene("PuzzleAtlasScene", LoadSceneMode.Additive);
+            LauncherTextGroup = TextGroupComponent.AttachTo(gameObject);
         }
 
-        void PlayLevel(LevelConfig _Config)
+        void PlayLevel(LevelConfig config)
         {
-            if (asyncLoader.gameObject != null && _Config != null && !string.IsNullOrEmpty(_Config.SceneID))
-                asyncLoader.LoadScene(_Config.SceneID, InvokeGameSceneLoaded);
+            if (asyncLoader.gameObject != null && config != null && !string.IsNullOrEmpty(config.SceneID))
+                asyncLoader.LoadScene(config.SceneID, InvokeGameSceneLoaded);
         }
 
-        public void InvokePlayLauncher(PlayLauncherEventArgs _Args)
+        public void InvokePlayLauncher(PlayLauncherEventArgs args)
         {
             Debug.Log("PlayLauncher Invoked");
-            _levelConfig = _Args.LevelConfig;
-            PlayLevel(_Args.LevelConfig);
-            PlayLauncherEvent?.Invoke(_Args);
+            _levelConfig = args.LevelConfig;
+            actualLevelRootView = args.LevelRootView;
+            PlayLevel(args.LevelConfig);
+            PlayLauncherEvent?.Invoke(args);
         }
         
         public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameSceneLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, backgroundContainer, gameObject, _levelConfig); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig, actualLevelRootView); //LauncherUI is launcher scene root
             GameSceneLoadedEvent?.Invoke(gameSceneManager);
         }
 
-        public void InvokeGameSceneUnloaded()
+        public void InvokeGameSceneUnloaded(GameSceneUnloadedArgs args)
         {
             Debug.Log("GameSceneUnloaded Invoked");
-            GameSceneUnloadedEvent?.Invoke();
-            Time.timeScale = 1;
+            GameSceneUnloadedEvent?.Invoke(args);
+
+            //Unpause game anyway
+            TimeManager.DefaultTimeScale = 1;
+            TimeManager.Unpause();
         }
 
-        public void InvokeLevelChanged(LevelChangedEventArgs _Args)
+        public void InvokeLevelChanged(LevelChangedEventArgs args)
         {
             Debug.Log("LevelChanged Invoked");
-            playerEntity = _Args.PlayerView.transform;
-            _levelConfig = _Args.LevelConfig;
-            LevelChangedEvent?.Invoke(_Args);
+            playerEntity = args.PlayerView.transform;
+            _levelConfig = args.LevelConfig;
+            LevelChangedEvent?.Invoke(args);
         }
 
-        public void InvokeShowCollection(ShowCollectionEventArgs _Args)
+        public void InvokeShowCollection(ShowCollectionEventArgs args)
         {
             Debug.Log("LevelChanged Invoked");
-            ShowCollectionEvent?.Invoke(_Args);
+            ShowCollectionEvent?.Invoke(args);
         }
 
-        public void InvokeCloseCollection(CloseCollectionEventArgs _Args)
+        public void InvokeCloseCollection(CloseCollectionEventArgs args)
         {
             Debug.Log("CloseCollection Invoked");
             
-            if(_Args.PlayerView != null)
-                playerEntity = _Args.PlayerView.transform;
+            if(args.PlayerView != null)
+                playerEntity = args.PlayerView.transform;
             
-            CloseCollectionEvent?.Invoke(_Args);
+            CloseCollectionEvent?.Invoke(args);
         }
+
     }
 }

@@ -17,15 +17,18 @@ public class PlayerView : MonoBehaviour
     private Animator _animator;
     
     private static readonly int Damaged = Animator.StringToHash("Damaged");
-    
+
     public float PartOfScreen => _partOfScreen;
 
     public Transform[] TRBLPositions => TRBL_positions;
+
+    Quaternion defaultShapeRotation;
 
     protected virtual void Start()
     {
         _animator = GetComponent<Animator>();
         SetScale(_partOfScreen);
+        defaultShapeRotation = shape.rotation;
     }
     
     void SetScale(float partOfScreen)
@@ -59,20 +62,30 @@ public class PlayerView : MonoBehaviour
         shape.Rotate(0, 0, 180);
     }
 
+    protected virtual void RestoreSides()
+    {
+        shape.rotation = defaultShapeRotation;
+    }
+    
     private void OnEnable()
     {
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
+        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
     }
 
     private void OnDisable()
     {
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
+        GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
 
-    void PlayerLosedHpEvent_Handler(int hp)
+    void PlayerLosedHpEvent_Handler()
     {
         _animator.SetTrigger(Damaged);
     }
-    
-    
+
+    void LevelClosedEvent_Handler()
+    {
+        RestoreSides();
+    }
 }

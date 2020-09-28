@@ -1,65 +1,91 @@
-﻿using Puzzle;
+﻿using Abu.Tools.UI;
+using Puzzle;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PauseManager : ManagerView
 {
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private Button continueButton;
-    [SerializeField] private Button restartButton;
-    [SerializeField] private Button menuButton;
-    [SerializeField] private Button pauseButton;
+    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private TextButtonComponent ContinueButton;
+    [SerializeField] private TextButtonComponent RestartButton;
+    [SerializeField] private ButtonComponent MenuButton;
+    [SerializeField] private ButtonComponent PauseButton;
+    [SerializeField] private TextMeshProUGUI TimerField;
     
-    private bool _paused = false;
-    public bool Paused => _paused;
+    private bool paused = false;
+    public bool Paused => paused;
 
     private void Start()
     {
-        pauseMenu.SetActive(false);
+        PauseMenu.SetActive(false);
+        
+        ContinueButton.OnClick += OnPauseClick;
+        RestartButton.OnClick += OnReplayClick;
+        MenuButton.OnClick += OnMenuClick;
+        PauseButton.OnClick += OnPauseClick;
     }
 
-    public void OnPause()
+    private void OnPauseClick()
     {
-        if(!Paused)
-            PauseTheGame();
+        if (!Paused)
+            Pause();
         else
         {
-            ResumeTheGame();
+            if (TimerField != null)
+            {
+                PauseMenu.SetActive(false);
+                Overlay.ChangePhase(0, 0.5f);
+                StartCoroutine(CountdownRoutine(TimerField, () =>
+                {
+                    TimerField.gameObject.SetActive(false);
+                    Resume();
+                }));
+            }
+            else
+            {
+                Resume();
+            }
         }
     }
     
-    public void VolumeSliderValueChanged(float value)
-    {
-        value = Mathf.Clamp01(value);
-        SoundManager.Instance.SetVolume(value);
-    }
-
-    public void ToMenu()
+    private void OnMenuClick()
     {
         GameSceneManager.Instance.InvokeLevelClosed();
-        pauseMenu.SetActive(false);
+        PauseMenu.SetActive(false);
     }
     
-    public void Replay()
+    private void OnReplayClick()
     {
-        pauseMenu.SetActive(false);
+        paused = false;
+        PauseMenu.SetActive(false);
+        PauseButton.SetActive(true);
+        Overlay.ChangePhase(0, 0.5f);
         GameSceneManager.Instance.InvokeResetLevel();
     }
 
-    private void PauseTheGame()
+    private void Pause()
     {
-        _paused = true;
-        pauseMenu.SetActive(true);
+        paused = true;
+        
+        Overlay.ChangePhase(1, 0.4f);
+        
+        PauseMenu.SetActive(true);
+        PauseButton.SetActive(false);
         GameSceneManager.Instance.InvokePauseLevel(true);
     }
 
-    private void ResumeTheGame()
+    private void Resume()
     {
-        _paused = false;
-        pauseMenu.SetActive(false);
+        paused = false;
+        
+        if(Overlay.Phase > Mathf.Epsilon)
+            Overlay.ChangePhase(0, 0.4f);
+        
+        PauseMenu.SetActive(false);
+        PauseButton.SetActive(true);
         GameSceneManager.Instance.InvokePauseLevel(false);
     }
-
+    
 
     protected override void OnEnable()
     {
@@ -75,14 +101,16 @@ public class PauseManager : ManagerView
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        levelColorScheme.SetButtonColor(continueButton);
-        levelColorScheme.SetButtonColor(restartButton);
-        levelColorScheme.SetButtonColor(menuButton);
-        levelColorScheme.SetButtonColor(pauseButton);
+        levelColorScheme.SetButtonColor(ContinueButton);
+        levelColorScheme.SetButtonColor(RestartButton);
+        levelColorScheme.SetButtonColor(MenuButton);
+        levelColorScheme.SetButtonColor(PauseButton);
+        if(TimerField != null)
+            levelColorScheme.SetTextColor(TimerField, true);
     }
 
-    void LevelCompletedEvent_Handler()
+    void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
     {
-        pauseButton.gameObject.SetActive(false);
+        PauseButton.gameObject.SetActive(false);
     }
 }

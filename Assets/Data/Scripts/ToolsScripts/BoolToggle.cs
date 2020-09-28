@@ -6,8 +6,8 @@ namespace Abu.Tools
 {
     public class BoolToggle
     {
-        private bool m_DefaultValue;
-        private bool m_LatestValue;
+        private bool DefaultValue;
+        private bool LatestValue;
 
         /// <summary>
         /// After getting the value toggle will return to the default value
@@ -16,17 +16,22 @@ namespace Abu.Tools
         {
             get
             {
-                bool result = m_LatestValue;
-                m_LatestValue = m_DefaultValue;
+                bool result = LatestValue;
+                LatestValue = DefaultValue;
                 return result;
             }
-            set { m_LatestValue = value; }
+            set => LatestValue = value;
+        }
+
+        public bool GetValueWithoutFire()
+        {
+            return LatestValue;
         }
         
-        public BoolToggle(bool _DefaultValue)
+        public BoolToggle(bool defaultValue)
         {
-            m_DefaultValue = _DefaultValue;
-            m_LatestValue = m_DefaultValue;
+            DefaultValue = defaultValue;
+            LatestValue = DefaultValue;
         }
     }
 }

@@ -17,13 +17,17 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        PlayTheme(launcherTheme);
+        
+        if(launcherTheme != null)
+            PlayTheme(launcherTheme);
+        
         oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
     }
 
-    public void PlayOneShot(AudioClip audioClip, float volume = 1)
+    public AudioSource PlayOneShot(AudioClip audioClip, float volume = 1)
     {
         oneShotPlayer.PlayOneShot(audioClip, volume);
+        return oneShotPlayer;
     }
 
     public void SetVolume(float volume)
@@ -64,7 +68,7 @@ public class SoundManager : MonoBehaviour
         PauseTheme();   
     }
     
-    void GameSceneUnloadedEvent_Handler()
+    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
     {
         PlayTheme(launcherTheme);   
     }

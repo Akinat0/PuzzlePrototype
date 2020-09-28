@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Abu.Tools;
 using PuzzleScripts;
@@ -31,7 +32,8 @@ namespace Puzzle
         public bool SpawnCoins => spawnCoins;
         public float CoinProbability => coinProbability;
         public int CostOfEnemy => costOfEnemy;
-        
+
+        int enemiesCount;
         
         public GameObject PlayerEntity
         {
@@ -47,16 +49,30 @@ namespace Puzzle
                     Debug.LogError("There's no PlayerView script on player entity");
             }
         }
+        
+        readonly Dictionary<EnemyType, EnemyBase> Enemies = new Dictionary<EnemyType, EnemyBase>();
+        
+        void Awake()
+        {
+            foreach (GameObject prefab in enemyPrefab)
+            {
+                EnemyBase enemyBase = prefab.GetComponent<EnemyBase>();
+
+                if (!Enemies.ContainsKey(enemyBase.Type))
+                    Enemies[enemyBase.Type] = enemyBase;
+            }
+        }
 
         protected virtual void RescaleGame()
         {
+            
             float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(
                     m_PlayerView.shape.GetComponent<SpriteRenderer>(),
                     partOfThePLayerOnTheScreen);
 
             m_PlayerEntity.transform.localScale = Vector3.one * playerScale;
-            
+
             foreach (var prefab in enemyPrefab)
             {
                 float enemyScale = ScreenScaler.ScaleToFillPartOfScreen(
@@ -69,16 +85,24 @@ namespace Puzzle
         
         protected EnemyBase CreateEnemy(EnemyParams @params)
         {
-            GameObject prefabToInstantiate = 
-                enemyPrefab.FirstOrDefault(_P => _P.GetComponent<EnemyBase>().Type == @params.enemyType);
-            GameObject enemyGameObject = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
-            IEnemy enemy = enemyGameObject.GetComponent<IEnemy>();
+            if (!Enemies.ContainsKey(@params.enemyType))
+            {
+                Debug.LogError("Spawner doesn't have this enemy type in pool", gameObject);
+                return null;
+            }
+
+            EnemyBase prefabToInstantiate = Enemies[@params.enemyType];
+            
+            EnemyBase enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
             enemy.Instantiate(@params);
 
             if (Random.Range(0.0f, 1.0f) < coinProbability)
                 enemy.SetCoinHolder(1);
+
+            enemiesCount++;
+            enemy.Renderer.sortingOrder = enemiesCount % 20000;
             
-            return enemyGameObject.GetComponent<IEnemy>() as EnemyBase;
+            return enemy;
         }
 
         protected virtual void OnEnable()

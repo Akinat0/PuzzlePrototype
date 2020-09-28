@@ -17,32 +17,63 @@ namespace Puzzle
         public static event Action<bool> PauseLevelEvent;
         public static event Action PlayerReviveEvent;
         public static event Action PlayerDiedEvent;
-        public static event Action<int> PlayerLosedHpEvent;
-        public static event Action<int> EnemyDiedEvent;
+        public static event Action PlayerLosedHpEvent;
+        public static event Action<EnemyBase> EnemyDiedEvent;
         public static event Action<EnemyParams> CreateEnemyEvent;
         public static event Action<LevelColorScheme> SetupLevelEvent;
         public static event Action LevelClosedEvent;
-        public static event Action LevelCompletedEvent;
+        public static event Action<LevelCompletedEventArgs> LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
         public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
         public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
+        public static event Action<Booster> ApplyBoosterEvent;
+        public static event Action<int> HeartsAmountChangedEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
         [SerializeField] private ReplayScreenManager replayScreenManager;
-        [SerializeField] private AudioClip theme;
         [SerializeField] private Transform gameSceneRoot;
 
         public Transform GameSceneRoot => gameSceneRoot;
-        public LevelConfig LevelConfig => _levelConfig;
+        public LevelConfig LevelConfig => levelConfig;
+        public LevelRootView LevelRootView => levelRootView;
 
         public Player Player => player;
 
+        public int CurrentHearts
+        {
+            get => currentHearts;
+            set
+            {
+                if (currentHearts == value)
+                    return;
+
+                currentHearts = value;
+
+                if (currentHearts > totalHearts)
+                    totalHearts = currentHearts;
+                
+                InvokeHeartsAmountChanged(currentHearts);
+            }
+        }
+
+        public int TotalHearts
+        {
+            get => totalHearts;
+            set => totalHearts = value;
+        }
+
+        const int DEFAULT_HEARTS = 5;
+        
+        int currentHearts = DEFAULT_HEARTS;
+        int totalHearts = DEFAULT_HEARTS;
+        
+        LevelRootView levelRootView;
         private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
-        private LevelConfig _levelConfig;
+        private LevelConfig levelConfig;
         
         protected BubbleDialog _currentDialog;
 
@@ -54,8 +85,6 @@ namespace Puzzle
                 Debug.LogError("There's more than one GameSceneManager in the scene");
         }
 
-        protected virtual void Start() { }
-
         private void OnDestroy()
         {
             Instance = null;
@@ -66,29 +95,27 @@ namespace Puzzle
             _gameCameraAnimator.SetTrigger(Shake);
         }
 
-        public void SetupScene(GameObject _player, GameObject background, GameObject gameRoot, LevelConfig config)
+        public void SetupScene(GameObject _player, LevelConfig config, LevelRootView levelRootView)
         {
             player = _player.AddComponent<Player>();
             player.sides = config.PuzzleSides.ToArray();
+            
             _player.AddComponent<PlayerInput>();
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
-            if (Camera.main != null)
-            {
-                _gameCameraAnimator = Camera.main.gameObject.AddComponent<Animator>();
-                _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
-            }
-            else
-            {
-                Debug.LogError("Camera is null");
-            }
             
-            _levelConfig = config;
+            _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
+            _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
+
+            levelConfig = config;
+            this.levelRootView = levelRootView; 
 
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
 
-            // TODO  actions with background and gameRoot
             InvokeResetLevel();
+
+            foreach (Booster booster in Account.GetActiveBoosters())
+                booster.Use();
         }
 
         void UnloadScene()
@@ -104,9 +131,9 @@ namespace Puzzle
             replayScreenManager.CreateReplyScreen();
         }
 
-        void CallCompleteMenu()
+        void CallCompleteMenu(int stars, bool isNewRecord)
         {
-            completeScreenManager.CreateReplyScreen();
+            completeScreenManager.CreateReplyScreen(stars, isNewRecord);
         }
         
         //TODO move it to player view
@@ -140,8 +167,9 @@ namespace Puzzle
         }
 
         protected virtual void OnEnable() { }
+
         protected virtual void OnDisable() { }
-        
+
         //////////////////
         //Event Invokers//
         //////////////////
@@ -155,6 +183,10 @@ namespace Puzzle
         public void InvokeResetLevel()
         {
             Debug.Log("ResetLevel Invoked");
+
+            CurrentHearts = DEFAULT_HEARTS;
+            TotalHearts = DEFAULT_HEARTS;
+            
             ResetLevelEvent?.Invoke();
             GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
@@ -162,7 +194,11 @@ namespace Puzzle
 
         public void InvokePauseLevel(bool pause)
         {
-            Time.timeScale = pause ? 0 : 1;
+            if (pause)
+                TimeManager.Pause();
+            else
+                TimeManager.Unpause();
+            
             Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
             PauseLevelEvent?.Invoke(pause);
         }
@@ -175,16 +211,21 @@ namespace Puzzle
             CallEndgameMenu();
         }
 
-        public void InvokePlayerLosedHp(int hp)
+        public void InvokePlayerLosedHp()
         {
-            Debug.Log("PlayerLosedHp Invoked, hp was " + hp);
-            PlayerLosedHpEvent?.Invoke(hp);
+            Debug.Log("PlayerLosedHp Invoked");
+            PlayerLosedHpEvent?.Invoke();
+            
+            CurrentHearts--;
+            
+            if(CurrentHearts == 0)
+                InvokePlayerDied();
         }
 
-        public void InvokeEnemyDied(int score)
+        public void InvokeEnemyDied(EnemyBase enemy)
         {
             Debug.Log("EnemyDied Invoked");
-            EnemyDiedEvent?.Invoke(score);
+            EnemyDiedEvent?.Invoke(enemy);
         }
 
         public void InvokeGameStarted()
@@ -197,6 +238,7 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
+            CurrentHearts = TotalHearts;
             PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
         }
@@ -207,20 +249,30 @@ namespace Puzzle
             CreateEnemyEvent?.Invoke(@params);
         }
         
-        public void InvokeLevelClosed()
+        public void InvokeLevelClosed(bool showStars = true)
         {
             InvokePauseLevel(true);
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
             UnloadScene();
-            LauncherUI.Instance.InvokeGameSceneUnloaded();
+            LauncherUI.Instance.InvokeGameSceneUnloaded(
+                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars));
         }
         
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            LevelCompletedEvent?.Invoke();
-            CallCompleteMenu();
+            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig));
+            
+            //Get stars amount from hp
+            int stars = CurrentHearts.Remap(0, TotalHearts, 0, 3);
+
+            bool isNewRecord = LevelConfig.StarsAmount < stars; 
+            
+            if(isNewRecord)
+                LevelConfig.StarsAmount = stars;
+            
+            CallCompleteMenu(stars, isNewRecord);
         }
         
         public void InvokePlayAudio(LevelPlayAudioEventArgs args)
@@ -248,5 +300,19 @@ namespace Puzzle
             InvokePauseLevel(false);
             CutsceneEndedEvent?.Invoke(args);
         }
+
+        public void InvokeApplyBooster(Booster booster)
+        {
+            Debug.Log("Apply Booster Invoked " + booster.Name);
+            ApplyBoosterEvent?.Invoke(booster);
+        }
+        
+        void InvokeHeartsAmountChanged(int hearts)
+        {
+            Debug.Log("HeartsAmountChanged Invoked, new hearts amount " + hearts);
+            HeartsAmountChangedEvent?.Invoke(hearts);
+        }
+
+
     }
 }

@@ -16,8 +16,16 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         _playableDirector = GetComponent<PlayableDirector>();
     }
 
+    bool ReceiveNotifications = false;
+
     public virtual void OnNotify(Playable origin, INotification notification, object context)
     {
+        if (!ReceiveNotifications)
+        {
+            Debug.LogWarning($"Notification {notification.id} will be ignored", gameObject);
+            return;
+        }
+
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
 
         switch (notification)
@@ -61,6 +69,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
     
     protected virtual void GameStartedEvent_Handler()
     {
+        ReceiveNotifications = true;
         _playableDirector.Play();
     }
 
@@ -71,16 +80,22 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 
     protected void Pause(bool paused)
     {
-        if (!_playableDirector.playableGraph.IsValid()) 
+        if (!_playableDirector.playableGraph.IsValid())
             return;
+
+        ReceiveNotifications = !paused;
         
         _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
     
     
-    private void ResetLevelEvent_Handler()
+    void ResetLevelEvent_Handler()
     {
+        ReceiveNotifications = false;
+        
         _playableDirector.Stop();
         _playableDirector.time = 0;
+        
+        ReceiveNotifications = true;
     }
 }

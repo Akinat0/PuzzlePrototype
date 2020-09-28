@@ -1,4 +1,9 @@
-﻿using DG.Tweening;
+﻿using System.Collections;
+using Abu.Tools;
+using Abu.Tools.UI;
+using DG.Tweening;
+using PuzzleScripts;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 
@@ -6,27 +11,55 @@ namespace Puzzle
 {
     public class ScoreManager : ManagerView
     {
-        private int _score = 0;
-        private Text _scoreText;
+        private int score = 0;
+        private int tempScore = 0;
+        private TextMeshProUGUI scoreText;
 
-        public string Score => $"Score: {_score}";
+        private string Score => $"Score: {tempScore}";
+        
+        private string Text {
+            
+            set => scoreText.text = value;
+        }
 
         void Awake()
         {
-            _scoreText = GetComponent<Text>();
-            _scoreText.text = Score;
+            scoreText = GetComponent<TextMeshProUGUI>();
+        }
+
+        void Start()
+        {
+            AlphaSetter = alpha => scoreText.alpha = alpha;
+            AlphaGetter = () => scoreText.alpha;
+            Text = Score;
+            
+            TextGroup.Add(new TextObject(scoreText));
         }
 
         void AddScore(int score)
         {
-            _score += score;
-            _scoreText.text = Score;
-            ShowShort(_scoreText);
+            this.score += score;
+            StartCoroutine(ScrollScore());
+            
+        }
+
+        private IEnumerator ScrollScore()
+        {
+            float delay = 0.5f / (score - tempScore);
+            while (tempScore < score)
+            {
+                tempScore++;
+                Text = Score;
+                TextGroup.UpdateTextSize();
+                
+                ShowShort(); //TODO I don't like the solution
+                yield return new WaitForSeconds(delay);
+            }
         }
         
         void SaveScore()
         {
-            PlayerPrefs.SetInt("score", _score);
+            PlayerPrefs.SetInt("score", score);
         }
 
         protected override void OnEnable()
@@ -45,11 +78,15 @@ namespace Puzzle
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+
         }
-        
+
         void ResetLevelEvent_Handler()
         {
-            _score = 0;
+            score = 0;
+            tempScore = 0;
+            StopAllCoroutines();
+            HideInstant();
         }
 
         void PlayerDiedEvent_Handler()
@@ -57,22 +94,23 @@ namespace Puzzle
             SaveScore();
         }
 
-        void EnemyDiedEvent_Handler(int score)
+        void EnemyDiedEvent_Handler(EnemyBase enemyBase)
         {
-            AddScore(score);
+            AddScore(enemyBase.Score);
         }
 
         void PauseLevelEvent_Handler(bool pause)
         {
             if (pause)
-                ShowInstant(_scoreText);
+                ShowInstant();
             else
-                HideLong(_scoreText);
+                HideLong();
         }
         
         protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
-            _scoreText.color = levelColorScheme.TextColor2;
+            levelColorScheme.SetTextColor(scoreText, true);
         }
+        
     }
 }

@@ -59,7 +59,7 @@ public class BubbleDialog : MonoBehaviour
         if(onFinish != null)
             hideBehaviour.OnStateExitEvent += _ => onFinish.Invoke();
     }
-    
+
     public static BubbleDialog Create(Action<BubbleDialog> scaleRules = null)
     {
         BubbleDialog bubbleDialog = Instantiate(Resources.Load<GameObject>(path)).GetComponent<BubbleDialog>();

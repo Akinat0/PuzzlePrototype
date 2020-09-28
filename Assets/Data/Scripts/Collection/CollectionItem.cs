@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Puzzle;
 using UnityEngine;
@@ -8,12 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PuzzleCollectionItem", menuName = "Puzzle/CreateCollectionItem", order = 51)]
 public class CollectionItem : ScriptableObject
 {
+    [SerializeField] public string Name; 
     [SerializeField] private PuzzleVariant[] puzzleVariants;
 
+
+    public int ID => Name.GetHashCode();
 
     public GameObject GetPuzzleVariant(PuzzleSides sides)
     {
         return puzzleVariants.FirstOrDefault(variant => variant.Sides == sides).Puzzle;
+    }
+
+    public GameObject GetAnyPuzzleVariant()
+    {
+        return puzzleVariants.FirstOrDefault().Puzzle;
     }
 }
 

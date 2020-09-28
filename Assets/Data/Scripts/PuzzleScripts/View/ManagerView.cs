@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using Abu.Tools;
+using Abu.Tools.UI;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Puzzle
 {
@@ -11,6 +14,55 @@ namespace Puzzle
         protected const float APPEAR_TIME = 1.0f;
         protected const float DISAPPEAR_TIME = 1.0f;
         protected const float DISAPPEAR_TIME_LONG = 3.0f;
+
+        protected Action<float> AlphaSetter;
+        protected Func<float> AlphaGetter;
+
+        //TODO
+        static TextGroupComponent textGroup;
+
+        protected TextGroupComponent TextGroup
+        {
+            get
+            {
+                if (textGroup == null && transform != null)
+                    textGroup = TextGroupComponent.AttachTo(Canvas.gameObject, 0);
+            
+                return textGroup;
+            }
+        }
+
+        Canvas canvas;
+        Canvas Canvas
+        {
+            get
+            {
+                if (canvas == null)
+                    canvas = transform.GetComponentInParent<Canvas>();
+                
+                if (canvas == null)
+                    canvas = transform.GetComponent<Canvas>();
+                
+                return canvas;
+            }
+        }
+        static OverlayView overlay;
+        protected OverlayView Overlay
+        {
+            get
+            {
+                if (overlay == null)
+                {
+                    BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(Canvas.transform, 1);
+                    blurOverlay.RecreateWhileUpdate = true;
+                    overlay = blurOverlay;
+                }
+
+                return overlay;
+            }
+        }
+
+        protected RectTransform RectTransform => transform as RectTransform;
 
         private void Awake()
         {
@@ -22,6 +74,7 @@ namespace Puzzle
         {
             GameSceneManager.CutsceneStartedEvent -= CutsceneStartedEvent_Handler;
             GameSceneManager.CutsceneEndedEvent -= CutsceneEndedEvent_Handler;
+            textGroup = null;
         }
 
         protected virtual void OnEnable()
@@ -33,8 +86,29 @@ namespace Puzzle
         {
             GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
         }
+        
         protected abstract void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme);
 
+        #region timer
+        
+        protected IEnumerator CountdownRoutine(TextMeshProUGUI timerField, Action onFinish)
+        {
+            if(!timerField.gameObject.activeSelf)
+                timerField.gameObject.SetActive(true);
+            
+            for (int i = 3; i > 0; i--)
+            {
+                timerField.text = i.ToString();
+                timerField.DOKill();
+                timerField.rectTransform.DOPunchScale(new Vector3(1.1f, 1.1f, 1), 0.7f, 3, 0.2f).SetUpdate(true);
+                yield return new WaitForSecondsRealtime(1);
+            }
+            
+            onFinish?.Invoke();
+        }
+        
+        #endregion
+        
         protected virtual void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(false);
@@ -45,33 +119,52 @@ namespace Puzzle
             gameObject.SetActive(true);
         }
 
-        protected void ShowShort(Text text)
+        IEnumerator AlphaRoutine(float endValue, float duration, Action finished = null)
         {
-            text.DOKill();
-            var fadeOutTween = text.DOFade(1.0f, APPEAR_TIME);
-            fadeOutTween.onComplete += () => text.DOFade(0.0f, DISAPPEAR_TIME);
-        }
-        
-        protected void HideLong(Text text)
-        {
-            text.DOKill();
-            text.Invoke(() => text.DOFade(0.0f, DISAPPEAR_TIME_LONG), TIME_TO_DISAPPEAR);
+            float startValue = AlphaGetter();
+            endValue = Mathf.Clamp01(endValue);
+
+            float time = 0;
+
+            while (time < duration)
+            {
+                yield return null;
+
+                time += Time.deltaTime;
+                AlphaSetter(Mathf.Lerp(startValue, endValue, time / duration));
+            }
+
+            AlphaSetter(endValue);
+            yield return null;
+            
+            finished?.Invoke();
         }
 
-        protected void ShowInstant(Text text)
+        protected void ShowShort()
         {
-            text.DOKill();
-            Color color = text.color;
-            color.a = 1;
-            text.color = color;
+            StopAllCoroutines();
+            AlphaSetter(1);
+            this.Invoke(() => StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME)), APPEAR_TIME);
         }
         
-        protected void HideInstant(Text text)
+        protected void HideLong()
         {
-            text.DOKill();
-            Color color = text.color;
-            color.a = 0;
-            text.color = color;
+            StopAllCoroutines();
+            this.Invoke(
+                () => { StartCoroutine(AlphaRoutine(0, DISAPPEAR_TIME_LONG)); },
+                TIME_TO_DISAPPEAR);
+        }
+
+        protected void ShowInstant()
+        {
+            StopAllCoroutines();
+            AlphaSetter(1);
+        }
+        
+        protected void HideInstant()
+        {
+            StopAllCoroutines();
+            AlphaSetter(1);
         }
     }
 }

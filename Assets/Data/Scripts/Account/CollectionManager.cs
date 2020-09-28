@@ -13,12 +13,12 @@ public class CollectionManager : MonoBehaviour
 
     public CollectionItem DefaultItem => CollectionData.DefaultItem;
     
-    private void Start()
+    void Start()
     {
         CollectionData.LoadSettings();
     }
 
-    private void OnApplicationQuit()
+    void OnApplicationQuit()
     {
         CollectionData.SaveSettings();
     }

@@ -6,35 +6,58 @@ namespace Abu.Console
 {
     public class ConsoleView : MonoBehaviour
     {
+        public static Texture DebugTexture
+        {
+            set
+            {
+                Print("DebugImage updated...");
+                instance.DebugImage.texture = value;
+            }
+        }  
+        
+        static ConsoleView instance;
+        public static void Print(string log)
+        {
+            instance.output.text += log + Environment.NewLine + "--------" + Environment.NewLine;
+            Debug.Log("[Console] " + log);
+        } 
+        
         [SerializeField] private InputField inputField;
         [SerializeField] private Text output;
         [SerializeField] private GameObject console;
+        [SerializeField] RawImage DebugImage;
 
         private Console Console;
         
         private bool _isConsoleActive = false;
         public bool IsConsoleActive
         {
-            get
-            {
-                return _isConsoleActive;
-            }
+            get => _isConsoleActive;
             private set
             {
                 _isConsoleActive = value;
                 console.SetActive(value);
+                
+                if (console.activeInHierarchy)
+                    inputField.Select();
             }
         }
 
         private void Start()
         {
+            instance = this;   
             IsConsoleActive = false;
             Console = new Console();
         }
 
         private void Update()
         {
-            if (Input.touchCount > 2 || Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F))
+            bool mobileInput = Input.touchCount > 2 && (Input.touches[0].phase == TouchPhase.Began ||
+                Input.touches[1].phase == TouchPhase.Began);
+
+            bool computerInput = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F); 
+            
+            if (mobileInput || computerInput)
                 IsConsoleActive = !IsConsoleActive;
 
             if (!IsConsoleActive)
@@ -51,8 +74,14 @@ namespace Abu.Console
         public void Process()
         {
             output.text = output.text + inputField.text + Environment.NewLine;
-            output.text += Console.Process(inputField.text) + Environment.NewLine;
+            string result = Console.Process(inputField.text) + Environment.NewLine;
+            output.text += result;
             inputField.text = "";
+        }
+
+        public static void ToggleDebugImage()
+        {
+            instance.DebugImage.gameObject.SetActive(!instance.DebugImage.gameObject.activeSelf);
         }
     }
 }

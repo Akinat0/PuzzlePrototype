@@ -1,3 +1,5 @@
+using System;
+using Abu.Tools.UI;
 using Puzzle;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,37 +7,66 @@ using UnityEngine.UI;
 public class CompleteScreenManager : ManagerView
 {
     [SerializeField] private GameObject CompleteScreen;
-    [SerializeField] private Button menuButton;
+    [SerializeField] private TextButtonComponent MenuButton;
+    
+    StarsManager StarsManager => GameSceneManager.Instance.LevelRootView.GetStarsManager(GameSceneManager.Instance.LevelConfig);
+    bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
 
-    [SerializeField] private FlatFXState startCompleteState;
-    [SerializeField] private FlatFXState endCompleteState;
+    bool? IsNewRecord = null;
+
+    Action CallEffectsAction;
     
     private void Start()
     {
         CompleteScreen.SetActive(false);
+        MenuButton.OnClick += OnMenuClick;
     }
 
-    public void ToMenu()
+    public void OnMenuClick()
     {
         StopAllCoroutines();
-        GameSceneManager.Instance.InvokeLevelClosed();
-        CompleteScreen.SetActive(false);
-
         VFXManager.Instance.StopLevelCompleteSunshineEffect();
-    }
 
-    public void CreateReplyScreen()
+        bool hideStars = IsNewRecord != null && !IsNewRecord.Value && StarsEnabled; 
+        
+        if (hideStars)
+            StarsManager.HideStars();
+        
+        GameSceneManager.Instance.InvokeLevelClosed(hideStars);
+        CompleteScreen.SetActive(false);
+    }
+    
+    public void CreateReplyScreen(int stars, bool isNewRecord)
     {
         CompleteScreen.SetActive(true);
         
-        VFXManager.Instance.CallConfettiEffect();
-        VFXManager.Instance.CallLevelCompleteSunshineEffect(GameSceneManager.Instance.Player.transform.position, startCompleteState, endCompleteState);
+        IsNewRecord = isNewRecord;
+
+        CallEffectsAction = CallEffects;
+        
+        if (StarsEnabled)
+            StarsManager.ShowStarsAnimation(stars);
+        
+        CallEffects();
+    }
+
+    void CallEffects()
+    {
         VFXManager.Instance.CallWinningSound();
     }
 
+    void InvokeCallEffects()
+    {
+        Action action = CallEffectsAction;
+        CallEffectsAction = null;
+        
+        action?.Invoke();
+    }
+    
+    
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        levelColorScheme.SetButtonColor(menuButton);
+        levelColorScheme.SetButtonColor(MenuButton);
     }
 
 }

@@ -7,6 +7,14 @@ namespace Puzzle
     [Serializable]
     public struct PuzzleSides : IEquatable<PuzzleSides>
     {
+        public PuzzleSides(bool top, bool right, bool bottom, bool left)
+        {
+            _Top = top;
+            _Right = right;
+            _Bottom = bottom;
+            _Left = left;
+        }
+        
         [SerializeField] private bool _Top;
         [SerializeField] private bool _Right;
         [SerializeField] private bool _Bottom;

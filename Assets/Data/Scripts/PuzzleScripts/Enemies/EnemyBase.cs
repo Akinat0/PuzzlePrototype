@@ -9,7 +9,8 @@ namespace PuzzleScripts
     {
         Puzzle, 
         Shit,
-        Virus
+        Virus,
+        LongPuzzle
     }
 
     public class EnemyBase : MonoBehaviour, IEnemy
@@ -33,6 +34,19 @@ namespace PuzzleScripts
 
         private float _time = 0;
         private float _dist = 0;
+
+        Renderer renderer;
+
+        public Renderer Renderer
+        {
+            get
+            {
+                if (renderer == null)
+                    renderer = GetComponent<Renderer>();
+
+                return renderer;
+            }
+        }
         
         protected virtual void Update()
         {
@@ -50,6 +64,8 @@ namespace PuzzleScripts
                 Move();
         }
         public EnemyType Type => type;
+
+        public int Score => score;
         
         public int Damage
         {
@@ -65,15 +81,19 @@ namespace PuzzleScripts
 
         public virtual Transform Die()
         {
-            GameObject effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
-            effect.transform.right = transform.right;
-            effect.transform.position = transform.position;
-            effect.transform.localScale *= transform.localScale.x;
-            
+            GameObject effect = null;
+            if (vfx)
+            {
+                effect = Instantiate(vfx, GameSceneManager.Instance.GameSceneRoot);
+                effect.transform.right = transform.right;
+                effect.transform.position = transform.position;
+                effect.transform.localScale *= transform.localScale.x;
+            }
+
             if(sfx != null)
                 SoundManager.Instance.PlayOneShot(sfx);
             
-            GameSceneManager.Instance.InvokeEnemyDied(score);
+            GameSceneManager.Instance.InvokeEnemyDied(this);
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
             if (coinHolder != null)
@@ -81,7 +101,7 @@ namespace PuzzleScripts
             
             Destroy(gameObject);
 
-            return effect.transform;
+            return effect != null ? effect.transform : null;
         }
         
         public void Move()
@@ -165,6 +185,7 @@ namespace PuzzleScripts
         public float speed;
         public bool stickOut;
         [Range(0, 359)] public float radialPosition;
+        public float trailTime;
      
         public AudioClip sfx;
         [Range(0, 1)] public float volume;

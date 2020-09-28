@@ -1,50 +1,53 @@
-﻿using DG.Tweening;
+﻿using Abu.Tools;
+using Abu.Tools.UI;
+using DG.Tweening;
 using Puzzle;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CoinSceneManager : ManagerView
 {
-    [SerializeField] private Text coinText;
+    [SerializeField] private WalletComponent Wallet;
 
-    private void Start()
+    void Start()
     {
-        coinText.text = Account.Coins.ToString();
-        Color textColor = coinText.color;
-        coinText.color = textColor;
+        AlphaSetter = alpha => Wallet.Alpha = alpha;
+        AlphaGetter = () => Wallet.Alpha;
+        
+        TextGroup.Add(new TextObject(Wallet.Text));
+        TextGroup.OnTextSizeResolved += Wallet.ForceUpdateLayout;
     }
-
+    
     protected override void OnEnable()
     {
         base.OnEnable();
-        Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
+        Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
+        Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
     }
 
     protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
-        coinText.color = levelColorScheme.TextColor2;
+        levelColorScheme.SetTextColor(Wallet.Text, true);
     }
 
     private void BalanceChangedEvent_Handler(int balance)
     {
-        coinText.text = balance.ToString();
-        ShowShort(coinText);
+        ShowShort();
+        TextGroup.UpdateTextSize();
     }
     
     void PauseLevelEvent_Handler(bool pause)
     {
         if (pause)
-            ShowInstant(coinText);
+            ShowInstant();
         else
-            HideLong(coinText);
+            HideLong();
     }
-    
 }

@@ -1,38 +1,45 @@
-﻿using Abu.Tools;
+﻿using System;
+using System.Linq;
+using Abu.Tools;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class BackgroundView : MonoBehaviour
 {
-    private SpriteRenderer m_SpriteRenderer;
+    SpriteRenderer spriteRenderer;
+    SpriteMask spriteMask;
+    
+    SpriteRenderer[] spritesInChildren;
+    SpriteRenderer[] SpritesInChildren
+    {
+        get
+        {
+            if (spritesInChildren == null)
+                spritesInChildren = GetComponentsInChildren<SpriteRenderer>(true);
+
+            return spritesInChildren;
+        }
+    }
 
     void Awake()
     {
-        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         transform.localScale = 
-            Vector3.one * ScreenScaler.FitHorizontal(m_SpriteRenderer);
+            Vector3.one * ScreenScaler.FitHorizontal(spriteRenderer);
+        
+        CreateClipping();
         
     }
-/*
-    void CreateClippingZone()
-    {
-        m_SpriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-        
-        m_ClippingZone = gameObject.AddComponent<SpriteMask>();
-        Texture2D texture = Resources.Load<Texture2D>("Textures/white_pattern");
 
-        if (texture == null)
+    void CreateClipping()
+    {
+        spriteMask = gameObject.AddComponent<SpriteMask>();
+        spriteMask.sprite = spriteRenderer.sprite;
+
+        foreach (SpriteRenderer sprite in SpritesInChildren)
         {
-            Debug.LogError("Textures/white_pattern is missing");
-            return;
+            if(sprite)
+                sprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
-        
-        Vector2 camSize = ScreenScaler.CameraSize();
-        
-        Sprite sprite = Sprite.Create(texture, 
-            new Rect(0, 0, camSize.x/transform.localScale.x, camSize.y/transform.localScale.y),
-            new Vector2(0.5f, 0.5f), 1);
-        
-        m_ClippingZone.sprite = sprite;
-    }*/
+    }
 }

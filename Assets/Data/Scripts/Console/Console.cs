@@ -15,7 +15,13 @@ namespace Abu.Console
                 new HelpConsoleCommand(),
                 new ClearConsoleCommand(),
                 new WalletConsoleCommand(),
-                new DefaultCollectionItemCommand()
+                new DefaultCollectionItemCommand(),
+                new AchievementsListCommand(),
+                new AchievementsSetProgressCommand(),
+                new BoosterCommand(),
+                new SetStarsCommand(),
+                new DebugImageCommand(),
+                new DeleteLocalCommand(),
             };
         }
 
@@ -24,10 +30,9 @@ namespace Abu.Console
             if (!cmd.StartsWith(Prefix))
                 return "Commands start with /";
 
-            object[] args = cmd.Split();
-            string commandName = args[0] as string;
+            object[] args = cmd.Split(' ').Select(arg => (object)arg).ToArray();
 
-            if (commandName == null)
+            if (!(args[0] is string commandName))
                 return "Error. Can't read command";
             
             commandName = commandName.Replace("/", "");

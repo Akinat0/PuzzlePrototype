@@ -8,23 +8,34 @@ namespace Abu.Tools
 {
     public static class ScreenScaler
     {
+        static Camera mainCamera;
+        public static Camera MainCamera
+        {
+            get
+            {
+                if(mainCamera == null)
+                    mainCamera = Camera.main;
+
+                return mainCamera;
+            }
+            set => mainCamera = value;
+        }
 
         public static Vector2 CameraSize
         {
             get{
-                Camera camera = Camera.main;
-                if (camera == null)
-                {
-                    Debug.LogError("Main Camera is null");
+                
+                if (MainCamera == null)
                     return Vector2.one;
-                }
 
-                float width = camera.aspect * 2f * camera.orthographicSize;
-                float height = 2f * camera.orthographicSize;
+                float width = MainCamera.aspect * 2f * MainCamera.orthographicSize;
+                float height = 2f * MainCamera.orthographicSize;
 
                 return new Vector2(width, height);
             }
         }
+
+        public static Vector2 ScreenSize => new Vector2(Screen.width, Screen.height);
 
         public static Vector3 WorldToScreenNormalized(Vector3 worldPosition)
         {
@@ -37,6 +48,20 @@ namespace Abu.Tools
         {
             return CameraSize * part;
         }
+
+        public static Rect SpriteRectInWorld(SpriteRenderer spriteRenderer)
+        {
+            float xPos = spriteRenderer.transform.position.x;
+            float yPos = spriteRenderer.transform.position.y;
+
+            float width = spriteRenderer.sprite.rect.width / spriteRenderer.sprite.pixelsPerUnit;
+            float height = spriteRenderer.sprite.rect.height /  spriteRenderer.sprite.pixelsPerUnit;
+
+            width *= spriteRenderer.transform.lossyScale.x;
+            height *= spriteRenderer.transform.lossyScale.y;
+            
+            return new Rect(xPos, yPos, width, height);
+        }
         
         public static float BestFit(SpriteRenderer spriteRenderer)
         {
@@ -48,7 +73,8 @@ namespace Abu.Tools
         
         public static float FitHorizontalPart(SpriteRenderer spriteRenderer, float part)
         {
-            return FitHorizontal(spriteRenderer) * part;
+            float horizontalScale = FitHorizontal(spriteRenderer);
+            return horizontalScale * part;
         }
         
         public static float FitVerticalPart(SpriteRenderer spriteRenderer, float part)
@@ -67,7 +93,7 @@ namespace Abu.Tools
             Sprite sprite = spriteRenderer.sprite;
             return ScaleToFillHeight(sprite.rect.height, sprite.pixelsPerUnit);
         }
-        
+
         //For quadratic only
         public static float ScaleToFillPartOfScreen(SpriteRenderer spriteRenderer, float part)
         {
@@ -87,6 +113,41 @@ namespace Abu.Tools
                 sprite.rect.height,
                 sprite.pixelsPerUnit);
         }
+
+        public static Mesh GetMeshSizeOfScreen()
+        {
+            Mesh mesh = new Mesh();
+            
+            Vector3[] vertices = new Vector3[4];
+            Vector2[] uv= new Vector2[4];
+            int[] triangles = new int[6];
+
+            Vector2 camSize = CameraSize;
+
+            vertices[0] = new Vector2(-camSize.x / 2, -camSize.y / 2);
+            vertices[1] = new Vector2(-camSize.x / 2, camSize.y / 2);
+            vertices[2] = new Vector2(camSize.x / 2, camSize.y / 2);
+            vertices[3] = new Vector2(camSize.x / 2, -camSize.y / 2);
+
+            triangles[0] = 0;
+            triangles[1] = 1;
+            triangles[2] = 2;
+            
+            triangles[3] = 0;
+            triangles[4] = 2;
+            triangles[5] = 3;
+            
+            uv[0] = new Vector2(0, 0);
+            uv[1] = new Vector2(0, 1);
+            uv[2] = new Vector2(1, 1);
+            uv[3] = new Vector2(1, 0);
+
+            mesh.vertices = vertices;
+            mesh.uv = uv;
+            mesh.triangles = triangles;
+
+            return mesh;
+        }
         
         private static Vector2 ScaleToFillScreen (float width, float height, float pixelsPerUnit)
         {
@@ -95,7 +156,7 @@ namespace Abu.Tools
 
         private static float ScaleToFillHeight(float height, float pixelsPerUnit)
         {
-            float camHeight = pixelsPerUnit * Camera.main.orthographicSize * 2;
+            float camHeight = pixelsPerUnit * MainCamera.orthographicSize * 2;
             float y_scale = camHeight / height;
             
             return y_scale;
@@ -104,14 +165,14 @@ namespace Abu.Tools
         private static float ScaleToFillWidth(float width, float pixelsPerUnit)
         {
             float aspectRatio = (float) Screen.width / Screen.height;
-            Camera.main.aspect = aspectRatio;
-            
-            float camHeight = pixelsPerUnit * Camera.main.orthographicSize * 2;
+
+            float camHeight = pixelsPerUnit * MainCamera.orthographicSize * 2;
             float camWidth = camHeight * aspectRatio;
             
             float x_scale = camWidth / width;
             
             return x_scale;
         }
+        
     }
 }
