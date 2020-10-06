@@ -1,11 +1,10 @@
-using Puzzle;
+﻿using Puzzle;
 using PuzzleScripts;
 using UnityEngine;
 
-[RequireComponent(typeof(SkinContainer))]
-public class SkinPuzzleEnemy : PuzzleEnemy
+public class NeonPartyPuzzleEnemy : PuzzleEnemy
 {
-
+    
     SkinContainer skinContainer;
 
     public SkinContainer SkinContainer
@@ -18,12 +17,11 @@ public class SkinPuzzleEnemy : PuzzleEnemy
             return skinContainer;
         }
     }
-
+    
     public override void Instantiate(EnemyParams @params)
     {
         base.Instantiate(@params);
-        
-        SkinContainer.Skin = @params.stickOut ? 1 : 0;
+        SkinContainer.Skin = @params.stickOut ? 0 : 1;
         
         if(@params.side == Side.Right)
             transform.Rotate(new Vector3(180, 0, 0));

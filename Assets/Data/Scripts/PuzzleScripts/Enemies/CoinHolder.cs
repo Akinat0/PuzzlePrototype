@@ -44,9 +44,14 @@ public class CoinHolder : MonoBehaviour
     
     private void OnDestroy()
     {
-        particles.AddComponent<SelfDestroy>().destroyTime = 5.0f;
-        Destroy(sparkls);
-        Destroy(mask);
+        if(particles != null)
+            particles.AddComponent<SelfDestroy>().destroyTime = 5.0f;
+        
+        if(sparkls != null)
+            Destroy(sparkls);
+        
+        if(mask != null)
+            Destroy(mask);
     }
 
     

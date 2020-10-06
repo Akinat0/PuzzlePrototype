@@ -39,6 +39,8 @@ namespace Puzzle
         public LevelConfig LevelConfig => levelConfig;
         public LevelRootView LevelRootView => levelRootView;
 
+        Transform playerCachedParent;
+
         public Player Player => player;
 
         public int CurrentHearts
@@ -101,7 +103,11 @@ namespace Puzzle
             player.sides = config.PuzzleSides.ToArray();
             
             _player.AddComponent<PlayerInput>();
+            
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
+
+            playerCachedParent = player.transform.parent;
+            player.transform.parent = GameSceneRoot;
             
             _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
             _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
@@ -120,6 +126,7 @@ namespace Puzzle
 
         void UnloadScene()
         {
+            player.transform.parent = playerCachedParent;
             Destroy(player.GetComponent<PlayerInput>());
             Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
