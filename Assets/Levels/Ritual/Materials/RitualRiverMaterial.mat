@@ -7,9 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FrostMaterial
-  m_Shader: {fileID: 4800000, guid: bd0224bfefd24efcbdc00b97f2d9dc6d, type: 3}
-  m_ShaderKeywords: 
+  m_Name: RitualRiverMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: d1fee47a06ee34ba8b221b9274187e3a,
+    type: 3}
+  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -23,24 +24,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BlendTex:
-        m_Texture: {fileID: 2800000, guid: 123caca7c8a0645da963fd217a1edd7b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 065247d136abaa042a330ab6a7b030fc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 55c8d1630c7494e35a0d4f28a4f35f8b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NoiseTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: cef0f83e63d674dff92d147b781defc9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -48,15 +37,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BlendAmount: 0.67
-    - _Distortion: 0.1
-    - _EdgeSharpness: 1.47
     - _EnableExternalAlpha: 0
-    - _Intensity: 28
-    - _NoiseImpact: 0.26
-    - _SeeThroughness: 0.52
-    - _Vignette: 0
+    - _MaskPhase: 0.15
+    - _Smoothness: 1
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 0.92788035, g: 0.373042, b: 0.9528302, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
