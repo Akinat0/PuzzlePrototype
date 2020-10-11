@@ -1,47 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9164972829644200485
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 107.70000000000002
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-9161836757210322735
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.30000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
 --- !u!114 &-9146424695725758313
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,29 +17,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-9145719908547390048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.46666666666667
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-9138956302699897223
@@ -101,29 +39,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-9066877497434362929
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 107.18333333333334
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-9060291784840590961
@@ -143,32 +61,12 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-9054099461942477880
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 30.333333333333332
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-9027448578917290656
+--- !u!114 &-8999227954715112288
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,34 +78,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 22.1
+  m_Time: 108.88333333333335
   enemyParams:
     enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8960673748057658122
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 102.9
-  enemyParams:
-    enemyType: 0
-    side: 3
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8928002323230356536
@@ -229,6 +107,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8918568961992325790
@@ -250,6 +129,29 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-8850194020572328356
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 93.03333333333333
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8783018561090277423
@@ -269,8 +171,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8753927970338623011
@@ -290,8 +193,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8745534855669101224
@@ -308,11 +212,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 28.783333333333335
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0.33
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8693623462893971746
@@ -332,8 +237,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8648299686036706229
@@ -353,29 +259,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8617037780688702249
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 92.80000000000001
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8602284477533185713
@@ -395,50 +281,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8597769905288516300
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 94.80000000000001
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8592465404199044773
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 107.86666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8514232268837681371
@@ -460,6 +305,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8503556783994332581
@@ -481,6 +327,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8482445748629414805
@@ -502,48 +349,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8436038572435117464
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 95.61666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8403370640053522400
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 89.78333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8377830941331510680
@@ -565,6 +371,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8323410576237067801
@@ -584,8 +391,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8246420488924947243
@@ -607,9 +415,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-8186279627056498186
+--- !u!114 &-8199431435005793695
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -621,34 +430,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 85.36666666666666
+  m_Time: 98.4
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8164047357638548686
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 26.55
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-8129922752832837702
@@ -670,48 +459,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-8035918992324497086
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 91.23333333333335
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7959943305232288864
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 103.33333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7945864571709614015
@@ -731,29 +479,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7919208862952303566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 32.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7905226572632279120
@@ -773,8 +501,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7835824049554392700
@@ -794,7 +523,7 @@ MonoBehaviour:
   m_bufferingTime: 0.1
   m_ClipProperties:
     volume: 1
---- !u!114 &-7803746254147037032
+--- !u!114 &-7696300437187945067
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -806,13 +535,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 31.4
+  m_Time: 94.36666666666667
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7631618544316598276
@@ -832,29 +562,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7611744146955826510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.4
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7600396248233306207
@@ -874,8 +584,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7547364392090926877
@@ -893,31 +604,11 @@ MonoBehaviour:
   m_Time: 33.28333333333333
   enemyParams:
     enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7533260809148380659
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 87.56666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7512719003880768946
@@ -939,6 +630,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7500237778127103422
@@ -960,6 +652,29 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-7440279706060138989
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 100.31666666666666
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7383180100263212739
@@ -979,8 +694,31 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-7375954934442180899
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 94.55000000000001
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7335708953816637971
@@ -1000,8 +738,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7279683023972332404
@@ -1023,111 +762,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7226676496512194828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 38.11666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7178050397485146467
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.71666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7154305274944637097
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 87.73333333333332
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-7125884067184180505
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 24.133333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6974168178917955107
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 37.78333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6948844950941332893
@@ -1147,11 +782,12 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-6886082180966587049
+--- !u!114 &-6906134714422049877
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1163,34 +799,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 29.400000000000002
+  m_Time: 89.38333333333334
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6870500242567358105
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 24.3
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6817691495108808353
@@ -1210,71 +826,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6816177932319859403
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 98.61666666666667
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6777806058866246133
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 43
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6674161674763209515
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 100.08333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6663452995903316553
@@ -1294,71 +848,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6626838109918219560
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 100.31666666666666
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6590569690850272363
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 104.33333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6583727188472946751
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 33.916666666666664
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6509440330292413668
@@ -1378,50 +870,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6505881990444666233
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 34.18333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6491115053338970670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 85.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6419171774720877019
@@ -1441,8 +892,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6391126566608998458
@@ -1464,27 +916,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6381642512683839639
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.9
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6347695147397711644
@@ -1506,27 +938,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6339800964775606437
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 98.18333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6256014963744018226
@@ -1548,6 +960,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6202139253135365144
@@ -1564,11 +977,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 32.21666666666667
   enemyParams:
-    enemyType: 0
-    side: 0
+    enemyType: 3
+    side: 3
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6191283270492750740
@@ -1588,29 +1002,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-6163900693164447691
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.35000000000001
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6150117167781328856
@@ -1632,6 +1026,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6070213262353235901
@@ -1651,8 +1046,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-6034165646720090955
@@ -1672,11 +1068,12 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-6008205427680127656
+--- !u!114 &-5954882682009961597
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1688,55 +1085,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 43.33333333333334
+  m_Time: 91.58333333333334
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5958247463100499750
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 39.083333333333336
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5952454315031943193
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.01666666666668
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5905773632043839289
@@ -1756,8 +1112,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5873606140424318301
@@ -1779,27 +1136,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5841860726154800507
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.20000000000002
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5828100584279684036
@@ -1819,8 +1156,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5808581222658771409
@@ -1842,6 +1180,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5777430328846124950
@@ -1863,6 +1202,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5639098109988633865
@@ -1884,6 +1224,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5586735066174718008
@@ -1903,8 +1244,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5546353167780319289
@@ -1926,6 +1268,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5536956909874428891
@@ -1945,32 +1288,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5529265038165634995
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 27.5
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-5485040657621201799
+--- !u!114 &-5484115346452277548
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1982,139 +1305,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 39.666666666666664
+  m_Time: 100.76666666666668
   enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5463241319826586550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.66666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5455806241621798005
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.11666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5422365900852460074
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 29.066666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5399801662197934513
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 86.03333333333333
-  enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5387309196615590337
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 26.71666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5374485526154042768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 94.06666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5373028800207446806
@@ -2134,113 +1332,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5354844724308065361
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 40.6
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5313313851888049100
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 87.23333333333332
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5300124086985277315
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 29.233333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5270442195686730158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 100.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-5257304728359068455
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 26.383333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5249301383238096681
@@ -2260,8 +1354,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5226636208722380787
@@ -2360,7 +1455,7 @@ MonoBehaviour:
     volume: 1
     stereoPan: 0
     spatialBlend: 0
---- !u!114 &-4955073849108475401
+--- !u!114 &-5036387712640027593
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2372,34 +1467,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 103.75
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-4854777077852155606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 107.78333333333333
+  m_Time: 99.7
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-4886608829001591286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 42.5
+  enemyParams:
+    enemyType: 3
+    side: 3
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4835639682249980154
@@ -2419,29 +1516,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-4756262544479390740
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 99.48333333333335
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4670827818162488097
@@ -2461,8 +1538,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4663681075894757734
@@ -2482,29 +1560,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-4636302484968954841
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 22.266666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4619149653800104658
@@ -2524,29 +1582,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-4586284616143270648
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 22.433333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4527080558390646409
@@ -2568,27 +1606,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-4414540677572305695
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 37.61666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4404980380919798707
@@ -2610,6 +1628,29 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-4347113468468778006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 108.68333333333334
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4334918115587646749
@@ -2629,8 +1670,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4267125882902758451
@@ -2652,6 +1694,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4118734958231665386
@@ -2671,8 +1714,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-4077444462023088554
@@ -2692,11 +1736,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3972895987938551857
+--- !u!114 &-3953092730220461367
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2708,13 +1753,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 96.11666666666667
+  m_Time: 103.55000000000001
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3950130687616915991
@@ -2734,50 +1780,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3837829699069581798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 96.28333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3818985101780111568
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 43.25
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3706151171166821632
@@ -2799,9 +1804,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3689823661040685436
+--- !u!114 &-3702058136351822342
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2813,13 +1819,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 42.58333333333334
+  m_Time: 92.18333333333334
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0.33
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3567297408855422444
@@ -2841,6 +1848,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3539499415458898416
@@ -2860,29 +1868,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3538661573146749051
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 85.69999999999999
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3483986753983399672
@@ -2902,11 +1890,12 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3482444186113631720
+--- !u!114 &-3421635883592989353
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2918,16 +1907,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 105.98333333333335
+  m_Time: 93.25
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3433836357401827453
+--- !u!114 &-3371748823595293726
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2939,34 +1929,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 91.75
+  m_Time: 90.46666666666667
   enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3409547081488549675
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.73333333333333
-  enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3327108168307361005
@@ -2988,9 +1958,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3304131528360964790
+--- !u!114 &-3287374023140517845
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3002,34 +1973,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 36.516666666666666
+  m_Time: 44.21666666666667
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3262710384082046848
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 104
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3222410942016484055
@@ -3049,32 +2000,12 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3186564010230048442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 43.16666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-3185648346500489347
+--- !u!114 &-3185482028578988524
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3086,13 +2017,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 107.61666666666667
+  m_Time: 103.43333333333334
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3148504842748390160
@@ -3114,6 +2046,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3142674038256585906
@@ -3133,8 +2066,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3118974704074639231
@@ -3154,29 +2088,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-3105510657042294023
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.31666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3064865669153903940
@@ -3196,8 +2110,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3039681962958857120
@@ -3219,6 +2134,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2985822838876193240
@@ -3238,8 +2154,31 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-2984350786225763348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 96.68333333333334
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2893747358150319408
@@ -3261,6 +2200,29 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-2863744583050427283
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 26.633333333333333
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2778118319381432547
@@ -3280,8 +2242,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2737300537048125757
@@ -3301,8 +2264,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2699832064054881097
@@ -3322,8 +2286,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2696177808540230608
@@ -3343,8 +2308,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2631488531813144202
@@ -3366,6 +2332,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2495350721923923245
@@ -3385,8 +2352,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2372922298040898071
@@ -3408,6 +2376,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2347612196321616253
@@ -3427,8 +2396,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2188943737517666685
@@ -3448,8 +2418,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2140981536643387246
@@ -3469,11 +2440,12 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-2035744307324443768
+--- !u!114 &-2086022166199936612
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3485,34 +2457,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 23.966666666666665
+  m_Time: 103.33333333333334
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1983407989442066747
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 34.516666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1974285304195801734
@@ -3532,11 +2484,12 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-1866857777587890907
+--- !u!114 &-1906448320296539535
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3548,13 +2501,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 34.349999999999994
+  m_Time: 108.46666666666667
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 1
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1812954985511827498
@@ -3576,27 +2530,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1751397587591042385
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.91666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1737384813133018628
@@ -3616,11 +2550,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-1535819452952739257
+--- !u!114 &-1660031553291271417
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3632,13 +2567,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 44.383333333333326
+  m_Time: 104.61666666666667
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-1654823213225392640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 98.18333333333334
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1520983371120248495
@@ -3658,29 +2616,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1516582802971748837
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 96.68333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1468959285932309680
@@ -3700,8 +2638,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1465092390704244511
@@ -3721,29 +2660,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1386510849947665655
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.03333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1281513604537403507
@@ -3763,8 +2682,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1271463022448436042
@@ -3784,71 +2704,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1259327892242974510
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 92.18333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1238787015609009812
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 39.5
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-1119406608280640007
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 99.91666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1020343054461121404
@@ -3868,8 +2726,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-1006159181103297175
@@ -3891,69 +2750,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-976285770175354080
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.633333333333326
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-949070864888343223
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 22.6
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-809614566513051429
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 97.75
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-746523790368248255
@@ -3975,6 +2772,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-677690385099585540
@@ -3996,9 +2794,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-504956476929652029
+--- !u!114 &-641754854738923264
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4010,13 +2809,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 92.46666666666667
+  m_Time: 108.56666666666668
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 1
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-492214726827595213
@@ -4038,6 +2838,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-437175192049423407
@@ -4057,8 +2858,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-355989584249580670
@@ -4080,6 +2882,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-345038811404399036
@@ -4142,38 +2945,17 @@ MonoBehaviour:
     - {fileID: 3189611810309957445}
     - {fileID: -149968106927212373}
     - {fileID: -2347612196321616253}
-    - {fileID: -5257304728359068455}
-    - {fileID: -8164047357638548686}
-    - {fileID: -5387309196615590337}
-    - {fileID: 7389613170999086007}
-    - {fileID: 6911068495301344157}
-    - {fileID: -5529265038165634995}
     - {fileID: -8745534855669101224}
     - {fileID: 6325584870100060776}
     - {fileID: -2893747358150319408}
     - {fileID: -3706151171166821632}
     - {fileID: -7500237778127103422}
-    - {fileID: -5422365900852460074}
-    - {fileID: -5300124086985277315}
-    - {fileID: -6886082180966587049}
     - {fileID: 5420505661421236200}
     - {fileID: -7945864571709614015}
-    - {fileID: -9054099461942477880}
-    - {fileID: 7877619683980349282}
-    - {fileID: 5132657724906133462}
     - {fileID: 4205234847808318585}
-    - {fileID: -7803746254147037032}
-    - {fileID: 7812700498989176968}
     - {fileID: -6202139253135365144}
-    - {fileID: -7919208862952303566}
-    - {fileID: 1590427558703204291}
-    - {fileID: 9049861866064034453}
     - {fileID: -7547364392090926877}
     - {fileID: 2414376235762169965}
-    - {fileID: -6583727188472946751}
-    - {fileID: -6505881990444666233}
-    - {fileID: -1866857777587890907}
-    - {fileID: -1983407989442066747}
     - {fileID: -4267125882902758451}
     - {fileID: 4477365002750783801}
     - {fileID: 5641792018791253136}
@@ -4181,11 +2963,9 @@ MonoBehaviour:
     - {fileID: 4477024431302699270}
     - {fileID: -8503556783994332581}
     - {fileID: 7502285126881011531}
-    - {fileID: 1673733467323296215}
     - {fileID: -1737384813133018628}
     - {fileID: 3405594897743473679}
     - {fileID: -7600396248233306207}
-    - {fileID: -5958247463100499750}
     - {fileID: 5905817197324690881}
     - {fileID: -1006159181103297175}
     - {fileID: -3327108168307361005}
@@ -4193,29 +2973,7 @@ MonoBehaviour:
     - {fileID: -1020343054461121404}
     - {fileID: -4670827818162488097}
     - {fileID: 7054109657802197167}
-    - {fileID: -3304131528360964790}
-    - {fileID: 5235331303416227004}
-    - {fileID: 3526519781760391326}
-    - {fileID: -4414540677572305695}
-    - {fileID: -6974168178917955107}
-    - {fileID: 9066538608468324530}
-    - {fileID: -7226676496512194828}
-    - {fileID: 5707071177124830643}
-    - {fileID: -1238787015609009812}
-    - {fileID: -5485040657621201799}
-    - {fileID: -5354844724308065361}
-    - {fileID: 6368968671116596909}
-    - {fileID: 8779508722620375455}
-    - {fileID: -9027448578917290656}
-    - {fileID: -4636302484968954841}
-    - {fileID: -4586284616143270648}
-    - {fileID: -949070864888343223}
-    - {fileID: 4010058351792597315}
     - {fileID: 383880780926514257}
-    - {fileID: 7445252699153561842}
-    - {fileID: -2035744307324443768}
-    - {fileID: -7125884067184180505}
-    - {fileID: -6870500242567358105}
     - {fileID: -2985822838876193240}
     - {fileID: 607139440972756834}
     - {fileID: -8648299686036706229}
@@ -4284,118 +3042,13 @@ MonoBehaviour:
     - {fileID: -4527080558390646409}
     - {fileID: 506249831154392659}
     - {fileID: 5763555982522350154}
-    - {fileID: -8186279627056498186}
-    - {fileID: -6491115053338970670}
-    - {fileID: -3538661573146749051}
-    - {fileID: 2227473381131829199}
-    - {fileID: -5399801662197934513}
-    - {fileID: 4130045659749336444}
     - {fileID: -2372922298040898071}
     - {fileID: -4404980380919798707}
     - {fileID: 6510583305413936662}
-    - {fileID: -5313313851888049100}
-    - {fileID: 958721223207568023}
-    - {fileID: -7533260809148380659}
-    - {fileID: -7154305274944637097}
     - {fileID: 1832494043164336358}
     - {fileID: -5808581222658771409}
     - {fileID: 7797482241125329017}
     - {fileID: -272298419008135756}
-    - {fileID: 8836030082695233221}
-    - {fileID: 8311127380177195910}
-    - {fileID: -8403370640053522400}
-    - {fileID: 7038086063171344573}
-    - {fileID: 8466003595813962820}
-    - {fileID: 1395403188461656883}
-    - {fileID: 1651415432207085750}
-    - {fileID: 630854651371276261}
-    - {fileID: -8035918992324497086}
-    - {fileID: 2831221375270143205}
-    - {fileID: -3433836357401827453}
-    - {fileID: -1259327892242974510}
-    - {fileID: -504956476929652029}
-    - {fileID: 1251414555496056566}
-    - {fileID: -8617037780688702249}
-    - {fileID: 1707543427434599156}
-    - {fileID: 8916964617775356870}
-    - {fileID: 7244137105091142885}
-    - {fileID: -9145719908547390048}
-    - {fileID: -3409547081488549675}
-    - {fileID: 5787837633212111197}
-    - {fileID: -5374485526154042768}
-    - {fileID: 4792824877363143255}
-    - {fileID: 5482786454898282028}
-    - {fileID: -8597769905288516300}
-    - {fileID: 8560691159074355449}
-    - {fileID: 1913307031173592719}
-    - {fileID: -8436038572435117464}
-    - {fileID: 9090627008566806774}
-    - {fileID: -3972895987938551857}
-    - {fileID: -3837829699069581798}
-    - {fileID: -1516582802971748837}
-    - {fileID: 2131409798864542869}
-    - {fileID: 4001722707880650079}
-    - {fileID: 6138277964717129566}
-    - {fileID: -809614566513051429}
-    - {fileID: 2487788632852218929}
-    - {fileID: -6339800964775606437}
-    - {fileID: 7501547601464880978}
-    - {fileID: 2011216999345167121}
-    - {fileID: -6816177932319859403}
-    - {fileID: -4756262544479390740}
-    - {fileID: 7584279643014832609}
-    - {fileID: -1119406608280640007}
-    - {fileID: -6674161674763209515}
-    - {fileID: -6626838109918219560}
-    - {fileID: -5270442195686730158}
-    - {fileID: 6581159054935625400}
-    - {fileID: -5952454315031943193}
-    - {fileID: 106190263400519121}
-    - {fileID: -6163900693164447691}
-    - {fileID: 3045032726483935089}
-    - {fileID: 1404607279445125044}
-    - {fileID: -6381642512683839639}
-    - {fileID: 8607516134393998409}
-    - {fileID: 2155588532892427048}
-    - {fileID: 5079480081725411935}
-    - {fileID: -8960673748057658122}
-    - {fileID: 2123699839852283268}
-    - {fileID: -7959943305232288864}
-    - {fileID: 1610688780064992421}
-    - {fileID: 5488425722560743736}
-    - {fileID: -4955073849108475401}
-    - {fileID: -3262710384082046848}
-    - {fileID: 3472762314359917408}
-    - {fileID: -6590569690850272363}
-    - {fileID: 2428542737360651842}
-    - {fileID: 6097576677704899752}
-    - {fileID: 2436437973613545293}
-    - {fileID: 1540448491136886650}
-    - {fileID: -3482444186113631720}
-    - {fileID: 1498467450667752713}
-    - {fileID: 6503153699512027767}
-    - {fileID: 827580214762878508}
-    - {fileID: -3105510657042294023}
-    - {fileID: -7611744146955826510}
-    - {fileID: 4044503944151106798}
-    - {fileID: 2502588400309299863}
-    - {fileID: 4739702528160386949}
-    - {fileID: 5197938974752482480}
-    - {fileID: 1367781252619891875}
-    - {fileID: -9066877497434362929}
-    - {fileID: -3185648346500489347}
-    - {fileID: -9164972829644200485}
-    - {fileID: -4854777077852155606}
-    - {fileID: -8592465404199044773}
-    - {fileID: 4089458147781306501}
-    - {fileID: -1386510849947665655}
-    - {fileID: -5455806241621798005}
-    - {fileID: -5841860726154800507}
-    - {fileID: 5758754748355856874}
-    - {fileID: 6093750095831813478}
-    - {fileID: 3586829177594910540}
-    - {fileID: 1887005434687193214}
-    - {fileID: 8954318510064024914}
     - {fileID: 8893659074802616601}
     - {fileID: -4619149653800104658}
     - {fileID: 6939359654242416913}
@@ -4457,32 +3110,64 @@ MonoBehaviour:
     - {fileID: 7076477179822366999}
     - {fileID: -7335708953816637971}
     - {fileID: -2495350721923923245}
-    - {fileID: 2879069422154375014}
-    - {fileID: -3689823661040685436}
-    - {fileID: -5463241319826586550}
-    - {fileID: 775054661423200501}
-    - {fileID: 2986569549258735631}
-    - {fileID: -1751397587591042385}
-    - {fileID: -6777806058866246133}
-    - {fileID: 2299383807016916202}
-    - {fileID: -3186564010230048442}
-    - {fileID: -3818985101780111568}
-    - {fileID: -6008205427680127656}
     - {fileID: -8783018561090277423}
     - {fileID: 1035521059527040095}
-    - {fileID: 3634008314352909894}
-    - {fileID: -9161836757210322735}
-    - {fileID: -1535819452952739257}
-    - {fileID: 6879775805130161820}
-    - {fileID: 7742465806259538241}
-    - {fileID: -976285770175354080}
-    - {fileID: -7178050397485146467}
-    - {fileID: 2657968415355051998}
-    - {fileID: 5888273853064550348}
     - {fileID: -8693623462893971746}
     - {fileID: -7631618544316598276}
     - {fileID: -2699832064054881097}
     - {fileID: 3906348442485459000}
+    - {fileID: -2863744583050427283}
+    - {fileID: 7594713025091769034}
+    - {fileID: 4644113383507609173}
+    - {fileID: 1587029982974592924}
+    - {fileID: -4886608829001591286}
+    - {fileID: -3287374023140517845}
+    - {fileID: 4125571498181537361}
+    - {fileID: -6906134714422049877}
+    - {fileID: 7697902266894099056}
+    - {fileID: -3371748823595293726}
+    - {fileID: -5954882682009961597}
+    - {fileID: 5699385912256550562}
+    - {fileID: -3702058136351822342}
+    - {fileID: -8850194020572328356}
+    - {fileID: -48361478282868218}
+    - {fileID: -3421635883592989353}
+    - {fileID: 7075079117703917897}
+    - {fileID: -7696300437187945067}
+    - {fileID: -7375954934442180899}
+    - {fileID: 3830536580059026673}
+    - {fileID: 545708882554006423}
+    - {fileID: -2984350786225763348}
+    - {fileID: 6251532381954550717}
+    - {fileID: 87793686560850483}
+    - {fileID: -1654823213225392640}
+    - {fileID: 1683849641477487777}
+    - {fileID: -8199431435005793695}
+    - {fileID: 6770284807231311295}
+    - {fileID: 977410348023319361}
+    - {fileID: -5036387712640027593}
+    - {fileID: -7440279706060138989}
+    - {fileID: -5484115346452277548}
+    - {fileID: 1606019606574524060}
+    - {fileID: 3980665269585253728}
+    - {fileID: 8642619634789230328}
+    - {fileID: 1922918058557329083}
+    - {fileID: -2086022166199936612}
+    - {fileID: -3185482028578988524}
+    - {fileID: -3953092730220461367}
+    - {fileID: 8158978317775137003}
+    - {fileID: -1660031553291271417}
+    - {fileID: 5067421825250773380}
+    - {fileID: 5380423256513538306}
+    - {fileID: 675759862457984136}
+    - {fileID: 1003535354777154456}
+    - {fileID: 237088592979531173}
+    - {fileID: 5299127682519954830}
+    - {fileID: -1906448320296539535}
+    - {fileID: -641754854738923264}
+    - {fileID: -4347113468468778006}
+    - {fileID: -8999227954715112288}
+    - {fileID: 5642190479494367417}
 --- !u!114 &-272298419008135756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4502,6 +3187,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-149968106927212373
@@ -4521,8 +3207,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-109775687841314360
@@ -4542,8 +3229,31 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-48361478282868218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 93.15
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &11400000
@@ -4583,8 +3293,31 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &87793686560850483
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 97.31666666666666
+  enemyParams:
+    enemyType: 3
+    side: 3
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &102713357115927274
@@ -4604,29 +3337,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &106190263400519121
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.18333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &123881478656781910
@@ -4646,8 +3359,31 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &237088592979531173
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 107.18333333333334
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &305830431572940191
@@ -4667,8 +3403,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &383880780926514257
@@ -4685,11 +3422,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 23.633333333333333
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0.7
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &471977185233316319
@@ -4711,6 +3449,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &506249831154392659
@@ -4732,6 +3471,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &523117516501303252
@@ -4751,8 +3491,31 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &545708882554006423
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 95.61666666666667
+  enemyParams:
+    enemyType: 3
+    side: 3
+    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &607139440972756834
@@ -4772,11 +3535,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &630854651371276261
+--- !u!114 &675759862457984136
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4788,13 +3552,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 91.06666666666668
+  m_Time: 105.9
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &756881307798192973
@@ -4816,27 +3581,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &775054661423200501
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.75
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &811811237294810855
@@ -4858,9 +3603,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &827580214762878508
+--- !u!114 &977410348023319361
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4872,16 +3618,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 106.23333333333335
+  m_Time: 99.48333333333335
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &958721223207568023
+--- !u!114 &1003535354777154456
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4893,13 +3640,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 87.39999999999999
+  m_Time: 106.98333333333335
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 1
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1034830618307735589
@@ -4919,8 +3667,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1035521059527040095
@@ -4940,8 +3689,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1197947077472312194
@@ -4961,8 +3711,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1205261572138389655
@@ -4982,92 +3733,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1251414555496056566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 92.63333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1367781252619891875
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.98333333333335
-  enemyParams:
-    enemyType: 0
-    side: 1
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1395403188461656883
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 90.46666666666667
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1404607279445125044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.85000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1427060031036853110
@@ -5087,32 +3755,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1498467450667752713
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.06666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &1540448491136886650
+--- !u!114 &1587029982974592924
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5124,37 +3772,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 105.9
+  m_Time: 39.083333333333336
   enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1590427558703204291
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 32.71666666666667
-  enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &1610688780064992421
+--- !u!114 &1606019606574524060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5166,13 +3794,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 103.43333333333334
+  m_Time: 101.85000000000001
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1636453346339333034
@@ -5192,11 +3821,12 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &1651415432207085750
+--- !u!114 &1683849641477487777
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5208,55 +3838,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 90.9
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1673733467323296215
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 37.36666666666667
+  m_Time: 98.28333333333333
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1707543427434599156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.03333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1733261430664552424
@@ -5278,6 +3867,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1735424142309388985
@@ -5297,8 +3887,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1832494043164336358
@@ -5320,6 +3911,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1875671197963254840
@@ -5341,6 +3933,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1875884432015075519
@@ -5360,29 +3953,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1887005434687193214
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.68333333333334
-  enemyParams:
-    enemyType: 0
-    side: 1
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &1901818570543100996
@@ -5402,50 +3975,31 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &1913307031173592719
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 95.18333333333334
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2011216999345167121
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 98.4
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &1922918058557329083
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 102.48333333333335
+  enemyParams:
+    enemyType: 3
+    side: 3
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2056244257292559041
@@ -5467,27 +4021,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2123699839852283268
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 103.06666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2124290706132646934
@@ -5507,50 +4041,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2131409798864542869
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 96.88333333333334
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2155588532892427048
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 102.48333333333335
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2211590401342208406
@@ -5570,29 +4063,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2227473381131829199
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 85.86666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2237971433605829531
@@ -5612,8 +4085,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2247458998477681347
@@ -5633,29 +4107,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2299383807016916202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 43.08333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2414376235762169965
@@ -5673,52 +4127,11 @@ MonoBehaviour:
   m_Time: 33.483333333333334
   enemyParams:
     enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2428542737360651842
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 104.61666666666667
-  enemyParams:
-    enemyType: 0
     side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2436437973613545293
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 105.46666666666667
-  enemyParams:
-    enemyType: 0
-    side: 2
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2477760175953751508
@@ -5738,50 +4151,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2487788632852218929
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 97.91666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2502588400309299863
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.56666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2561574641739574943
@@ -5801,29 +4173,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2657968415355051998
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.80000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2723789943825284310
@@ -5845,6 +4197,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2799197032480726559
@@ -5864,50 +4217,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2831221375270143205
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 91.58333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2879069422154375014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.5
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2882492792646452529
@@ -5929,6 +4241,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2895295150355519941
@@ -5948,8 +4261,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2932295805416778698
@@ -5971,27 +4285,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &2986569549258735631
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.83333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &2994656052434217691
@@ -6011,29 +4305,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3045032726483935089
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 101.51666666666668
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3132151163861234064
@@ -6053,8 +4327,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3139636662845758092
@@ -6074,8 +4349,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3189611810309957445
@@ -6092,11 +4368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 27.066666666666666
   enemyParams:
-    enemyType: 0
-    side: 2
+    enemyType: 3
+    side: 3
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3358518704381749703
@@ -6116,8 +4393,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3405594897743473679
@@ -6137,8 +4415,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3470589918173815737
@@ -6160,90 +4439,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3472762314359917408
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 104.16666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3526519781760391326
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 37.13333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3586829177594910540
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.56666666666668
-  enemyParams:
-    enemyType: 0
-    side: 1
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3634008314352909894
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.21666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3721965095695094571
@@ -6263,8 +4459,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3785003609119812539
@@ -6286,6 +4483,29 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &3830536580059026673
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 95.18333333333334
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3906348442485459000
@@ -6305,11 +4525,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &4001722707880650079
+--- !u!114 &3980665269585253728
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6321,55 +4542,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 97.31666666666666
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &4010058351792597315
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 22.766666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &4044503944151106798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.48333333333335
+  m_Time: 101.9
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4073382581359564057
@@ -6386,14 +4566,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 21.933333333333334
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &4089458147781306501
+--- !u!114 &4125571498181537361
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6405,34 +4586,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 107.95000000000002
+  m_Time: 89.2
   enemyParams:
     enemyType: 0
     side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &4130045659749336444
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 86.19999999999999
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4205234847808318585
@@ -6454,6 +4615,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4232049910743123712
@@ -6473,8 +4635,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4477024431302699270
@@ -6496,6 +4659,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4477365002750783801
@@ -6517,6 +4681,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4482624088758508007
@@ -6538,6 +4703,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4616741966371403728
@@ -6559,9 +4725,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &4739702528160386949
+--- !u!114 &4644113383507609173
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6573,34 +4740,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 106.65
+  m_Time: 37.36666666666667
   enemyParams:
-    enemyType: 0
-    side: 0
+    enemyType: 3
+    side: 3
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &4792824877363143255
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 94.36666666666667
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4800556885220158592
@@ -6620,8 +4767,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4886540500005293032
@@ -6641,8 +4789,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4957211034598917608
@@ -6662,11 +4811,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &5079480081725411935
+--- !u!114 &5067421825250773380
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6678,13 +4828,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 102.73333333333335
+  m_Time: 104.83333333333334
   enemyParams:
     enemyType: 0
-    side: 3
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5118948639928075699
@@ -6706,6 +4857,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5123540351236075350
@@ -6727,69 +4879,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5132657724906133462
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 30.666666666666664
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5197938974752482480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.73333333333335
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5235331303416227004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 36.68333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5285707206537624160
@@ -6809,8 +4899,53 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &5299127682519954830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 107.61666666666667
+  enemyParams:
+    enemyType: 3
+    side: 3
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0.8
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &5380423256513538306
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 105.46666666666667
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5420505661421236200
@@ -6830,50 +4965,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5482786454898282028
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 94.55000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5488425722560743736
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 103.55000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5641792018791253136
@@ -6895,9 +4989,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &5707071177124830643
+--- !u!114 &5642190479494367417
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6909,34 +5004,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 39.333333333333336
+  m_Time: 85.36666666666666
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5758754748355856874
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.28333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0.8
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &5699385912256550562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 91.75
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5763555982522350154
@@ -6958,27 +5055,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5787837633212111197
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.9
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5855078833340667830
@@ -7000,27 +5077,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5888273853064550348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.883333333333326
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5905817197324690881
@@ -7042,6 +5099,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6072663734337304798
@@ -7061,71 +5119,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6093750095831813478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.46666666666667
-  enemyParams:
-    enemyType: 0
-    side: 1
-    speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6097576677704899752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 104.83333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6138277964717129566
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 97.58333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6159994614785465561
@@ -7145,8 +5141,31 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &6251532381954550717
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 96.88333333333334
+  enemyParams:
+    enemyType: 0
+    side: 0
+    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6260471491887187805
@@ -7166,8 +5185,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6325584870100060776
@@ -7189,48 +5209,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6368968671116596909
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 40.766666666666666
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6503153699512027767
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 106.15
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6510583305413936662
@@ -7247,32 +5226,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 87.06666666666666
   enemyParams:
-    enemyType: 0
+    enemyType: 3
     side: 3
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6581159054935625400
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 100.76666666666668
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6649565762103314055
@@ -7294,6 +5253,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6763209374879216358
@@ -7315,9 +5275,10 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &6879775805130161820
+--- !u!114 &6770284807231311295
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7329,34 +5290,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 44.46666666666667
+  m_Time: 98.61666666666667
   enemyParams:
     enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &6911068495301344157
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 27.833333333333336
-  enemyParams:
-    enemyType: 0
-    side: 3
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6939359654242416913
@@ -7376,29 +5317,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7038086063171344573
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 89.95
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7054109657802197167
@@ -7418,8 +5339,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7063436023133796624
@@ -7441,6 +5363,29 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &7075079117703917897
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 93.46666666666667
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7076477179822366999
@@ -7460,29 +5405,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7244137105091142885
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.25
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7282789905234134686
@@ -7502,71 +5427,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7389613170999086007
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 27.666666666666668
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7445252699153561842
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 23.8
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7501547601464880978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 98.28333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7502285126881011531
@@ -7586,11 +5449,12 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &7584279643014832609
+--- !u!114 &7594713025091769034
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7602,13 +5466,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
   m_Name: Enemy Marker
   m_EditorClassIdentifier: 
-  m_Time: 99.7
+  m_Time: 33.916666666666664
   enemyParams:
-    enemyType: 0
-    side: 0
+    enemyType: 3
+    side: 3
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0.8
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7616943012281473141
@@ -7630,6 +5495,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7633189567536312606
@@ -7649,8 +5515,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7662155554141972382
@@ -7670,8 +5537,31 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &7697902266894099056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 90.03333333333333
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7718777526046846059
@@ -7691,29 +5581,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7742465806259538241
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.55000000000001
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7797482241125329017
@@ -7735,27 +5605,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7812700498989176968
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 31.533333333333335
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7853328749947127909
@@ -7777,6 +5627,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7877107843849086913
@@ -7796,29 +5647,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &7877619683980349282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 30.5
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7909587500945995000
@@ -7840,6 +5671,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7971300014448094510
@@ -7861,6 +5693,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8052908703366168590
@@ -7880,8 +5713,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8142077011528456060
@@ -7901,8 +5735,31 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &8158978317775137003
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 103.75
+  enemyParams:
+    enemyType: 0
+    side: 2
+    speed: 2.5
+    stickOut: 0
+    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8283707851801117936
@@ -7922,29 +5779,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8311127380177195910
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 89.38333333333334
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8418123310231416799
@@ -7966,48 +5803,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8466003595813962820
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 90.11666666666667
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8560691159074355449
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 94.93333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8604234091995669682
@@ -8029,9 +5825,10 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &8607516134393998409
+--- !u!114 &8642619634789230328
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8048,8 +5845,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8658883609894438530
@@ -8071,6 +5869,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8660271158531781510
@@ -8090,8 +5889,9 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8725916130978855473
@@ -8111,8 +5911,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8750750392094044458
@@ -8132,8 +5933,9 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8779023946687410045
@@ -8155,48 +5957,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8779508722620375455
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 40.93333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8836030082695233221
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 89.2
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8875243358683887843
@@ -8216,8 +5977,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &8893659074802616601
@@ -8237,92 +5999,9 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.8
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8916964617775356870
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 93.15
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
     stickOut: 1
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &8954318510064024914
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 108.88333333333335
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 1
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &9049861866064034453
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 32.88333333333333
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &9066538608468324530
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 37.95
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9067972439482770239
@@ -8344,6 +6023,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9077938555233300064
@@ -8365,6 +6045,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9078187321616025143
@@ -8386,27 +6067,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 0
     radialPosition: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &9090627008566806774
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 95.93333333333334
-  enemyParams:
-    enemyType: 0
-    side: 3
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9096754807724615490
@@ -8426,8 +6087,9 @@ MonoBehaviour:
     enemyType: 0
     side: 3
     speed: 2.8
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9162861892051038454
@@ -8449,6 +6111,7 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9200568430387427985
@@ -8470,5 +6133,6 @@ MonoBehaviour:
     speed: 2.5
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
