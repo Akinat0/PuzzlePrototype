@@ -8,7 +8,7 @@ public class SkinPuzzleEnemy : PuzzleEnemy
 
     SkinContainer skinContainer;
 
-    public SkinContainer SkinContainer
+    SkinContainer SkinContainer
     {
         get
         {
