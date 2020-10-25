@@ -25,7 +25,8 @@ public class Whirlpool : MonoBehaviour
     [SerializeField] Vector2 FunnelPosition = new Vector2(0.5f, 0.5f);
     [SerializeField] float FunnelScale = 1;
 
-
+    [Space(10)]
+    
     [SerializeField] bool RuntimeNoiseTexture;
     [SerializeField] Vector2 NoiseTextureSize = new Vector2(200, 200);
     [SerializeField] float NoiseScale = 1;
@@ -50,7 +51,7 @@ public class Whirlpool : MonoBehaviour
         Material.SetTexture(NoiseTexID, noiseTexture);
     
     }
-    
+
     void OnDidApplyAnimationProperties()
     {
         ApplyProperties();

@@ -89,10 +89,23 @@ namespace Puzzle
         {
             Instantiate(m_TadaSFX);
         }
-
-        public void CallTapRippleEffect(Vector3 position)
+        
+        public void CallTapRippleEffect(Vector3 position, float lifetime = 1, float startSize = 0, float endSize = 2, float startThickness = 1, float endThickness = 0, Color? startInnerColor = null, Color? startOuterColor = null, Color? endInnerColor = null, Color? endOuterColor = null)
         {
             FlatFx.useUnscaledTime = true;
+            var settings = FlatFx.settings[(int) FlatFXType.Ripple];
+
+            settings.lifetime = lifetime;
+            settings.start.innerColor = startInnerColor ?? new Color(0.98f, 0.87f, 0.29f, 1);;
+            settings.start.outerColor = startOuterColor ?? new Color(1, 0.54f, 0, 1);
+            settings.start.thickness = startThickness;
+            settings.start.size = startSize;
+            
+            settings.end.innerColor = endInnerColor ?? new Color(0.98f, 0.87f, 0.29f, 1);
+            settings.end.outerColor = endOuterColor ?? new Color(1, 0.54f, 0, 1);
+            settings.end.thickness = endThickness;
+            settings.end.size = endSize;            
+            
             FlatFx.AddEffect(position, FlatFXType.Ripple.GetHashCode());
         }
         
