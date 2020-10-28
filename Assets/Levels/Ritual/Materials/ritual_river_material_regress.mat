@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RitualLakeMaterial
+  m_Name: ritual_river_material_regress
   m_Shader: {fileID: -6465566751694194690, guid: d1fee47a06ee34ba8b221b9274187e3a,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -25,11 +25,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 294e4e159d4573245b5ad0fbe139a545, type: 3}
+        m_Texture: {fileID: 2800000, guid: 55c8d1630c7494e35a0d4f28a4f35f8b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: e942fbea12805194f824c11601ba2af8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 08dd51685ce20b94e94ff4c7995f7dac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
@@ -38,7 +38,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _MaskPhase: 1.23
+    - _MaskPhase: 0.55
     - _Smoothness: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
