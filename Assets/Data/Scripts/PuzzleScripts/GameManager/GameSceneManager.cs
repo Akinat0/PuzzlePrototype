@@ -29,6 +29,7 @@ namespace Puzzle
         public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
         public static event Action<Booster> ApplyBoosterEvent;
         public static event Action<int> HeartsAmountChangedEvent;
+        public static event Action<string> TimelineEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -320,6 +321,10 @@ namespace Puzzle
             HeartsAmountChangedEvent?.Invoke(hearts);
         }
 
-
+        public void InvokeTimelineEvent(string EventData)
+        {
+            Debug.Log("Timeline event invoked, data: " + EventData);
+            TimelineEvent?.Invoke(EventData);
+        }
     }
 }
