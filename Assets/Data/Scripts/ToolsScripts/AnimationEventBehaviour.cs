@@ -1,59 +1,50 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class AnimationEventBehaviour : StateMachineBehaviour
 {
     [SerializeField] private string stateID;
 
-    private bool completed = false;
+    public event Action OnEnter;
+    public event Action OnExit;
 
-    public string StateId => stateID;
+    public event Action<string> OnExitState;
+    public event Action OnComplete;
 
-    public event Action<string> OnStateExitEvent;
-    public event Action<string> OnStateCompleteEvent;
+    bool Completed;
     
-    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
-    public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateEnter(Animator _Animator, AnimatorStateInfo _StateInfo, int _LayerIndex)
     {
-        if (stateInfo.normalizedTime >= 1)
+        Completed = false;
+        OnEnter?.Invoke();
+    }
+
+    public override void OnStateUpdate(Animator _Animator, AnimatorStateInfo _StateInfo, int _LayerIndex)
+    {
+        if (!Completed && OnComplete != null && _StateInfo.normalizedTime >= 1)
         {
-            if(StateId == "Show")
-                Debug.Log("");
-            
-            if(!completed)
-                OnStateCompleteEvent?.Invoke(StateId);
-            completed = true;
+            Completed = true;
+            OnComplete();
         }
-        else
-            completed = false;
-        
     }
 
-    //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    public override void OnStateExit(Animator _Animator, AnimatorStateInfo _StateInfo, int _LayerIndex)
     {
-        OnStateExitEvent?.Invoke(StateId);
+        if (!Completed)
+        {
+            Completed = true;
+            OnComplete?.Invoke();
+        }
+        
+        OnExit?.Invoke();
+        OnExitState?.Invoke(stateID);
     }
-    
-    
-    
-    
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
 
+    public static AnimationEventBehaviour FindState(Animator animator, string stateId)
+    {
+        return animator.GetBehaviours<AnimationEventBehaviour>()
+            .FirstOrDefault(state => state.stateID == stateId);
+    }
 
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }

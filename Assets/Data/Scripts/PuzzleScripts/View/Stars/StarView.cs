@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Animator))]
 public class StarView : MonoBehaviour
@@ -22,8 +23,6 @@ public class StarView : MonoBehaviour
     Animator Animator;
 
     private static readonly int ShowID = Animator.StringToHash("Show");
-    private static readonly int HighlightID = Animator.StringToHash("Highlight");
-    private static readonly int HideID = Animator.StringToHash("Hide");
     private static readonly int InstantID = Animator.StringToHash("Instant");
     private static readonly int ActiveID = Animator.StringToHash("Active");
 
@@ -36,40 +35,36 @@ public class StarView : MonoBehaviour
     void Awake()
     {
         Animator = GetComponent<Animator>();
-        HideState = Animator.GetBehaviours<AnimationEventBehaviour>().First(behaviour => behaviour.StateId == "Hide");
-        ShowState = Animator.GetBehaviours<AnimationEventBehaviour>().First(behaviour => behaviour.StateId == "Show");
-
-        HideState.OnStateExitEvent += InvokeHideState;
-        ShowState.OnStateExitEvent += InvokeShowState;
+        HideState = AnimationEventBehaviour.FindState(Animator, "Hide");
+        ShowState = AnimationEventBehaviour.FindState(Animator, "Show");
+        
+        HideState.OnExit += InvokeHideState;
+        ShowState.OnExit += InvokeShowState;
     }
     
-    public void Highlight()
-    {
-        Animator.SetTrigger(HighlightID);
-    }
     
     public void Show(bool active, bool instant = false, Action finished = null)
     {
         ShowStateAction += finished;
         Animator.SetBool(InstantID, instant);
-        Animator.SetTrigger(ShowID);
+        Animator.SetBool(ShowID, true);
         Animator.SetBool(ActiveID, active);
     }
 
     public void Hide(Action finished = null)
     {
         HideStateAction += finished;
-        Animator.SetTrigger(HideID);
+        Animator.SetBool(ShowID, false);
     }
 
-    void InvokeHideState(string stateID)
+    void InvokeHideState()
     {
         Action action = HideStateAction;
         HideStateAction = null;
         action?.Invoke();
     }
     
-    void InvokeShowState(string stateID)
+    void InvokeShowState()
     {
         Action action = ShowStateAction;
         ShowStateAction = null;

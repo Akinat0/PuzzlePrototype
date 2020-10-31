@@ -86,10 +86,7 @@ public class StarsManager : MonoBehaviour
             if (count > 0) 
                 return;
         
-            for (int i = 0; i < stars; i++)
-                StarsView[i].Highlight();
-            
-            this.Invoke(() => finished?.Invoke(), 1f);
+            finished?.Invoke();
         }
 
         for (int i = 0; i < 3; i++)
