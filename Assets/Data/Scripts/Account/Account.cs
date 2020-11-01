@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -38,9 +37,11 @@ public class Account : MonoBehaviour
     }
     public static Achievement[] Achievements => instance.achievements;
     public static Booster[] Boosters => instance.boosters;
+    public static Tier[] Tiers => instance.tiers;
 
     Achievement[] achievements;
     Booster[] boosters;
+    Tier[] tiers;
     WalletManager walletManager;
     CollectionManager collectionManager;
     LevelsManager levelsManager;
@@ -50,6 +51,7 @@ public class Account : MonoBehaviour
     {
         instance = this;
         boosters = Booster.CreateAllBoosters();
+        tiers = Tier.CreateAllTiers();
         achievements = Achievement.CreateAllAchievements();
     }
     
@@ -67,6 +69,20 @@ public class Account : MonoBehaviour
     
     #endregion
 
+    #region Tiers
+
+    public static Tier GetTier<T>() where T : Tier
+    {
+        return instance.tiers.FirstOrDefault(tier => tier.GetType() == typeof(T)) as T;
+    }
+    
+    public static Tier GetTier(int id)
+    {
+        return instance.tiers.FirstOrDefault(tier => tier.ID == id);
+    }
+    
+    #endregion
+    
     #region Achievement
     
     public static T GetAchievement<T>() where T : Achievement
@@ -84,6 +100,16 @@ public class Account : MonoBehaviour
     {
         instance.WalletManager.AddCoins(amount);
         InvokeBalanceChanged();
+    }
+
+    public static bool RemoveCoins(int amount)
+    {
+        if (Coins < amount)
+            return false;
+        
+        instance.WalletManager.RemoveCoins(amount);
+        InvokeBalanceChanged();
+        return true;
     }
 
     private static void InvokeBalanceChanged()
