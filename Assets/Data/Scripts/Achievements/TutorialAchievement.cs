@@ -19,7 +19,6 @@ public sealed class TutorialAchievement : Achievement
     public override Reward Reward => reward;
     public override float Goal => 1;
 
-
     void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)
     {
         if (args.LevelConfig.Name == "Tutorial")

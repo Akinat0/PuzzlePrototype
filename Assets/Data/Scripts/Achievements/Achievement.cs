@@ -24,6 +24,7 @@ public abstract class Achievement
             new RichBitchAchievement(),
             new FreezeBoosterAchievement(),
             new SuprematismAchievement(),
+            new HeartBoosterAchievement(),
         };
         
         return achievements.ToArray();
