@@ -34,7 +34,7 @@ public class UIPuzzleView : UIComponent
     public int ID
     {
         get => id;
-        set { id = value; } //TODO rebuild if id changes
+        set => id = value; //TODO rebuild if id changes
     }
 
     protected bool IsVisible { get; set; }
