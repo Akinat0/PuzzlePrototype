@@ -31,7 +31,7 @@ public abstract class Tier
     public bool Available
     {
         get => available;
-        private set
+        protected set
         {
             if (available == value)
                 return;
