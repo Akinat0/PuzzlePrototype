@@ -129,6 +129,21 @@ public class Account : MonoBehaviour
         set => instance.CollectionManager.DefaultItemID = value;
     }
 
+    public static bool UnlockCollectionItem(int ID)
+    {
+        return instance.CollectionManager.UnlockItem(ID);
+    }
+
+    public static CollectionItem GetCollectionItem(string itemName)
+    {
+        return instance.CollectionManager.GetCollectionItem(itemName);
+    }
+    
+    public static CollectionItem GetCollectionItem(int ID)
+    {
+        return instance.CollectionManager.GetCollectionItem(ID);
+    }
+
     public static CollectionItem CollectionDefaultItem => instance.CollectionManager.DefaultItem;
 
     public static CollectionItem[] CollectionItems => 

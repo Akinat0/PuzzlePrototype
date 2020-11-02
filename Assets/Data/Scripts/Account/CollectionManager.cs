@@ -7,19 +7,42 @@ public class CollectionManager : MonoBehaviour
     public CollectionItem[] CollectionItems => CollectionData.CollectionItems;
 
     public int DefaultItemID {
-        get { return CollectionData.DefaultItemID; }
-        set { CollectionData.DefaultItemID = value; }
+        get => CollectionData.DefaultItemID;
+        set
+        {
+            if (CollectionData == null || CollectionData.DefaultItemID == value)
+                return;
+            
+            CollectionData.DefaultItemID = value;
+        }
     }
 
+    public bool UnlockItem(int ID)
+    {
+        return CollectionData.UnlockItem(ID);
+    }
+
+    public CollectionItem GetCollectionItem(int ID)
+    {
+        return CollectionData.GetCollectionItem(ID);
+    }
+    
+    public CollectionItem GetCollectionItem(string itemName)
+    {
+        return CollectionData.GetCollectionItem(itemName);
+    }
+    
+    
     public CollectionItem DefaultItem => CollectionData.DefaultItem;
     
-    void Start()
+    void Awake()
     {
         CollectionData.LoadSettings();
     }
 
-    void OnApplicationQuit()
+    void OnDestroy()
     {
         CollectionData.SaveSettings();
     }
+    
 }

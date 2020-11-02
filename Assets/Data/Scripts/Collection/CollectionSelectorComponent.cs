@@ -30,6 +30,10 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             return nextLevel;
         }
     }
+
+    string SelectText => "Select";
+    string LockedText => "Locked";
+    string SetAsDefaultText => "SetAsDefault";
     
     #endregion
     
@@ -51,7 +55,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         HideCollection();
 
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField,
-            possibleContent: new[] {"Set as default"}));
+            possibleContent: new[] { SetAsDefaultText }));
     }
 
     protected override void MoveLeft()
@@ -120,7 +124,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
 
-        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? "Select" : "Set As Default";
+        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? SelectText : SetAsDefaultText;
         
         int index = Account.CollectionDefaultItemId; 
         
@@ -173,6 +177,9 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     void OnChoose()
     {
         if (!IsFocused || !itemContainers.ContainsKey(Index))
+            return;
+
+        if (!Current.Unlocked)
             return;
 
         PlayerView newPlayerView = LauncherUI.Instance.LevelConfig.CollectionEnabled ? itemContainers[Index] : null;
@@ -270,6 +277,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         ItemsContainer.SetX(- Index * ScreenScaler.CameraSize.x);
         
         ProcessSideButtonsByIndex();
+        ProcessInteractButtonByIndex();
     }
     
     void ProcessSideButtonsByIndex()
@@ -280,6 +288,17 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         RightBtn.Color = Index + 1 < Length ? Color.white : Color.clear;
         LeftBtn.Color = Index > 0 ? Color.white : Color.clear;
     }
+
+    void ProcessInteractButtonByIndex()
+    {
+        InteractBtn.Interactable = Current.Unlocked;
+        
+        if (Current.Unlocked)
+            InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? SelectText : SetAsDefaultText;
+        else
+            InteractBtn.Text = LockedText;
+    }
+    
     #endregion
     
     #region event handlers
@@ -341,6 +360,5 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     }
     
     #endregion
-
     
 }

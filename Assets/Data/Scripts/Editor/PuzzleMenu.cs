@@ -85,6 +85,12 @@ public class PuzzleMenu : EditorWindow
             }
         }
     }
+    
+    [MenuItem("PuzzleUtils/Delete local")]
+    public static void DeleteLocal()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }
 #endif
 
