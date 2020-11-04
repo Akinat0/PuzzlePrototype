@@ -22,6 +22,7 @@ public abstract class Tier
             new HeartBoosterTier(),
             new GreenPuzzleTier(),
             new RedPuzzleTier(),
+            new TimeFreezeBoosterTier(),
             
         }.ToArray();
     }
