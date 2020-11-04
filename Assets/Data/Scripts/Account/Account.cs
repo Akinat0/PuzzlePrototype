@@ -13,10 +13,11 @@ public class Account : MonoBehaviour
         get
         {
             if (walletManager == null)
-                walletManager = gameObject.GetComponent<WalletManager>();
+                walletManager = gameObject.AddComponent<WalletManager>();
             return walletManager;
         }
     }
+    
     CollectionManager CollectionManager
     {
         get

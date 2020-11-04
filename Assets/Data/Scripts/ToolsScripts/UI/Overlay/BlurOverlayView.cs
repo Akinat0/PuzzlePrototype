@@ -34,6 +34,16 @@ namespace Abu.Tools.UI
         
         #region public properties
         
+        protected override bool RaycastTarget
+        {
+            get => Background.raycastTarget && BlurImage.raycastTarget;
+            set
+            {
+                Background.raycastTarget = value;
+                BlurImage.raycastTarget = value;
+            }
+        }
+        
         public Color BlurColor
         {
             get => blurColor;
@@ -182,8 +192,7 @@ namespace Abu.Tools.UI
 
             bool isRaycastTarget = Mathf.Approximately(Phase, 1);
 
-            BlurImage.raycastTarget = isRaycastTarget;
-            Background.raycastTarget = isRaycastTarget;
+            RaycastTarget = isRaycastTarget;
         }
 
         protected override void OnValidate()

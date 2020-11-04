@@ -1,11 +1,11 @@
 
-public sealed class GreenPuzzleTier : Tier
+public sealed class RedPuzzleTier : Tier
 {
     readonly CollectionItem Puzzle;
     
-    public GreenPuzzleTier()
+    public RedPuzzleTier()
     {
-        Puzzle = Account.GetCollectionItem("Green");
+        Puzzle = Account.GetCollectionItem("Red");
         
         Available = Purchase.Available && !Puzzle.Unlocked;
         
@@ -13,7 +13,7 @@ public sealed class GreenPuzzleTier : Tier
         Puzzle.OnUnlockedEvent += OnUnlockedEvent_Handler;
     }
     
-    public override int ID => 2;
+    public override int ID => 3;
     public override Reward Reward => new PuzzleReward(Puzzle.ID);
     public override Purchase Purchase => new CoinsPurchase(1000);
     public override TierType Type => TierType.Puzzle;

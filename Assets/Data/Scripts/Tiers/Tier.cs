@@ -4,6 +4,12 @@ using UnityEngine;
 
 public abstract class Tier
 {
+    public enum TierType
+    {
+        Booster, 
+        Puzzle
+    }
+    
     protected Tier()
     {
         Available = PlayerPrefs.GetInt(AvailableKey, 1) == 1;
@@ -15,6 +21,7 @@ public abstract class Tier
         {
             new HeartBoosterTier(),
             new GreenPuzzleTier(),
+            new RedPuzzleTier(),
             
         }.ToArray();
     }
@@ -24,6 +31,7 @@ public abstract class Tier
     public abstract int ID { get; }
     public abstract Reward Reward { get; }
     public abstract Purchase Purchase { get; }
+    public abstract TierType Type { get; }
 
     string AvailableKey => ID + "Available";
 
