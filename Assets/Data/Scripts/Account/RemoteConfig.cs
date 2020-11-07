@@ -26,7 +26,7 @@ public class RemoteConfig
 
         ParseTiers(ref configInfo);
         
-        Debug.LogWarning($"Config was loaded. RemoteConfigOrigin is {response.requestOrigin}, config version: {configInfo.version}");
+        Debug.Log($"<color=yellow>Config was loaded. RemoteConfigOrigin is {response.requestOrigin}, config version: {configInfo.version}</color>");
         
         switch (response.requestOrigin)
         {
