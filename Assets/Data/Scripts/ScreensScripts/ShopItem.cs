@@ -10,6 +10,9 @@ public class ShopItem : UIComponent
     [SerializeField] ButtonComponent Button;
     
     Tier Tier;
+
+    GameObject PurchaseView;
+    GameObject RewardView;
     
     void Start()
     {
@@ -21,18 +24,32 @@ public class ShopItem : UIComponent
             return;
         }
         
-        Button.Interactable = Tier.Available;
+        CreateView();
+        
         Button.OnClick += () => Tier.Obtain();
-
         Tier.OnAvailableChangedEvent += OnAvailableChangedEvent_Handler;
+        Tier.OnTierValueChangedEvent += OnTierValueChangedEvent_Handler;
+    }
 
-        Tier.Purchase.CreateView(PurchaseContainer);
-        Tier.Reward.CreateView(RewardContainer);
+
+    void CreateView()
+    {
+        Button.Interactable = Tier.Available;
+        PurchaseView = Tier.Purchase.CreateView(PurchaseContainer);
+        RewardView = Tier.Reward.CreateView(RewardContainer); 
     }
 
     void OnAvailableChangedEvent_Handler(bool available)
     {
         Button.Interactable = available;
+    }
+
+    void OnTierValueChangedEvent_Handler()
+    {
+        Destroy(PurchaseView);
+        Destroy(RewardView);
+        
+        CreateView();
     }
 
 }

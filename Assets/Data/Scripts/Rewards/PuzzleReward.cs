@@ -10,9 +10,9 @@ public class PuzzleReward : Reward
         PuzzleID = puzzleID;
     }
     
-    public override void CreateView(RectTransform container)
+    public override GameObject CreateView(RectTransform container)
     {
-        PuzzleRewardView.Create(container, this);
+        return PuzzleRewardView.Create(container, this).gameObject;
     }
 
     public override void Claim()

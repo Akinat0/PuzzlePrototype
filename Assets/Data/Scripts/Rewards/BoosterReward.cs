@@ -11,9 +11,9 @@ public class BoosterReward : Reward
         Booster = booster;
     }
     
-    public override void CreateView(RectTransform container)
+    public override GameObject CreateView(RectTransform container)
     {
-        BoosterRewardView.Create(container, this);
+        return BoosterRewardView.Create(container, this).gameObject;
     }
 
     public override void Claim()

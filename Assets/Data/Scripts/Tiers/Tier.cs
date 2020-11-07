@@ -27,12 +27,14 @@ public abstract class Tier
         }.ToArray();
     }
 
+    public event Action OnTierValueChangedEvent;
     public event Action<bool> OnAvailableChangedEvent;
 
     public abstract int ID { get; }
     public abstract Reward Reward { get; }
     public abstract Purchase Purchase { get; }
     public abstract TierType Type { get; }
+    public abstract void Parse(TierInfo tierInfo);
 
     string AvailableKey => ID + "Available";
 
@@ -65,5 +67,10 @@ public abstract class Tier
         
         Reward.Claim();
         return true;
-    } 
+    }
+
+    protected void InvokeTierValueChanged()
+    {
+        OnTierValueChangedEvent?.Invoke();
+    }
 }

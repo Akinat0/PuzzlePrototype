@@ -8,7 +8,7 @@ public class CoinsPurchase : Purchase
         Cost = cost;
     }
 
-    public int Cost { get; private set; }
+    public int Cost { get; set; }
 
     public override bool Available => Account.Coins >= Cost;
 
@@ -20,8 +20,8 @@ public class CoinsPurchase : Purchase
         return Account.RemoveCoins(Cost);;
     }
 
-    public override void CreateView(RectTransform rectTransform)
+    public override GameObject CreateView(RectTransform rectTransform)
     {
-        CoinsPurchaseView.Create(rectTransform, this);
+        return CoinsPurchaseView.Create(rectTransform, this).gameObject;
     }
 }

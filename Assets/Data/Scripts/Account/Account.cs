@@ -39,21 +39,25 @@ public class Account : MonoBehaviour
     public static Achievement[] Achievements => instance.achievements;
     public static Booster[] Boosters => instance.boosters;
     public static Tier[] Tiers => instance.tiers;
+    public static RemoteConfig RemoteConfig => instance.remoteConfig;
 
+    RemoteConfig remoteConfig;
+    
     Achievement[] achievements;
     Booster[] boosters;
     Tier[] tiers;
     WalletManager walletManager;
     CollectionManager collectionManager;
     LevelsManager levelsManager;
-    
-    
+
     private void Awake()
     {
         instance = this;
         boosters = Booster.CreateAllBoosters();
         tiers = Tier.CreateAllTiers();
         achievements = Achievement.CreateAllAchievements();
+        
+        remoteConfig = new RemoteConfig();
     }
     
     #region Boosters
