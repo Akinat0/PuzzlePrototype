@@ -14,6 +14,7 @@ public class EnemyMarkerEditor : Editor
         DrawProperties();
     }
 
+    bool baseInspectorFoldout = true;
     EnemyMarker[] markers;
     
     void OnEnable()
@@ -30,6 +31,8 @@ public class EnemyMarkerEditor : Editor
 
         DrawInverseSidesButton();
         DrawInverseSticksButton();
+        
+        DrawGroupEditor();
 
         foreach (EnemyMarker marker in markers)
             DrawProperty(marker);
@@ -66,6 +69,14 @@ public class EnemyMarkerEditor : Editor
         GUILayout.Label("================");
     }
 
+    void DrawGroupEditor()
+    {
+        baseInspectorFoldout = EditorGUILayout.Foldout(baseInspectorFoldout, "Group editor");
+        
+        if (baseInspectorFoldout)
+            base.OnInspectorGUI();
+    }
+    
     void DrawInverseSidesButton()
     {
         if (GUILayout.Button("INVERSE SIDES"))
@@ -103,8 +114,7 @@ public class EnemyMarkerEditor : Editor
         DrawSide(marker);
         DrawRadialPosition(marker);
     }
-
-
+    
     void DrawTime(EnemyMarker marker)
     {
         marker.time = EditorGUILayout.DoubleField("Time", marker.time);
