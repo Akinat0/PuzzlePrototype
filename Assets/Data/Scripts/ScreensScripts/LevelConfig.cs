@@ -1,6 +1,7 @@
 ﻿using Puzzle;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 [CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
 public partial class LevelConfig : ScriptableObject
@@ -16,6 +17,10 @@ public partial class LevelConfig : ScriptableObject
     [Space(10)]
     [SerializeField] private bool m_CollectionEnabled = false;
     [SerializeField] StarView m_StarView;
+
+    [SerializeField] TimelineAsset EasyTimeline;
+    [SerializeField] TimelineAsset MediumTimeline;
+    [SerializeField] TimelineAsset HardTimeline;
     
     public string Name => m_LevelName;
     public string SceneID => m_SceneID;
@@ -25,8 +30,32 @@ public partial class LevelConfig : ScriptableObject
     public bool StarsEnabled => StarView != null;
     public StarView StarView => m_StarView;
     
-    
     public PuzzleSides PuzzleSides => m_PuzzleSides;
-    
-    
+
+    public TimelineAsset GetTimeline(DifficultyLevel difficultyLevel)
+    {
+        switch (difficultyLevel)
+        {
+            case DifficultyLevel.Easy:
+                return EasyTimeline;
+            case DifficultyLevel.Medium:
+                return MediumTimeline;
+            case DifficultyLevel.Hard:
+                return HardTimeline;
+        }
+
+        return null;
+    }
+
+    public bool SupportsDifficultyLevel(DifficultyLevel difficultyLevel)
+    {
+        return GetTimeline(difficultyLevel) != null;
+    }
+}
+
+public enum DifficultyLevel
+{
+    Easy,
+    Medium,
+    Hard
 }

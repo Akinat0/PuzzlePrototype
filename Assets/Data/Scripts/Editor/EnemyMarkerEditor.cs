@@ -114,8 +114,7 @@ public class EnemyMarkerEditor : Editor
         DrawSide(marker);
         DrawRadialPosition(marker);
     }
-
-
+    
     void DrawTime(EnemyMarker marker)
     {
         marker.time = EditorGUILayout.DoubleField("Time", marker.time);

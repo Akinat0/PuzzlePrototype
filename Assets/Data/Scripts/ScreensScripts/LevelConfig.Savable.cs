@@ -72,6 +72,5 @@ public partial class LevelConfig
     
     #endregion
     
-    
 }
 

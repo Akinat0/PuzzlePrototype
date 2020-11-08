@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  rsKeyList: []
-  rsLastCachedKeyList: []
-  configId: 
+  rsKeyList:
+  - metadata:
+      entityId: d7c52acf-74ee-4fe5-8276-0579c716648c
+    rs:
+      key: version
+      type: string
+      value: v1.0
+  - metadata:
+      entityId: 3c97acf4-df08-486d-8c89-a55aa852f668
+    rs:
+      key: Tier1
+      type: json
+      value: 
+  - metadata:
+      entityId: ceb5b81d-0086-49ab-a701-5a21215d2ff9
+    rs:
+      key: Tier2
+      type: string
+      value: '{     "ID": 1,     "Amount": 4,     "Cost": 150 }'
+  rsLastCachedKeyList:
+  - metadata:
+      entityId: d7c52acf-74ee-4fe5-8276-0579c716648c
+    rs:
+      key: version
+      type: string
+      value: v1.0
+  - metadata:
+      entityId: 3c97acf4-df08-486d-8c89-a55aa852f668
+    rs:
+      key: Tier1
+      type: json
+      value: 
+  - metadata:
+      entityId: ceb5b81d-0086-49ab-a701-5a21215d2ff9
+    rs:
+      key: Tier2
+      type: string
+      value: '{     "ID": 1,     "Amount": 4,     "Cost": 150 }'
+  configId: 4e913f11-0a8c-4e1e-8849-0e896c658aa9
   currentEnvironmentId: 5d687c33-51bc-429d-99ab-c5ef92b99671
   environments:
   - id: a8346e08-e9e1-4eb7-957f-475b11614190
