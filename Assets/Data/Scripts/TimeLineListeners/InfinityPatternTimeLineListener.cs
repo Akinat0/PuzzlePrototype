@@ -14,7 +14,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
     private bool _reverseSide;
     private EnemyParams _enemyParams;
 
-    protected override void Start()
+    protected void Start()
     {
         if (GameSceneManager.Instance is InfinityGameSceneManager instance)
         {
@@ -27,7 +27,6 @@ public class InfinityPatternTimeLineListener : TimelineListener
 
         _reverseStickOut = false;
         _reverseSide = false;
-        base.Start();
     }
 
     public override void OnNotify(Playable origin, INotification notification, object context)
@@ -61,7 +60,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
     {
         _enemySpeed = _futureEnemySpeed;
         _timeLineSpeed = _futureTimeLineSpeed;
-        _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(_timeLineSpeed);
+        PlayableDirector.playableGraph.GetRootPlayable(0).SetSpeed(_timeLineSpeed);
     }
 
     private void SetNewReverses()

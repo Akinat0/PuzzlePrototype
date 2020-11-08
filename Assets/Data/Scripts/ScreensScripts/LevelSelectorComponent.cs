@@ -17,6 +17,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     [SerializeField] Transform LevelsContainer;
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
+    [SerializeField] ButtonComponent DifficultyButton;
 
     #endregion
 
@@ -318,6 +319,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ShowCollection();
     }
 
+    void OnDifficulty()
+    {
+        DifficultyWindow.Create(Current, ProcessIndex);
+    }
+
     bool HasLevel(int levelIndex)
     {
         return levelIndex >= 0 && levelIndex < Length;
@@ -335,12 +341,48 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessColors();
         ProcessButtons();
         ProcessSideButtons();
+        ProcessDifficultyButton();
         
         int closestIndex = Mathf.RoundToInt(Offset);
         if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
             Index = closestIndex;
     }
 
+    void ProcessDifficultyButton()
+    {
+        int nextLevel = NextLevel;
+
+        if (!HasLevel(nextLevel))
+            return;
+        
+        float phase = Mathf.Abs(Offset - Index) / 1;
+
+        Color startColor = GetColorByDifficulty(Current.DifficultyLevel);
+        Color targetColor = GetColorByDifficulty(Selection[nextLevel].DifficultyLevel);
+
+        DifficultyButton.Color = Color.Lerp(startColor, targetColor, phase);
+
+        Color startHoverColor = Current.DifficultyLevel == DifficultyLevel.Invalid ? Color.white : Color.clear;
+        Color targetHoverColor = Selection[nextLevel].DifficultyLevel == DifficultyLevel.Invalid ? Color.white : Color.clear;
+
+        DifficultyButton.HoverImage.color = Color.Lerp(startColor, targetColor, phase);
+    }
+
+    Color GetColorByDifficulty(DifficultyLevel difficulty)
+    {
+        switch (difficulty)
+        {
+            case DifficultyLevel.Easy:
+                return Color.green;
+            case DifficultyLevel.Medium:
+                return Color.yellow;
+            case DifficultyLevel.Hard:
+                return Color.red;
+        }
+
+        return Color.clear;
+    }
+    
     void ProcessButtons()
     {
         int nextLevel = NextLevel;
@@ -486,8 +528,21 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
+        ProcessDifficultyButtonByIndex();
     }
 
+    void ProcessDifficultyButtonByIndex()
+    {
+        if (Current.DifficultyLevel == DifficultyLevel.Invalid)
+        {
+            DifficultyButton.Interactable = false;
+            return;
+        }
+        
+        DifficultyButton.Interactable = true;
+        DifficultyButton.Color = GetColorByDifficulty(Current.DifficultyLevel);
+    }
+    
     void ProcessButtonsByIndex()
     {
         CollectionBtn.RectTransform.anchorMax = Current.CollectionEnabled ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
@@ -547,6 +602,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         InteractBtn.OnClick += OnInteract;
         CollectionBtn.OnClick += OnCollection;
+        DifficultyButton.OnClick += OnDifficulty;
     }
 
     protected override void OnDisable()
@@ -560,6 +616,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
+        DifficultyButton.OnClick -= OnDifficulty;
     }
 
     protected override void OnTouchDown_Handler(Vector2 position)

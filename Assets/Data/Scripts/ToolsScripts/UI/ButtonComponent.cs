@@ -14,6 +14,7 @@ namespace Abu.Tools.UI
     {
         [SerializeField] protected AudioClip Sound;
         [SerializeField] protected Color ButtonColor = Color.white;
+        [SerializeField] protected Image hoverImage;
 
         public event Action OnClick;
         public event Action OnHoldDown;
@@ -53,7 +54,8 @@ namespace Abu.Tools.UI
                 return background;
             }
         }
-      
+
+
         protected virtual Button Button
         {
             get
@@ -65,6 +67,8 @@ namespace Abu.Tools.UI
             }
         }
 
+        public Image HoverImage => hoverImage;
+        
         private RectTransform rectTransform;
         private Image background;
         private Button button;

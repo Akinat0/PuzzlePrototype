@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
 using Puzzle;
@@ -9,11 +10,17 @@ using UnityEngine.Timeline;
 [RequireComponent(typeof(PlayableDirector))]
 public class TimelineListener : MonoBehaviour, INotificationReceiver
 {
-    protected PlayableDirector _playableDirector;
-    
-    protected virtual void Start()
+    PlayableDirector playableDirector;
+
+    protected PlayableDirector PlayableDirector
     {
-        _playableDirector = GetComponent<PlayableDirector>();
+        get
+        {
+            if (playableDirector == null)
+                playableDirector = GetComponent<PlayableDirector>();
+
+            return playableDirector;
+        }
     }
 
     bool ReceiveNotifications = false;
@@ -58,6 +65,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
     }
 
     protected virtual  void OnDisable()
@@ -66,11 +74,21 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
+
+    void SetupLevelEvent_Handler(LevelColorScheme _)
+    {
+        LevelConfig config = GameSceneManager.Instance.LevelConfig;
+        
+        if(config.DifficultyLevel == DifficultyLevel.Invalid)
+            return;
+
+        PlayableDirector.playableAsset = config.GetTimeline(config.DifficultyLevel);
+    }
     
     protected virtual void GameStartedEvent_Handler()
     {
         ReceiveNotifications = true;
-        _playableDirector.Play();
+        PlayableDirector.Play();
     }
 
     protected virtual void PauseLevelEvent_Handler(bool paused)
@@ -80,12 +98,12 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 
     protected void Pause(bool paused)
     {
-        if (!_playableDirector.playableGraph.IsValid())
+        if (!PlayableDirector.playableGraph.IsValid())
             return;
 
         ReceiveNotifications = !paused;
         
-        _playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
+        PlayableDirector.playableGraph.GetRootPlayable(0).SetSpeed(paused ? 0 : 1);
     }
     
     
@@ -93,8 +111,8 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
     {
         ReceiveNotifications = false;
         
-        _playableDirector.Stop();
-        _playableDirector.time = 0;
+        PlayableDirector.Stop();
+        PlayableDirector.time = 0;
         
         ReceiveNotifications = true;
     }

@@ -4,6 +4,42 @@ public partial class LevelConfig
 {
     string Key => Name;
     
+    #region difficulty level
+
+    string DifficultyLevelKey => "Difficulty " + Key;
+    
+    DifficultyLevel difficultyLevel;
+    bool isDifficultyLevelLoaded = false;
+
+    public DifficultyLevel DifficultyLevel
+    {
+        get
+        {
+            if (!isDifficultyLevelLoaded)
+            {
+                DifficultyLevel defaultDifficulty = SupportsDifficultyLevel(DifficultyLevel.Easy)
+                    ? DifficultyLevel.Easy
+                    : DifficultyLevel.Invalid;
+
+                difficultyLevel = (DifficultyLevel) PlayerPrefs.GetInt(DifficultyLevelKey, (int) defaultDifficulty);
+            }
+
+            return difficultyLevel;
+        }
+        set
+        {
+            if(difficultyLevel == value)
+                return;
+            
+            difficultyLevel = value;
+            
+            PlayerPrefs.SetInt(DifficultyLevelKey, (int) difficultyLevel);
+            PlayerPrefs.Save();
+        }
+    }
+
+    #endregion
+    
     #region stars
     
     string StarsKey => "Stars " + Key;

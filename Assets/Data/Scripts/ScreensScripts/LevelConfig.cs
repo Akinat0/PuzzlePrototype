@@ -11,13 +11,14 @@ public partial class LevelConfig : ScriptableObject
     [SerializeField] private GameObject m_LevelRootPrefab;
     [SerializeField] private LevelColorScheme m_LevelColorScheme;
 
-    [Space(10)] 
+    [Space(10)]
     [SerializeField] private PuzzleSides m_PuzzleSides;
     
     [Space(10)]
     [SerializeField] private bool m_CollectionEnabled = false;
     [SerializeField] StarView m_StarView;
 
+    [Space(10)]
     [SerializeField] TimelineAsset EasyTimeline;
     [SerializeField] TimelineAsset MediumTimeline;
     [SerializeField] TimelineAsset HardTimeline;
@@ -32,9 +33,9 @@ public partial class LevelConfig : ScriptableObject
     
     public PuzzleSides PuzzleSides => m_PuzzleSides;
 
-    public TimelineAsset GetTimeline(DifficultyLevel difficultyLevel)
+    public TimelineAsset GetTimeline(DifficultyLevel difficulty)
     {
-        switch (difficultyLevel)
+        switch (difficulty)
         {
             case DifficultyLevel.Easy:
                 return EasyTimeline;
@@ -47,15 +48,16 @@ public partial class LevelConfig : ScriptableObject
         return null;
     }
 
-    public bool SupportsDifficultyLevel(DifficultyLevel difficultyLevel)
+    public bool SupportsDifficultyLevel(DifficultyLevel difficulty)
     {
-        return GetTimeline(difficultyLevel) != null;
+        return GetTimeline(difficulty) != null;
     }
 }
 
 public enum DifficultyLevel
 {
-    Easy,
-    Medium,
-    Hard
+    Invalid = 0,
+    Easy = 1,
+    Medium = 2,
+    Hard = 3
 }
