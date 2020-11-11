@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(MeshRenderer))]
 public class Whirlpool : MonoBehaviour
 {
