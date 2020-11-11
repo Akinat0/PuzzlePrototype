@@ -73,6 +73,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
     }
 
     void SetupLevelEvent_Handler(LevelColorScheme _)
