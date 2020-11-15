@@ -24,6 +24,11 @@ public abstract class Achievement
             new RichBitchAchievement(),
             new FreezeBoosterAchievement(),
             new SuprematismAchievement(),
+            new RitualAchievement(),
+            new NeonPartyAchievement(),
+            new HearthBoosterAchievement(),
+            new PuzzleCatcherAchievement(),
+            new FirstReviewAchievement(),
         };
         
         return achievements.ToArray();
