@@ -1,10 +1,8 @@
-
 using Puzzle;
-using PuzzleScripts;
 
-public sealed class FirstReviewAchievement : Achievement
+public sealed class FirstReviveAchievement : Achievement
 {
-    public FirstReviewAchievement()
+    public FirstReviveAchievement()
     {
         if (State == AchievementState.Claimed || State == AchievementState.Received)
             return;
@@ -15,7 +13,7 @@ public sealed class FirstReviewAchievement : Achievement
     readonly CoinsReward reward = new CoinsReward(250);
     
     public override string Name => "New life";
-    public override string Description => "Use Review";
+    public override string Description => "Use Revive";
     public override Reward Reward => reward;
     public override float Goal => 1;
 

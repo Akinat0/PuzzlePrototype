@@ -28,7 +28,7 @@ public abstract class Achievement
             new NeonPartyAchievement(),
             new HearthBoosterAchievement(),
             new PuzzleCatcherAchievement(),
-            new FirstReviewAchievement(),
+            new FirstReviveAchievement(),
         };
         
         return achievements.ToArray();
