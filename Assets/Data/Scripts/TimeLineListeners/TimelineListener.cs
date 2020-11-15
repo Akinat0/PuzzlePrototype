@@ -65,7 +65,6 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
-        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
     }
 
     protected virtual  void OnDisable()
@@ -73,19 +72,8 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
-        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
     }
 
-    void SetupLevelEvent_Handler(LevelColorScheme _)
-    {
-        LevelConfig config = GameSceneManager.Instance.LevelConfig;
-        
-        if(config.DifficultyLevel == DifficultyLevel.Invalid)
-            return;
-
-        PlayableDirector.playableAsset = config.GetTimeline(config.DifficultyLevel);
-    }
-    
     protected virtual void GameStartedEvent_Handler()
     {
         ReceiveNotifications = true;

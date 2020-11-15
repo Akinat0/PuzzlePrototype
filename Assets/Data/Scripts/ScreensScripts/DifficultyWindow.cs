@@ -42,6 +42,24 @@ public class DifficultyWindow : CancelableWindow
             Hide();
         }
 
+        if (!LevelConfig.SupportsDifficultyLevel(DifficultyLevel.Easy))
+        {
+            EasyButton.Color = Color.white;
+            EasyButton.Interactable = false;
+        }
+
+        if (!LevelConfig.SupportsDifficultyLevel(DifficultyLevel.Medium))
+        {
+            MediumButton.Color = Color.white;
+            MediumButton.Interactable = false;
+        }
+
+        if (!LevelConfig.SupportsDifficultyLevel(DifficultyLevel.Hard))
+        {
+            HardButton.Color = Color.white;
+            HardButton.Interactable = false;
+        }
+
         EasyButton.OnClick += () =>
         {
             SelectedDifficulty = DifficultyLevel.Easy;
