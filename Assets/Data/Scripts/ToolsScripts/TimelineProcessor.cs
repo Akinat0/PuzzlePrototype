@@ -50,6 +50,31 @@ public static class TimelineProcessor
                     Debug.Log("Note marker created " + noteMarker.time);
                     break;
                 }
+                
+                case StartLevelMarker startLevelMarker:
+                {
+                    dstTimeline.markerTrack.CreateMarker(typeof(StartLevelMarker), startLevelMarker.time);
+                    Debug.Log("Start Level Marker created " + output.time);
+                    break;
+                }
+                
+                case LevelEndMarker levelEndMarker:
+                {
+                    dstTimeline.markerTrack.CreateMarker(typeof(LevelEndMarker), levelEndMarker.time);
+                    Debug.Log("Level End Marker created " + output.time);
+                    break;
+                }
+                
+                case PlayAudioMarker playAudioMarker:
+                {
+                    PlayAudioMarker copyMarker = dstTimeline.markerTrack.CreateMarker(typeof(PlayAudioMarker), playAudioMarker.time) as PlayAudioMarker;
+                    copyMarker.AudioClip = playAudioMarker.AudioClip;
+                    copyMarker.Looped = playAudioMarker.Looped;
+                    copyMarker.SoundCurve = playAudioMarker.SoundCurve;
+                    Debug.Log("Play Audio Marker created " + output.time);
+                    break;
+                }
+                    
             }
         }
     }
