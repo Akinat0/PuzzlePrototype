@@ -23,6 +23,8 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         }
     }
 
+    protected double startTime = 0;
+    
     bool ReceiveNotifications = false;
 
     public virtual void OnNotify(Playable origin, INotification notification, object context)
@@ -34,29 +36,35 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         }
 
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
-
-        switch (notification)
+        if(notification is Marker marker && marker.time > startTime)
         {
-            case EnemyNotificationMarker enemyMarker:
-                Debug.Log($"Notification received {time} type: {enemyMarker.enemyParams.enemyType}");
-                GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
-                break;
-            case PlayAudioMarker audioMarker:
-                Debug.Log($"Notification received {time} type: {typeof(PlayAudioMarker)} : {audioMarker.AudioClip.name}");
-                GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip, audioMarker.Looped, audioMarker.SoundCurve));
-                break;
-            case CutsceneMarker cutsceneMarker:
-                Debug.Log($"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}");
-                GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId, cutsceneMarker.SceneTransitionType));
-                break;
-            case LevelEndMarker levelEndMarker:
-                Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
-                GameSceneManager.Instance.InvokeLevelCompleted();
-                break;
-            case BubbleDialogMarker bubbleDialogMarker:
-                Debug.Log($"Notification received {time} type: {typeof(BubbleDialogMarker)}");
-                GameSceneManager.Instance.ShowDialog(bubbleDialogMarker.Message, bubbleDialogMarker.Time);
-                break;
+            switch (notification)
+            {
+                case EnemyNotificationMarker enemyMarker:
+                    Debug.Log($"Notification received {time} type: {enemyMarker.enemyParams.enemyType}");
+                    GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
+                    break;
+                case PlayAudioMarker audioMarker:
+                    Debug.Log(
+                        $"Notification received {time} type: {typeof(PlayAudioMarker)} : {audioMarker.AudioClip.name}");
+                    GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip,
+                        audioMarker.Looped, audioMarker.SoundCurve, 0));
+                    break;
+                case CutsceneMarker cutsceneMarker:
+                    Debug.Log(
+                        $"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}");
+                    GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId,
+                        cutsceneMarker.SceneTransitionType));
+                    break;
+                case LevelEndMarker levelEndMarker:
+                    Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
+                    GameSceneManager.Instance.InvokeLevelCompleted();
+                    break;
+                case BubbleDialogMarker bubbleDialogMarker:
+                    Debug.Log($"Notification received {time} type: {typeof(BubbleDialogMarker)}");
+                    GameSceneManager.Instance.ShowDialog(bubbleDialogMarker.Message, bubbleDialogMarker.Time);
+                    break;
+            }
         }
     }
 
@@ -73,10 +81,41 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
-
+    
     protected virtual void GameStartedEvent_Handler()
     {
         ReceiveNotifications = true;
+        var timeLineAsset = (TimelineAsset) PlayableDirector.playableAsset;
+        startTime = 0;
+        List<PlayAudioMarker> audioMarkers = new List<PlayAudioMarker>();
+        for (int i=0; i < timeLineAsset.markerTrack.GetMarkerCount(); i++)
+        {
+            Debug.Log("Marker");
+            IMarker marker = timeLineAsset.markerTrack.GetMarker(i);
+            if (Mathf.Approximately((float)startTime, 0))
+                if (marker is StartLevelMarker)
+                    startTime = marker.time;
+            if (marker is PlayAudioMarker playAudioMarker)
+            {
+                audioMarkers = audioMarkers.Append(playAudioMarker).ToList();
+            }
+
+            if (!Mathf.Approximately((float)startTime, 0))
+            {
+                Debug.Log("StartTime " + startTime);
+                PlayableDirector.time = startTime;
+                foreach (var audioMarker in audioMarkers)
+                {
+                    if (audioMarker.time < startTime &&
+                        audioMarker.time + audioMarker.AudioClip.length > startTime)
+                    {
+                        GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip,
+                            audioMarker.Looped, audioMarker.SoundCurve, startTime-audioMarker.time));
+                    }
+                }
+                break;
+            }
+        }
         PlayableDirector.Play();
     }
 

@@ -74,6 +74,7 @@ public class LevelSoundPlayer : MonoBehaviour
         audioSources.Add(audioSource, args.SoundCurve);
         audioSource.clip = args.AudioClip;
         audioSource.loop = args.Looped;
+        audioSource.time = (float)args.Time;
         if (!args.Looped)
             this.Invoke(() =>
                 {

@@ -858,6 +858,45 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-6424219560865639944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c2b9628d54b40639415b79e12c0ac8, type: 3}
+  m_Name: Play Audio Marker
+  m_EditorClassIdentifier: 
+  m_Time: 3.1666666666666665
+  looped: 1
+  audioClip: {fileID: 8300000, guid: 64e33fe52366e434b8b448e983e90e3b, type: 3}
+  soundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-6419101392299804189
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3356,6 +3395,7 @@ MonoBehaviour:
     - {fileID: -5160504879404960382}
     - {fileID: -2489442759305293134}
     - {fileID: 7971553147082761150}
+    - {fileID: -6424219560865639944}
 --- !u!114 &-9556631421678375
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3498,7 +3538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ccee78a4edad442a23879985397732, type: 3}
   m_Name: Level End Marker
   m_EditorClassIdentifier: 
-  m_Time: 134.76666666666668
+  m_Time: 135.03333333333333
 --- !u!114 &216325003007552343
 MonoBehaviour:
   m_ObjectHideFlags: 1
