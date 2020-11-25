@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Timeline;
+using System.Collections.Generic;
 
-#if UNITY_EDITOR
 public class AutoGenerateTimelines : MonoBehaviour
 {
     private void Start()
     {
-        GenearteTimelines();
+        GenerateTimelines();
     }
 
-    private static void GenearteTimelines()
+    private static void GenerateTimelines()
     {
         TimelineAsset[] assets = Selection.GetFiltered<TimelineAsset>(SelectionMode.Assets);
         List<string> guids = new List<string>();
@@ -40,6 +40,7 @@ public class AutoGenerateTimelines : MonoBehaviour
                 newTimeline = (TimelineAsset)AssetDatabase.LoadAssetAtPath(processedPath, typeof(TimelineAsset));
             }
         
+            
             TimelineProcessor.GenerateNewTimeline(oldTimeline, newTimeline);
         } 
     }

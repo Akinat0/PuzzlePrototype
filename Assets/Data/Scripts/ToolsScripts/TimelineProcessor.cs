@@ -1,11 +1,9 @@
-﻿using PuzzleScripts;
-using System.Collections.Generic;
-using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using PuzzleScripts;
 using UnityEngine;
-using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
-#if UNITY_EDITOR
 public static class TimelineProcessor
 {
     public static void GenerateNewTimeline(TimelineAsset originTimeline, TimelineAsset dstTimeline)
@@ -78,8 +76,6 @@ public static class TimelineProcessor
             }
         }
     }
-    
-    
     
     public static void GenerateBpmTimeline(TimelineAsset dstTimeline, int bpm)
     {

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections;
-using Puzzle;
+﻿using Puzzle;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 [RequireComponent(typeof(PlayableDirector))]
-public class TimelineListener : MonoBehaviour, INotificationReceiver
+public partial class TimelineListener : MonoBehaviour, INotificationReceiver
 {
     PlayableDirector playableDirector;
 
@@ -36,7 +32,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
         }
 
         double time = origin.IsValid() ? origin.GetTime() : 0.0;
-        if(notification is Marker marker && marker.time > startTime)
+        if(notification is Marker marker && marker.time >= startTime)
         {
             switch (notification)
             {
@@ -45,16 +41,12 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
                     GameSceneManager.Instance.InvokeCreateEnemy(enemyMarker.enemyParams);
                     break;
                 case PlayAudioMarker audioMarker:
-                    Debug.Log(
-                        $"Notification received {time} type: {typeof(PlayAudioMarker)} : {audioMarker.AudioClip.name}");
-                    GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip,
-                        audioMarker.Looped, audioMarker.SoundCurve, 0));
+                    Debug.Log($"Notification received {time} type: {typeof(PlayAudioMarker)} : {audioMarker.AudioClip.name}");
+                    GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip, audioMarker.Looped, audioMarker.SoundCurve));
                     break;
                 case CutsceneMarker cutsceneMarker:
-                    Debug.Log(
-                        $"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}");
-                    GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId,
-                        cutsceneMarker.SceneTransitionType));
+                    Debug.Log($"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}"); 
+                    GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId, cutsceneMarker.SceneTransitionType));
                     break;
                 case LevelEndMarker levelEndMarker:
                     Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
@@ -85,37 +77,9 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
     protected virtual void GameStartedEvent_Handler()
     {
         ReceiveNotifications = true;
-        var timeLineAsset = (TimelineAsset) PlayableDirector.playableAsset;
-        startTime = 0;
-        List<PlayAudioMarker> audioMarkers = new List<PlayAudioMarker>();
-        for (int i=0; i < timeLineAsset.markerTrack.GetMarkerCount(); i++)
-        {
-            Debug.Log("Marker");
-            IMarker marker = timeLineAsset.markerTrack.GetMarker(i);
-            if (Mathf.Approximately((float)startTime, 0))
-                if (marker is StartLevelMarker)
-                    startTime = marker.time;
-            if (marker is PlayAudioMarker playAudioMarker)
-            {
-                audioMarkers = audioMarkers.Append(playAudioMarker).ToList();
-            }
-
-            if (!Mathf.Approximately((float)startTime, 0))
-            {
-                Debug.Log("StartTime " + startTime);
-                PlayableDirector.time = startTime;
-                foreach (var audioMarker in audioMarkers)
-                {
-                    if (audioMarker.time < startTime &&
-                        audioMarker.time + audioMarker.AudioClip.length > startTime)
-                    {
-                        GameSceneManager.Instance.InvokePlayAudio(new LevelPlayAudioEventArgs(audioMarker.AudioClip,
-                            audioMarker.Looped, audioMarker.SoundCurve, startTime-audioMarker.time));
-                    }
-                }
-                break;
-            }
-        }
+        
+        EditorStartLevel();
+        
         PlayableDirector.Play();
     }
 

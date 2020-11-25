@@ -11,7 +11,7 @@ public class LevelPlayAudioEventArgs
     public bool Looped => m_Looped;
     public double Time => m_Time;
 
-    public LevelPlayAudioEventArgs(AudioClip _AudioClip, bool _Looped, AnimationCurve _SoundCurve, double _Time)
+    public LevelPlayAudioEventArgs(AudioClip _AudioClip, bool _Looped, AnimationCurve _SoundCurve, double _Time = 0)
     {
         m_AudioClip = _AudioClip;
         m_Looped = _Looped;
