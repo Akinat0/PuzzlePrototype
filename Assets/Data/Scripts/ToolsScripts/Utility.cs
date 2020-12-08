@@ -189,9 +189,7 @@ public static class Utility
     
     //Perlin noise
     public static Texture2D CreatePerlinNoiseTexture(int width, int height, float scale)
-    {
-        Debug.Log("TexSize " + width + " " + height);
-        
+    {        
         Texture2D noiseTex = new Texture2D(width, height);
         Color[] pixels = new Color[width * height];
         
