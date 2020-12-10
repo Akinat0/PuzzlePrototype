@@ -242,6 +242,20 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-9188458474423600364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f1fd15db6a040e0ac90e6aad7baf51, type: 3}
+  m_Name: Event Marker
+  m_EditorClassIdentifier: 
+  m_Time: 71.4
+  eventData: ritual_magic_ended_event
 --- !u!114 &-9188273533889256634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2772,6 +2786,20 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-8788187179975791717
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f1fd15db6a040e0ac90e6aad7baf51, type: 3}
+  m_Name: Event Marker
+  m_EditorClassIdentifier: 
+  m_Time: 0.5333333333333333
+  eventData: ritual_evil_event
 --- !u!114 &-8782019407744721171
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41402,6 +41430,10 @@ MonoBehaviour:
     - {fileID: -2692577893054376876}
     - {fileID: 1250676142070083601}
     - {fileID: 6640419550563312432}
+    - {fileID: -1335802153923581818}
+    - {fileID: -9188458474423600364}
+    - {fileID: -116915410336100043}
+    - {fileID: -8788187179975791717}
 --- !u!114 &-3512292996043403373
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57261,6 +57293,20 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-1335802153923581818
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f1fd15db6a040e0ac90e6aad7baf51, type: 3}
+  m_Name: Event Marker
+  m_EditorClassIdentifier: 
+  m_Time: 23.533333333333335
+  eventData: ritual_magic_started_event
 --- !u!114 &-1332274795379597430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65907,6 +65953,20 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-116915410336100043
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29f1fd15db6a040e0ac90e6aad7baf51, type: 3}
+  m_Name: Event Marker
+  m_EditorClassIdentifier: 
+  m_Time: 132.76666666666668
+  eventData: ritual_happy_event
 --- !u!114 &-112256437431218474
 MonoBehaviour:
   m_ObjectHideFlags: 1

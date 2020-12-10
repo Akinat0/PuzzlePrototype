@@ -1,21 +1,39 @@
-using PuzzleScripts;
+using Puzzle;
 using UnityEngine;
 
 public class RitualPlayerView : SkinPlayerView
 {
-    [SerializeField] SkinContainer GlyphSkin;
+    static readonly int MagicID = Animator.StringToHash("Magic");
+    static readonly int EvilID = Animator.StringToHash("Evil");
 
-    protected override void OnPlayerLoseHp()
+    protected override void OnEnable()
     {
-        //GlyphSkin.Skin = (GlyphSkin.Skin + 1) % GlyphSkin.Length;
-        
-        base.OnPlayerLoseHp();
+        base.OnEnable();
+        GameSceneManager.TimelineEvent += TimelineEvent_Handler;
     }
 
-    protected override void OnEnemyDied(EnemyBase enemy)
+    protected override void OnDisable()
     {
-        //GlyphSkin.Skin = (GlyphSkin.Skin + 1) % GlyphSkin.Length;
-        
-        base.OnEnemyDied(enemy);
+        base.OnDisable();
+        GameSceneManager.TimelineEvent -= TimelineEvent_Handler;
+    }
+
+    void TimelineEvent_Handler(string eventData)
+    {
+        switch (eventData)
+        {
+            case "ritual_magic_started_event":
+                Animator.SetBool(MagicID, true);
+                break;
+            case "ritual_magic_ended_event":
+                Animator.SetBool(MagicID, false);
+                break;
+            case "ritual_evil_event":
+                Animator.SetBool(EvilID, true);
+                break;
+            case "ritual_happy_event":
+                Animator.SetBool(EvilID, false);
+                break;
+        }
     }
 }

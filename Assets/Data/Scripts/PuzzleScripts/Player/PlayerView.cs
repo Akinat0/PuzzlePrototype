@@ -76,14 +76,14 @@ public class PlayerView : MonoBehaviour
         Animator.SetTrigger(Kill);
     }
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
         GameSceneManager.EnemyDiedEvent += OnEnemyDiedEvent_Handler;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;

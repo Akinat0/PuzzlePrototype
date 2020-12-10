@@ -1,7 +1,4 @@
-﻿using System;
-using ScreensScripts;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 namespace Puzzle
 {
