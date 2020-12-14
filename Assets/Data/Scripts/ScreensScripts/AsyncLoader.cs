@@ -2,8 +2,6 @@
 using System.Collections;
 using Puzzle;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 namespace Abu.Tools
 {
@@ -11,39 +9,41 @@ namespace Abu.Tools
     {
         [SerializeField] private GameObject loadingIndicator;
 
-        private Action<GameSceneManager> _onSceneLoaded;
+        private Action<GameSceneManager> OnEnvironmentLoaded;
         
         private void Awake()
         {
             loadingIndicator.gameObject.SetActive(false);
         }
 
-        public void LoadScene(string scene, Action<GameSceneManager> onSceneLoaded)
+        public void LoadGameEnvironment(string environmentName, Action<GameSceneManager> complete)
         {
-            _onSceneLoaded = onSceneLoaded;
-            StartCoroutine(AsyncSceneLoading(scene));
+            OnEnvironmentLoaded = complete;
+            StartCoroutine(AsyncEnvironmentLoading($"LevelEnvironments/{environmentName}"));
         }
 
-        IEnumerator AsyncSceneLoading(string scene)
+        IEnumerator AsyncEnvironmentLoading(string scene)
         {
-            AsyncOperation levelLoader = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-
+            ResourceRequest request = Resources.LoadAsync<GameObject>(scene);
+            
             loadingIndicator.gameObject.SetActive(true);
             
-            while (!levelLoader.isDone)
+            while (!request.isDone)
             {
                 //progressBar.value = levelLoader.progress;
                 yield return null;
             }
             
             loadingIndicator.gameObject.SetActive(false);
-            
-            GameSceneManager gameSceneManager = GameSceneManager.Instance;
+
+            GameObject gameEnvironment = Instantiate(request.asset as GameObject);
+
+            GameSceneManager gameSceneManager = gameEnvironment.GetComponent<GameSceneManager>();
 
             if (gameSceneManager == null)
-                Debug.LogError("There's no GameManager in the scene");
+                Debug.LogError("There's no GameManager in the environment");
 
-            _onSceneLoaded?.Invoke(gameSceneManager);
+            OnEnvironmentLoaded?.Invoke(gameSceneManager);
         }
     }
 }

@@ -11,7 +11,7 @@ public class TimelineListener : MonoBehaviour, INotificationReceiver
 {
     protected PlayableDirector _playableDirector;
     
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _playableDirector = GetComponent<PlayableDirector>();
     }

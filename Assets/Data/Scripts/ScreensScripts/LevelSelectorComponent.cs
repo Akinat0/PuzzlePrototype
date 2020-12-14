@@ -541,7 +541,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         base.OnEnable();
         
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
         
@@ -554,7 +554,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         base.OnDisable();
         
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
 
@@ -602,7 +602,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         HideUI();
     }
 
-    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs args)
+    void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs args)
     {
         if(args.Reason == GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed || args.ShowStars)
             CreateStars(Index, true);

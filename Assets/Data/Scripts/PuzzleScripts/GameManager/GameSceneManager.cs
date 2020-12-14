@@ -125,13 +125,13 @@ namespace Puzzle
                 booster.Use();
         }
 
-        void UnloadScene()
+        void DestroyEnvironment()
         {
             player.transform.parent = playerCachedParent;
             Destroy(player.GetComponent<PlayerInput>());
             Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
-            SceneManager.UnloadSceneAsync(gameObject.scene);
+            Destroy(gameObject);
         }
 
         void CallEndgameMenu()
@@ -262,8 +262,8 @@ namespace Puzzle
             InvokePauseLevel(true);
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
-            UnloadScene();
-            LauncherUI.Instance.InvokeGameSceneUnloaded(
+            DestroyEnvironment();
+            LauncherUI.Instance.InvokeGameEnvironmentUnloaded(
                 new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars));
         }
         
