@@ -10,14 +10,29 @@ public class RitualPlayerView : SkinPlayerView
     {
         base.OnEnable();
         GameSceneManager.TimelineEvent += TimelineEvent_Handler;
+        GameSceneManager.ResetLevelEvent += RestoreLevelEvent_Handler;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         GameSceneManager.TimelineEvent -= TimelineEvent_Handler;
+        GameSceneManager.ResetLevelEvent -= RestoreLevelEvent_Handler;
     }
 
+    protected override void RestoreView()
+    {
+        base.RestoreView();
+
+        Animator.SetBool(MagicID, false);
+        Animator.SetBool(EvilID, true);
+    }
+
+    private void RestoreLevelEvent_Handler()
+    {
+        Animator.SetBool(MagicID, false);
+        Animator.SetBool(EvilID, true);
+    }
     void TimelineEvent_Handler(string eventData)
     {
         switch (eventData)

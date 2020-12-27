@@ -236,7 +236,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         {
             if (i != Index && levelContainers.ContainsKey(i))
             {
-                Destroy(levelContainers[i].gameObject);
+                DestroyImmediate(levelContainers[i].gameObject);
                 levelContainers.Remove(i);
             }
         }

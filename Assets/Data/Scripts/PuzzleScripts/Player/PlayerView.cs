@@ -61,7 +61,7 @@ public class PlayerView : MonoBehaviour
         shape.Rotate(0, 0, 180);
     }
 
-    protected virtual void RestoreSides()
+    protected virtual void RestoreView()
     {
         shape.rotation = defaultShapeRotation;
     }
@@ -99,10 +99,9 @@ public class PlayerView : MonoBehaviour
     {
         OnEnemyDied(enemy);
     }
-
     
     void LevelClosedEvent_Handler()
     {
-        RestoreSides();
+        RestoreView();
     }
 }

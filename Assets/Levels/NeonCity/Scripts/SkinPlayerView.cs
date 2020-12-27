@@ -14,7 +14,7 @@
         _shapeSkinContainer.Skin = _shapeSkinContainer.Skin == 0 ? 1 : 0;
     }
 
-    protected override void RestoreSides()
+    protected override void RestoreView()
     {
         _shapeSkinContainer.Skin = 0;
     }
