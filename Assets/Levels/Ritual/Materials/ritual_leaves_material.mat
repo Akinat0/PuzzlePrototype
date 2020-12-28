@@ -24,6 +24,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DissolveTex:
+        m_Texture: {fileID: 2800000, guid: 41eeac74234474babaae7af41e8c69cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 059b4987bd03a9b44b76c56926ab0409, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -37,10 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _DissolveAmount: 0
+    - _DissolveAmount: 1
     - _EnableExternalAlpha: 0
+    - _OutlineThickness: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DissolveColor: {r: 0, g: 1, b: 0.21263742, a: 1}
+    - _DissolveColor: {r: 0.16958882, g: 0.9716981, b: 0.33944735, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
