@@ -265,7 +265,6 @@ Transform:
   - {fileID: 3319143929191326676}
   - {fileID: 1818633986524511276}
   - {fileID: 3001282831788757462}
-  - {fileID: 2715658553763172192}
   - {fileID: 1487816938765670222}
   - {fileID: 2332453751881594444}
   m_Father: {fileID: 2762857615842025375}
@@ -10419,7 +10418,7 @@ Transform:
   m_Children:
   - {fileID: 8766341418872591237}
   m_Father: {fileID: 1339411873122741855}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2502829508110361853
 SpriteRenderer:
@@ -15965,7 +15964,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1818633986524511276
 Transform:
   m_ObjectHideFlags: 0
@@ -16456,7 +16455,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2715658553763172192}
-  - component: {fileID: 5784329441645772799}
   - component: {fileID: 5034464276422295855}
   m_Layer: 0
   m_Name: ritual_moon_halo_rays
@@ -16473,24 +16471,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7436811464537920884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 3.45, z: -0.97776}
-  m_LocalScale: {x: 1.302942, y: 1.302942, z: 1.3249037}
+  m_LocalPosition: {x: -0.004183502, y: -0.1994136, z: 0.11595854}
+  m_LocalScale: {x: 0.18169534, y: 0.18169534, z: 0.1761372}
   m_Children: []
-  m_Father: {fileID: 1339411873122741855}
-  m_RootOrder: 3
+  m_Father: {fileID: 2332453751881594444}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5784329441645772799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7436811464537920884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda28c58ea0c24a0f89f9ef5ec9d2978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &5034464276422295855
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16509,7 +16495,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6d3554504335c74a876329e4198e145, type: 2}
+  - {fileID: 2100000, guid: f116c6413e2494f44930b35a37afe3a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16531,7 +16517,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6a3334c0436d1450cb9afb5915295f8d, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -16656,8 +16642,9 @@ Transform:
   m_LocalScale: {x: 7.1710267, y: 7.1710267, z: 7.521999}
   m_Children:
   - {fileID: 8252532897972081461}
+  - {fileID: 2715658553763172192}
   m_Father: {fileID: 1339411873122741855}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1800095289544981296
 MonoBehaviour:
@@ -23834,9 +23821,9 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &5003948581671654989 stripped
+--- !u!212 &3648847672993820339 stripped
 SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: -5158765692496312235, guid: d05189e451e0a425886f1a7817aa6d5f,
+  m_CorrespondingSourceObject: {fileID: -3478266594447298389, guid: d05189e451e0a425886f1a7817aa6d5f,
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}
@@ -23864,9 +23851,9 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &3648847672993820339 stripped
+--- !u!212 &889962144431342767 stripped
 SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: -3478266594447298389, guid: d05189e451e0a425886f1a7817aa6d5f,
+  m_CorrespondingSourceObject: {fileID: 8160591298595838647, guid: d05189e451e0a425886f1a7817aa6d5f,
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}
@@ -23888,9 +23875,9 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}
---- !u!212 &889962144431342767 stripped
+--- !u!212 &5003948581671654989 stripped
 SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 8160591298595838647, guid: d05189e451e0a425886f1a7817aa6d5f,
+  m_CorrespondingSourceObject: {fileID: -5158765692496312235, guid: d05189e451e0a425886f1a7817aa6d5f,
     type: 3}
   m_PrefabInstance: {fileID: 9014510278256287256}
   m_PrefabAsset: {fileID: 0}

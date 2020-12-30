@@ -37,7 +37,7 @@ public class ColorDodgeBlend : UIComponent
     
     void OnEnable()
     {
-        ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
+        RefreshCamera();
     }
 
     void RefreshMaterial()
@@ -59,24 +59,28 @@ public class ColorDodgeBlend : UIComponent
         Material.SetColor(ColorID, UpperTextureColor);
     }
 
-
+    void RefreshCamera()
+    {
+        ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
+    }
     protected override void OnValidate()
     {
         base.OnValidate();
         RefreshMaterial();
+        RefreshCamera();
     }
 
     void OnDidApplyAnimationProperties()
     {
-        ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
         Material.SetColor(ColorID, UpperTextureColor);
+        RefreshCamera();
     }
 
     [ContextMenu("Refresh")]
     void Refresh()
     {
         RefreshMaterial();
-        ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
+        RefreshCamera();
         Camera.Render();
     }
 
