@@ -1,4 +1,5 @@
-﻿using PuzzleScripts;
+﻿using System;
+using PuzzleScripts;
 using UnityEngine;
 
 namespace Puzzle
@@ -10,7 +11,7 @@ namespace Puzzle
 
         public override void OnHitPlayer(Player player)
         {
-            if (player.sides[side.GetHashCode()] != stickOut) //Sides shouldn't be equal
+            if (player.sides[(int)side] != stickOut) //Sides shouldn't be equal
             {
                 Die();
             } //That means everything's okay

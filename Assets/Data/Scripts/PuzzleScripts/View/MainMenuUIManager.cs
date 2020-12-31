@@ -75,7 +75,7 @@ namespace Puzzle
         void OnEnable()
         {
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
-            LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+            LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
             collectionButton.OnClick += CollectionButtonOnClick;
@@ -87,7 +87,7 @@ namespace Puzzle
         void OnDisable()
         {
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-            LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+            LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
@@ -105,7 +105,7 @@ namespace Puzzle
             Wallet.Alpha = 0;
         }
 
-        void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
+        void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
         {
             ShowMiniButtons();
             Wallet.Alpha = 1;

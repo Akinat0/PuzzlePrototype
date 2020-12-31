@@ -6,6 +6,7 @@ namespace Abu.Tools.UI
     public class MainCameraComponent : UIComponent
     {
         Camera camera;
+        
         void Awake()
         {
             camera = GetComponent<Camera>();
@@ -13,12 +14,24 @@ namespace Abu.Tools.UI
         }
 
         public Camera Camera => camera;
-
+        
         public void RenderIntoTexture(RenderTexture renderTexture)
         {
-            camera.targetTexture = renderTexture;
+            Rect pixelRect = camera.pixelRect;
+            RenderTexture cameraTexture = 
+                RenderTexture.GetTemporary((int) pixelRect.width, (int) pixelRect.height);
+
+            camera.targetTexture = cameraTexture;
             camera.Render();
             camera.targetTexture = null;
+            
+            Graphics.Blit(cameraTexture, renderTexture);
+            
+            RenderTexture.ReleaseTemporary(cameraTexture);
+        }
+        
+        public void Shake(){
+        
         }
     }
 }

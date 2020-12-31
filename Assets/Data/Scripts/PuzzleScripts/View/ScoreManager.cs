@@ -25,10 +25,6 @@ namespace Puzzle
         void Awake()
         {
             scoreText = GetComponent<TextMeshProUGUI>();
-        }
-
-        void Start()
-        {
             AlphaSetter = alpha => scoreText.alpha = alpha;
             AlphaGetter = () => scoreText.alpha;
             Text = Score;

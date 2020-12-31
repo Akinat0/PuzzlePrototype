@@ -40,14 +40,14 @@ public class BoostersToggleComponent : ToggleComponent
     {
         ToggleValueChanged += ToggleValueChanged_Handler;
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
     }
 
     void OnDisable()
     {
         ToggleValueChanged -= ToggleValueChanged_Handler;
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
     }
 
     void ToggleValueChanged_Handler(bool value)
@@ -73,7 +73,7 @@ public class BoostersToggleComponent : ToggleComponent
         RectTransform.DOAnchorPos(Vector2.right * RectTransform.rect.width, AnimationDuration);
     }
 
-    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
+    void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
     {
         Interactable = true;
         RectTransform.DOAnchorPos(Vector2.zero, AnimationDuration);

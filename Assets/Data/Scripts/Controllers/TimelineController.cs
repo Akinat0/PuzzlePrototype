@@ -12,7 +12,7 @@ public abstract class TimelineController : MonoBehaviour
 
     protected PlayableDirector _playableDirector;
 
-    private void Start()
+    private void Awake()
     {
         _playableDirector = GetComponent<PlayableDirector>();
         StartIndex();

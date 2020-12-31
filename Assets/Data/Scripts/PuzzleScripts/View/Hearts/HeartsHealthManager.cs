@@ -69,7 +69,7 @@ public class HeartsHealthManager : MonoBehaviour
     {
         if (activeAmount < 0 || activeAmount > HeartViews.Count)
         {
-            Debug.LogError($"[HeartManager] Can't visualize Hp. Target amount {activeAmount}, hearts amount {HeartViews.Count}");
+            Debug.LogWarning($"[HeartManager] Can't visualize Hp. Target amount {activeAmount}, hearts amount {HeartViews.Count}");
             return;
         }
 

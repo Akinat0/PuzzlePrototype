@@ -28,10 +28,7 @@ namespace Abu.Tools
                 if (MainCamera == null)
                     return Vector2.one;
 
-                float width = MainCamera.aspect * 2f * MainCamera.orthographicSize;
-                float height = 2f * MainCamera.orthographicSize;
-
-                return new Vector2(width, height);
+                return GetCameraSize(MainCamera);
             }
         }
 
@@ -114,6 +111,14 @@ namespace Abu.Tools
                 sprite.pixelsPerUnit);
         }
 
+        public static Vector2 GetCameraSize(Camera camera)
+        {
+            float width = camera.aspect * 2f * camera.orthographicSize;
+            float height = 2f * camera.orthographicSize;
+
+            return new Vector2(width, height);
+        } 
+        
         public static Mesh GetMeshSizeOfScreen()
         {
             Mesh mesh = new Mesh();
@@ -147,6 +152,12 @@ namespace Abu.Tools
             mesh.triangles = triangles;
 
             return mesh;
+        }
+
+        public static void FocusCameraOnBounds(Bounds bounds, Camera camera)
+        {
+            camera.transform.position = bounds.center;
+            camera.orthographicSize = bounds.extents.x;
         }
         
         private static Vector2 ScaleToFillScreen (float width, float height, float pixelsPerUnit)

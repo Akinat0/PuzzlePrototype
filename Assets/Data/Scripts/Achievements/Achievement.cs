@@ -24,6 +24,10 @@ public abstract class Achievement
             new RichBitchAchievement(),
             new FreezeBoosterAchievement(),
             new SuprematismAchievement(),
+            new RitualAchievement(),
+            new NeonPartyAchievement(),
+            new PuzzleCatcherAchievement(),
+            new FirstReviveAchievement(),
             new HeartBoosterAchievement(),
         };
         

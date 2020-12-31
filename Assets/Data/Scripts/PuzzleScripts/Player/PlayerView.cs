@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Abu.Tools;
+﻿using Abu.Tools;
 using Puzzle;
+using PuzzleScripts;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -14,9 +12,10 @@ public class PlayerView : MonoBehaviour
     [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
     private Transform[] TRBL_positions;
 
-    private Animator _animator;
+    protected Animator Animator;
     
     private static readonly int Damaged = Animator.StringToHash("Damaged");
+    private static readonly int Kill = Animator.StringToHash("Kill");
 
     public float PartOfScreen => _partOfScreen;
 
@@ -26,7 +25,7 @@ public class PlayerView : MonoBehaviour
 
     protected virtual void Start()
     {
-        _animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
         SetScale(_partOfScreen);
         defaultShapeRotation = shape.rotation;
     }
@@ -62,30 +61,47 @@ public class PlayerView : MonoBehaviour
         shape.Rotate(0, 0, 180);
     }
 
-    protected virtual void RestoreSides()
+    protected virtual void RestoreView()
     {
         shape.rotation = defaultShapeRotation;
     }
+
+    protected virtual void OnPlayerLoseHp()
+    {
+        Animator.SetTrigger(Damaged);
+    }
+
+    protected virtual void OnEnemyDied(EnemyBase enemy)
+    {
+        Animator.SetTrigger(Kill);
+    }
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
+        GameSceneManager.EnemyDiedEvent += OnEnemyDiedEvent_Handler;
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
+        GameSceneManager.EnemyDiedEvent -= OnEnemyDiedEvent_Handler;
     }
 
     void PlayerLosedHpEvent_Handler()
     {
-        _animator.SetTrigger(Damaged);
+        OnPlayerLoseHp();
     }
-
+    
+    void OnEnemyDiedEvent_Handler(EnemyBase enemy)
+    {
+        OnEnemyDied(enemy);
+    }
+    
     void LevelClosedEvent_Handler()
     {
-        RestoreSides();
+        RestoreView();
     }
 }

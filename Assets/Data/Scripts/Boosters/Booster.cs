@@ -18,7 +18,7 @@ public abstract class Booster
         //Convert int to bool
         IsActivated = PlayerPrefs.GetInt(IsActivatedKey, 0) != 0;
         
-        Amount = PlayerPrefs.GetInt(AmountKey, 0);
+        Amount = PlayerPrefs.GetInt(AmountKey, 10);
     }
     
     public event Action BoosterActivatedEvent;

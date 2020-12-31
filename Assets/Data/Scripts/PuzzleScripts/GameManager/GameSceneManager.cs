@@ -29,6 +29,7 @@ namespace Puzzle
         public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
         public static event Action<Booster> ApplyBoosterEvent;
         public static event Action<int> HeartsAmountChangedEvent;
+        public static event Action<string> TimelineEvent;
 
         [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] private CompleteScreenManager completeScreenManager;
@@ -38,6 +39,8 @@ namespace Puzzle
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => levelConfig;
         public LevelRootView LevelRootView => levelRootView;
+
+        Transform playerCachedParent;
 
         public Player Player => player;
 
@@ -101,7 +104,11 @@ namespace Puzzle
             player.sides = config.PuzzleSides.ToArray();
             
             _player.AddComponent<PlayerInput>();
+            
             FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
+
+            playerCachedParent = player.transform.parent;
+            player.transform.parent = GameSceneRoot;
             
             _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
             _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
@@ -118,12 +125,13 @@ namespace Puzzle
                 booster.Use();
         }
 
-        void UnloadScene()
+        void DestroyEnvironment()
         {
+            player.transform.parent = playerCachedParent;
             Destroy(player.GetComponent<PlayerInput>());
             Destroy(player.GetComponent<Player>());
             Destroy(_gameCameraAnimator);
-            SceneManager.UnloadSceneAsync(gameObject.scene);
+            Destroy(gameObject);
         }
 
         void CallEndgameMenu()
@@ -254,8 +262,8 @@ namespace Puzzle
             InvokePauseLevel(true);
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
-            UnloadScene();
-            LauncherUI.Instance.InvokeGameSceneUnloaded(
+            DestroyEnvironment();
+            LauncherUI.Instance.InvokeGameEnvironmentUnloaded(
                 new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars));
         }
         
@@ -313,6 +321,10 @@ namespace Puzzle
             HeartsAmountChangedEvent?.Invoke(hearts);
         }
 
-
+        public void InvokeTimelineEvent(string EventData)
+        {
+            Debug.Log("Timeline event invoked, data: " + EventData);
+            TimelineEvent?.Invoke(EventData);
+        }
     }
 }

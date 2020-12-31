@@ -29,22 +29,22 @@ public class LevelPreview : MonoBehaviour
 
     void OnEnable()
     {
-        LauncherUI.GameSceneLoadedEvent += GameSceneLoadedEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent += GameEnvironmentLoadedEventHandler;
+        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
     }
 
     void OnDisable()
     {
-        LauncherUI.GameSceneLoadedEvent -= GameSceneLoadedEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent -= GameEnvironmentLoadedEventHandler;
+        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
     }
     
-    void GameSceneLoadedEvent_Handler(GameSceneManager _)
+    void GameEnvironmentLoadedEventHandler(GameSceneManager _)
     {
         Hide();
     }
 
-    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
+    void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
     {
         Show();
     }

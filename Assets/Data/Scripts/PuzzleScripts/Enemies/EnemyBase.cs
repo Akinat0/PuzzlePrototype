@@ -13,6 +13,7 @@ namespace PuzzleScripts
         LongPuzzle
     }
 
+    [RequireComponent(typeof(Renderer))]
     public class EnemyBase : MonoBehaviour, IEnemy
     {
         public static readonly float Distance = 10f; //Distance to target
@@ -35,9 +36,8 @@ namespace PuzzleScripts
         private float _time = 0;
         private float _dist = 0;
 
-        Renderer renderer;
-
-        public Renderer Renderer
+        new Renderer renderer;
+        public virtual Renderer Renderer
         {
             get
             {

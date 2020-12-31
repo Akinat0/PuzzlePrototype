@@ -54,13 +54,13 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler; 
-        LauncherUI.GameSceneUnloadedEvent += GameSceneUnloadedEvent_Handler; 
+        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler; 
     }
 
     private void OnDisable()
     {
         LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-        LauncherUI.GameSceneUnloadedEvent -= GameSceneUnloadedEvent_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
     }
 
     void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
@@ -68,7 +68,7 @@ public class SoundManager : MonoBehaviour
         PauseTheme();   
     }
     
-    void GameSceneUnloadedEvent_Handler(GameSceneUnloadedArgs _)
+    void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
     {
         PlayTheme(launcherTheme);   
     }

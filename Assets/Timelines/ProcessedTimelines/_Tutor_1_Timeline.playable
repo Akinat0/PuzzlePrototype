@@ -19,6 +19,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7816909188464924385
@@ -53,6 +54,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-7105145180041079913
@@ -81,21 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Time: 16
---- !u!114 &-5894131686354298699
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b7fd90bbaae4438acc2f1ceb75dcd3, type: 3}
-  m_Name: Cutscene Marker
-  m_EditorClassIdentifier: 
-  m_Time: 38.23333300219644
-  sceneId: ShitAnimationCutscene
-  sceneTransitionType: 0
 --- !u!114 &-5875035031765571379
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,6 +102,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5827681386584096824
@@ -136,6 +124,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5634559205926879440
@@ -209,6 +198,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-5026837978576871965
@@ -257,6 +247,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3616684427183496218
@@ -278,6 +269,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3608434913335289746
@@ -299,6 +291,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3580078162963961012
@@ -320,6 +313,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3351389739562410641
@@ -341,6 +335,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-3327119209006150907
@@ -402,6 +397,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2181867282066655231
@@ -462,6 +458,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &11400000
@@ -498,21 +495,6 @@ MonoBehaviour:
   m_Time: 1.0166666666666666
   message: Hi, Friend!
   time: 4
---- !u!114 &1392828282068334807
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b7fd90bbaae4438acc2f1ceb75dcd3, type: 3}
-  m_Name: Cutscene Marker
-  m_EditorClassIdentifier: 
-  m_Time: 14.633333333333333
-  sceneId: PuzzleAnimationCutscene
-  sceneTransitionType: 0
 --- !u!114 &1876861167915535428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -561,6 +543,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3195490756791700479
@@ -592,8 +575,6 @@ MonoBehaviour:
     - {fileID: -1222840144867094855}
     - {fileID: 5753976266728641434}
     - {fileID: -5364786778751511052}
-    - {fileID: 1392828282068334807}
-    - {fileID: -5894131686354298699}
     - {fileID: -1736642807872668229}
     - {fileID: -5533444630348384608}
     - {fileID: 285179282838453526}
@@ -633,6 +614,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4797572458843947412
@@ -669,6 +651,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &4978202303559781799
@@ -690,6 +673,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5364716503613857705
@@ -724,6 +708,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5753976266728641434
@@ -745,6 +730,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &5849836537947160472
@@ -779,6 +765,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &6767474967852832318
@@ -800,6 +787,7 @@ MonoBehaviour:
     speed: 1.2
     stickOut: 1
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &7068401664700735281
@@ -864,6 +852,7 @@ MonoBehaviour:
     speed: 2
     stickOut: 0
     radialPosition: 0
+    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &9201351711418426919

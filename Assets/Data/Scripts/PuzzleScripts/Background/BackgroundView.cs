@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class BackgroundView : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer[] IgnoreList;
+    
     SpriteRenderer spriteRenderer;
     SpriteMask spriteMask;
     
@@ -28,7 +30,7 @@ public class BackgroundView : MonoBehaviour
             Vector3.one * ScreenScaler.FitHorizontal(spriteRenderer);
         
         CreateClipping();
-        
+
     }
 
     void CreateClipping()
@@ -36,9 +38,12 @@ public class BackgroundView : MonoBehaviour
         spriteMask = gameObject.AddComponent<SpriteMask>();
         spriteMask.sprite = spriteRenderer.sprite;
 
+        if(IgnoreList == null)
+            return;
+        
         foreach (SpriteRenderer sprite in SpritesInChildren)
         {
-            if(sprite)
+            if(!IgnoreList.Contains(sprite))
                 sprite.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
         }
     }

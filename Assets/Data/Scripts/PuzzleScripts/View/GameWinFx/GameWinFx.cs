@@ -21,15 +21,15 @@ public abstract class GameWinFx : MonoBehaviour
     
     void OnEnable()
     {
-        LauncherUI.GameSceneLoadedEvent += GameSceneLoadedEvent_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent += GameEnvironmentLoadedEventHandler;
     }
 
     void OnDisable()
     {
-        LauncherUI.GameSceneLoadedEvent -= GameSceneLoadedEvent_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent -= GameEnvironmentLoadedEventHandler;
     }
 
-    void GameSceneLoadedEvent_Handler(GameSceneManager _)
+    void GameEnvironmentLoadedEventHandler(GameSceneManager _)
     {
         Subscribe();
     }

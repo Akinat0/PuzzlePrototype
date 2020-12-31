@@ -24,7 +24,7 @@ public class EnemyMarkerEditor : Editor
         if(markers.Length > 1)
             Array.Sort(markers, (m1, m2) => m1.time.CompareTo(m2.time));
     }
-    
+
     void DrawProperties()
     {
         GUILayout.BeginVertical();
@@ -57,6 +57,9 @@ public class EnemyMarkerEditor : Editor
                 break;
             case EnemyType.Virus:
                 DrawVirusParameters(marker);
+                break;
+            case EnemyType.LongPuzzle:
+                DrawLongPuzzleParameters(marker);
                 break;
         }
     }
@@ -114,6 +117,14 @@ public class EnemyMarkerEditor : Editor
         DrawSide(marker);
         DrawRadialPosition(marker);
     }
+
+    void DrawLongPuzzleParameters(EnemyMarker marker)
+    {
+        DrawSpeed(marker);
+        DrawSide(marker);
+        DrawStickOut(marker);
+        DrawTrailTime(marker);
+    }
     
     void DrawTime(EnemyMarker marker)
     {
@@ -133,6 +144,11 @@ public class EnemyMarkerEditor : Editor
     void DrawStickOut(EnemyMarker marker)
     {
         marker.enemyParams.stickOut = EditorGUILayout.Toggle("StickOut", marker.enemyParams.stickOut);
+    }
+
+    void DrawTrailTime(EnemyMarker marker)
+    {
+        marker.enemyParams.trailTime = EditorGUILayout.FloatField("Trail time", marker.enemyParams.trailTime);
     }
 
     void DrawRadialPosition(EnemyMarker marker)

@@ -13,8 +13,8 @@ namespace ScreensScripts
         public static LauncherUI Instance;
         
         public static event Action<PlayLauncherEventArgs> PlayLauncherEvent;
-        public static event Action<GameSceneManager> GameSceneLoadedEvent;
-        public static event Action<GameSceneUnloadedArgs> GameSceneUnloadedEvent;
+        public static event Action<GameSceneManager> GameEnvironmentLoadedEvent;
+        public static event Action<GameSceneUnloadedArgs> GameEnvironmentUnloadedEvent;
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
@@ -50,7 +50,7 @@ namespace ScreensScripts
         void PlayLevel(LevelConfig config)
         {
             if (asyncLoader.gameObject != null && config != null && !string.IsNullOrEmpty(config.SceneID))
-                asyncLoader.LoadScene(config.SceneID, InvokeGameSceneLoaded);
+                asyncLoader.LoadGameEnvironment(config.SceneID, InvokeGameEnvironmentLoaded);
         }
 
         public void InvokePlayLauncher(PlayLauncherEventArgs args)
@@ -62,17 +62,17 @@ namespace ScreensScripts
             PlayLauncherEvent?.Invoke(args);
         }
         
-        public void InvokeGameSceneLoaded(GameSceneManager gameSceneManager)
+        public void InvokeGameEnvironmentLoaded(GameSceneManager gameSceneManager)
         {
-            Debug.Log("GameSceneLoaded Invoked");
+            Debug.Log("GameEnvironmentLoaded Invoked");
             gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig, actualLevelRootView); //LauncherUI is launcher scene root
-            GameSceneLoadedEvent?.Invoke(gameSceneManager);
+            GameEnvironmentLoadedEvent?.Invoke(gameSceneManager);
         }
 
-        public void InvokeGameSceneUnloaded(GameSceneUnloadedArgs args)
+        public void InvokeGameEnvironmentUnloaded(GameSceneUnloadedArgs args)
         {
-            Debug.Log("GameSceneUnloaded Invoked");
-            GameSceneUnloadedEvent?.Invoke(args);
+            Debug.Log("GameEnvironmentUnloaded Invoked");
+            GameEnvironmentUnloadedEvent?.Invoke(args);
 
             //Unpause game anyway
             TimeManager.DefaultTimeScale = 1;

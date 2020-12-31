@@ -138,7 +138,7 @@ namespace Abu.Tools.UI
             {
                 if (blurTexture == null)
                 {
-                    blurTexture = new RenderTexture(Screen.width >> downRes, Screen.height >> downRes, 16,
+                    blurTexture = new RenderTexture(Screen.width, Screen.height, 16,
                         RenderTextureFormat.ARGB32);
                     blurTexture.Create();
                 }
@@ -156,11 +156,11 @@ namespace Abu.Tools.UI
             BlurImage.texture = BlurTexture;
         }
 
-        public void RecreateBlurTexture()
+        void RecreateBlurTexture()
         {
             LauncherUI.Instance.MainCamera.RenderIntoTexture(BlurTexture); 
             
-            RenderTexture temporary = RenderTexture.GetTemporary(BlurTexture.width, blurTexture.height, 16);
+            RenderTexture temporary = RenderTexture.GetTemporary(BlurTexture.width >> downRes, BlurTexture.height >> downRes, 16);
             
             //We will use box blur and then gaussian blur
             BoxBlur(BlurTexture, temporary);

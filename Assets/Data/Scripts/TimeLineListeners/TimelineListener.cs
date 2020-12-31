@@ -7,7 +7,7 @@ using UnityEngine.Timeline;
 public partial class TimelineListener : MonoBehaviour, INotificationReceiver
 {
     PlayableDirector playableDirector;
-
+   
     protected PlayableDirector PlayableDirector
     {
         get
@@ -18,6 +18,8 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
             return playableDirector;
         }
     }
+    
+    protected virtual void Awake() { }
 
     protected double startTime = 0;
     
@@ -56,6 +58,10 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
                     Debug.Log($"Notification received {time} type: {typeof(BubbleDialogMarker)}");
                     GameSceneManager.Instance.ShowDialog(bubbleDialogMarker.Message, bubbleDialogMarker.Time);
                     break;
+                case EventMarker eventMarker:
+                    Debug.Log($"Notification received {time} type: {typeof(EventMarker)} : {eventMarker.EventData}");
+                    GameSceneManager.Instance.InvokeTimelineEvent(eventMarker.EventData);
+                    break;
             }
         }
     }
@@ -65,13 +71,15 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
         GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
     }
 
-    protected virtual  void OnDisable()
+    protected virtual void OnDisable()
     {
         GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+        GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
     
     protected virtual void GameStartedEvent_Handler()
@@ -107,5 +115,11 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
         PlayableDirector.time = 0;
         
         ReceiveNotifications = true;
+    }
+
+    void LevelClosedEvent_Handler()
+    {
+        ReceiveNotifications = false;
+        PlayableDirector.Stop();
     }
 }

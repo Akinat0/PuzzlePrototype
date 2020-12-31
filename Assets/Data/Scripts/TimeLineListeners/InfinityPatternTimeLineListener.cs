@@ -14,7 +14,7 @@ public class InfinityPatternTimeLineListener : TimelineListener
     private bool _reverseSide;
     private EnemyParams _enemyParams;
 
-    protected void Start()
+    protected override void Awake()
     {
         if (GameSceneManager.Instance is InfinityGameSceneManager instance)
         {
@@ -27,6 +27,8 @@ public class InfinityPatternTimeLineListener : TimelineListener
 
         _reverseStickOut = false;
         _reverseSide = false;
+        
+        base.Awake();
     }
 
     public override void OnNotify(Playable origin, INotification notification, object context)

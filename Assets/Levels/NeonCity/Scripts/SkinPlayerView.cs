@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SkinPlayerView : PlayerView
+﻿public class SkinPlayerView : PlayerView
 {
     private SkinContainer _shapeSkinContainer;
     
@@ -18,7 +14,7 @@ public class SkinPlayerView : PlayerView
         _shapeSkinContainer.Skin = _shapeSkinContainer.Skin == 0 ? 1 : 0;
     }
 
-    protected override void RestoreSides()
+    protected override void RestoreView()
     {
         _shapeSkinContainer.Skin = 0;
     }
