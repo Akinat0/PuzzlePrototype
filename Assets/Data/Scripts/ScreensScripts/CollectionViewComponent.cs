@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Data.Scripts.ScreensScripts
 {
     public class CollectionViewComponent : TextButtonComponent

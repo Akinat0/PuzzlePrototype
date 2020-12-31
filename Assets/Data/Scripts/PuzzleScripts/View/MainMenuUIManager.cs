@@ -13,11 +13,12 @@ namespace Puzzle
         [SerializeField] RectTransform miniButtonsContainer;
         [SerializeField] ButtonComponent collectionButton;
         [SerializeField] ButtonComponent achievementButton;
-        [SerializeField] ButtonComponent levelsButton;
+        [SerializeField] ButtonComponent shopButton;
         [SerializeField] ButtonComponent closeButton;
 
         [SerializeField] GameObject AchievementScreen;
         [SerializeField] GameObject CollectionScreen;
+        [SerializeField] GameObject ShopScreen;
 
         public RectTransform Root => root;
         public WalletComponent Wallet => wallet;
@@ -42,8 +43,16 @@ namespace Puzzle
             closeButton.SetActive(false);
             AchievementScreen.SetActive(false);
             CollectionScreen.SetActive(false);
+            ShopScreen.SetActive(false);
         }
 
+        void ShopButtonOnClick()
+        {
+            HideAllScreens();
+            closeButton.SetActive(true);
+            ShopScreen.SetActive(true);
+        }
+        
         void AchievementButtonOnClick()
         {
             HideAllScreens();
@@ -71,6 +80,7 @@ namespace Puzzle
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
             collectionButton.OnClick += CollectionButtonOnClick;
             achievementButton.OnClick += AchievementButtonOnClick;
+            shopButton.OnClick += ShopButtonOnClick;
             closeButton.OnClick += CloseButtonOnClick;
         }
 
@@ -81,6 +91,7 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
+            shopButton.OnClick -= ShopButtonOnClick;
             closeButton.OnClick -= CloseButtonOnClick;
         }
         

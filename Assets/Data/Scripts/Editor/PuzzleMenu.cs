@@ -3,7 +3,6 @@ using System.IO;
 using System;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -163,6 +162,12 @@ public class PuzzleMenu : EditorWindow
                 Close();
             }
         }
+    }
+    
+    [MenuItem("PuzzleUtils/Delete local")]
+    public static void DeleteLocal()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
 #endif

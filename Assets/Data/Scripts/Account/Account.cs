@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -14,10 +13,11 @@ public class Account : MonoBehaviour
         get
         {
             if (walletManager == null)
-                walletManager = gameObject.GetComponent<WalletManager>();
+                walletManager = gameObject.AddComponent<WalletManager>();
             return walletManager;
         }
     }
+    
     CollectionManager CollectionManager
     {
         get
@@ -38,19 +38,26 @@ public class Account : MonoBehaviour
     }
     public static Achievement[] Achievements => instance.achievements;
     public static Booster[] Boosters => instance.boosters;
+    public static Tier[] Tiers => instance.tiers;
+    public static RemoteConfig RemoteConfig => instance.remoteConfig;
 
+    RemoteConfig remoteConfig;
+    
     Achievement[] achievements;
     Booster[] boosters;
+    Tier[] tiers;
     WalletManager walletManager;
     CollectionManager collectionManager;
     LevelsManager levelsManager;
-    
-    
+
     private void Awake()
     {
         instance = this;
         boosters = Booster.CreateAllBoosters();
+        tiers = Tier.CreateAllTiers();
         achievements = Achievement.CreateAllAchievements();
+        
+        remoteConfig = new RemoteConfig();
     }
     
     #region Boosters
@@ -67,6 +74,20 @@ public class Account : MonoBehaviour
     
     #endregion
 
+    #region Tiers
+
+    public static Tier GetTier<T>() where T : Tier
+    {
+        return instance.tiers.FirstOrDefault(tier => tier.GetType() == typeof(T)) as T;
+    }
+    
+    public static Tier GetTier(int id)
+    {
+        return instance.tiers.FirstOrDefault(tier => tier.ID == id);
+    }
+    
+    #endregion
+    
     #region Achievement
     
     public static T GetAchievement<T>() where T : Achievement
@@ -86,6 +107,16 @@ public class Account : MonoBehaviour
         InvokeBalanceChanged();
     }
 
+    public static bool RemoveCoins(int amount)
+    {
+        if (Coins < amount)
+            return false;
+        
+        instance.WalletManager.RemoveCoins(amount);
+        InvokeBalanceChanged();
+        return true;
+    }
+
     private static void InvokeBalanceChanged()
     {
         int balance = instance.WalletManager.Coins;
@@ -101,6 +132,21 @@ public class Account : MonoBehaviour
     {
         get => instance.CollectionManager.DefaultItemID;
         set => instance.CollectionManager.DefaultItemID = value;
+    }
+
+    public static bool UnlockCollectionItem(int ID)
+    {
+        return instance.CollectionManager.UnlockItem(ID);
+    }
+
+    public static CollectionItem GetCollectionItem(string itemName)
+    {
+        return instance.CollectionManager.GetCollectionItem(itemName);
+    }
+    
+    public static CollectionItem GetCollectionItem(int ID)
+    {
+        return instance.CollectionManager.GetCollectionItem(ID);
     }
 
     public static CollectionItem CollectionDefaultItem => instance.CollectionManager.DefaultItem;

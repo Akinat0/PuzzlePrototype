@@ -1,3 +1,4 @@
+using System.Linq;
 using Abu.Tools.UI;
 using DG.Tweening;
 using TMPro;
@@ -31,12 +32,18 @@ namespace Data.Scripts.Boosters
         {
             Booster = booster;
             
-            Interactable = Booster.Amount > 0;
             IsOn = Booster.IsActivated;
             AmountText = Booster.Amount.ToString();
             
             ToggleValueChanged += value =>
             {
+                if (value && Booster.Amount <= 0)
+                {
+                    CreateTierWindow();
+                    IsOn = false;
+                    return;
+                }
+
                 if (value)
                     Booster.Activate();
                 else
@@ -45,12 +52,24 @@ namespace Data.Scripts.Boosters
 
             Booster.AmountChangedEvent += () =>
             {
-                Interactable = Booster.Amount > 0;
                 AmountText = Booster.Amount.ToString();
             };
+            
             Booster.BoosterActivatedEvent += () => IsOn = true;
             Booster.BoosterDeactivatedEvent += () => IsOn = false;
 
+        }
+
+        void CreateTierWindow()
+        {
+            Tier boosterTier = Account.Tiers.FirstOrDefault(tier =>
+                tier.Type == Tier.TierType.Booster && tier.Reward is BoosterReward boosterReward &&
+                boosterReward.Booster == Booster);
+
+            if (boosterTier == null)
+                return;
+            
+            TierWindow.Create(boosterTier.ID, () => IsOn = true);
         }
     }
 }

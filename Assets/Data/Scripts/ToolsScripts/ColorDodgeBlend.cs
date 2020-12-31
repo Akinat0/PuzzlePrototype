@@ -16,6 +16,7 @@ public class ColorDodgeBlend : UIComponent
     [SerializeField] Material Material;
 
     MeshRenderer MeshRenderer;
+    RenderTexture RenderTexture;
 
     public Color TextureColor
     {
@@ -45,17 +46,19 @@ public class ColorDodgeBlend : UIComponent
 #if UNITY_EDITOR
         Material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/Data/Materials/Common/ColorDodgeMaterial.mat");
 #endif
+        if(RenderTexture != null)
+            DestroyImmediate(RenderTexture);
         
-        RenderTexture renderTexture = new RenderTexture(UpperTexture.width, UpperTexture.height, 16, RenderTextureFormat.ARGB32);
+        RenderTexture = new RenderTexture(UpperTexture.width, UpperTexture.height, 16, RenderTextureFormat.ARGB32);
 
         Camera.forceIntoRenderTexture = true;
-        Camera.targetTexture = renderTexture;
+        Camera.targetTexture = RenderTexture;
 
         MeshRenderer = GetComponent<MeshRenderer>();
         MeshRenderer.sharedMaterial = Material;
         
         Material.SetTexture(SourceID, UpperTexture);
-        Material.SetTexture(DestinationID, renderTexture);
+        Material.SetTexture(DestinationID, RenderTexture);
         Material.SetColor(ColorID, UpperTextureColor);
     }
 
@@ -74,6 +77,11 @@ public class ColorDodgeBlend : UIComponent
     {
         Material.SetColor(ColorID, UpperTextureColor);
         RefreshCamera();
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(RenderTexture);
     }
 
     [ContextMenu("Refresh")]

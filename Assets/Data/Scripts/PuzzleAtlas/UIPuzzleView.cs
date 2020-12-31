@@ -1,4 +1,5 @@
-﻿using Abu.Tools.UI;
+﻿using System;
+using Abu.Tools.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +35,7 @@ public class UIPuzzleView : UIComponent
     public int ID
     {
         get => id;
-        set { id = value; } //TODO rebuild if id changes
+        set => id = value; //TODO rebuild if id changes
     }
 
     protected bool IsVisible { get; set; }
@@ -91,6 +92,11 @@ public class UIPuzzleView : UIComponent
     {
         RuntimePuzzleAtlas.Instance.DeactivateItem(ID);
         IsVisible = false;
+    }
+
+    void OnDestroy()
+    {
+        RuntimePuzzleAtlas.Instance.RebuildPuzzlesAtlas -= OnRebuildPuzzlesAtlas_Handler;
     }
 
     void OnRebuildPuzzlesAtlas_Handler()

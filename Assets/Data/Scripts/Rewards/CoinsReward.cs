@@ -10,9 +10,9 @@ public class CoinsReward : Reward
         Amount = amount;
     }
 
-    public override void CreateView(RectTransform container)
+    public override GameObject CreateView(RectTransform container)
     {
-        CoinsRewardView.Create(container, this);
+        return CoinsRewardView.Create(container, this).gameObject;
     }
 
     public override void Claim()

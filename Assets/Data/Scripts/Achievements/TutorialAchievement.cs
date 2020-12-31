@@ -12,13 +12,12 @@ public sealed class TutorialAchievement : Achievement
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
     
-    readonly CoinsReward reward = new CoinsReward(230);
+    readonly PuzzleReward reward = new PuzzleReward(Account.GetCollectionItem("Red").ID);
     
     public override string Name => "Start Learning";
     public override string Description => "Complete tutorial";
     public override Reward Reward => reward;
     public override float Goal => 1;
-
 
     void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)
     {

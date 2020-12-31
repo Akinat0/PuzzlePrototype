@@ -26,9 +26,9 @@ public abstract class Achievement
             new SuprematismAchievement(),
             new RitualAchievement(),
             new NeonPartyAchievement(),
-            new HearthBoosterAchievement(),
             new PuzzleCatcherAchievement(),
             new FirstReviveAchievement(),
+            new HeartBoosterAchievement(),
         };
         
         return achievements.ToArray();

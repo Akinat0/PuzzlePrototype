@@ -17,7 +17,7 @@ public class DetachedVFX : MonoBehaviour
         transform.localScale *= follower.lossyScale.x;
 
         Animator = GetComponent<Animator>();
-        hideState = Animator.GetBehaviours<AnimationEventBehaviour>().FirstOrDefault(beh => beh.StateId == "Hide");
+        hideState = AnimationEventBehaviour.FindState(Animator,"Hide");
     }
 
     public void Play()
@@ -31,6 +31,6 @@ public class DetachedVFX : MonoBehaviour
         Animator.SetBool(Show, false);
         
         if(hideState != null)
-            hideState.OnStateExitEvent += _ => Destroy(gameObject);
+            hideState.OnComplete += () => Destroy(gameObject);
     }
 }

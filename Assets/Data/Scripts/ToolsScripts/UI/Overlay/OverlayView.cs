@@ -25,6 +25,12 @@ namespace Abu.Tools.UI
 
         [SerializeField, Range(0, 1)] float phase;
 
+        protected virtual bool RaycastTarget
+        {
+            get => Background.raycastTarget;
+            set => Background.raycastTarget = value;
+        }
+        
         public float Phase
         {
             get => phase;

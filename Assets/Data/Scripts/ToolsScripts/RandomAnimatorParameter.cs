@@ -21,13 +21,13 @@ public class RandomAnimatorParameter : MonoBehaviour
             return;
 
         foreach (AnimationEventBehaviour behaviour in EventBehaviours)
-            behaviour.OnStateExitEvent += RandomizeParameter;
+            behaviour.OnExitState += RandomizeParameter;
     }
 
     private void OnDestroy()
     {
         foreach (AnimationEventBehaviour behaviour in EventBehaviours)
-            behaviour.OnStateExitEvent -= RandomizeParameter;
+            behaviour.OnExitState -= RandomizeParameter;
     }
 
     void RandomizeParameter(string PreviousStateID)

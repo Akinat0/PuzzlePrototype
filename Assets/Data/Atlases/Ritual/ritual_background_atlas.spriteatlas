@@ -20,7 +20,19 @@ SpriteAtlas:
       readable: 0
       crunchedCompression: 0
       sRGB: 1
-    platformSettings: []
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
       padding: 4
@@ -43,9 +55,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 06946bb4caef74ab1894f652a974cbf0, type: 3}
     - {fileID: 2800000, guid: 9983b9dcde38446659174a4c7b3bf650, type: 3}
     - {fileID: 2800000, guid: c2610c97924b049b9939cb22d419b93e, type: 3}
-    - {fileID: 2800000, guid: ac3bb7bcb4418442b9dd945d5c8f4295, type: 3}
     - {fileID: 2800000, guid: 53676bf0f6f286543b08657987f963b4, type: 3}
-    - {fileID: 2800000, guid: c590400740686e942acde06b0386e0b5, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -56,14 +66,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1a53a4526029542efa1ce8926411591e, type: 3}
   - {fileID: 21300000, guid: 06946bb4caef74ab1894f652a974cbf0, type: 3}
   - {fileID: 21300000, guid: 542cc3d545e7541359ff5122efef0848, type: 3}
-  - {fileID: 21300000, guid: c590400740686e942acde06b0386e0b5, type: 3}
   - {fileID: 21300000, guid: 06138c27d700a4b9ea5df1913d08109e, type: 3}
   - {fileID: 21300000, guid: c2610c97924b049b9939cb22d419b93e, type: 3}
   - {fileID: 21300000, guid: caaf83185154c4575b2e5188cfb549fc, type: 3}
   - {fileID: 21300000, guid: 42d65509616d74c00bd3dec88f5c8d81, type: 3}
   - {fileID: 21300000, guid: da4d469a6921a4c1d8ccb5845b14ff95, type: 3}
   - {fileID: 21300000, guid: 5fd6e46c8906b44a39426eba382e1ced, type: 3}
-  - {fileID: 21300000, guid: ac3bb7bcb4418442b9dd945d5c8f4295, type: 3}
   - {fileID: 21300000, guid: 9983b9dcde38446659174a4c7b3bf650, type: 3}
   m_PackedSpriteNamesToIndex:
   - ritual_hill_1
@@ -73,14 +81,12 @@ SpriteAtlas:
   - ritual_hill_3
   - ritual_hill_4
   - ritual_hill_2
-  - lake_gradient
   - ritual_tree_1
   - moon
   - ritual_tree_4
   - ritual_tree_3
   - ritual_tree_5
   - ritual_heart
-  - moon_glow
   - ritual_hill_5
   m_Tag: ritual_background_atlas
   m_IsVariant: 0

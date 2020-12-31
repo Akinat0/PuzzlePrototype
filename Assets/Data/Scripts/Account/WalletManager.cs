@@ -21,6 +21,11 @@ public class WalletManager : MonoBehaviour
     {
         Coins += amount;
     }
+
+    public void RemoveCoins(int amount)
+    {
+        Coins -= amount;
+    }
     
     private void Awake()
     {
@@ -29,7 +34,6 @@ public class WalletManager : MonoBehaviour
 
 //    private void OnApplicationQuit()
 //    {
-//        Uncomment this
 //        SaveCoins();
 //    }
 

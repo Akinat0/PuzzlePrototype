@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
@@ -30,6 +31,10 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             return nextLevel;
         }
     }
+
+    string SelectText => "Select";
+    string LockedText => "Unlock";
+    string SetAsDefaultText => "SetAsDefault";
     
     #endregion
     
@@ -51,7 +56,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         HideCollection();
 
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField,
-            possibleContent: new[] {"Set as default"}));
+            possibleContent: new[] { SetAsDefaultText }));
     }
 
     protected override void MoveLeft()
@@ -120,8 +125,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         SetupColors(LauncherUI.Instance.LevelConfig.ColorScheme);
 
-        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? "Select" : "Set As Default";
-        
+        UpdateInteractButtonText();
+
         int index = Account.CollectionDefaultItemId; 
         
         if (ItemID != null)
@@ -169,11 +174,27 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         
         itemContainers.Clear();
     }
+
+    void UpdateInteractButtonText()
+    {
+        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? SelectText : SetAsDefaultText;
+    }
     
     void OnChoose()
     {
         if (!IsFocused || !itemContainers.ContainsKey(Index))
             return;
+
+        if (!Current.Unlocked)
+        {
+            Tier puzzleTier = Account.Tiers.Where(tier => tier.Type == Tier.TierType.Puzzle).FirstOrDefault(tier => tier.Reward is PuzzleReward puzzleReward && puzzleReward.PuzzleID == Current.ID);
+
+            if(puzzleTier == null)
+                return;
+
+            TierWindow.Create(puzzleTier.ID, UpdateInteractButtonText);
+            return;
+        }
 
         PlayerView newPlayerView = LauncherUI.Instance.LevelConfig.CollectionEnabled ? itemContainers[Index] : null;
         
@@ -270,6 +291,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         ItemsContainer.SetX(- Index * ScreenScaler.CameraSize.x);
         
         ProcessSideButtonsByIndex();
+        ProcessInteractButtonByIndex();
     }
     
     void ProcessSideButtonsByIndex()
@@ -280,6 +302,17 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         RightBtn.Color = Index + 1 < Length ? Color.white : Color.clear;
         LeftBtn.Color = Index > 0 ? Color.white : Color.clear;
     }
+
+    void ProcessInteractButtonByIndex()
+    {
+        if (Current.Unlocked)
+            UpdateInteractButtonText();
+        else
+        {
+            InteractBtn.Text = LockedText;
+        }
+    }
+    
     #endregion
     
     #region event handlers
@@ -341,6 +374,5 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     }
     
     #endregion
-
     
 }

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8837885727616567408}
   - component: {fileID: 8837885727616567410}
   - component: {fileID: 7269153432061363020}
-  - component: {fileID: -184287035213491191}
   m_Layer: 5
   m_Name: TextButton
   m_TagString: Untagged
@@ -148,25 +147,6 @@ MonoBehaviour:
   Sound: {fileID: 8300000, guid: 32d4b1811dda14a6cb9e059ee8ad17d2, type: 3}
   ButtonColor: {r: 1, g: 1, b: 1, a: 1}
   ButtonText: Text
---- !u!95 &-184287035213491191
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8837885727616567422}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8837885728775039073
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +255,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0, y: 1.2}
+  m_AnchoredPosition: {x: 0, y: 1.199997}
   m_SizeDelta: {x: -29.554321, y: -27.091492}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8837885729415829572
@@ -333,7 +313,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 40.35
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
