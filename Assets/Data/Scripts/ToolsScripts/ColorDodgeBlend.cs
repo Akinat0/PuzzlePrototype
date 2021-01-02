@@ -81,7 +81,8 @@ public class ColorDodgeBlend : UIComponent
 
     private void OnDestroy()
     {
-        Destroy(RenderTexture);
+        Camera.targetTexture = null;
+        DestroyImmediate(RenderTexture);
     }
 
     [ContextMenu("Refresh")]
