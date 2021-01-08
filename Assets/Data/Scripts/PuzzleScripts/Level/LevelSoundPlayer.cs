@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
+using AudioVisualization;
 using Puzzle;
 using UnityEngine;
-using UnityEngine.Audio;
+
 
 public class LevelSoundPlayer : MonoBehaviour
 {
     protected Dictionary<AudioSource, AnimationCurve> audioSources = new Dictionary<AudioSource, AnimationCurve>();
 
+    AudioDataSource audioDataSource;
+
+    void Awake()
+    {
+        audioDataSource = GetComponent<AudioDataSource>();
+    }
+
     protected virtual void Update()
     {
+        if(audioSources.Count == 0)
+            return;
+        
         foreach (AudioSource audioSource in audioSources.Keys)
         {
             if(audioSource == null)
@@ -57,6 +66,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PlayAudioEvent += PlayAudioEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
+        GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
         TimeManager.DefaultTimeScaleValueChanged += DefaultTimeScaleValueChanged_Handler;
     }
 
@@ -65,6 +75,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PlayAudioEvent -= PlayAudioEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
+        GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
         TimeManager.DefaultTimeScaleValueChanged -= DefaultTimeScaleValueChanged_Handler;
     }
 
@@ -86,6 +97,9 @@ public class LevelSoundPlayer : MonoBehaviour
         audioSource.pitch = TimeManager.TimeScale;
 
         audioSource.Play();
+        
+        if(audioDataSource != null)
+            audioDataSource.AttachAudioSource(audioSource);
     }
     
     void PauseLevelEvent_Handler(bool paused)
@@ -94,6 +108,11 @@ public class LevelSoundPlayer : MonoBehaviour
     }
     
     void ResetLevelEvent_Handler()
+    {
+        ClearAudio();
+    }
+
+    void LevelClosedEvent_Handler()
     {
         ClearAudio();
     }
