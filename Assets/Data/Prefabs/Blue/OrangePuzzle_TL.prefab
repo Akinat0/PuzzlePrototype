@@ -15,8 +15,8 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 593447243670306959, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
-      propertyPath: m_Color.r
-      value: 1
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 593447243670306959, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
@@ -25,7 +25,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 593447243670306959, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
-      propertyPath: m_Color.b
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
@@ -45,6 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -56,16 +66,6 @@ PrefabInstance:
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
@@ -87,6 +87,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OrangePuzzle_TL
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[1].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[1].r
+      value: 0.011764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[2].g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[2].r
+      value: 0.20000002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[3].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colors.Array.data[3].g
+      value: 0.5686275
       objectReference: {fileID: 0}
     - target: {fileID: 6483042016809923517, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}

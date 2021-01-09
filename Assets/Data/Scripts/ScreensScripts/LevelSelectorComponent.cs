@@ -299,15 +299,13 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
 
         LevelRootView levelRootView = levelContainers[index];
-        
-        GameObject newPlayerViewPrefab = Account.CollectionDefaultItem.GetPuzzleVariant(Selection[index].PuzzleSides);
 
-        if (!newPlayerViewPrefab)
+        PlayerView newPlayerView = PlayerView.Create(null, Account.CollectionDefaultItem.ID, Selection[index].PuzzleSides);
+        
+        if (newPlayerView == null)
             return;
             
         Destroy(levelRootView.PlayerView.gameObject);
-
-        PlayerView newPlayerView = Instantiate(newPlayerViewPrefab).GetComponent<PlayerView>();
 
         levelRootView.PlayerView = newPlayerView;
     }

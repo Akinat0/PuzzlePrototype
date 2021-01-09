@@ -17,6 +17,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     [SerializeField] ButtonComponent HomeBtn;
     [SerializeField] Transform ItemsContainer;
     [SerializeField] RectTransform Content;
+    [SerializeField] CollectionColorSelector ColorSelector;
 
     #endregion
     
@@ -105,9 +106,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (itemContainers.ContainsKey(index))
             return;
 
-        Transform collectionItem =
-            Instantiate(Selection[index].GetPuzzleVariant(LauncherUI.Instance.LevelConfig.PuzzleSides), ItemsContainer)
-                .transform;
+        Transform collectionItem = PlayerView.Create(ItemsContainer, Selection[index].ID, LauncherUI.Instance.LevelConfig.PuzzleSides).transform;
+        
         collectionItem.localPosition = index * ScreenScaler.CameraSize * Vector2.right;
         itemContainers[index] = collectionItem.GetComponent<PlayerView>();
     }
@@ -289,6 +289,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         Offset = Index;
         
         ItemsContainer.SetX(- Index * ScreenScaler.CameraSize.x);
+        
+        ColorSelector.ProcessIndex(Index, Selection);
         
         ProcessSideButtonsByIndex();
         ProcessInteractButtonByIndex();

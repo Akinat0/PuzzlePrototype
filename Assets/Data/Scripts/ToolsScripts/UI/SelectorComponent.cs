@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Data.Scripts.Tools.Input;
 using UnityEngine;
 
 namespace Abu.Tools.UI

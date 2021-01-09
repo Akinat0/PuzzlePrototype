@@ -20,8 +20,6 @@ public abstract class Tier
         return new List<Tier>
         {
             new HeartBoosterTier(),
-            new GreenPuzzleTier(),
-            new RedPuzzleTier(),
             new TimeFreezeBoosterTier(),
             
         }.ToArray();

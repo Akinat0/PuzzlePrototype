@@ -15,6 +15,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -30,6 +35,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -41,16 +51,6 @@ PrefabInstance:
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 979535260916508466, guid: d6dde514f921d44bbb62005d47ed91c9,
@@ -73,6 +73,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: BluePuzzle_TRBL
       objectReference: {fileID: 0}
+    - target: {fileID: 6213134702107427209, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colorSkins.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6213134702107427209, guid: d6dde514f921d44bbb62005d47ed91c9,
+        type: 3}
+      propertyPath: colorSkins.Array.data[0]
+      value: 
+      objectReference: {fileID: 6192926775693065509}
     - target: {fileID: 6483042016809923517, guid: d6dde514f921d44bbb62005d47ed91c9,
         type: 3}
       propertyPath: _Sprites.Array.data[0]
@@ -87,3 +97,15 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6dde514f921d44bbb62005d47ed91c9, type: 3}
+--- !u!114 &6192926775693065509 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2565135726741612817, guid: d6dde514f921d44bbb62005d47ed91c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8532213861194421300}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7867a20234aa4c7aafc8ed3622468eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

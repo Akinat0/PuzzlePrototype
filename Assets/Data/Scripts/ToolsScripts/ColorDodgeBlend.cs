@@ -46,9 +46,11 @@ public class ColorDodgeBlend : UIComponent
 #if UNITY_EDITOR
         Material = UnityEditor.AssetDatabase.LoadAssetAtPath<Material>("Assets/Data/Materials/Common/ColorDodgeMaterial.mat");
 #endif
-        if(RenderTexture != null)
-            DestroyImmediate(RenderTexture);
+        Camera.targetTexture = null;
         
+        if (RenderTexture != null)
+            DestroyImmediate(RenderTexture);
+
         RenderTexture = new RenderTexture(UpperTexture.width, UpperTexture.height, 16, RenderTextureFormat.ARGB32);
 
         Camera.forceIntoRenderTexture = true;

@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _partOfScreen: 0.25
   shape: {fileID: 5176168562646035759}
+  colorSkins: []
   TRBL_positions:
   - {fileID: 1546686867688416708}
   - {fileID: 897065173522100192}
@@ -274,6 +275,7 @@ GameObject:
   - component: {fileID: 5176168562646035759}
   - component: {fileID: 593447243670306959}
   - component: {fileID: 6483042016809923517}
+  - component: {fileID: 2565135726741612817}
   m_Layer: 0
   m_Name: Shape
   m_TagString: DamagableView
@@ -360,6 +362,28 @@ MonoBehaviour:
   _Sprites:
   - {fileID: 21300000, guid: 20989bb43f03c499595e3fdbf3f7e1e1, type: 3}
   - {fileID: 21300000, guid: a06de487f80074b5dafad857441fe70f, type: 3}
+--- !u!114 &2565135726741612817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3842958785870243051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7867a20234aa4c7aafc8ed3622468eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.011764707, g: 1, b: 0, a: 1}
+  - {r: 0.20000002, g: 0.6313726, b: 1, a: 1}
+  - {r: 1, g: 0.5686275, b: 0, a: 1}
+  colorIDs:
+  - Red
+  - Green
+  - Blue
+  - Yellow
 --- !u!1 &5375074283878449981
 GameObject:
   m_ObjectHideFlags: 0

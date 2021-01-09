@@ -50,7 +50,7 @@ public class Account : MonoBehaviour
     CollectionManager collectionManager;
     LevelsManager levelsManager;
 
-    private void Awake()
+    void Awake()
     {
         instance = this;
         boosters = Booster.CreateAllBoosters();
@@ -139,6 +139,11 @@ public class Account : MonoBehaviour
         return instance.CollectionManager.UnlockItem(ID);
     }
 
+    public static void UnlockCollectionItemColor(int ID, string colorID)
+    {
+        instance.CollectionManager.UnlockItemColor(ID, colorID);
+    }
+    
     public static CollectionItem GetCollectionItem(string itemName)
     {
         return instance.CollectionManager.GetCollectionItem(itemName);

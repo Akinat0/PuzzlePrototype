@@ -22,6 +22,11 @@ public class CollectionManager : MonoBehaviour
         return CollectionData.UnlockItem(ID);
     }
 
+    public void UnlockItemColor(int ID, string colorID)
+    {
+        CollectionData.UnlockItemColor(ID, colorID);
+    }
+
     public CollectionItem GetCollectionItem(int ID)
     {
         return CollectionData.GetCollectionItem(ID);

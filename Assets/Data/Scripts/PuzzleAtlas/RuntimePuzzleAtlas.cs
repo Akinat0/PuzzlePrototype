@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
-using Puzzle;
 using UnityEngine;
 
 public class RuntimePuzzleAtlas : MonoBehaviour
@@ -37,12 +35,11 @@ public class RuntimePuzzleAtlas : MonoBehaviour
 
         foreach (var item in Account.CollectionItems)
         {
-            inactiveItems[item.ID] = Instantiate(item.GetAnyPuzzleVariant(), transform).transform;
+            inactiveItems[item.ID] = PlayerView.Create(transform, item.ID).transform;
             inactiveItems[item.ID].localPosition = CameraSize * 3;
         }
     }
 
-    
     public Rect GetPuzzleRectInAtlas(int id)
     {
         if (!activeItems.ContainsKey(id))

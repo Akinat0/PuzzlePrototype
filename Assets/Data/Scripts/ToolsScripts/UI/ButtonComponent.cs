@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using System.Linq;
 using Data.Scripts.Tools.Input;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -14,6 +11,7 @@ namespace Abu.Tools.UI
     {
         [SerializeField] protected AudioClip Sound;
         [SerializeField] protected Color ButtonColor = Color.white;
+        [SerializeField] protected Image icon;
 
         public event Action OnClick;
         public event Action OnHoldDown;
@@ -66,6 +64,8 @@ namespace Abu.Tools.UI
             }
         }
 
+        public Image Icon => icon;
+        
         private RectTransform rectTransform;
         private Image background;
         private Button button;
