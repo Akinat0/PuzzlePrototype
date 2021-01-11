@@ -8,15 +8,20 @@ public class PlayerView : MonoBehaviour
 {
     public static PlayerView Create(Transform parent, int ID, PuzzleSides? sides = null)
     {
+        return Create(parent, Account.GetCollectionItem(ID), sides);
+    }
+    
+    public static PlayerView Create(Transform parent, CollectionItem collectionItem, PuzzleSides? sides = null)
+    {
         GameObject puzzleVariant = sides != null 
-            ? Account.GetCollectionItem(ID).GetPuzzleVariant(sides.Value) 
-            : Account.GetCollectionItem(ID).GetAnyPuzzleVariant();
+            ? collectionItem.GetPuzzleVariant(sides.Value) 
+            : collectionItem.GetAnyPuzzleVariant();
 
         if (puzzleVariant == null)
             return null;
         
         PlayerView playerView = Instantiate(puzzleVariant, parent).GetComponent<PlayerView>();
-        playerView.ID = ID;
+        playerView.ID = collectionItem.ID;
         return playerView;
     }
     

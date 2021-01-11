@@ -7,9 +7,9 @@ using UnityEngine;
 public class CollectionItem : ScriptableObject
 {
     [SerializeField] public string Name;
-    [SerializeField] private PuzzleVariant[] puzzleVariants;
-    [SerializeField] private bool defaultUnlocked;
-    [SerializeField] PuzzleColorData[] puzzleColors;
+    [SerializeField] public PuzzleVariant[] puzzleVariants;
+    [SerializeField] public bool defaultUnlocked;
+    [SerializeField] public PuzzleColorData[] puzzleColors;
 
     public event Action<bool> OnUnlockedEvent;
     public event Action<int> OnActiveColorChangedEvent;
@@ -58,6 +58,17 @@ public class CollectionItem : ScriptableObject
     {
         return puzzleVariants.FirstOrDefault().Puzzle;
     }
+    
+    #if UNITY_EDITOR
+
+    [ContextMenu("Delete")]
+    void Delete()
+    {
+        UnityEditor.AssetDatabase.DeleteAsset(UnityEditor.AssetDatabase.GetAssetPath(this));
+    }
+
+    #endif
+    
 }
 
 [Serializable]
@@ -73,6 +84,14 @@ public struct PuzzleVariant
 [Serializable]
 public struct PuzzleColorData
 {
+    public PuzzleColorData(string id, Color color, bool defaultUnlocked)
+    {
+        this.id = id;
+        this.color = color;
+        this.defaultUnlocked = defaultUnlocked;
+        IsUnlocked = false;
+    }
+
     [SerializeField] string id;
     [SerializeField] Color color;
     [SerializeField] bool defaultUnlocked;

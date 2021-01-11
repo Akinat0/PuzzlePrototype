@@ -6,16 +6,20 @@ namespace Abu.Tools
 {
     public static class CaptureUtility
     { 
-        public static Texture2D Capture(SpriteRenderer renderer)
+        public static Texture2D Capture(SpriteRenderer renderer, bool inOtherLayer = true)
         {
             int prevSpriteLayer = renderer.gameObject.layer;
-            renderer.gameObject.layer = LayerMask.NameToLayer("RenderTexture");
 
             Vector2 spriteScale = new Vector2(renderer.transform.lossyScale.x, renderer.transform.lossyScale.y);
 
             Camera camera = CreateCameraForSprite(renderer);
-            camera.cullingMask = 1 << LayerMask.NameToLayer("RenderTexture");
-            
+
+            if (inOtherLayer)
+            {
+                renderer.gameObject.layer = LayerMask.NameToLayer("RenderTexture");
+                camera.cullingMask = 1 << LayerMask.NameToLayer("RenderTexture");
+            }
+
             int textureWidth = Mathf.CeilToInt(renderer.sprite.rect.width * spriteScale.x);
             int textureHeight = Mathf.CeilToInt(renderer.sprite.rect.height * spriteScale.y);
             
@@ -23,6 +27,8 @@ namespace Abu.Tools
             
             camera.targetTexture = renderTexture;
             camera.Render();
+            
+            Debug.Break();
             
             Texture2D texture = camera.targetTexture.ToTexture2D();
             
@@ -33,6 +39,8 @@ namespace Abu.Tools
 
             return texture;
         }
+        
+        
 
         public static Camera CreateCameraForSprite(SpriteRenderer renderer)
         {

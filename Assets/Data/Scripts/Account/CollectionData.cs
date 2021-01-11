@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -167,6 +168,20 @@ public class CollectionData : ScriptableObject
         PlayerPrefs.Save();
         Debug.Log($"Default item saved. It is {defaultItemID.ToString()}, his name is {DefaultItem.name}");
     }
+    
+    #endregion
+    
+    #region editor
+
+    #if UNITY_EDITOR
+    public void AddCollectionItem(CollectionItem item)
+    {
+        List<CollectionItem> list = _CollectionItems.ToList();
+        list.Add(item);
+        _CollectionItems = list.ToArray();
+    }
+    
+    #endif
     
     #endregion
 }

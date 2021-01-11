@@ -9,6 +9,11 @@ using UnityEngine.Timeline;
 #if UNITY_EDITOR
 public class PuzzleMenu : EditorWindow
 {
+    [MenuItem("PuzzleUtils/Collection Puzzles...")]
+    public static void ShowCollectionPuzzles()
+    {
+        Wizard.Show<CollectionWizard>();
+    }
     
     [MenuItem("PuzzleUtils/Generate Timeline")]
     public static void GenerateTimelines()
@@ -169,6 +174,7 @@ public class PuzzleMenu : EditorWindow
     {
         PlayerPrefs.DeleteAll();
     }
+
 }
 #endif
 

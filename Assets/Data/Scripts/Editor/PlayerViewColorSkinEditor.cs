@@ -27,7 +27,7 @@ public class PlayerViewColorSkinEditor : Editor
 
     void DrawMap()
     {
-
+#pragma warning disable 618
         if (CollectionItem == null)
         {
             EditorGUILayout.HelpBox("Collection item can't be found", MessageType.Error);
@@ -71,7 +71,7 @@ public class PlayerViewColorSkinEditor : Editor
             EditorGUILayout.EndHorizontal();
         }
     }
-    
+#pragma warning restore 618 
     CollectionItem GetCollectionItem()
     {
         PrefabStage prefabStage = PrefabStageUtility.GetPrefabStage(Target.gameObject);
