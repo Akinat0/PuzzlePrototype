@@ -35,4 +35,11 @@ public class SkinContainer : SkinContainerBase
             Debug.LogError("Index " + index);
         }
     }
+    
+    #if UNITY_EDITOR
+    public static void SetEditorSprites(SkinContainer skinContainer, Sprite[] sprites)
+    {
+        skinContainer._Sprites = sprites;
+    }
+    #endif
 }

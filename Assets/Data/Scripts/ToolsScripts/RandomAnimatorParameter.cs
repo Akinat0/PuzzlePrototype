@@ -21,16 +21,16 @@ public class RandomAnimatorParameter : MonoBehaviour
             return;
 
         foreach (AnimationEventBehaviour behaviour in EventBehaviours)
-            behaviour.OnExitState += RandomizeParameter;
+            behaviour.OnExit += RandomizeParameter;
     }
 
     private void OnDestroy()
     {
         foreach (AnimationEventBehaviour behaviour in EventBehaviours)
-            behaviour.OnExitState -= RandomizeParameter;
+            behaviour.OnExit -= RandomizeParameter;
     }
 
-    void RandomizeParameter(string PreviousStateID)
+    void RandomizeParameter()
     {
         int newParameterValue = Random.Range(0, ParameterRange);
 
@@ -43,4 +43,14 @@ public class RandomAnimatorParameter : MonoBehaviour
         Animator.SetInteger(ParameterName, newParameterValue);
     }
     
+    
+    #if UNITY_EDITOR
+
+    public static void SetSettings(RandomAnimatorParameter animatorParameter, int range, string parameterName = "RandomParameter")
+    {
+        animatorParameter.ParameterRange = range;
+        animatorParameter.ParameterName = parameterName;
+    }
+    
+    #endif
 }

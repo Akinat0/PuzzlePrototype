@@ -156,4 +156,19 @@ public class PlayerView : MonoBehaviour
     {
         RestoreView();
     }
+    
+    
+    #if UNITY_EDITOR
+    
+    public static void SetEditorColorSkins(PlayerView playerView, PlayerViewColorSkin[] colorSkins)
+    {
+        playerView.colorSkins = colorSkins;
+    }
+
+    public static void SetEditorTRBL(PlayerView playerView, Transform[] trbl)
+    {
+        playerView.TRBL_positions = trbl;
+    }
+    
+    #endif
 }
