@@ -1,5 +1,6 @@
 using System;
 using System.Data.Common;
+using System.Text;
 using UnityEngine;
 
 namespace Puzzle
@@ -44,6 +45,18 @@ namespace Puzzle
         {
             return other.Top == Top && other.Right == Right 
                                     && other.Bottom == Bottom && other.Left == Left;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            
+            if (Top) stringBuilder.Append("T");
+            if (Right) stringBuilder.Append("R");
+            if (Bottom) stringBuilder.Append("B");
+            if (Left) stringBuilder.Append("L");
+            
+            return stringBuilder.ToString();
         }
     }
 }

@@ -1,14 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerViewColorSkin : MonoBehaviour
 {
+    [Serializable]
+    public struct ColorSkin
+    {
+        public Color Color;
+        public PuzzleColorData PuzzleColor;
+    }
+    
     SpriteRenderer spriteRenderer;
 
-    [SerializeField] List<Color> colors;
-    [SerializeField] List<string> colorIDs;
+    [SerializeField] ColorSkin[] ColorSkins;
     
     void Awake()
     {
@@ -17,32 +23,16 @@ public class PlayerViewColorSkin : MonoBehaviour
 
     public void ChangePuzzleSkin(PuzzleColorData puzzleColor)
     {
-        int colorIndex = colorIDs.IndexOf(puzzleColor.ID);
-
-        if (colorIndex < 0)
-        {
-            Debug.LogError($"[PlayerView] Color {puzzleColor.ID} doesn't exist. It won't be updated.");
-            return;
-        }
-
-        spriteRenderer.color = colors[colorIndex];
+        spriteRenderer.color = ColorSkins.FirstOrDefault(colorSkin => colorSkin.PuzzleColor.ID == puzzleColor.ID).Color;
     }
     
     
 #if UNITY_EDITOR
-
-    [Obsolete("For editor only", false)]
-    public List<Color> Colors
+    
+    public ColorSkin[] EditorColorSkins
     {
-        get => colors;
-        set => colors = value;
-    }
-
-    [Obsolete("For editor only", false)]
-    public List<string> ColorIDs
-    {
-        get => colorIDs;
-        set => colorIDs = value;
+        get => ColorSkins;
+        set => ColorSkins = value;
     }
 
 #endif

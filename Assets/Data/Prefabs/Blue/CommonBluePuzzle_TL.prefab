@@ -374,16 +374,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7867a20234aa4c7aafc8ed3622468eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0.011764707, g: 1, b: 0, a: 1}
-  - {r: 0.20000002, g: 0.6313726, b: 1, a: 1}
-  - {r: 1, g: 0.5686275, b: 0, a: 1}
-  colorIDs:
-  - Red
-  - Green
-  - Blue
-  - Yellow
+  ColorSkins:
+  - Color: {r: 1, g: 0, b: 0, a: 1}
+    PuzzleColor:
+      id: Red
+      color: {r: 1, g: 0, b: 0, a: 1}
+      defaultUnlocked: 0
+  - Color: {r: 0, g: 1, b: 0.10835743, a: 1}
+    PuzzleColor:
+      id: Green
+      color: {r: 0.59607846, g: 0.9568628, b: 0.41960788, a: 1}
+      defaultUnlocked: 0
+  - Color: {r: 0, g: 0.6645417, b: 1, a: 1}
+    PuzzleColor:
+      id: Blue
+      color: {r: 0, g: 0.61797667, b: 1, a: 1}
+      defaultUnlocked: 0
+  - Color: {r: 1, g: 0.5476825, b: 0, a: 1}
+    PuzzleColor:
+      id: Yellow
+      color: {r: 1, g: 0.4363277, b: 0, a: 1}
+      defaultUnlocked: 0
 --- !u!1 &5375074283878449981
 GameObject:
   m_ObjectHideFlags: 0

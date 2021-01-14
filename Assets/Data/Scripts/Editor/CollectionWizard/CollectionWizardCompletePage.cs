@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
 using Puzzle;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -49,8 +47,7 @@ public class CollectionWizardCompletePage : WizardPage
             Wizard.Close();
         }
     }
-
-
+    
     void Execute()
     {
         CollectionItem collectionItem = CreateCollectionItem();
@@ -84,35 +81,37 @@ public class CollectionWizardCompletePage : WizardPage
         string pathToPrefabs = AssetDatabase.GUIDToAssetPath(AssetDatabase.CreateFolder(pathToPuzzleFolder, "Prefabs"));
 
         AnimatorController controller = CreateAnimations(pathToAnimations);
-        CreatePrefabs(pathToPrefabs, controller);
+        CreatePrefabs(pathToPrefabs, controller, collectionItem);
     }
 
-    void CreatePrefabs(string prefabsFolder, AnimatorController controller)
+    void CreatePrefabs(string prefabsFolder, AnimatorController controller, CollectionItem collectionItem)
     {
         Sprite[] sprites = GetShapeVariants(new PuzzleSides(true, true, true, true));
-        
-        
-        GameObject puzzleGo = new GameObject($"{Name}_TRBL");
-        puzzleGo.AddComponent<Rigidbody2D>();
 
-        BoxCollider2D collider = puzzleGo.AddComponent<BoxCollider2D>();
+        GameObject puzzleObject = new GameObject($"{Name}_TRBL");
+        
+        Rigidbody2D rigidbody = puzzleObject.AddComponent<Rigidbody2D>();
+        rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        BoxCollider2D collider = puzzleObject.AddComponent<BoxCollider2D>();
+        collider.isTrigger = true;
         //empirical parameter
         collider.offset = new Vector2(0.02280325f, 0.01400089f);
         collider.size = new Vector2(2.17968f, 2.267714f);
+
+        PlayerView playerView = puzzleObject.AddComponent<SkinPlayerView>();
         
-        PlayerView playerView = puzzleGo.AddComponent<SkinPlayerView>();
-        
-        Animator animator = puzzleGo.AddComponent<Animator>();
+        Animator animator = puzzleObject.AddComponent<Animator>();
         animator.runtimeAnimatorController = controller;
 
-        RandomAnimatorParameter.SetSettings(puzzleGo.AddComponent<RandomAnimatorParameter>(), AnimationVariants);
+        RandomAnimatorParameter.SetSettings(puzzleObject.AddComponent<RandomAnimatorParameter>(), AnimationVariants);
 
-        SortingGroup sortingGroup = puzzleGo.AddComponent<SortingGroup>();
+        SortingGroup sortingGroup = puzzleObject.AddComponent<SortingGroup>();
         sortingGroup.sortingLayerName = "Player";
         sortingGroup.sortingOrder = 1;
         
         GameObject puzzleShape = new GameObject("Shape");
-        puzzleShape.transform.parent = puzzleGo.transform;
+        puzzleShape.transform.parent = puzzleObject.transform;
         playerView.shape = puzzleShape.transform;
 
         SpriteRenderer spriteRenderer = puzzleShape.AddComponent<SpriteRenderer>();
@@ -122,31 +121,82 @@ public class CollectionWizardCompletePage : WizardPage
         SkinContainer skinContainer = puzzleShape.AddComponent<SkinContainer>();
         SkinContainer.SetEditorSprites(skinContainer, sprites);
 
-        PlayerViewColorSkin colorSkin = puzzleShape.AddComponent<PlayerViewColorSkin>();
-        PlayerView.SetEditorColorSkins(playerView, new []{colorSkin});
+        PlayerViewColorSkin playerViewColorSkin = puzzleShape.AddComponent<PlayerViewColorSkin>();
+        PlayerView.SetEditorColorSkins(playerView, new []{playerViewColorSkin});
         
+        List<PlayerViewColorSkin.ColorSkin> colorSkins = new List<PlayerViewColorSkin.ColorSkin>();
+        
+        foreach (PuzzleColorData puzzleColor in PuzzleColors)
+        {
+            PlayerViewColorSkin.ColorSkin colorSkin = new PlayerViewColorSkin.ColorSkin{Color = puzzleColor.Color, PuzzleColor = puzzleColor};
+            colorSkins.Add(colorSkin);
+        }
+
+        playerViewColorSkin.EditorColorSkins = colorSkins.ToArray();
         
         Transform top = new GameObject("top").transform;
-        top.parent = puzzleGo.transform;
+        top.parent = puzzleObject.transform;
         top.localPosition = new Vector3(0, 2, 0);
         
         Transform right = new GameObject("right").transform;
-        right.parent = puzzleGo.transform;
+        right.parent = puzzleObject.transform;
         right.localPosition = new Vector3(2, 0, 0);
         
         Transform bottom = new GameObject("bottom").transform;
-        bottom.parent = puzzleGo.transform;
+        bottom.parent = puzzleObject.transform;
         bottom.localPosition = new Vector3(0, -2, 0);
         
         Transform left = new GameObject("left").transform;
-        left.parent = puzzleGo.transform;
+        left.parent = puzzleObject.transform;
         left.localPosition = new Vector3(-2, 0, 0);
         
         PlayerView.SetEditorTRBL(playerView, new []{top, right, bottom, left});
 
-        PrefabUtility.SaveAsPrefabAsset(puzzleGo, prefabsFolder + $"/{Name}_TRBL.prefab");
-    }
+        GameObject prefabTRBL = PrefabUtility.SaveAsPrefabAsset(puzzleObject, prefabsFolder + $"/{Name}_TRBL.prefab");
+        
+        List<PuzzleVariant> puzzleVariants = new List<PuzzleVariant>(4);
+        
+        PuzzleSides[] targetSides = new[]
+        {
+            //we don't need all sides (TRBL) puzzle because it's already created
+            new PuzzleSides(false, true, false, true),
+            new PuzzleSides(true, false, false, false),
+            new PuzzleSides(true, false, false, true),
+        };
 
+        puzzleVariants.Add(new PuzzleVariant(new PuzzleSides(true, true, true, true), prefabTRBL));
+        
+        foreach (PuzzleSides sides in targetSides)
+            puzzleVariants.Add(CreatePuzzleVariant(sides, prefabTRBL, prefabsFolder));
+        
+        CollectionItem.SetEditorPuzzleVariants(collectionItem, puzzleVariants.ToArray());
+        
+        AssetDatabase.Refresh();
+        
+        Object.DestroyImmediate(puzzleObject);
+    }
+    
+    PuzzleVariant CreatePuzzleVariant(PuzzleSides sides, GameObject originalPrefab, string prefabsFolder)
+    {
+        GameObject variantInstance = (GameObject) PrefabUtility.InstantiatePrefab(originalPrefab);
+
+        Sprite[] sprites = GetShapeVariants(sides);
+        
+        Transform shape = variantInstance.transform.Find("Shape");
+        
+        SpriteRenderer spriteRenderer = shape.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprites[0];
+
+        SkinContainer skinContainer = shape.GetComponent<SkinContainer>();
+        SkinContainer.SetEditorSprites(skinContainer, sprites);
+        
+        GameObject prefabVariant = PrefabUtility.SaveAsPrefabAsset(variantInstance, prefabsFolder + $"/{Name}_{sides.ToString()}.prefab");
+        
+        Object.DestroyImmediate(variantInstance);
+        
+        return new PuzzleVariant(sides, prefabVariant);
+    }
+    
     AnimatorController CreateAnimations(string animationsFolder)
     {
         AnimatorController controller = AnimatorController.CreateAnimatorControllerAtPath($"{animationsFolder}/{Name}_animator.controller");
@@ -234,14 +284,7 @@ public class CollectionWizardCompletePage : WizardPage
 
     Sprite[] GetShapeVariants(PuzzleSides sides)
     {
-        StringBuilder shapesSB = new StringBuilder();
-
-        if (sides.Top) shapesSB.Append("T");
-        if (sides.Right) shapesSB.Append("R");
-        if (sides.Bottom) shapesSB.Append("B");
-        if (sides.Left) shapesSB.Append("L");
-
-        string shapes = shapesSB.ToString();
+        string shapes = sides.ToString();
 
         return new[]
         {
@@ -249,4 +292,7 @@ public class CollectionWizardCompletePage : WizardPage
             AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{2}.png")
         };
     }
+
+    
+    
 }

@@ -1,19 +1,25 @@
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 
-[CustomEditor(typeof(PlayerViewColorSkin), true)]
+[CustomEditor(typeof(PlayerViewColorSkin))]
 public class PlayerViewColorSkinEditor : Editor
 {
-    CollectionItem CollectionItem;
-    PlayerViewColorSkin Target;
-    void OnEnable()
+    static GUIStyle richTextLabel;
+    public static GUIStyle RichTextLabel
     {
-        if(Application.isPlaying)
-            return;
-        Target = target as PlayerViewColorSkin;
-        CollectionItem = GetCollectionItem();
+        get
+        {
+            if (richTextLabel == null)
+            {
+                richTextLabel = new GUIStyle(EditorStyles.label);
+                richTextLabel.richText = true;
+            }
+
+            return richTextLabel;
+        }
     }
+    
+    PlayerViewColorSkin Target => target as PlayerViewColorSkin;
 
     public override void OnInspectorGUI()
     {
@@ -22,71 +28,26 @@ public class PlayerViewColorSkinEditor : Editor
         if(Application.isPlaying)
             return;
         
-        DrawMap();
+        DrawColorSkins();
     }
 
-    void DrawMap()
+    void DrawColorSkins()
     {
-#pragma warning disable 618
-        if (CollectionItem == null)
+        PlayerViewColorSkin.ColorSkin[] colorSkins = Target.EditorColorSkins;
+
+        for (var i = 0; i < colorSkins.Length; i++)
         {
-            EditorGUILayout.HelpBox("Collection item can't be found", MessageType.Error);
-            return;
-        }
-        
-        for (int i = 0; i < CollectionItem.PuzzleColors.Length; i++)
-        {
-            PuzzleColorData colorData = CollectionItem.PuzzleColors[i];
-            
-            if(!Target.ColorIDs.Contains(colorData.ID))
-            {
-                Target.ColorIDs.Add(colorData.ID);
-                Target.Colors.Add(Color.white);
-            }
-            
-            if(colorData.Equals(default))
-            {
-                EditorGUILayout.HelpBox($"ColorData {colorData.ID} can't be found", MessageType.Error);
-                return;
-            }
-            
             EditorGUILayout.BeginHorizontal();
 
-            EditorGUILayout.ColorField(colorData.Color);
+            string colorText = ColorUtility.ToHtmlStringRGB(colorSkins[i].PuzzleColor.Color);
 
-            if (Target.Colors.Count <= i)
-            {
-                EditorGUILayout.HelpBox($"Color {i} doesn't exists", MessageType.Error);
-                EditorGUILayout.EndHorizontal();
-                return;
-            }
+            EditorGUILayout.LabelField($"<color=#{colorText}> {colorSkins[i].PuzzleColor.ID} </color>", RichTextLabel);
 
-            EditorGUI.BeginChangeCheck();
-            
-            Target.Colors[i] = EditorGUILayout.ColorField(Target.Colors[i]);
-            
-            if (EditorGUI.EndChangeCheck())
-                EditorUtility.SetDirty(target);
-            
+            colorSkins[i].Color = EditorGUILayout.ColorField(colorSkins[i].Color);
+
             EditorGUILayout.EndHorizontal();
         }
-    }
-#pragma warning restore 618 
-    CollectionItem GetCollectionItem()
-    {
-        PrefabStage prefabStage = PrefabStageUtility.GetPrefabStage(Target.gameObject);
-        string pathToPrefab = prefabStage.prefabAssetPath;
-        
-        string[] separatedPath = pathToPrefab.Split('/');
-        string directoryName = separatedPath[separatedPath.Length - 2];
-        
-        foreach (string itemGuid in AssetDatabase.FindAssets("CollectionItem", new[] {"Assets/Data/Account/Collection/CollectionItems"}))
-        {
-            CollectionItem item = AssetDatabase.LoadAssetAtPath<CollectionItem>(AssetDatabase.GUIDToAssetPath(itemGuid));
-            if (item.Name == directoryName)
-                return item;
-        }
 
-        return null;
+        Target.EditorColorSkins = colorSkins;
     }
 }

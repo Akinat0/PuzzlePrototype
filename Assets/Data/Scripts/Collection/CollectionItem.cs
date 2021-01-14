@@ -61,10 +61,9 @@ public class CollectionItem : ScriptableObject
     
     #if UNITY_EDITOR
 
-    [ContextMenu("Delete")]
-    void Delete()
+    public static void SetEditorPuzzleVariants(CollectionItem item, PuzzleVariant[] puzzleVariants)
     {
-        UnityEditor.AssetDatabase.DeleteAsset(UnityEditor.AssetDatabase.GetAssetPath(this));
+        item.puzzleVariants = puzzleVariants;
     }
 
     #endif
@@ -74,6 +73,12 @@ public class CollectionItem : ScriptableObject
 [Serializable]
 public struct PuzzleVariant
 {
+    public PuzzleVariant(PuzzleSides sides, GameObject prefab)
+    {
+        this.sides = sides;
+        this.puzzle = prefab;
+    }
+    
     [SerializeField] private PuzzleSides sides;
     [SerializeField] private GameObject puzzle;
 
