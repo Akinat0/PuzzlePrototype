@@ -21,10 +21,22 @@ public abstract class WizardPage
 
     protected virtual bool Valid => true;
 
+    protected virtual string GetErrors()
+    {
+        return "No errors"; 
+    }
+
+    protected void ShowErrors()
+    {
+        EditorUtility.DisplayDialog("Error", GetErrors(), "Ok");
+    }
+
     protected void Complete()
     {
         if(Valid)
             Wizard.GoNext();
+        else
+            ShowErrors();
     }
 
     protected void DrawNavigationButtons(Rect rect)
@@ -50,17 +62,24 @@ public abstract class WizardPage
         GUI.backgroundColor = prevColor;
     }
 
-    protected bool DrawCompleteButton(Rect rect)
+    protected bool DrawFinishButton(Rect rect)
     {
-        Rect buttonRect = new Rect(rect.x-2, rect.y + rect.height - 2, rect.width, 20);
-        
-        Color prevColor = GUI.backgroundColor;
-        GUI.backgroundColor = Color.green;
+        Rect buttonsRect = new Rect(rect.x, rect.y + rect.height, rect.width, 20);
+        Rect prevButtonRect = new Rect(buttonsRect.x + 2, buttonsRect.y, 100, 20);
+        Rect nextButtonRect = new Rect(buttonsRect.x + buttonsRect.width - 102, buttonsRect.y, 100, 20);
 
-        bool complete = GUI.Button(buttonRect, "FINISH", EditorStyles.miniButtonMid);
+        Color prevColor = GUI.backgroundColor;
         
+        GUI.backgroundColor = Color.red;
+        if (GUI.Button(prevButtonRect, "Previous", EditorStyles.miniButtonLeft))
+            Wizard.GoPrevious();
+
+        GUI.backgroundColor = Color.green;
+        
+        bool finish = GUI.Button(nextButtonRect, "FINISH", EditorStyles.miniButtonLeft);
+
         GUI.backgroundColor = prevColor;
 
-        return complete;
+        return finish;
     }
 }

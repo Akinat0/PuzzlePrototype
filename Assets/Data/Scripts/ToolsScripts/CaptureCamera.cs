@@ -27,9 +27,7 @@ namespace Abu.Tools
             
             camera.targetTexture = renderTexture;
             camera.Render();
-            
-            Debug.Break();
-            
+
             Texture2D texture = camera.targetTexture.ToTexture2D();
             
             Object.DestroyImmediate(camera.gameObject);
@@ -39,8 +37,6 @@ namespace Abu.Tools
 
             return texture;
         }
-        
-        
 
         public static Camera CreateCameraForSprite(SpriteRenderer renderer)
         {

@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Text;
 using Boo.Lang;
 using UnityEditor;
 using UnityEngine;
@@ -13,8 +15,29 @@ public class CollectionWizardParametersPage : WizardPage
     
     string Name = string.Empty;
     bool DefaultUnlocked;
-    List<PuzzleColorData> PuzzleColors;
-    
+    readonly List<PuzzleColorData> PuzzleColors = new List<PuzzleColorData>();
+
+    protected override bool Valid => !string.IsNullOrEmpty(Name.Trim()) && 
+                                     PuzzleColors.Count <= 5 &&
+                                     !PuzzleColors.Any(puzzleColor => string.IsNullOrEmpty(puzzleColor.ID.Trim())) &&
+                                     PuzzleColors.Any(puzzleColor => puzzleColor.DefaultUnlocked);
+
+    protected override string GetErrors()
+    {
+        StringBuilder errors = new StringBuilder();
+
+        if (string.IsNullOrEmpty(Name.Trim()))
+            errors.AppendLine("Puzzle Name shouldn't be empty");
+        if(PuzzleColors.Any(puzzleColor => string.IsNullOrEmpty(puzzleColor.ID.Trim())))
+            errors.AppendLine("Puzzle Color ID shouldn't be empty");
+        if (!PuzzleColors.Any(puzzleColor => puzzleColor.DefaultUnlocked))
+            errors.AppendLine("At least one color must be unlocked by default");
+        if(PuzzleColors.Count > 5)
+            errors.AppendLine("Max puzzle colors size is 5");
+
+        return errors.ToString();
+    }
+
     public override void Draw(Rect rect)
     {
         GUILayout.BeginArea(rect);
@@ -30,12 +53,11 @@ public class CollectionWizardParametersPage : WizardPage
     {
         base.Enter();
 
-        PuzzleColors = new List<PuzzleColorData>();
-        
         puzzleColorsReordableList = new ReorderableList(PuzzleColors, typeof(PuzzleColorData));
 
         puzzleColorsReordableList.drawHeaderCallback = DrawColorsTitle;
         puzzleColorsReordableList.drawElementCallback = DrawColorsElement;
+        puzzleColorsReordableList.onAddCallback = OnAddColor;
     }
 
     public override void Exit()
@@ -86,4 +108,9 @@ public class CollectionWizardParametersPage : WizardPage
         PuzzleColors[index] = new PuzzleColorData(id, color, defaultUnlocked);
     }
 
+    void OnAddColor(ReorderableList reorderableList)
+    {
+        int listCount = reorderableList.count;
+        reorderableList.list.Add(new PuzzleColorData($"Color_{listCount}", Color.white, false));
+    }
 }

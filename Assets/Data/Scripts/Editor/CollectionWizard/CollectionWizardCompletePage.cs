@@ -33,15 +33,16 @@ public class CollectionWizardCompletePage : WizardPage
         GUILayout.BeginArea(rect);
         GUILayout.BeginVertical();
 
-        EditorGUI.TextField(rect, $"You're about creating puzzle with name(id) {Name}," +
+        EditorGUI.LabelField(rect, $"You're about creating puzzle with name(id) {Name}," +
                                   $" it will be unlocked for player by default: {DefaultUnlocked}.\n " +
                                   $"And the puzzle will have {PuzzleColors.Length} different colors.\n " +
+                                  $"Puzzle will have {AnimationVariants} animation variants. \n" + 
                                    "If all right press \"FINISH\"", Wizard.BlackLabel);
         
         GUILayout.EndVertical();
         GUILayout.EndArea();
 
-        if (DrawCompleteButton(rect))
+        if (DrawFinishButton(rect))
         {
             Execute();
             Wizard.Close();
