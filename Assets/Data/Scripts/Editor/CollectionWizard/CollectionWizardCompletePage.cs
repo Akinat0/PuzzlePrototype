@@ -160,7 +160,7 @@ public class CollectionWizardCompletePage : WizardPage
         PuzzleSides[] targetSides = new[]
         {
             //we don't need all sides (TRBL) puzzle because it's already created
-            new PuzzleSides(false, true, false, true),
+            new PuzzleSides(true, false, true, false),
             new PuzzleSides(true, false, false, false),
             new PuzzleSides(true, false, false, true),
         };
