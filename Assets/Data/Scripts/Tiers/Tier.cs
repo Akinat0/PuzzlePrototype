@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Puzzle.Analytics;
 using UnityEngine;
 
 public abstract class Tier
@@ -64,6 +65,9 @@ public abstract class Tier
             return false;
         
         Reward.Claim();
+        
+        SendTierObtainedAnalyticsEvent();
+        
         return true;
     }
 
@@ -71,4 +75,17 @@ public abstract class Tier
     {
         OnTierValueChangedEvent?.Invoke();
     }
+
+    void SendTierObtainedAnalyticsEvent()
+    {
+        Dictionary<string, object> eventData = new Dictionary<string, object>()
+        {
+            {"tier_id", ID},
+            {"tier_type", Type},
+            {"balance", Account.Coins}
+        };
+        
+        new SimpleAnalyticsEvent("tier_obtained", eventData).Send();
+    }
+
 }

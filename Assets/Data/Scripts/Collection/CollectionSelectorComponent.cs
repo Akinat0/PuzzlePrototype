@@ -6,6 +6,7 @@ using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
 using DG.Tweening;
+using Puzzle.Analytics;
 using ScreensScripts;
 using UnityEngine;
 
@@ -201,9 +202,13 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if(LauncherUI.Instance.LevelConfig.CollectionEnabled)
             itemContainers.Remove(Index);
 
+        string previousPuzzleName = Account.CollectionDefaultItem.Name;
+        
         Account.CollectionDefaultItemId = Index;
         
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(newPlayerView));
+        
+        SendPuzzleChangedAnalyticsEvent(previousPuzzleName);
 
         HideCollection(true);
     }
@@ -310,9 +315,25 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (Current.Unlocked)
             UpdateInteractButtonText();
         else
-        {
             InteractBtn.Text = LockedText;
-        }
+    }
+    
+    #endregion
+    
+    #region other
+
+    void SendPuzzleChangedAnalyticsEvent(string previousPuzzleName)
+    {
+        Dictionary<string, object> eventData = new Dictionary<string, object>()
+        {
+            {"puzzle_name", Account.CollectionDefaultItem.Name},
+            {"puzzle_color", Account.CollectionDefaultItem.ActiveColorIndex},
+            {"previous_puzzle", previousPuzzleName ?? string.Empty},
+            {"level_name", LauncherUI.Instance.LevelConfig.Name},
+            {"balance", Account.Coins}
+        };
+
+        new SimpleAnalyticsEvent("puzzle_changed", eventData).Send();
     }
     
     #endregion
@@ -367,7 +388,6 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             return;
         
         StartCoroutine(afterTouchRoutine = TimedAfterTouchRoutine(0.3f));
-        
     }
     
     void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
@@ -376,5 +396,4 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     }
     
     #endregion
-    
 }

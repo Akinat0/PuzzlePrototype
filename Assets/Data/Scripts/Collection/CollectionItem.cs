@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Puzzle;
+using Puzzle.Analytics;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New PuzzleCollectionItem", menuName = "Puzzle/CreateCollectionItem", order = 51)]
@@ -37,13 +39,16 @@ public class CollectionItem : ScriptableObject
     public int ActiveColorIndex
     {
         get => activeColorIndex;
-        
         set
         {
             if(activeColorIndex == value)
                 return;
+            
+            int prevColorIndex = activeColorIndex; 
             activeColorIndex = value;
+            
             OnActiveColorChangedEvent?.Invoke(activeColorIndex);
+            SendPuzzleColorChangedAnalyticsEvent(prevColorIndex, activeColorIndex);
         }
     }
 
@@ -57,6 +62,19 @@ public class CollectionItem : ScriptableObject
     public GameObject GetAnyPuzzleVariant()
     {
         return puzzleVariants.FirstOrDefault().Puzzle;
+    }
+
+    void SendPuzzleColorChangedAnalyticsEvent(int prevColorIndex, int newColorIndex)
+    {
+        Dictionary<string, object> eventData = new Dictionary<string, object>()
+        {
+            {"puzzle_name", Name},
+            {"previous_color", prevColorIndex},
+            {"puzzle_color", newColorIndex},
+            {"balance", Account.Coins}
+        };
+        
+        new SimpleAnalyticsEvent("puzzle_color_changed", eventData).Send();
     }
     
     #if UNITY_EDITOR

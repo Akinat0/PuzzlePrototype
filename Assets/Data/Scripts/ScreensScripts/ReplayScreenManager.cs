@@ -21,7 +21,7 @@ namespace ScreensScripts
             ReplayButton.OnClick += OnReplayClick;
             MenuButton.OnClick += OnMenuClick;
         }
-
+        
         private void OnReplayClick()
         {
             Overlay.ChangePhase(0, 0.5f);
@@ -58,10 +58,12 @@ namespace ScreensScripts
             ReplayScreen.SetActive(false);
         }
 
-        public void CreateReplyScreen()
+        public void CreateReplyScreen(bool reviveUsed)
         {
             ReplayScreen.SetActive(true);
             PauseButton.SetActive(false);
+            ReviveButton.SetActive(!reviveUsed);
+            
             Overlay.ChangePhase(1, 0.5f);
         }
         

@@ -137,7 +137,7 @@ namespace Puzzle
 
         void CallEndgameMenu()
         {
-            replayScreenManager.CreateReplyScreen();
+            replayScreenManager.CreateReplyScreen(reviveUsed);
         }
 
         void CallCompleteMenu(int stars, bool isNewRecord)
@@ -280,9 +280,9 @@ namespace Puzzle
             LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
                 appliedBoosters.ToArray(), reviveUsed));
             
-            //Get stars amount from hp
-            int stars = CurrentHearts.Remap(0, TotalHearts, 0, 3);
-
+            //Get stars amount from difficulty
+            int stars = (int)LevelConfig.DifficultyLevel;
+            
             bool isNewRecord = LevelConfig.StarsAmount < stars; 
             
             if(isNewRecord)
