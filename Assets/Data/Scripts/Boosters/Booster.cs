@@ -1,5 +1,6 @@
 using System;
 using Puzzle;
+using Puzzle.Analytics;
 using UnityEngine;
 
 public abstract class Booster
@@ -67,12 +68,16 @@ public abstract class Booster
         if (Amount <= 0)
             return false;
         
+        new SimpleAnalyticsEvent("booster_activated", ("booster_name", Name)).Send();
+        
         IsActivated = true;
         return true;
     }
 
     public bool Deactivate()
     {
+        new SimpleAnalyticsEvent("booster_deactivated", ("booster_name", Name)).Send();
+        
         IsActivated = false;
         return false;
     }

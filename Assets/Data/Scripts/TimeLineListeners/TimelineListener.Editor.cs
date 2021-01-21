@@ -15,7 +15,6 @@ public partial class TimelineListener
         List<PlayAudioMarker> audioMarkers = new List<PlayAudioMarker>();
         for (int i=0; i < timeLineAsset.markerTrack.GetMarkerCount(); i++)
         {
-            Debug.Log("Marker");
             IMarker marker = timeLineAsset.markerTrack.GetMarker(i);
             if (Mathf.Approximately((float)startTime, 0))
                 if (marker is StartLevelMarker)
@@ -27,7 +26,6 @@ public partial class TimelineListener
 
             if (!Mathf.Approximately((float)startTime, 0))
             {
-                Debug.Log("StartTime " + startTime);
                 PlayableDirector.time = startTime;
                 foreach (var audioMarker in audioMarkers)
                 {

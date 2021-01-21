@@ -40,8 +40,10 @@ public class Account : MonoBehaviour
     public static Booster[] Boosters => instance.boosters;
     public static Tier[] Tiers => instance.tiers;
     public static RemoteConfig RemoteConfig => instance.remoteConfig;
+    public static PuzzleAnalytics Analytics => instance.analytics;
 
     RemoteConfig remoteConfig;
+    PuzzleAnalytics analytics;
     
     Achievement[] achievements;
     Booster[] boosters;
@@ -58,6 +60,7 @@ public class Account : MonoBehaviour
         achievements = Achievement.CreateAllAchievements();
         
         remoteConfig = new RemoteConfig();
+        analytics = new PuzzleAnalytics();
     }
     
     #region Boosters

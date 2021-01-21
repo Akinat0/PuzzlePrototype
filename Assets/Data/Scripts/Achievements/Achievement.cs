@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using Puzzle.Analytics;
 using UnityEngine;
 
 public abstract class Achievement
@@ -98,6 +99,8 @@ public abstract class Achievement
         State = AchievementState.Claimed;
         Reward.Claim();
         AchievementClaimedEvent?.Invoke();
+        
+        new SimpleAnalyticsEvent("achievement_claimed", GetAnalyticsData()).Send();
     }
     
 
@@ -106,6 +109,8 @@ public abstract class Achievement
         State = AchievementState.Received;
 
         AchievementReceivedEvent?.Invoke();
+
+        new SimpleAnalyticsEvent("achievement_received", GetAnalyticsData()).Send();
     }
 
     void SaveState()
@@ -119,7 +124,15 @@ public abstract class Achievement
         PlayerPrefs.SetFloat(ProgressKey, Progress);
         PlayerPrefs.Save();
     }
-    
+
+    Dictionary<string, object> GetAnalyticsData()
+    {
+        return new Dictionary<string, object>()
+        {
+            {"achievement_name", Name},
+            {"balance", Account.Coins}
+        };
+    }
     
     [Obsolete("Use it only in console commands")]
     public void ResetAchievement()

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Abu.Tools;
-using Abu.Tools.SceneTransition;
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Puzzle
 {
@@ -77,6 +76,8 @@ namespace Puzzle
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig levelConfig;
+        private bool reviveUsed;
+        private readonly List<Booster> appliedBoosters = new List<Booster>();
         
         protected BubbleDialog _currentDialog;
 
@@ -185,6 +186,8 @@ namespace Puzzle
         public void InvokeSetupLevel(LevelColorScheme colorScheme)
         {
             Debug.Log("SetupLevel Invoked");
+            reviveUsed = false;
+            appliedBoosters.Clear();
             SetupLevelEvent?.Invoke(colorScheme);
         }
 
@@ -194,6 +197,8 @@ namespace Puzzle
 
             CurrentHearts = DEFAULT_HEARTS;
             TotalHearts = DEFAULT_HEARTS;
+            reviveUsed = false;
+            appliedBoosters.Clear();
             
             ResetLevelEvent?.Invoke();
             GameStartedEvent?.Invoke();
@@ -238,6 +243,7 @@ namespace Puzzle
 
         public void InvokeGameStarted()
         {
+            reviveUsed = false;
             Debug.Log("GameStarted Invoked");
             GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
@@ -246,6 +252,7 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
+            reviveUsed = true;
             CurrentHearts = TotalHearts;
             PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
@@ -264,13 +271,14 @@ namespace Puzzle
             LevelClosedEvent?.Invoke();
             DestroyEnvironment();
             LauncherUI.Instance.InvokeGameEnvironmentUnloaded(
-                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars));
+                new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars, levelConfig));
         }
         
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig));
+            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
+                appliedBoosters.ToArray(), reviveUsed));
             
             //Get stars amount from hp
             int stars = CurrentHearts.Remap(0, TotalHearts, 0, 3);
@@ -312,6 +320,7 @@ namespace Puzzle
         public void InvokeApplyBooster(Booster booster)
         {
             Debug.Log("Apply Booster Invoked " + booster.Name);
+            appliedBoosters.Add(booster);
             ApplyBoosterEvent?.Invoke(booster);
         }
         

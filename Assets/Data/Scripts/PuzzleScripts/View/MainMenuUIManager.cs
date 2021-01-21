@@ -1,6 +1,7 @@
 using System;
 using Abu.Tools.UI;
 using DG.Tweening;
+using Puzzle.Analytics;
 using ScreensScripts;
 using UnityEngine;
 
@@ -51,6 +52,8 @@ namespace Puzzle
             HideAllScreens();
             closeButton.SetActive(true);
             ShopScreen.SetActive(true);
+            
+            new SimpleAnalyticsEvent("mini_shop_button_clicked").Send();
         }
         
         void AchievementButtonOnClick()
@@ -58,6 +61,8 @@ namespace Puzzle
             HideAllScreens();
             closeButton.SetActive(true);
             AchievementScreen.SetActive(true);
+            
+            new SimpleAnalyticsEvent("mini_achievement_button_clicked").Send();
         }
         
         void CollectionButtonOnClick()
@@ -65,6 +70,8 @@ namespace Puzzle
             HideAllScreens();
             closeButton.SetActive(true);
             CollectionScreen.SetActive(true);
+
+            new SimpleAnalyticsEvent("mini_collection_button_clicked").Send();
         }
 
         void CloseButtonOnClick()
@@ -78,6 +85,7 @@ namespace Puzzle
             LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
+            
             collectionButton.OnClick += CollectionButtonOnClick;
             achievementButton.OnClick += AchievementButtonOnClick;
             shopButton.OnClick += ShopButtonOnClick;
@@ -89,6 +97,7 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
             LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
+            
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
             shopButton.OnClick -= ShopButtonOnClick;
