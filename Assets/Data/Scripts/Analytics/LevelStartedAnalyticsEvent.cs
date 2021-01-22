@@ -1,5 +1,4 @@
 using System.Linq;
-using ScreensScripts;
 
 namespace Puzzle.Analytics
 {
@@ -7,16 +6,17 @@ namespace Puzzle.Analytics
     {
         public LevelStartedAnalyticsEvent()
         {
-            LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
+            GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
         }
         
         public override string EventName => "level_started";
         
-        void PlayLauncherEvent_Handler(PlayLauncherEventArgs args)
+        void ResetLevelEvent_Handler()
         {
             EventData.Clear();
-            EventData["level_name"] = args.LevelConfig.Name;
-            EventData["difficulty"] = args.LevelConfig.DifficultyLevel;
+            
+            EventData["level_name"] = GameSceneManager.Instance.LevelConfig.Name;
+            EventData["difficulty"] = GameSceneManager.Instance.LevelConfig.DifficultyLevel;
             EventData["puzzle_name"] = Account.CollectionDefaultItem.Name;
             EventData["puzzle_color"] = Account.CollectionDefaultItem.ActiveColorIndex;
             EventData["freeze_booster"] = Account.GetActiveBoosters().Any(booster => booster is TimeFreezeBooster);

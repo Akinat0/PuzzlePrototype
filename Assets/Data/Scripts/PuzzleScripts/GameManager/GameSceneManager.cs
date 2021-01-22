@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using PuzzleScripts;
 using ScreensScripts;
@@ -66,19 +67,19 @@ namespace Puzzle
             set => totalHearts = value;
         }
 
-        const int DEFAULT_HEARTS = 5;
+        public GameSession Session { get; private set; }
+        
+        public const int DEFAULT_HEARTS = 5;
         
         int currentHearts = DEFAULT_HEARTS;
         int totalHearts = DEFAULT_HEARTS;
-        
+
         LevelRootView levelRootView;
         private Player player;
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig levelConfig;
-        private bool reviveUsed;
-        private readonly List<Booster> appliedBoosters = new List<Booster>();
-        
+
         protected BubbleDialog _currentDialog;
 
         protected virtual void Awake()
@@ -137,7 +138,7 @@ namespace Puzzle
 
         void CallEndgameMenu()
         {
-            replayScreenManager.CreateReplyScreen(reviveUsed);
+            replayScreenManager.CreateReplyScreen(Session.ReviveUsed);
         }
 
         void CallCompleteMenu(int stars, bool isNewRecord)
@@ -186,8 +187,6 @@ namespace Puzzle
         public void InvokeSetupLevel(LevelColorScheme colorScheme)
         {
             Debug.Log("SetupLevel Invoked");
-            reviveUsed = false;
-            appliedBoosters.Clear();
             SetupLevelEvent?.Invoke(colorScheme);
         }
 
@@ -195,11 +194,11 @@ namespace Puzzle
         {
             Debug.Log("ResetLevel Invoked");
 
+            Session = new GameSession(levelConfig);
+            
             CurrentHearts = DEFAULT_HEARTS;
             TotalHearts = DEFAULT_HEARTS;
-            reviveUsed = false;
-            appliedBoosters.Clear();
-            
+
             ResetLevelEvent?.Invoke();
             GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
@@ -243,7 +242,6 @@ namespace Puzzle
 
         public void InvokeGameStarted()
         {
-            reviveUsed = false;
             Debug.Log("GameStarted Invoked");
             GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
@@ -252,7 +250,6 @@ namespace Puzzle
         public void InvokePlayerRevive()
         {
             Debug.Log("PlayerRevive Invoked");
-            reviveUsed = true;
             CurrentHearts = TotalHearts;
             PlayerReviveEvent?.Invoke();
             InvokePauseLevel(false);
@@ -278,7 +275,7 @@ namespace Puzzle
         {
             Debug.Log("LevelComplete Invoked");
             LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
-                appliedBoosters.ToArray(), reviveUsed));
+                Session.SessionBoosters.ToArray(), Session.ReviveUsed));
             
             //Get stars amount from difficulty
             int stars = (int)LevelConfig.DifficultyLevel;
@@ -320,7 +317,6 @@ namespace Puzzle
         public void InvokeApplyBooster(Booster booster)
         {
             Debug.Log("Apply Booster Invoked " + booster.Name);
-            appliedBoosters.Add(booster);
             ApplyBoosterEvent?.Invoke(booster);
         }
         

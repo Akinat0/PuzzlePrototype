@@ -16,6 +16,8 @@ public class PuzzleAnalytics
         RegisterEvent(new LevelClosedAnalyticsEvent());
         RegisterEvent(new LevelStartedAnalyticsEvent());
         RegisterEvent(new LevelChangedAnalyticsEvent());
+        RegisterEvent(new PlayerDiedAnalyticsEvent());
+        RegisterEvent(new PlayerRevivedAnalyticsEvent());
     }
     
     public void RegisterEvent(PuzzleAnalyticsEvent analyticsEvent)

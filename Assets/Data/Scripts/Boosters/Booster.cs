@@ -65,7 +65,7 @@ public abstract class Booster
     
     public bool Activate()
     {
-        if (Amount <= 0)
+        if (Amount <= 0 || IsActivated)
             return false;
         
         new SimpleAnalyticsEvent("booster_activated", ("booster_name", Name)).Send();
@@ -76,10 +76,13 @@ public abstract class Booster
 
     public bool Deactivate()
     {
+        if (!IsActivated)
+            return false;
+        
         new SimpleAnalyticsEvent("booster_deactivated", ("booster_name", Name)).Send();
         
         IsActivated = false;
-        return false;
+        return true;
     }
 
     public void Use()
