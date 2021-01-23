@@ -61,13 +61,15 @@ public abstract class Tier
         if (!Available)
             return false;
 
-        if (!Purchase.Process())
+        void OnPurchaseSuccess()
+        {
+            Reward.Claim();
+            SendTierObtainedAnalyticsEvent();
+        }
+            
+        if (!Purchase.Process(OnPurchaseSuccess))
             return false;
-        
-        Reward.Claim();
-        
-        SendTierObtainedAnalyticsEvent();
-        
+
         return true;
     }
 

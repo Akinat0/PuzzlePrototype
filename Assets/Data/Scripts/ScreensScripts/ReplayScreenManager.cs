@@ -14,6 +14,8 @@ namespace ScreensScripts
         [SerializeField] private ButtonComponent PauseButton;
         [SerializeField] private TextMeshProUGUI TimerField;
 
+        readonly VideoPurchase Video = new VideoPurchase();
+        
         private void Start()
         {
             ReplayScreen.SetActive(false);
@@ -31,6 +33,11 @@ namespace ScreensScripts
         }
 
         private void OnReviveClick()
+        {
+            Video.Process(Revive);
+        }
+
+        void Revive()
         {
             Overlay.ChangePhase(0, 0.5f);
             
@@ -50,7 +57,6 @@ namespace ScreensScripts
                 GameSceneManager.Instance.InvokePlayerRevive();
             }
         }
-
         private void OnMenuClick()
         {
             Overlay.ChangePhase(0, 0.5f);
