@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Puzzle.Advertisements;
 using UnityEngine;
 
 public class Account : MonoBehaviour
@@ -17,7 +18,6 @@ public class Account : MonoBehaviour
             return walletManager;
         }
     }
-    
     CollectionManager CollectionManager
     {
         get
@@ -41,9 +41,11 @@ public class Account : MonoBehaviour
     public static Tier[] Tiers => instance.tiers;
     public static RemoteConfig RemoteConfig => instance.remoteConfig;
     public static PuzzleAnalytics Analytics => instance.analytics;
+    public static PuzzleAdvertisement Advertisement => instance.advertisement;
 
     RemoteConfig remoteConfig;
     PuzzleAnalytics analytics;
+    PuzzleAdvertisement advertisement;
     
     Achievement[] achievements;
     Booster[] boosters;
@@ -61,6 +63,7 @@ public class Account : MonoBehaviour
         
         remoteConfig = new RemoteConfig();
         analytics = new PuzzleAnalytics();
+        advertisement = new PuzzleAdvertisement();
     }
     
     #region Boosters

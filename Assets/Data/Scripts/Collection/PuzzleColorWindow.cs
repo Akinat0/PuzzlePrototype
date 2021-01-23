@@ -1,4 +1,3 @@
-
 using System;
 using TMPro;
 using UnityEngine;
@@ -19,6 +18,8 @@ public class PuzzleColorWindow : CancelableWindow
     
     protected void Initialize(int PuzzleID, PuzzleColorData colorData, Action onSuccess)
     {
+        VideoPurchase purchase = new VideoPurchase();
+        
         void CreateContent(RectTransform container)
         {
             var text = Instantiate(Resources.Load<TextMeshProUGUI>("UI/CommonText"), container);
@@ -27,8 +28,11 @@ public class PuzzleColorWindow : CancelableWindow
 
         void OnSuccess()
         {
-            Account.UnlockCollectionItemColor(PuzzleID, colorData.ID);
-            onSuccess?.Invoke();
+            purchase.Process(() =>
+            {
+                Account.UnlockCollectionItemColor(PuzzleID, colorData.ID);
+                onSuccess?.Invoke();
+            });
             Hide();
         }
 

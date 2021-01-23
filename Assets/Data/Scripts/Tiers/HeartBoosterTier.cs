@@ -6,7 +6,7 @@ public sealed class HeartBoosterTier : Tier
         Account.BalanceChangedEvent += OnBalanceChangedEvent_Handler;
     }
     
-    Purchase purchase = new CoinsPurchase(50);
+    Purchase purchase = new VideoPurchase();
     Reward reward = new BoosterReward(2, Account.GetBooster<HeartBooster>());
     
     public override int ID => 1;
@@ -19,7 +19,8 @@ public sealed class HeartBoosterTier : Tier
         if(tierInfo == null)
             return;
         
-        purchase = new CoinsPurchase(tierInfo.Cost);
+        //TODO
+        // purchase = new CoinsPurchase(tierInfo.Cost);
         reward = new BoosterReward(tierInfo.Amount, Account.GetBooster<HeartBooster>());
         InvokeTierValueChanged();
     }
