@@ -1,71 +1,115 @@
-﻿
-using System;
-using System.Linq;
+﻿using System;
+using Abu.Tools;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))] 
 public class BubbleDialog : MonoBehaviour
 {
-    private const string path = "Prefabs/BubbleDialog";
-    private const string hideBehaviourID = "hide";
+    #region constants
     
-    [SerializeField] private Text messageText;
-    [SerializeField] private SpriteRenderer background;
+    const string path = "Prefabs/BubbleDialog";
 
-    private AnimationEventBehaviour hideBehaviour;
+    #endregion
 
-    private Animator animator;
-    
-    private static readonly int SHOW = Animator.StringToHash("Show");
-
-    public SpriteRenderer Background => background;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        
-        hideBehaviour = AnimationEventBehaviour.FindState(animator, hideBehaviourID);
-
-        hideBehaviour.OnExit += () =>
-        {
-            if(gameObject != null)
-                Destroy(gameObject);
-        };
-    }
-
-    public void SetRenderLayer(string layer, int? layerOrder = null)
-    {
-        background.sortingLayerName = layer;
-        messageText.canvas.sortingLayerName = layer;
-
-        if (layerOrder != null)
-        {
-            background.sortingOrder = layerOrder.Value;
-            messageText.canvas.sortingOrder = layerOrder.Value;
-        }
-    }
-    
-    public void Show(string message)
-    {
-        messageText.text = message;
-        animator.SetBool(SHOW, true);
-    }
-    
-    public void Hide(Action onFinish = null)
-    {
-        animator.SetBool(SHOW, false);
-
-        if (onFinish != null)
-            hideBehaviour.OnExit += onFinish;
-    }
-
-    public static BubbleDialog Create(Action<BubbleDialog> scaleRules = null)
+    #region factory
+   
+    public static BubbleDialog Create(PlayerView playerView)
     {
         BubbleDialog bubbleDialog = Instantiate(Resources.Load<GameObject>(path)).GetComponent<BubbleDialog>();
 
-        scaleRules?.Invoke(bubbleDialog);
-
+        Transform dialogTransform = bubbleDialog.transform;
+        dialogTransform.parent = playerView.transform;
+        dialogTransform.localScale =
+            ScreenScaler.FitHorizontalPart(bubbleDialog.Background, 0.35f) *
+            Vector2.one;
+                    
+        dialogTransform.localScale = playerView.transform.InverseTransformPoint(dialogTransform.localScale);
+                    
+        //Put dialog on the top right puzzle angle
+        float halfOfPuzzleWidth = ScreenScaler.PartOfScreen(playerView.PartOfScreen / 2).x;
+        dialogTransform.position = Vector2.one * halfOfPuzzleWidth;
+        
         return bubbleDialog;
     }
+    
+    #endregion
+    
+    #region attributes
+
+    static readonly int ShowID = Animator.StringToHash("Show");
+    
+    SpriteRenderer Background => background;
+    public bool Shown { get; private set; }
+
+    [SerializeField] TextMeshProUGUI messageText;
+    [SerializeField] SpriteRenderer background;
+
+    AnimationEventBehaviour hideBehaviour;
+    AnimationEventBehaviour showBehaviour;
+    Animator animator;
+    
+    Action OnShow;
+    Action OnHide;
+    
+    #endregion
+    
+    #region public
+    public void Show(string message, Action finish = null)
+    {
+        if (Shown)
+        {
+            finish?.Invoke();
+            return;
+        }
+
+        messageText.text = message;
+        OnShow += finish;
+        animator.SetBool(ShowID, true);
+    }
+    
+    public void Hide(Action finish = null)
+    {
+        if (!Shown)
+        {
+            finish?.Invoke();
+            return;
+        }
+
+        OnHide += finish;
+        animator.SetBool(ShowID, false);
+    }
+    
+    #endregion
+
+    #region private
+
+    void Awake()
+    {
+        animator = GetComponent<Animator>();
+        
+        showBehaviour = AnimationEventBehaviour.FindState(animator, "show");
+        hideBehaviour = AnimationEventBehaviour.FindState(animator, "hide");
+
+        showBehaviour.OnComplete += () => Shown = true;
+        hideBehaviour.OnComplete += () => Shown = false;
+        
+        showBehaviour.OnComplete += InvokeOnShowAction;
+        hideBehaviour.OnComplete += InvokeOnHideAction;
+    }
+    void InvokeOnHideAction()
+    {
+        Action action = OnHide;
+        OnHide = null;
+        action?.Invoke();
+    }
+    
+    void InvokeOnShowAction()
+    {
+        Action action = OnShow;
+        OnShow = null;
+        action?.Invoke();
+    }
+    
+    #endregion
 }

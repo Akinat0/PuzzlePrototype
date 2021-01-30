@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
 {
-    private bool _reachedHalfway;
 
+    TutorialSceneManager SceneManager => GameSceneManager.Instance as TutorialSceneManager;
+    
     public event Action Solved;
 
-    bool isHalfway
+    bool IsHalfway
     {
         get
         {
@@ -21,28 +22,22 @@ public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
                        ScreenScaler.CameraSize.x * 3.0f / 8.0f;
         }
     }
+    bool isNeedToBeSolved;
    
     protected override void Update()
     {
         base.Update();
 
-        if (!_reachedHalfway)
-        {
-            if (isHalfway)
-            {
-                _reachedHalfway = true;
-                if (GameSceneManager.Instance is TutoriaScenelManager sceneManager)
-                {
-                    sceneManager.InvokeEnemyIsClose(this);
-                }
-            }
-        }
+        if (!IsHalfway || isNeedToBeSolved) return;
+
+        isNeedToBeSolved = true;
+        SceneManager.InvokeEnemyNotSolved(this);
     }
 
     public override Transform Die()
     {
-        if (TutoriaScenelManager.TutorialStopped
-            && TutoriaScenelManager.StopReason as TutorialEnemyShit == this)
+        if (SceneManager.TutorialStopped
+            && SceneManager.StopReason as TutorialEnemyShit == this)
         {
             Solved?.Invoke();
         }
@@ -53,20 +48,20 @@ public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
     protected override void OnEnable()
     {
         base.OnEnable();
-        TutoriaScenelManager.OnTutorialRestart += TutorialRestartEvent_Handler;
-        TutoriaScenelManager.OnStopTutorial += TutorialStopEvent_Handler;
+        GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
+        TutorialSceneManager.OnStopTutorial += TutorialStopEvent_Handler;
     }
     
     protected override void OnDisable()
     {
         base.OnDisable();
-        TutoriaScenelManager.OnTutorialRestart -= TutorialRestartEvent_Handler;
-        TutoriaScenelManager.OnStopTutorial -= TutorialStopEvent_Handler;
+        GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
+        TutorialSceneManager.OnStopTutorial -= TutorialStopEvent_Handler;
     }
 
-    void TutorialRestartEvent_Handler()
+    void PlayerLosedHpEvent_Handler()
     {
-        Destroy(gameObject);
+        Die();
     }
     
     void TutorialStopEvent_Handler(bool pause)
@@ -78,12 +73,12 @@ public class TutorialEnemyShit : ShitEnemy, ITutorialStopReason
     {
         if (!paused)
         {
-            if (!TutoriaScenelManager.TutorialStopped)
-                base.PauseLevelEvent_Handler(paused);
+            if (!SceneManager.TutorialStopped)
+                base.PauseLevelEvent_Handler(false);
         }
         else
         {
-            base.PauseLevelEvent_Handler(paused);
+            base.PauseLevelEvent_Handler(true);
         }
     }
 

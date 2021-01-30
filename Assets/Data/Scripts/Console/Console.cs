@@ -22,6 +22,7 @@ namespace Abu.Console
                 new SetStarsCommand(),
                 new DebugImageCommand(),
                 new DeleteLocalCommand(),
+                new AnalyticsCommand(),
             };
         }
 

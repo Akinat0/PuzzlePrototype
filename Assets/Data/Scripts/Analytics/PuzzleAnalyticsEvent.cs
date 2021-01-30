@@ -7,11 +7,16 @@ namespace Puzzle.Analytics
     public abstract class PuzzleAnalyticsEvent
     {
         public abstract string EventName { get; }
-        
         protected readonly Dictionary<string, object> EventData = new Dictionary<string, object>();
 
         public void Send()
         {
+            if (!Account.Analytics.IsEnabled)
+            {
+                Debug.Log("<color=blue>[Analytics] Analytics disabled</color>");
+                return;
+            }
+
             AnalyticsResult result;
 
             if(EventData.Count > 0)

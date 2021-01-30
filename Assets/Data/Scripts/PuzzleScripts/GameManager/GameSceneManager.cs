@@ -31,10 +31,10 @@ namespace Puzzle
         public static event Action<int> HeartsAmountChangedEvent;
         public static event Action<string> TimelineEvent;
 
-        [SerializeField] private RuntimeAnimatorController cameraAnimatorController;
-        [SerializeField] private CompleteScreenManager completeScreenManager;
-        [SerializeField] private ReplayScreenManager replayScreenManager;
-        [SerializeField] private Transform gameSceneRoot;
+        [SerializeField] RuntimeAnimatorController cameraAnimatorController;
+        [SerializeField] CompleteScreenManager completeScreenManager;
+        [SerializeField] ReplayScreenManager replayScreenManager;
+        [SerializeField] Transform gameSceneRoot;
 
         public Transform GameSceneRoot => gameSceneRoot;
         public LevelConfig LevelConfig => levelConfig;
@@ -79,8 +79,6 @@ namespace Puzzle
         private Animator _gameCameraAnimator;
         private static readonly int Shake = Animator.StringToHash("shake");
         private LevelConfig levelConfig;
-
-        protected BubbleDialog _currentDialog;
 
         protected virtual void Awake()
         {
@@ -144,36 +142,6 @@ namespace Puzzle
         void CallCompleteMenu(int stars, bool isNewRecord)
         {
             completeScreenManager.CreateReplyScreen(stars, isNewRecord);
-        }
-        
-        //TODO move it to player view
-        public void ShowDialog(string message, float time = -1)
-        {
-            BubbleDialog newDialog = BubbleDialog.Create(
-                bubbleDialog =>
-                {
-                    bubbleDialog.transform.parent = GameSceneRoot;
-                    bubbleDialog.transform.localScale =
-                        ScreenScaler.FitHorizontalPart(bubbleDialog.Background, 0.35f) *
-                        Vector2.one;
-                
-                    //Put dialog on the top right puzzle angle
-                    float halfOfPuzzleWidth = ScreenScaler.PartOfScreen(Player.PlayerView.PartOfScreen / 2).x;
-                    bubbleDialog.transform.position = Vector2.one * halfOfPuzzleWidth;
-                });
-        
-            if (_currentDialog != null)
-                _currentDialog.Hide(() => newDialog.Show(message));
-            else
-                newDialog.Show(message);
-
-            _currentDialog = newDialog;
-            _currentDialog.SetRenderLayer(RenderLayer.VFX, 102);
-
-            if (time > 0)
-                //If time is specified we will close window in this time
-                _currentDialog.Invoke(() => _currentDialog.Hide(), time);
-        
         }
 
         protected virtual void OnEnable() { }

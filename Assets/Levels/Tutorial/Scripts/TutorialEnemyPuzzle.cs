@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Abu.Tools;
 using Puzzle;
-using PuzzleScripts;
-using UnityEngine;
 
 public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
 {
-    private bool _reachedHalfway;
     public event Action Solved;
     
-    bool isHalfway
+    public bool IsSolved => GameSceneManager.Instance.Player.sides[(int)side] != stickOut;
+    bool IsHalfway
     {
         get
         {
@@ -23,43 +19,45 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
                        ScreenScaler.CameraSize.x / 4;
         }
     }
-
+    bool isNeedToBeSolved;
+    TutorialSceneManager SceneManager => GameSceneManager.Instance as TutorialSceneManager;
+    
     protected override void Update()
     {
         base.Update();
 
-        if (TutoriaScenelManager.TutorialStopped
-            && TutoriaScenelManager.StopReason as TutorialEnemyPuzzle == this
-            && GameSceneManager.Instance.Player.sides[side.GetHashCode()] != stickOut)//Sides shouldn't be equal
+        if (SceneManager.TutorialStopped
+            && SceneManager.StopReason as TutorialEnemyPuzzle == this
+            && IsSolved)
         {
+            isNeedToBeSolved = false;
             Solved?.Invoke();
         }
 
-        if (!_reachedHalfway && isHalfway)
+        if (!isNeedToBeSolved && IsHalfway && !IsSolved)
         {
-            _reachedHalfway = true;
-            if (GameSceneManager.Instance is TutoriaScenelManager sceneManager)
-                sceneManager.InvokeEnemyIsClose(this);
+            isNeedToBeSolved = true;
+            SceneManager.InvokeEnemyNotSolved(this);
         }
     }
     
     protected override void OnEnable()
     {
         base.OnEnable();
-        TutoriaScenelManager.OnTutorialRestart += TutorialRestartEvent_Handler;
-        TutoriaScenelManager.OnStopTutorial += TutorialStopEvent_Handler;
+        GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
+        TutorialSceneManager.OnStopTutorial += TutorialStopEvent_Handler;
     }
     
     protected override void OnDisable()
     {
         base.OnDisable();
-        TutoriaScenelManager.OnTutorialRestart -= TutorialRestartEvent_Handler;
-        TutoriaScenelManager.OnStopTutorial -= TutorialStopEvent_Handler;
+        GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
+        TutorialSceneManager.OnStopTutorial -= TutorialStopEvent_Handler;
     }
 
-    void TutorialRestartEvent_Handler()
+    void PlayerLosedHpEvent_Handler()
     {
-        Destroy(gameObject);
+        Die();
     }
     void TutorialStopEvent_Handler(bool pause)
     {
@@ -70,12 +68,12 @@ public class TutorialEnemyPuzzle : NeonPuzzle, ITutorialStopReason
     {
         if (!paused)
         {
-            if (!TutoriaScenelManager.TutorialStopped)
-                base.PauseLevelEvent_Handler(paused);
+            if (!SceneManager.TutorialStopped)
+                base.PauseLevelEvent_Handler(false);
         }
         else
         {
-            base.PauseLevelEvent_Handler(paused);
+            base.PauseLevelEvent_Handler(true);
         }
     }
 

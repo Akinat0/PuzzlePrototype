@@ -18,6 +18,8 @@ namespace Puzzle.Advertisements
                 return "3984570";
 #elif UNITY_ANDROID
                 return "3984571";
+#else
+                return string.Empty;
 #endif
             }
         }

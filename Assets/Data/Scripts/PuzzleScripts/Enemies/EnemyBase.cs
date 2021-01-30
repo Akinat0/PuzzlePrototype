@@ -74,9 +74,8 @@ namespace PuzzleScripts
         }
         public virtual void OnHitPlayer(Player player)
         {
+            Destroy(gameObject);
             player.DealDamage(Damage);
-            if(gameObject != null)
-                Destroy(gameObject);
         }
 
         public virtual Transform Die()

@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 990335529117152401}
   - component: {fileID: 990335529117152406}
   - component: {fileID: 990335529117152400}
-  - component: {fileID: 990335529117152403}
-  - component: {fileID: 990335529117152402}
   - component: {fileID: 990335529117152405}
+  - component: {fileID: 1174112153281973879}
   m_Layer: 8
-  m_Name: GameContainer
+  m_Name: TutorialEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,34 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049992a020f234c05a59c679207afe18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &990335529117152403
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990335529117152430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53010952289f54f518f43cd49feef028, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeOnPause: 0.5
---- !u!114 &990335529117152402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 990335529117152430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9507b904b70ac49bf9106f578b8188ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Scenes:
-  - PuzzleAnimationCutscene
-  - ShitAnimationCutscene
 --- !u!114 &990335529117152405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +85,18 @@ MonoBehaviour:
   completeScreenManager: {fileID: 4100117580577997708}
   replayScreenManager: {fileID: 4100117580577997699}
   gameSceneRoot: {fileID: 990335529117152401}
+--- !u!114 &1174112153281973879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990335529117152430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbeefa12c3fa989469978fa6320853c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &990335529674224958
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &990335529674224929
 Transform:
   m_ObjectHideFlags: 0

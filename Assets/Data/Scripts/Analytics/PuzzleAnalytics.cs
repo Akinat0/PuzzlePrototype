@@ -18,7 +18,11 @@ public class PuzzleAnalytics
         RegisterEvent(new LevelChangedAnalyticsEvent());
         RegisterEvent(new PlayerDiedAnalyticsEvent());
         RegisterEvent(new PlayerRevivedAnalyticsEvent());
+        
+        LoadAnalytics();
     }
+    
+    public bool IsEnabled { get; private set; }
     
     public void RegisterEvent(PuzzleAnalyticsEvent analyticsEvent)
     {
@@ -32,4 +36,32 @@ public class PuzzleAnalytics
     {
         return $"[Analytics] SessionInfo. userID: {AnalyticsSessionInfo.userId} ; sessionState: {AnalyticsSessionInfo.sessionState} ; sessionID: {AnalyticsSessionInfo.sessionId} ; sessionElapsedTime: {AnalyticsSessionInfo.sessionElapsedTime}";
     }
+
+    public void Enable()
+    {
+        if(IsEnabled)
+            return;
+
+        IsEnabled = true;
+        SaveAnalytics();
+    }
+
+    public void Disable()
+    {
+        if(!IsEnabled)
+            return;
+        IsEnabled = false;
+        SaveAnalytics();
+    }
+
+    void SaveAnalytics()
+    {
+        PlayerPrefs.SetInt(AnalyticsEnabledKey, IsEnabled ? 1 : 0);
+    }
+
+    void LoadAnalytics()
+    {
+        IsEnabled = PlayerPrefs.GetInt(AnalyticsEnabledKey, 1) == 1;
+    }
+    string AnalyticsEnabledKey => "analytics_enabled_key";
 }

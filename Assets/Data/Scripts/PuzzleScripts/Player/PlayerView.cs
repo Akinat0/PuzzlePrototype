@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
+    #region factory
     public static PlayerView Create(Transform parent, int ID, PuzzleSides? sides = null)
     {
         return Create(parent, Account.GetCollectionItem(ID), sides);
@@ -24,47 +25,34 @@ public class PlayerView : MonoBehaviour
         playerView.ID = collectionItem.ID;
         return playerView;
     }
+    #endregion
     
-    [SerializeField] private float _partOfScreen = 0.25f;
+    #region serialized
+    
+    [SerializeField] float _partOfScreen = 0.25f;
     [SerializeField] public Transform shape;
     [SerializeField] PlayerViewColorSkin[] colorSkins;
 
     [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
-    private Transform[] TRBL_positions;
+    Transform[] TRBL_positions;
 
+    #endregion
+
+    #region private
+    
     protected int ID;
     protected CollectionItem CollectionItem;
     protected Animator Animator;
     
-    private static readonly int Damaged = Animator.StringToHash("Damaged");
-    private static readonly int Kill = Animator.StringToHash("Kill");
+    static readonly int Damaged = Animator.StringToHash("Damaged");
+    static readonly int Kill = Animator.StringToHash("Kill");
 
     public float PartOfScreen => _partOfScreen;
 
     public Transform[] TRBLPositions => TRBL_positions;
-
     Quaternion defaultShapeRotation;
 
-    protected virtual void Start()
-    {
-        Animator = GetComponent<Animator>();
-        SetScale(_partOfScreen);
-        defaultShapeRotation = shape.rotation;
-
-        CollectionItem = Account.GetCollectionItem(ID);
-        
-        if (CollectionItem != null)
-        {
-            CollectionItem.OnActiveColorChangedEvent += OnActiveColorChanged_Handler;
-            UpdateColor();
-        }
-    }
-
-    void OnDestroy()
-    {
-        if (CollectionItem != null)
-            CollectionItem.OnActiveColorChangedEvent -= OnActiveColorChanged_Handler;
-    }
+    #endregion
 
     void SetScale(float partOfScreen)
     {
@@ -91,7 +79,7 @@ public class PlayerView : MonoBehaviour
                 return Vector3.one;
         }
     }
-
+    
     public virtual void ChangeSides()
     {
         shape.Rotate(0, 0, 180);
@@ -112,6 +100,40 @@ public class PlayerView : MonoBehaviour
         Animator.SetTrigger(Kill);
     }
     
+    void UpdateColor()
+    {
+        PuzzleColorData? puzzleColor = CollectionItem.ActiveColorData;
+        
+        if(puzzleColor == null)
+            return;
+        
+        foreach (PlayerViewColorSkin viewColor in colorSkins)
+            viewColor.ChangePuzzleSkin(puzzleColor.Value);
+    }
+    
+    #region engine
+    
+    protected virtual void Start()
+    {
+        Animator = GetComponent<Animator>();
+        SetScale(_partOfScreen);
+        defaultShapeRotation = shape.rotation;
+
+        CollectionItem = Account.GetCollectionItem(ID);
+        
+        if (CollectionItem != null)
+        {
+            CollectionItem.OnActiveColorChangedEvent += OnActiveColorChanged_Handler;
+            UpdateColor();
+        }
+    }
+    
+    void OnDestroy()
+    {
+        if (CollectionItem != null)
+            CollectionItem.OnActiveColorChangedEvent -= OnActiveColorChanged_Handler;
+    }
+    
     protected virtual void OnEnable()
     {
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
@@ -125,23 +147,16 @@ public class PlayerView : MonoBehaviour
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
         GameSceneManager.EnemyDiedEvent -= OnEnemyDiedEvent_Handler;
     }
+    
+    #endregion
 
-    void UpdateColor()
-    {
-        PuzzleColorData? puzzleColor = CollectionItem.ActiveColorData;
-        
-        if(puzzleColor == null)
-            return;
-        
-        foreach (PlayerViewColorSkin viewColor in colorSkins)
-            viewColor.ChangePuzzleSkin(puzzleColor.Value);
-    }
-
+    #region event handlers
+    
     void OnActiveColorChanged_Handler(int colorIndex)
     {
         UpdateColor();
     }
-    
+
     void PlayerLosedHpEvent_Handler()
     {
         OnPlayerLoseHp();
@@ -151,13 +166,14 @@ public class PlayerView : MonoBehaviour
     {
         OnEnemyDied(enemy);
     }
-    
     void LevelClosedEvent_Handler()
     {
         RestoreView();
     }
+
+    #endregion
     
-    
+    #region editor
     #if UNITY_EDITOR
     
     public static void SetEditorColorSkins(PlayerView playerView, PlayerViewColorSkin[] colorSkins)
@@ -171,4 +187,5 @@ public class PlayerView : MonoBehaviour
     }
     
     #endif
+    #endregion
 }

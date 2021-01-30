@@ -281,8 +281,6 @@ namespace Abu.Console
                 return SetStars(args[1], args[2]);
             else
                 return Help;
-            
-
         }
         
         string SetStars(object level, object stars)
@@ -318,6 +316,44 @@ namespace Abu.Console
         
     }
 
+    public class AnalyticsCommand : IConsoleCommand
+    {
+        public string Command => "analytics";
+        
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 2)
+                return Parse(args[1]);
+            else
+                return Help;
+        }
+
+        string Parse(object command)
+        {
+            try
+            {
+                string parsedCommand = command.ToString();
+                switch (parsedCommand.Trim().ToLowerInvariant())
+                {
+                    case "enable":
+                        Account.Analytics.Enable();
+                        return "Analytics enabled";
+                    case "disable":
+                        Account.Analytics.Disable();
+                        return "Analytics disabled";
+                    default:
+                        return Help;
+                }
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+        }
+        
+        string Help => "Analytics has commands \"enable\" and \"disable\"";
+    }
+    
     public class DeleteLocalCommand : IConsoleCommand
     {
         public string Command => "deletelocal";

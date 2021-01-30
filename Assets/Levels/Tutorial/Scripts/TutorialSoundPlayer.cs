@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TutorialSoundPlayer : LevelSoundPlayer
 {
-    [SerializeField, Range(0, 1)] private float volumeOnPause = 0.5f; 
+    [SerializeField, Range(0, 1)] float volumeOnPause = 0.5f; 
     private bool quietSound;
     protected override void Update()
     {
@@ -26,13 +26,13 @@ public class TutorialSoundPlayer : LevelSoundPlayer
     protected override void OnEnable()
     {
         base.OnEnable();
-        TutoriaScenelManager.OnStopTutorial += OnStopTutorial_Handler;
+        TutorialSceneManager.OnStopTutorial += OnStopTutorial_Handler;
     }
     
     protected override void OnDisable()
     {
         base.OnDisable();
-        TutoriaScenelManager.OnStopTutorial -= OnStopTutorial_Handler;
+        TutorialSceneManager.OnStopTutorial -= OnStopTutorial_Handler;
     }
 
     void OnStopTutorial_Handler(bool paused)
