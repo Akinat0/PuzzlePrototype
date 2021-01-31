@@ -45,7 +45,7 @@ namespace Tutorial.GameActions
             base.Pop();
         }
 
-        void TouchOnTheScreenEvent_Handler(Touch _)
+        void TouchOnTheScreenEvent_Handler(Vector3 _)
         {
             if(!Dialog.Shown)
                 return;

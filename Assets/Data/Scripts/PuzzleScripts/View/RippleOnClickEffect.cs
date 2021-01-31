@@ -14,9 +14,8 @@ public class RippleOnClickEffect : MonoBehaviour
         MobileGameInput.TouchRegistered -= TouchRegistered_Handler;
     }
 
-    void TouchRegistered_Handler(Touch touch)
+    void TouchRegistered_Handler(Vector3 position)
     {
-        Vector3 position = ScreenScaler.MainCamera.ScreenToWorldPoint(touch.position);
         VFXManager.Instance.CallTapRippleEffect(position);
     }
 }

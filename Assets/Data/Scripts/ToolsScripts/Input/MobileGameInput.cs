@@ -1,21 +1,28 @@
 ﻿using Puzzle;
 using UnityEngine;
 using System;
+using Abu.Tools;
 using UnityEngine.EventSystems;
 
 public interface ITouchProcessor
 {
-    void OnTouch(Touch touch);
+    void OnTouch();
 }
 
 public class MobileGameInput : MonoBehaviour
 {
-    public static event Action<Touch> TouchOnTheScreen;
-    public static event Action<Touch> TouchRegistered; //Called each time your touch was registered
+    public static event Action<Vector3> TouchOnTheScreen;
+    public static event Action<Vector3> TouchRegistered; //Called each time your touch was registered
 
-    public virtual bool Condition { get; protected set; }
+    public bool Condition { get; protected set; }
+    float touchRadius; 
 
-    protected virtual void Update()
+    void Start()
+    {
+        touchRadius = ScreenScaler.CameraSize.x / 10;
+    }
+
+    protected void Update()
     {
         if (!Condition)
             return;
@@ -23,92 +30,84 @@ public class MobileGameInput : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
 
             if (touch.phase == TouchPhase.Began)
             {
                 if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                     //Touch on UI element
                     return;
-
-                Collider2D touchedCollider = Physics2D.OverlapPoint(touchPosition);
-                if (touchedCollider != null)
-                {
-                    ProcessCollider(touchedCollider, touch);
-                }
+                
+                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                Collider2D[] touchedColliders = Physics2D.OverlapCircleAll(touchPosition, touchRadius);
+                
+                if (touchedColliders.Length > 0)
+                    ProcessColliders(touchedColliders, touchPosition);
                 else
-                {
-                    TouchOnScreen(touch);
-                }
+                    TouchOnScreen(touchPosition);
             }
         }
 #if UNITY_EDITOR
         if (Input.GetMouseButtonDown(0))
         {
-            
             if (EventSystem.current.IsPointerOverGameObject())
                 //Mouse on UI element
                 return;
             
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            Vector2 clickPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Collider2D[] touchedColliders = Physics2D.OverlapCircleAll(clickPosition, touchRadius);
 
-            if (hit.collider != null)
-            {
-                ProcessCollider(hit.collider, new Touch {position = Input.mousePosition});
-            }
+            if (touchedColliders.Length > 0)
+                ProcessColliders(touchedColliders, clickPosition);
             else
-            {
-                
-                TouchOnScreen(new Touch {position = Input.mousePosition});
-            }
-                
+                TouchOnScreen(clickPosition);
         }    
 #endif
-        
     }
 
-    void ProcessCollider(Collider2D _collider, Touch _touch)
+    void ProcessColliders(Collider2D[] colliders, Vector3 position)
     {
-        ITouchProcessor touchProcessor = _collider.GetComponent<ITouchProcessor>();
+        bool isTouchOnScreen = true;
+        foreach (Collider2D collider in colliders)
+        {
+            ITouchProcessor touchProcessor = collider.GetComponent<ITouchProcessor>();
 
-        if (touchProcessor != null)
-        {
-            touchProcessor.OnTouch(_touch);
-        }
-        else
-        {
-            TouchOnTheScreen?.Invoke(_touch);
+            if (touchProcessor == null) continue;
+            
+            touchProcessor.OnTouch();
+            isTouchOnScreen = false;
         }
         
-        InvokeTouchRegistered(_touch);
+        if(isTouchOnScreen)
+            TouchOnTheScreen?.Invoke(position);
+
+        InvokeTouchRegistered(position);
     }
 
-    protected void TouchOnScreen(Touch touch)
+    protected void TouchOnScreen(Vector3 position)
     {
-        TouchOnTheScreen?.Invoke(touch);
-        InvokeTouchRegistered(touch);
+        TouchOnTheScreen?.Invoke(position);
+        InvokeTouchRegistered(position);
     }
     
-    protected virtual void OnEnable()
+    protected void OnEnable()
     {
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
-    protected virtual void OnDisable()
+    protected void OnDisable()
     {
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
     }
 
-    void PauseLevelEvent_Handler(bool _Pause)
+    void PauseLevelEvent_Handler(bool pause)
     {
-        Condition = !_Pause;
+        Condition = !pause;
     }
 
-    private void InvokeTouchRegistered(Touch touch)
+    void InvokeTouchRegistered(Vector3 position)
     {
-        Debug.Log("Touch registered " + touch.position);
-        TouchRegistered?.Invoke(touch);
+        Debug.Log("Touch registered " + position);
+        TouchRegistered?.Invoke(position);
     }
     
 }

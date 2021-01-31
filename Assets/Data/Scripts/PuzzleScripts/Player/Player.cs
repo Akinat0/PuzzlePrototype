@@ -59,7 +59,7 @@ namespace Puzzle
             MobileGameInput.TouchOnTheScreen -= TouchOnScreen_Handler;
         }
         
-        void TouchOnScreen_Handler(Touch touch)
+        void TouchOnScreen_Handler(Vector3 _)
         {
             ChangeSides();
         }
