@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Account : MonoBehaviour
 {
-    private static Account instance;
+    static Account instance;
 
     public static event Action<int> BalanceChangedEvent;
 
@@ -180,6 +180,10 @@ public class Account : MonoBehaviour
     
     public static LevelConfig DefaultLevel => instance.LevelsManager.DefaultLevel;
 
-
+    public static LevelConfig GetLevel(string levelName)
+    {
+        return LevelConfigs?.FirstOrDefault(level => level.Name == levelName);
+    }
+    
     #endregion
 }

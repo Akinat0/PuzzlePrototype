@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public partial class LevelConfig
@@ -45,7 +46,9 @@ public partial class LevelConfig
     string StarsKey => "Stars " + Key;
 
     int starsAmount;
-    bool isStarsAmountLoaded = false;
+    bool isStarsAmountLoaded;
+
+    public event Action<int> StarsAmountChanged;
     
     public int StarsAmount
     {
@@ -61,15 +64,23 @@ public partial class LevelConfig
         }
         set
         {
+            if (!isStarsAmountLoaded)
+            {
+                starsAmount = PlayerPrefs.GetInt(StarsKey, 0);
+                isStarsAmountLoaded = true;
+            }
+            
             value = Mathf.Clamp(value, 0, 3);
             
             if (starsAmount == value)
                 return;
 
             starsAmount = value;
-            
+
             PlayerPrefs.SetInt(StarsKey, starsAmount);
             PlayerPrefs.Save();
+            
+            StarsAmountChanged?.Invoke(starsAmount);
         }
     }
     
