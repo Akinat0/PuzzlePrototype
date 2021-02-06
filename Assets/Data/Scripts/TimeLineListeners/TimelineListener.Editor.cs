@@ -11,6 +11,10 @@ public partial class TimelineListener
         #if UNITY_EDITOR
         
         TimelineAsset timeLineAsset = (TimelineAsset) PlayableDirector.playableAsset;
+        
+        if(timeLineAsset == null)
+            return;
+        
         startTime = 0;
         List<PlayAudioMarker> audioMarkers = new List<PlayAudioMarker>();
         for (int i=0; i < timeLineAsset.markerTrack.GetMarkerCount(); i++)
