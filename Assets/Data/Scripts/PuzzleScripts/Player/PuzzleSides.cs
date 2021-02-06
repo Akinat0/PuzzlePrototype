@@ -28,7 +28,7 @@ namespace Puzzle
         
         public bool[] ToArray()
         {
-            return new[] { Right, Bottom, Left, Top };
+            return new[] { Left, Top, Right, Bottom };
         }
 
         public static bool operator ==(PuzzleSides a, PuzzleSides b)
