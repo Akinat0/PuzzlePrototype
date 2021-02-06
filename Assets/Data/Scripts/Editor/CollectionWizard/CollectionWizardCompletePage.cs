@@ -255,8 +255,8 @@ public class CollectionWizardCompletePage : WizardPage
 
         AnimatorStateTransition anyStateDamagedTransition = rootStateMachine.AddAnyStateTransition(stateDamaged);
         anyStateDamagedTransition.canTransitionToSelf = true;
-        anyStateDamagedTransition.hasExitTime = true;
-        anyStateDamagedTransition.exitTime = 1;
+        anyStateDamagedTransition.hasExitTime = false;
+        anyStateDamagedTransition.exitTime = 0;
         anyStateDamagedTransition.hasFixedDuration = false;
         anyStateDamagedTransition.duration = 0;
         anyStateDamagedTransition.AddCondition(AnimatorConditionMode.If, 1, damagedParameter);

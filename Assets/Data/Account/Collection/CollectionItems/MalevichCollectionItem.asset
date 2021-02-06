@@ -13,7 +13,34 @@ MonoBehaviour:
   m_Name: MalevichCollectionItem
   m_EditorClassIdentifier: 
   Name: Malevich
-  puzzleVariants: []
+  puzzleVariants:
+  - sides:
+      _Top: 1
+      _Right: 1
+      _Bottom: 1
+      _Left: 1
+    puzzle: {fileID: 4077882444631147864, guid: 34d036128099340c7b8c234f0e0866af,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 1
+      _Left: 0
+    puzzle: {fileID: 4943803218495960284, guid: 9b8eea682cbdc418795d4b2a1233c30d,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 0
+    puzzle: {fileID: 889139682067316553, guid: 1d15a982ded6d4f618407018f4d12eab, type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 1
+    puzzle: {fileID: 6682034687198873808, guid: fd5df5e6f46ff49399f4f201af1190cf,
+      type: 3}
   defaultUnlocked: 0
   puzzleColors:
   - id: Red
