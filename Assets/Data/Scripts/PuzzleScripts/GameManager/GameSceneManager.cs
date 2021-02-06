@@ -75,10 +75,8 @@ namespace Puzzle
         int totalHearts = DEFAULT_HEARTS;
 
         LevelRootView levelRootView;
-        private Player player;
-        private Animator _gameCameraAnimator;
-        private static readonly int Shake = Animator.StringToHash("shake");
-        private LevelConfig levelConfig;
+        Player player;
+        LevelConfig levelConfig;
 
         protected virtual void Awake()
         {
@@ -88,14 +86,9 @@ namespace Puzzle
                 Debug.LogError("There's more than one GameSceneManager in the scene");
         }
 
-        private void OnDestroy()
+        void OnDestroy()
         {
             Instance = null;
-        }
-
-        public void ShakeCamera()
-        {
-            _gameCameraAnimator.SetTrigger(Shake);
         }
 
         public void SetupScene(GameObject _player, LevelConfig config, LevelRootView levelRootView)
@@ -109,9 +102,6 @@ namespace Puzzle
 
             playerCachedParent = player.transform.parent;
             player.transform.parent = GameSceneRoot;
-            
-            _gameCameraAnimator = LauncherUI.Instance.MainCamera.gameObject.AddComponent<Animator>();
-            _gameCameraAnimator.runtimeAnimatorController = cameraAnimatorController;
 
             levelConfig = config;
             this.levelRootView = levelRootView; 
@@ -130,7 +120,6 @@ namespace Puzzle
             player.transform.parent = playerCachedParent;
             Destroy(player.GetComponent<PlayerInput>());
             Destroy(player.GetComponent<Player>());
-            Destroy(_gameCameraAnimator);
             Destroy(gameObject);
         }
 

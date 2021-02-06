@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ScreensScripts;
+using UnityEngine;
 
 namespace Puzzle
 {
@@ -18,7 +19,7 @@ namespace Puzzle
             _view = GetComponent<PlayerView>();
         }
         
-        private void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();
             enemy.OnHitPlayer(this);
@@ -26,7 +27,7 @@ namespace Puzzle
 
         public virtual void DealDamage(int damage)
         {
-            GameSceneManager.Instance.ShakeCamera();
+            LauncherUI.Instance.MainCamera.Shake();
             if (!_immuneFramesEnabled)
             {
                 for (int i = 0; i < damage; i++)
