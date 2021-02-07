@@ -21,7 +21,7 @@ namespace AudioVisualization
         float hightestAmplitude = -1;
         
         
-        public AudioSpectrumData(AudioSource source, float frequencyMultiplier = 10.0f, float defaultDecrease = 0.005f, float decreaseAcceleration = 1.2f, FFTWindow fftWindow = FFTWindow.Blackman)
+        public AudioSpectrumData(AudioSource source, float frequencyMultiplier = 10.0f, float defaultDecrease = 0.005f, float decreaseAcceleration = 1.085f, FFTWindow fftWindow = FFTWindow.Blackman)
         {
             audioSource = source;
             FrequencyMultiplier = frequencyMultiplier;
