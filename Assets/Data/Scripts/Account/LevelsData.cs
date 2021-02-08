@@ -4,7 +4,7 @@
 
 public class LevelsData : SaveableScriptableObject
 {
-    [SerializeField] LevelConfig[] _LevelItems;
+    [SerializeField, HideInInspector] LevelConfig[] _LevelItems;
     [SerializeField] public int DefaultLevelID;
     
 
