@@ -4,6 +4,10 @@ namespace AudioVisualization
 {
     public class AudioDataSource : MonoBehaviour
     {
+        [SerializeField] float frequencyMultiplier = 10;
+        [SerializeField] float defaultDecrease = 0.005f;
+        [SerializeField] float decreaseAcceleration = 1.085f;
+        [SerializeField] FFTWindow fftWindow = FFTWindow.Blackman;
         public float[] Samples => spectrumData.Samples;
         public float[] FrequencyBands => spectrumData.FrequencyBands;
         public float[] SmoothFrequencyBands => spectrumData.SmoothFrequencyBands;
@@ -42,7 +46,7 @@ namespace AudioVisualization
             }
             
             audioSource = source;
-            spectrumData = new AudioSpectrumData(audioSource); 
+            spectrumData = new AudioSpectrumData(audioSource, frequencyMultiplier, defaultDecrease, decreaseAcceleration, fftWindow); 
             IsPlaying = true;
         }
 

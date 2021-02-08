@@ -160,12 +160,12 @@ namespace Abu.Tools
             camera.orthographicSize = bounds.extents.x;
         }
         
-        private static Vector2 ScaleToFillScreen (float width, float height, float pixelsPerUnit)
+        static Vector2 ScaleToFillScreen (float width, float height, float pixelsPerUnit)
         {
             return new Vector2(ScaleToFillWidth(width, pixelsPerUnit), ScaleToFillHeight(height, pixelsPerUnit));
         }
 
-        private static float ScaleToFillHeight(float height, float pixelsPerUnit)
+        static float ScaleToFillHeight(float height, float pixelsPerUnit)
         {
             float camHeight = pixelsPerUnit * MainCamera.orthographicSize * 2;
             float y_scale = camHeight / height;
@@ -173,7 +173,7 @@ namespace Abu.Tools
             return y_scale;
         }
         
-        private static float ScaleToFillWidth(float width, float pixelsPerUnit)
+        static float ScaleToFillWidth(float width, float pixelsPerUnit)
         {
             float aspectRatio = (float) Screen.width / Screen.height;
 
