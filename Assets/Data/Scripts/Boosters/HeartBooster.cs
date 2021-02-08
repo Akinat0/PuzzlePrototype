@@ -9,4 +9,8 @@ public class HeartBooster : Booster
     {
         GameSceneManager.Instance.CurrentHearts++;
     }
+
+    public override void Release()
+    {
+    }
 }

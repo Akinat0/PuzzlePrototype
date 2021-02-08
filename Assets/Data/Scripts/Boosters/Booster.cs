@@ -99,6 +99,7 @@ public abstract class Booster
         
         GameSceneManager.Instance.InvokeApplyBooster(this);
     }
+    
 
     string Key => Name;
     string AmountKey => Key + " Amount";
@@ -117,5 +118,6 @@ public abstract class Booster
     
     public abstract string Name { get; }
     protected abstract void Apply();
-    
+    public abstract void Release();
+
 }

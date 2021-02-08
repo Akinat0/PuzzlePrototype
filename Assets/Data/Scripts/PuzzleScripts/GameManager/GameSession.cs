@@ -31,7 +31,7 @@ public class GameSession
     public LevelConfig LevelConfig { get; protected set; }
     public string LevelName => LevelConfig.Name;
     public DifficultyLevel Difficulty => LevelConfig.DifficultyLevel;
-    public HashSet<Booster> SessionBoosters { get; protected set; } = new HashSet<Booster>();
+    public HashSet<Booster> ActiveBoosters { get; protected set; } = new HashSet<Booster>();
     public List<EnemyParams> Enemies { get; protected set; } = new List<EnemyParams>();
     public int CollectedCoins { get; protected set; }
     
@@ -60,7 +60,7 @@ public class GameSession
 
     void ApplyBoosterEvent_Handler(Booster booster)
     {
-        SessionBoosters.Add(booster);
+        ActiveBoosters.Add(booster);
 
         if (booster is HeartBooster)
         {

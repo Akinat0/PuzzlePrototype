@@ -151,6 +151,13 @@ namespace Puzzle
         {
             Debug.Log("ResetLevel Invoked");
 
+            //It could be a moment after play button pressed and there is no session yet
+            if (Session != null)
+            {
+                foreach (Booster booster in Session.ActiveBoosters)
+                    booster.Release();
+            }
+
             Session = new GameSession(levelConfig);
             
             CurrentHearts = DEFAULT_HEARTS;
@@ -220,6 +227,9 @@ namespace Puzzle
         
         public void InvokeLevelClosed(bool showStars = true)
         {
+            foreach (Booster booster in Session.ActiveBoosters)
+                booster.Release();
+            
             InvokePauseLevel(true);
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
@@ -232,7 +242,7 @@ namespace Puzzle
         {
             Debug.Log("LevelComplete Invoked");
             LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
-                Session.SessionBoosters.ToArray(), Session.ReviveUsed));
+                Session.ActiveBoosters.ToArray(), Session.ReviveUsed));
             
             //Get stars amount from difficulty
             int stars = (int)LevelConfig.DifficultyLevel;
