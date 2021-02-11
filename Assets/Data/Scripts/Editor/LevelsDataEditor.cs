@@ -25,7 +25,10 @@ public class LevelsDataEditor : Editor
 
     void DrawElement(Rect rect, int index, bool active, bool focused)
     {
+        EditorGUI.BeginChangeCheck();
         EditorGUI.PropertyField(rect, serializedObject.FindProperty("_LevelItems").GetArrayElementAtIndex(index));
+        if (EditorGUI.EndChangeCheck())
+            serializedObject.ApplyModifiedProperties();
     }
     
     void DrawHeader(Rect rect)
