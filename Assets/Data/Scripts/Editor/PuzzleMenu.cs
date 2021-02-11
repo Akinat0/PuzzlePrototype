@@ -175,6 +175,12 @@ public class PuzzleMenu : EditorWindow
         PlayerPrefs.DeleteAll();
     }
 
+    [MenuItem("PuzzleUtils/Process Assets")]
+    public static void ProcessAssets()
+    {
+        PuzzleAssetsProcessor.ProcessAssets();
+    }
+
 }
 #endif
 
