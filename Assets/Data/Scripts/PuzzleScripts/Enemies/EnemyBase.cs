@@ -18,8 +18,8 @@ namespace PuzzleScripts
     {
         public static readonly float Distance = 10f; //Distance to target
 
-        [SerializeField] private GameObject vfx;
-        [SerializeField] private AudioClip sfx;
+        [SerializeField] protected GameObject vfx;
+        [SerializeField] protected AudioClip sfx;
         [SerializeField] private int score;
         [SerializeField] private EnemyType type;
 
