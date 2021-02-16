@@ -1,6 +1,7 @@
 ﻿using Puzzle;
 using UnityEngine;
 using System;
+using System.Linq;
 using Abu.Tools;
 using UnityEngine.EventSystems;
 
@@ -66,20 +67,14 @@ public class MobileGameInput : MonoBehaviour
 
     void ProcessColliders(Collider2D[] colliders, Vector3 position)
     {
-        bool isTouchOnScreen = true;
-        foreach (Collider2D collider in colliders)
-        {
-            ITouchProcessor touchProcessor = collider.GetComponent<ITouchProcessor>();
+        ITouchProcessor target = colliders.OrderBy(coll => Vector2.Distance(coll.transform.position, position))
+            .Select(coll => coll.GetComponent<ITouchProcessor>()).FirstOrDefault();
 
-            if (touchProcessor == null) continue;
-            
-            touchProcessor.OnTouch();
-            isTouchOnScreen = false;
-        }
-        
-        if(isTouchOnScreen)
+        if (target != null)
+            target.OnTouch();
+        else
             TouchOnTheScreen?.Invoke(position);
-
+        
         InvokeTouchRegistered(position);
     }
 
