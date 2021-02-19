@@ -11,41 +11,16 @@ public class SplineFollower2DEditor : Editor
     {
         if(Spline == null)
             return;
-        
-        Matrix4x4 matrix = Handles.matrix;
-        Handles.matrix = Spline.transform.localToWorldMatrix;
-        
-        DrawSceneSpline();
-        DrawSceneNormals();
-        
-        Handles.matrix = matrix;
-    }
 
-    void DrawSceneSpline()
-    {
-        int length = Spline.Looped
-            ? Spline.GetAnchorsCount()
-            : Spline.GetAnchorsCount() - 1;
-        
-        for (int i = 0; i < length; i++)
-        {
-            Spline.Anchor sourceAnchor = Spline.GetAnchor(i);
-            Spline.Anchor targetAnchor = Spline.GetAnchor((i + 1) % Spline.GetAnchorsCount());
-			
-            Handles.DrawBezier(
-                sourceAnchor.Position,
-                targetAnchor.Position,
-                sourceAnchor.Position + sourceAnchor.OutTangent,
-                targetAnchor.Position + targetAnchor.InTangent,
-                Color.white,
-                null,
-                2
-            );
-        }
+        SplineEditorUtility.DrawSpline(Spline);
+        DrawSceneNormals();
     }
 
     void DrawSceneNormals()
     {
+        Matrix4x4 matrix = Handles.matrix;
+        Handles.matrix = Spline.transform.localToWorldMatrix;
+        
         Vector3[] normals = Spline.GetNormals2D();
 
         Color handlesColor = Handles.color;
@@ -53,10 +28,12 @@ public class SplineFollower2DEditor : Editor
 
         for (int i = 0; i < Spline.Length; i++)
         {
-            Handles.DrawSolidDisc(Spline[i].Position, Follower2D.transform.forward, 1);
-            Handles.DrawLine(Spline[i].Position, Spline[i].Position + normals[i] * 10);
+            Handles.DrawSolidDisc(Spline[i].Position, Follower2D.transform.forward, SplineEditorUtility.HandlesSize * HandleUtility.GetHandleSize(Spline[i].Position));
+            Handles.DrawLine(Spline[i].Position, Spline[i].Position + normals[i]);
         }
 
         Handles.color = handlesColor;
+        
+        Handles.matrix = matrix;
     }
 }

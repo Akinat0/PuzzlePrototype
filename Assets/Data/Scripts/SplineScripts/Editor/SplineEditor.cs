@@ -118,6 +118,8 @@ public class SplineEditor : Editor
         DrawConvertTo2D();
         DrawEditModeButton();
         DrawAnchorsList();
+        
+        SplineEditorUtility.DrawSplinePointsSizeField();
     }
 
     void DrawAnchorsList()
@@ -161,105 +163,45 @@ public class SplineEditor : Editor
     
     void OnSceneGUI()
     {
-        Matrix4x4 matrix = Handles.matrix;
-        Handles.matrix = Spline.transform.localToWorldMatrix;
+        SplineEditorUtility.DrawSpline(Spline);
+        SplineEditorUtility.DrawSplinePoints(Spline);
+        SplineEditorUtility.DrawSplineAnchors(Spline, Color.yellow);
         
-        DrawSceneSpline();
-        DrawScenePoints();
-        DrawSceneAnchors();
         DrawAnchorsHandlers();
         DrawSelectedHandler();
-        
-        Handles.matrix = matrix;
-    }
-    
-    void DrawSceneSpline()
-    {
-        SerializedProperty keysProperty = serializedObject.FindProperty("anchors");
-        SerializedProperty loopProperty = serializedObject.FindProperty("looped");
-		
-        int length = loopProperty.boolValue
-            ? keysProperty.arraySize
-            : keysProperty.arraySize - 1;
-        
-        for (int i = 0; i < length; i++)
-        {
-            SerializedProperty sourceKeyProperty = keysProperty.GetArrayElementAtIndex(i);
-            SerializedProperty targetKeyProperty = keysProperty.GetArrayElementAtIndex((i + 1) % keysProperty.arraySize);
-			
-            SerializedProperty sourcePositionProperty = sourceKeyProperty.FindPropertyRelative("position");
-            SerializedProperty sourceTangentProperty  = sourceKeyProperty.FindPropertyRelative("outTangent");
-			
-            SerializedProperty targetPositionProperty = targetKeyProperty.FindPropertyRelative("position");
-            SerializedProperty targetTangentProperty  = targetKeyProperty.FindPropertyRelative("inTangent");
-			
-            Handles.DrawBezier(
-                sourcePositionProperty.vector3Value,
-                targetPositionProperty.vector3Value,
-                sourcePositionProperty.vector3Value + sourceTangentProperty.vector3Value,
-                targetPositionProperty.vector3Value + targetTangentProperty.vector3Value,
-                Color.white,
-                null,
-                2
-            );
-        }
-    }
-    
-    void DrawScenePoints()
-    {
-        Vector3 camPosition = SceneView.currentDrawingSceneView.camera.transform.position;
-            
-        foreach (Spline.Point point in Spline)
-        {
-            Handles.DrawSolidDisc(point.Position, (point.Position - camPosition).normalized, 1);
-        }
     }
 
-    void DrawSceneAnchors()
-    {
-        Spline.Anchor[] anchors = Spline.GetAnchors();
-        Color handlesColor = Handles.color;
-        
-        Vector3 camPosition = SceneView.currentDrawingSceneView.camera.transform.position;
-        
-        Handles.color = Color.yellow;
-        
-        foreach (Spline.Anchor anchor in anchors)
-        {
-            Handles.DrawSolidDisc(anchor.Position, (anchor.Position - camPosition).normalized, 1);
-            Vector3 inTangentPosition = anchor.Position + anchor.InTangent;
-            Vector3 outTangentPosition = anchor.Position + anchor.OutTangent;
-            
-            Handles.DrawLine(anchor.Position, inTangentPosition);
-            Handles.DrawLine(anchor.Position, outTangentPosition);
-            
-            Handles.DrawSolidDisc(inTangentPosition, (inTangentPosition - camPosition).normalized, 1);
-            Handles.DrawSolidDisc(outTangentPosition, (outTangentPosition - camPosition).normalized, 1);
-        }
-
-        Handles.color = handlesColor;
-    }
-    
     void DrawAnchorsHandlers()
     {
         if(!isEditMode)
             return;
 
         var anchors = Spline.GetAnchors();
-        
-        EditorGUI.BeginChangeCheck();
+
+        bool changesDetected = false; 
         
         for (var i = 0; i < anchors.Length; i++)
         {
+            EditorGUI.BeginChangeCheck();
+            
             var anchor = anchors[i];
-            Vector3 position = Handles.PositionHandle(anchor.Position, Quaternion.identity);
-            Vector3 inTangent = Handles.PositionHandle(anchor.InTangent + anchor.Position, Quaternion.identity);
-            Vector3 outTangent = Handles.PositionHandle(anchor.OutTangent + anchor.Position, Quaternion.identity);
+            Vector3 position = Handles.PositionHandle(ToWorldPoint(anchor.Position), Quaternion.identity);
+            Vector3 inTangent = Handles.PositionHandle(ToWorldPoint(anchor.InTangent + anchor.Position), Quaternion.identity);
+            Vector3 outTangent = Handles.PositionHandle(ToWorldPoint(anchor.OutTangent + anchor.Position), Quaternion.identity);
 
-            Spline.SetAnchor(new Spline.Anchor(position, inTangent-position, outTangent-position), i);
+            position = ToLocalPoint(position);
+            inTangent = ToLocalPoint(inTangent);
+            outTangent = ToLocalPoint(outTangent);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(Spline, "Spline changed");
+                Spline.SetAnchor(new Spline.Anchor(position, inTangent - position, outTangent - position), i);
+                changesDetected = true;
+            }
         }
-        
-        if(EditorGUI.EndChangeCheck())
+
+        if (changesDetected)
             Spline.Rebuild();
     }
 
@@ -272,14 +214,31 @@ public class SplineEditor : Editor
         
         Spline.Anchor anchor = Spline.GetAnchor(selectedAnchor);
         
-        Vector3 position = Handles.PositionHandle(anchor.Position, Quaternion.identity);
-        Vector3 inTangent = Handles.PositionHandle(anchor.InTangent + anchor.Position, Quaternion.identity);
-        Vector3 outTangent = Handles.PositionHandle(anchor.OutTangent + anchor.Position, Quaternion.identity);
+        Vector3 position = Handles.PositionHandle(ToWorldPoint(anchor.Position), Quaternion.identity);
+        Vector3 inTangent = Handles.PositionHandle(ToWorldPoint(anchor.InTangent + anchor.Position), Quaternion.identity);
+        Vector3 outTangent = Handles.PositionHandle(ToWorldPoint(anchor.OutTangent + anchor.Position), Quaternion.identity);
 
-        Spline.SetAnchor(new Spline.Anchor(position, inTangent-position, outTangent-position), selectedAnchor);
-        
-        if(EditorGUI.EndChangeCheck())
+        position = ToLocalPoint(position);
+        inTangent = ToLocalPoint(inTangent);
+        outTangent = ToLocalPoint(outTangent);
+
+
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(Spline, "Spline changed");
+            Spline.SetAnchor(new Spline.Anchor(position, inTangent - position, outTangent - position), selectedAnchor);
             Spline.Rebuild();
+        }
+    }
+
+    Vector3 ToLocalPoint(Vector3 point)
+    {
+        return Spline.transform.InverseTransformPoint(point);
+    }
+
+    Vector3 ToWorldPoint(Vector3 point)
+    {
+        return Spline.transform.TransformPoint(point);
     }
     
     #endregion
