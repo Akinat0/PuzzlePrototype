@@ -1,7 +1,6 @@
-using System;
-using System.Diagnostics;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class SplineFollower2D : MonoBehaviour
 {
     [SerializeField] Spline spline;
@@ -46,7 +45,7 @@ public class SplineFollower2D : MonoBehaviour
 
     void OnDidApplyAnimationProperties()
     {
-        UpdateNormals();
+        ProcessPhase();
     }
 
     void OnEnable()
@@ -65,12 +64,11 @@ public class SplineFollower2D : MonoBehaviour
             return;
 
         Spline.OnRebuild -= UpdateNormals;
-        
-        UpdateNormals();
     }
 
     void OnValidate()
     {
+        Spline.Rebuild();
         UpdateNormals();
     }
 
