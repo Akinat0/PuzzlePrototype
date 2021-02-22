@@ -162,6 +162,6 @@ public class SplineFollower2D : MonoBehaviour
         );
 
         Transform.position = Spline.transform.TransformPoint(position);
-        Transform.right = normal;
+        Transform.right = Spline.transform.TransformVector(normal);
     }
 }

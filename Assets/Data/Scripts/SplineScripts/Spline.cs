@@ -372,6 +372,12 @@ public class Spline : MonoBehaviour, IEnumerable<Spline.Point>
     #endregion
     
     #region engine
+
+    void OnEnable()
+    {
+        Rebuild();
+    }
+
     void LateUpdate()
     {
         if (isDirty)
