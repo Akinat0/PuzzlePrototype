@@ -181,6 +181,9 @@ public class PlayerView : MonoBehaviour
     
     public static void SetEditorColorSkins(PlayerView playerView, PlayerViewColorSkin[] colorSkins)
     {
+        if (playerView.skins == null)
+            playerView.skins = new PlayerViewSkin[0];
+        
         List<PlayerViewSkin> playerViewSkins = playerView.skins.ToList();
         playerViewSkins.AddRange(colorSkins.Cast<PlayerViewSkin>().ToArray());
         playerView.skins = playerViewSkins.ToArray();

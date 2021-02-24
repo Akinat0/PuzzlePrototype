@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac241218d9f5490fb2beb0257af9849, type: 3}
+  m_Name: NinjaCollectionItem
+  m_EditorClassIdentifier: 
+  Name: Ninja
+  puzzleVariants:
+  - sides:
+      _Top: 1
+      _Right: 1
+      _Bottom: 1
+      _Left: 1
+    puzzle: {fileID: 8134479697373114802, guid: b17d2584113cf4a47a50a4172a31b89d,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 1
+      _Left: 0
+    puzzle: {fileID: 4818204682540618624, guid: 01b467e549011435aae91003a19c4fa1,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 0
+    puzzle: {fileID: 5748889398198766515, guid: 67ffa6ef191c34e31b737ecdffa4eae1,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 1
+    puzzle: {fileID: 3835732601323837551, guid: 57a88774caee34e2abfd86ba623e83ca,
+      type: 3}
+  defaultUnlocked: 1
+  puzzleColors:
+  - id: Green
+    color: {r: 0.26738802, g: 0.8867924, b: 0.25516194, a: 1}
+    defaultUnlocked: 1
+  - id: Yellow
+    color: {r: 0.990566, g: 0.87746793, b: 0.3037113, a: 1}
+    defaultUnlocked: 0
+  - id: Red
+    color: {r: 0.9433962, g: 0.28924885, b: 0.28924885, a: 1}
+    defaultUnlocked: 0
+  - id: Blue
+    color: {r: 0.28595585, g: 0.8911549, b: 0.9622642, a: 1}
+    defaultUnlocked: 0
