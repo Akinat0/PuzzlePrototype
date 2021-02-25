@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Abu.Tools;
 using Puzzle;
 using PuzzleScripts;
@@ -31,7 +32,7 @@ public class PlayerView : MonoBehaviour
     
     [SerializeField] float _partOfScreen = 0.25f;
     [SerializeField] public Transform shape;
-    [SerializeField] PlayerViewColorSkin[] colorSkins;
+    [SerializeField] PlayerViewSkin[] skins;
 
     [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
     Transform[] TRBL_positions;
@@ -47,21 +48,23 @@ public class PlayerView : MonoBehaviour
     static readonly int Damaged = Animator.StringToHash("Damaged");
     static readonly int Kill = Animator.StringToHash("Kill");
 
-    public float PartOfScreen => _partOfScreen;
-
-    public Transform[] TRBLPositions => TRBL_positions;
+    
     Quaternion defaultShapeRotation;
-
-    #endregion
-
+    
     void SetScale(float partOfScreen)
     {
         transform.localScale = Vector3.one * 
-            ScreenScaler.ScaleToFillPartOfScreen(
-                shape.gameObject.GetComponent<SpriteRenderer>(),
-                partOfScreen);
+                               ScreenScaler.ScaleToFillPartOfScreen(
+                                   shape.gameObject.GetComponent<SpriteRenderer>(),
+                                   partOfScreen);
     }
 
+    #endregion
+    
+    public float PartOfScreen => _partOfScreen;
+
+    public Transform[] TRBLPositions => TRBL_positions;
+    
     public Vector3 GetSidePosition(Side _Side)
     {
         switch (_Side)
@@ -107,8 +110,8 @@ public class PlayerView : MonoBehaviour
         if(puzzleColor == null)
             return;
         
-        foreach (PlayerViewColorSkin viewColor in colorSkins)
-            viewColor.ChangePuzzleSkin(puzzleColor.Value);
+        foreach (PlayerViewSkin skin in skins)
+            skin.ChangePuzzleSkin(puzzleColor.Value);
     }
     
     #region engine
@@ -178,7 +181,12 @@ public class PlayerView : MonoBehaviour
     
     public static void SetEditorColorSkins(PlayerView playerView, PlayerViewColorSkin[] colorSkins)
     {
-        playerView.colorSkins = colorSkins;
+        if (playerView.skins == null)
+            playerView.skins = new PlayerViewSkin[0];
+        
+        List<PlayerViewSkin> playerViewSkins = playerView.skins.ToList();
+        playerViewSkins.AddRange(colorSkins.Cast<PlayerViewSkin>().ToArray());
+        playerView.skins = playerViewSkins.ToArray();
     }
 
     public static void SetEditorTRBL(PlayerView playerView, Transform[] trbl)

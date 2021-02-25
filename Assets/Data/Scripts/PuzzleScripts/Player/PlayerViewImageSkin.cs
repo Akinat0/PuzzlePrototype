@@ -1,38 +1,37 @@
-﻿using System;
+using System;
 using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class PlayerViewColorSkin : PlayerViewSkin
+public class PlayerViewImageSkin : PlayerViewSkin
 {
     [Serializable]
-    public struct ColorSkin
+    public struct ImageSkin
     {
-        public Color Color;
+        public Sprite Image;
         public PuzzleColorData PuzzleColor;
     }
     
     SpriteRenderer spriteRenderer;
 
-    [SerializeField] ColorSkin[] ColorSkins;
+    [SerializeField] ImageSkin[] ImageSkins;
     
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
+    
     public override void ChangePuzzleSkin(PuzzleColorData puzzleColor)
     {
-        spriteRenderer.color = ColorSkins.FirstOrDefault(colorSkin => colorSkin.PuzzleColor.ID == puzzleColor.ID).Color;
+        spriteRenderer.sprite = ImageSkins.FirstOrDefault(colorSkin => colorSkin.PuzzleColor.ID == puzzleColor.ID).Image;
     }
-    
     
 #if UNITY_EDITOR
     
-    public ColorSkin[] EditorColorSkins
+    public ImageSkin[] EditorImageSkins
     {
-        get => ColorSkins;
-        set => ColorSkins = value;
+        get => ImageSkins;
+        set => ImageSkins = value;
     }
 
     [ContextMenu("Setup")]
@@ -40,12 +39,13 @@ public class PlayerViewColorSkin : PlayerViewSkin
     {
         PuzzleColorData[] puzzleColors = GetPuzzleColors();
 
-        ColorSkin[] colorSkins = new ColorSkin[puzzleColors.Length];
+        ImageSkin[] imageSkins = new ImageSkin[puzzleColors.Length];
         
         for (int i = 0; i < puzzleColors.Length; i++)
-            colorSkins[i] = new ColorSkin {Color = Color.white, PuzzleColor = puzzleColors[i]};
+            imageSkins[i] = new ImageSkin {Image = null, PuzzleColor = puzzleColors[i]};
 
-        ColorSkins = colorSkins;
+        ImageSkins = imageSkins;
     }
+
 #endif
 }
