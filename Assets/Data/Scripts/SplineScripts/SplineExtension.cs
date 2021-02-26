@@ -6,6 +6,9 @@ public static class SplineExtension
 {
     public static Vector3[] GetNormals2D(this Spline spline)
     {
+        if (spline.Length < 3)
+            return new[] { Vector3.zero};
+        
         List<Vector3> normals = new List<Vector3>(); 
         
         Vector3 firstDirection = spline[1].Position - spline[0].Position;

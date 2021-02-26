@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -152,12 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b3f5e3c9414a499f8de96c24e5116b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - {fileID: 11400000, guid: 6279bc2cbb5224903ac5d3b2578ae8b9, type: 2}
-  - {fileID: 11400000, guid: 0c647617945de450b9b7f31bc50ec48b, type: 2}
-  - {fileID: 11400000, guid: 45be3ce17b6f543af911f7ccc49177b1, type: 2}
-  - {fileID: 11400000, guid: 79684663b2c5a4b40b3c106c1ab0dba4, type: 2}
-  - {fileID: 11400000, guid: 79684663b2c5a4b40b3c106c1ab0dba4, type: 2}
 --- !u!20 &1047444834
 Camera:
   m_ObjectHideFlags: 0
@@ -189,7 +183,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 823
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 11203ad126dbc4df1a22b1c1a41a0364, type: 2}
   m_TargetDisplay: 0

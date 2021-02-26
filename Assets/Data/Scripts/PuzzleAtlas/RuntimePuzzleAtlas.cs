@@ -38,13 +38,15 @@ public class RuntimePuzzleAtlas : MonoBehaviour
             inactiveItems[item.ID] = PlayerView.Create(transform, item.ID).transform;
             inactiveItems[item.ID].localPosition = CameraSize * 3;
         }
+        
+        gameObject.SetActive(false);
     }
 
     public Rect GetPuzzleRectInAtlas(int id)
     {
         if (!activeItems.ContainsKey(id))
             RequestItem(id);
-        
+
         return GetItemUV(id);
     }
     
@@ -79,8 +81,18 @@ public class RuntimePuzzleAtlas : MonoBehaviour
 
     void CreateActiveItems()
     {
+        if (activeItems.Count == 0)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
+
         int i = 0;
-        
+
         foreach (int key in activeItems.Keys)
         {
             Transform puzzle = activeItems[key];
