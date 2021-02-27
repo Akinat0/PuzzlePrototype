@@ -30,6 +30,7 @@ namespace Puzzle
         public static event Action<Booster> ApplyBoosterEvent;
         public static event Action<int> HeartsAmountChangedEvent;
         public static event Action<string> TimelineEvent;
+        public static event Action PerfectKillEvent;
 
         [SerializeField] RuntimeAnimatorController cameraAnimatorController;
         [SerializeField] CompleteScreenManager completeScreenManager;
@@ -297,6 +298,12 @@ namespace Puzzle
         {
             Debug.Log("Timeline event invoked, data: " + EventData);
             TimelineEvent?.Invoke(EventData);
+        }
+
+        public void InvokePerfectKill()
+        {
+            Debug.Log("Perfect kill event invoked");
+            PerfectKillEvent?.Invoke();
         }
     }
 }

@@ -36,35 +36,21 @@ public class PlayerView : MonoBehaviour
 
     [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
     Transform[] TRBL_positions;
+    
+    [SerializeField] PlayerCollisionDetector outerCollisionDetector;
+    [SerializeField] PlayerCollisionDetector innerCollisionDetector;
 
     #endregion
 
-    #region private
+    #region public 
     
-    protected int ID;
-    protected CollectionItem CollectionItem;
-    protected Animator Animator;
-    
-    static readonly int Damaged = Animator.StringToHash("Damaged");
-    static readonly int Kill = Animator.StringToHash("Kill");
-
-    
-    Quaternion defaultShapeRotation;
-    
-    void SetScale(float partOfScreen)
-    {
-        transform.localScale = Vector3.one * 
-                               ScreenScaler.ScaleToFillPartOfScreen(
-                                   shape.gameObject.GetComponent<SpriteRenderer>(),
-                                   partOfScreen);
-    }
-
-    #endregion
-    
+    public Transform[] TRBLPositions => TRBL_positions;
     public float PartOfScreen => _partOfScreen;
 
-    public Transform[] TRBLPositions => TRBL_positions;
-    
+    public PlayerCollisionDetector InnerCollisionDetector => innerCollisionDetector;
+
+    public PlayerCollisionDetector OuterCollisionDetector => outerCollisionDetector;
+
     public Vector3 GetSidePosition(Side _Side)
     {
         switch (_Side)
@@ -78,7 +64,6 @@ public class PlayerView : MonoBehaviour
             case Side.Left:
                 return TRBL_positions[3].position;
             default:
-                Debug.LogError("_Side is unreadable");
                 return Vector3.one;
         }
     }
@@ -86,6 +71,28 @@ public class PlayerView : MonoBehaviour
     public virtual void ChangeSides()
     {
         shape.Rotate(0, 0, 180);
+    }
+    
+    #endregion
+    
+    #region private
+    
+    protected int ID;
+    protected CollectionItem CollectionItem;
+    protected Animator Animator;
+    
+    static readonly int Damaged = Animator.StringToHash("Damaged");
+    // static readonly int Kill = Animator.StringToHash("Kill");
+
+    
+    Quaternion defaultShapeRotation;
+    
+    void SetScale(float partOfScreen)
+    {
+        transform.localScale = Vector3.one * 
+                               ScreenScaler.ScaleToFillPartOfScreen(
+                                   shape.gameObject.GetComponent<SpriteRenderer>(),
+                                   partOfScreen);
     }
 
     protected virtual void RestoreView()
@@ -100,7 +107,7 @@ public class PlayerView : MonoBehaviour
 
     protected virtual void OnEnemyDied(EnemyBase enemy)
     {
-        Animator.SetTrigger(Kill);
+        // Animator.SetTrigger(Kill);
     }
     
     void UpdateColor()
@@ -114,6 +121,8 @@ public class PlayerView : MonoBehaviour
             skin.ChangePuzzleSkin(puzzleColor.Value);
     }
     
+    #endregion
+
     #region engine
     
     protected virtual void Start()

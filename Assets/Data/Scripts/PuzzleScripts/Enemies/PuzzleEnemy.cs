@@ -10,21 +10,20 @@ namespace Puzzle
 
         public override void OnHitPlayer(Player player)
         {
-            if (player.sides[(int)side] != stickOut) //Sides shouldn't be equal
-            {
+            if (!CanDamagePlayer(player))
                 Die();
-            } //That means everything's okay
             else
-            {
                 base.OnHitPlayer(player);
-            }
         }
+
+        public override bool CanDamagePlayer(Player player) => player.sides[(int)side] == stickOut;
+
         public override void Instantiate(EnemyParams @params)
         {
             side = @params.side;
             stickOut = @params.stickOut;
             base.Instantiate(@params);
         }
-
+        
     }
 }

@@ -24,7 +24,7 @@ public class LongPuzzleEnemy : PuzzleEnemy
         
     public override void OnHitPlayer(Player player)
     {
-        if (player.sides[(int)side] != stickOut) //Sides shouldn't be equal
+        if (!CanDamagePlayer(player))
         {
             Motion = false;
             transform.position = GetTargetPosition(player);
@@ -35,7 +35,7 @@ public class LongPuzzleEnemy : PuzzleEnemy
             effect.Play();
             
             StartCoroutine(TrailRoutine(player));
-        } //That means everything's okay
+        }
         else
         {
             base.OnHitPlayer(player);

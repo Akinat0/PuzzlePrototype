@@ -78,6 +78,11 @@ namespace PuzzleScripts
             player.DealDamage(Damage);
         }
 
+        public virtual bool CanDamagePlayer(Player player)
+        {
+            return true;
+        }
+
         public virtual Transform Die()
         {
             GameObject effect = null;

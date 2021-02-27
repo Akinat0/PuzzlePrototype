@@ -385,6 +385,8 @@ GameObject:
   - component: {fileID: 6821384244566355495}
   - component: {fileID: 6859414262975812215}
   - component: {fileID: 7109723190697113142}
+  - component: {fileID: 186171750306271699}
+  - component: {fileID: 4164115672904300471}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Untagged
@@ -506,6 +508,44 @@ MonoBehaviour:
       id: Blue
       color: {r: 0.28595585, g: 0.8911549, b: 0.9622642, a: 1}
       defaultUnlocked: 0
+--- !u!61 &186171750306271699
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854938276187183708}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00056409836, y: -0.015651345}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.65, y: 3.65}
+    newSize: {x: 3.65, y: 3.65}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.3131151, y: 2.3270185}
+  m_EdgeRadius: 0
+--- !u!114 &4164115672904300471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3854938276187183708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4626901862303838837
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,11 +810,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3161121465364700329}
   - component: {fileID: 1816607447606251756}
-  - component: {fileID: 1557886817704031808}
   - component: {fileID: 4005441161762138285}
   - component: {fileID: 3440724118798269146}
   - component: {fileID: 3601227739455352094}
   - component: {fileID: 6136489591368695952}
+  - component: {fileID: 1557886817704031808}
+  - component: {fileID: 583398073586392724}
   m_Layer: 0
   m_Name: Ninja_TRBL
   m_TagString: Untagged
@@ -823,32 +864,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &1557886817704031808
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8134479697373114802}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.02280325, y: 0.01400089}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.17968, y: 2.267714}
-  m_EdgeRadius: 0
 --- !u!114 &4005441161762138285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,6 +888,8 @@ MonoBehaviour:
   - {fileID: 4130253292918232246}
   - {fileID: 867317125465101191}
   - {fileID: 2919104310821726875}
+  outerCollisionDetector: {fileID: 4164115672904300471}
+  innerCollisionDetector: {fileID: 583398073586392724}
 --- !u!95 &3440724118798269146
 Animator:
   serializedVersion: 3
@@ -917,6 +934,44 @@ SortingGroup:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 1
+--- !u!61 &1557886817704031808
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8134479697373114802}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.02280325, y: 0.01400089}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.17968, y: 2.267714}
+  m_EdgeRadius: 0
+--- !u!114 &583398073586392724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8134479697373114802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8715709623823755726
 GameObject:
   m_ObjectHideFlags: 0
