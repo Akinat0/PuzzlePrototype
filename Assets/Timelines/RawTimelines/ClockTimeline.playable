@@ -15,13 +15,27 @@ MonoBehaviour:
   m_Time: 48.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-9148977131644450545
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c42c96574548049889e2ab55e71052, type: 3}
+  m_Name: Note Marker
+  m_EditorClassIdentifier: 
+  m_Time: 40.71666666666667
+  note: "\u0422\u0443\u0442 \u0431\u044B\u043B \u043C\u043E\u0439 \u0445\u0443\u0439"
 --- !u!114 &-9098891702817843343
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,9 +139,9 @@ MonoBehaviour:
   m_Time: 68.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -147,9 +161,9 @@ MonoBehaviour:
   m_Time: 87.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -213,9 +227,9 @@ MonoBehaviour:
   m_Time: 69.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -235,7 +249,7 @@ MonoBehaviour:
   m_Time: 45.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 3
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -411,9 +425,9 @@ MonoBehaviour:
   m_Time: 114.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -477,9 +491,9 @@ MonoBehaviour:
   m_Time: 112.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -499,9 +513,9 @@ MonoBehaviour:
   m_Time: 89.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -697,7 +711,7 @@ MonoBehaviour:
   m_Time: 40.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -719,9 +733,9 @@ MonoBehaviour:
   m_Time: 55.033333333333346
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -741,7 +755,7 @@ MonoBehaviour:
   m_Time: 35.53333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -807,9 +821,9 @@ MonoBehaviour:
   m_Time: 80.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -873,7 +887,29 @@ MonoBehaviour:
   m_Time: 77.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &-7586838934856454130
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 45.833333333333336
+  enemyParams:
+    enemyType: 0
+    side: 1
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -895,9 +931,9 @@ MonoBehaviour:
   m_Time: 86.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -917,9 +953,9 @@ MonoBehaviour:
   m_Time: 73.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -961,9 +997,9 @@ MonoBehaviour:
   m_Time: 71.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1027,9 +1063,9 @@ MonoBehaviour:
   m_Time: 120.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1049,9 +1085,9 @@ MonoBehaviour:
   m_Time: 111.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1071,9 +1107,9 @@ MonoBehaviour:
   m_Time: 95.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1181,9 +1217,9 @@ MonoBehaviour:
   m_Time: 57.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1203,9 +1239,9 @@ MonoBehaviour:
   m_Time: 109.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1225,9 +1261,9 @@ MonoBehaviour:
   m_Time: 82.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1357,9 +1393,9 @@ MonoBehaviour:
   m_Time: 32.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1445,9 +1481,9 @@ MonoBehaviour:
   m_Time: 60.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1467,9 +1503,9 @@ MonoBehaviour:
   m_Time: 67.53333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1577,9 +1613,9 @@ MonoBehaviour:
   m_Time: 61.03333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1700,9 +1736,9 @@ MonoBehaviour:
   m_Time: 62.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1722,9 +1758,9 @@ MonoBehaviour:
   m_Time: 81.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1788,9 +1824,9 @@ MonoBehaviour:
   m_Time: 70.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1832,9 +1868,9 @@ MonoBehaviour:
   m_Time: 115.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1854,9 +1890,9 @@ MonoBehaviour:
   m_Time: 107.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1898,9 +1934,9 @@ MonoBehaviour:
   m_Time: 73.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -1964,9 +2000,9 @@ MonoBehaviour:
   m_Time: 63.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2052,7 +2088,7 @@ MonoBehaviour:
   m_Time: 31.03333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 1
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -2096,9 +2132,9 @@ MonoBehaviour:
   m_Time: 92.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2140,9 +2176,9 @@ MonoBehaviour:
   m_Time: 76.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2184,9 +2220,9 @@ MonoBehaviour:
   m_Time: 112.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2272,9 +2308,9 @@ MonoBehaviour:
   m_Time: 41.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 3
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2294,9 +2330,9 @@ MonoBehaviour:
   m_Time: 115.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2338,9 +2374,9 @@ MonoBehaviour:
   m_Time: 79.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2536,9 +2572,9 @@ MonoBehaviour:
   m_Time: 107.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2558,9 +2594,9 @@ MonoBehaviour:
   m_Time: 80.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2602,7 +2638,7 @@ MonoBehaviour:
   m_Time: 43.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -2646,9 +2682,9 @@ MonoBehaviour:
   m_Time: 89.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2712,9 +2748,9 @@ MonoBehaviour:
   m_Time: 91.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2778,9 +2814,9 @@ MonoBehaviour:
   m_Time: 66.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2866,9 +2902,9 @@ MonoBehaviour:
   m_Time: 83.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -2887,7 +2923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Time: 0
   looped: 0
-  audioClip: {fileID: 8300000, guid: 59bc028ee04e64482a229578654323b3, type: 3}
+  audioClip: {fileID: 8300000, guid: 4a972a110e28c4b30905c01b3f726f7a, type: 3}
   soundCurve:
     serializedVersion: 2
     m_Curve:
@@ -2900,6 +2936,42 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.3436261
+      value: 1.0000012
+      inSlope: -0.0013019025
+      outSlope: -0.0013019025
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2603395
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.350001
+      value: 0.9574127
+      inSlope: -0.020355513
+      outSlope: -0.020355513
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5058823
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4759175
+      value: 0.9573301
+      inSlope: 0.0029082145
+      outSlope: 0.0029082145
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49108136
+      value: 1.0003489
+      inSlope: -0.0012372716
+      outSlope: -0.0012372716
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
     - serializedVersion: 3
       time: 1
       value: 1
@@ -2927,9 +2999,9 @@ MonoBehaviour:
   m_Time: 54.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3076,9 +3148,9 @@ MonoBehaviour:
   m_Time: 97.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3120,9 +3192,9 @@ MonoBehaviour:
   m_Time: 120.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3142,9 +3214,9 @@ MonoBehaviour:
   m_Time: 114.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3186,9 +3258,9 @@ MonoBehaviour:
   m_Time: 81.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3230,9 +3302,9 @@ MonoBehaviour:
   m_Time: 71.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3252,9 +3324,9 @@ MonoBehaviour:
   m_Time: 75.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3298,7 +3370,7 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3386,7 +3458,7 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3450,9 +3522,9 @@ MonoBehaviour:
   m_Time: 66.03333333333335
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3494,9 +3566,9 @@ MonoBehaviour:
   m_Time: 88.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3604,28 +3676,6 @@ MonoBehaviour:
     stickOut: 0
     radialPosition: 0
     trailTime: 0.3
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &-2650505284069015733
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 43.03333333333333
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &-2583551157176476454
@@ -3797,9 +3847,9 @@ MonoBehaviour:
   m_Time: 56.03333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -3973,9 +4023,9 @@ MonoBehaviour:
   m_Time: 52.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4017,9 +4067,9 @@ MonoBehaviour:
   m_Time: 56.53333333333334
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4039,9 +4089,9 @@ MonoBehaviour:
   m_Time: 78.03333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4105,9 +4155,9 @@ MonoBehaviour:
   m_Time: 69.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4193,9 +4243,9 @@ MonoBehaviour:
   m_Time: 62.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4276,9 +4326,9 @@ MonoBehaviour:
   m_Time: 105.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4430,9 +4480,9 @@ MonoBehaviour:
   m_Time: 116.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4474,9 +4524,9 @@ MonoBehaviour:
   m_Time: 101.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4540,9 +4590,9 @@ MonoBehaviour:
   m_Time: 104.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4628,9 +4678,9 @@ MonoBehaviour:
   m_Time: 113.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4650,7 +4700,7 @@ MonoBehaviour:
   m_Time: 36.03333333333334
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 1
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -4694,9 +4744,9 @@ MonoBehaviour:
   m_Time: 119.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4718,7 +4768,7 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4755,9 +4805,9 @@ MonoBehaviour:
   m_Time: 60.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4799,9 +4849,9 @@ MonoBehaviour:
   m_Time: 99.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4948,9 +4998,9 @@ MonoBehaviour:
   m_Time: 88.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4970,9 +5020,9 @@ MonoBehaviour:
   m_Time: 90.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -4992,9 +5042,9 @@ MonoBehaviour:
   m_Time: 48.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5021,28 +5071,6 @@ MonoBehaviour:
     trailTime: 0.3
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &-36645856612796908
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
-    sfx: {fileID: 0}
-    volume: 0
 --- !u!114 &-24261219957313433
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5058,9 +5086,9 @@ MonoBehaviour:
   m_Time: 65.53333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5101,9 +5129,9 @@ MonoBehaviour:
   m_Time: 119.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5125,7 +5153,7 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5194,28 +5222,6 @@ MonoBehaviour:
     stickOut: 1
     radialPosition: 0
     trailTime: 0.3
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &286225877292708661
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 41.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &288699512976065811
@@ -5343,9 +5349,9 @@ MonoBehaviour:
   m_Time: 58.03333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5365,9 +5371,9 @@ MonoBehaviour:
   m_Time: 100.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5387,9 +5393,9 @@ MonoBehaviour:
   m_Time: 44.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 3
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5444,9 +5450,9 @@ MonoBehaviour:
   m_Time: 118.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5532,9 +5538,9 @@ MonoBehaviour:
   m_Time: 91.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5554,9 +5560,9 @@ MonoBehaviour:
   m_Time: 100.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5620,9 +5626,9 @@ MonoBehaviour:
   m_Time: 54.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5686,9 +5692,9 @@ MonoBehaviour:
   m_Time: 53.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5715,28 +5721,6 @@ MonoBehaviour:
     trailTime: 0.3
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &1419010295077918015
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 44.03333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
-    sfx: {fileID: 0}
-    volume: 0
 --- !u!114 &1422051275908360225
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5752,9 +5736,9 @@ MonoBehaviour:
   m_Time: 67.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5774,9 +5758,9 @@ MonoBehaviour:
   m_Time: 92.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -5884,9 +5868,9 @@ MonoBehaviour:
   m_Time: 50.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6178,9 +6162,9 @@ MonoBehaviour:
   m_Time: 61.533333333333324
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6200,9 +6184,9 @@ MonoBehaviour:
   m_Time: 121.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6222,7 +6206,7 @@ MonoBehaviour:
   m_Time: 37.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -6244,9 +6228,9 @@ MonoBehaviour:
   m_Time: 106.53333333333335
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6398,9 +6382,9 @@ MonoBehaviour:
   m_Time: 49.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6420,9 +6404,9 @@ MonoBehaviour:
   m_Time: 64.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6442,9 +6426,9 @@ MonoBehaviour:
   m_Time: 52.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6464,9 +6448,9 @@ MonoBehaviour:
   m_Time: 102.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6486,9 +6470,9 @@ MonoBehaviour:
   m_Time: 97.53333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6576,7 +6560,7 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6596,7 +6580,7 @@ MonoBehaviour:
   m_Time: 35.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -6789,9 +6773,9 @@ MonoBehaviour:
   m_Time: 103.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6811,9 +6795,9 @@ MonoBehaviour:
   m_Time: 96.03333333333335
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6833,9 +6817,9 @@ MonoBehaviour:
   m_Time: 117.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6877,9 +6861,9 @@ MonoBehaviour:
   m_Time: 46.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6921,9 +6905,9 @@ MonoBehaviour:
   m_Time: 49.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6945,7 +6929,7 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -6965,9 +6949,9 @@ MonoBehaviour:
   m_Time: 74.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7031,9 +7015,9 @@ MonoBehaviour:
   m_Time: 84.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7053,9 +7037,9 @@ MonoBehaviour:
   m_Time: 108.03333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7119,7 +7103,7 @@ MonoBehaviour:
   m_Time: 38.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -7246,9 +7230,9 @@ MonoBehaviour:
   m_Time: 63.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7268,9 +7252,9 @@ MonoBehaviour:
   m_Time: 109.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7331,7 +7315,7 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7356,28 +7340,6 @@ MonoBehaviour:
     stickOut: 0
     radialPosition: 0
     trailTime: 0.3
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &3957379775201371884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 46.03333333333333
-  enemyParams:
-    enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
     sfx: {fileID: 0}
     volume: 0
 --- !u!114 &3977004912302777828
@@ -7502,10 +7464,6 @@ MonoBehaviour:
     - {fileID: -7809973599441655021}
     - {fileID: 6583631828989909328}
     - {fileID: -5246385361690346356}
-    - {fileID: 286225877292708661}
-    - {fileID: 5724912663273279969}
-    - {fileID: -36645856612796908}
-    - {fileID: -2650505284069015733}
     - {fileID: -4738708479737796906}
     - {fileID: -4158013014162885462}
     - {fileID: 9012916870806534291}
@@ -7515,11 +7473,8 @@ MonoBehaviour:
     - {fileID: -6264289943733291900}
     - {fileID: -7634339602335293806}
     - {fileID: -4580826156677208418}
-    - {fileID: 1419010295077918015}
     - {fileID: 877627529564703981}
     - {fileID: -8574811346328676983}
-    - {fileID: 4476209269486704454}
-    - {fileID: 3957379775201371884}
     - {fileID: 3421705653326929838}
     - {fileID: 7566937361128810119}
     - {fileID: 5035616839391521880}
@@ -7669,6 +7624,10 @@ MonoBehaviour:
     - {fileID: -5294110357043595331}
     - {fileID: -5050619636920443372}
     - {fileID: 4810180963253838385}
+    - {fileID: -9148977131644450545}
+    - {fileID: 5123301783353130457}
+    - {fileID: 7072019217400883010}
+    - {fileID: -7586838934856454130}
 --- !u!114 &4053749008040943078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7684,9 +7643,9 @@ MonoBehaviour:
   m_Time: 95.53333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7816,9 +7775,9 @@ MonoBehaviour:
   m_Time: 87.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7860,9 +7819,9 @@ MonoBehaviour:
   m_Time: 122.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7882,7 +7841,7 @@ MonoBehaviour:
   m_Time: 38.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -7950,7 +7909,7 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -7977,28 +7936,6 @@ MonoBehaviour:
     trailTime: 0.3
     sfx: {fileID: 0}
     volume: 0
---- !u!114 &4476209269486704454
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 45.53333333333333
-  enemyParams:
-    enemyType: 0
-    side: 2
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
-    sfx: {fileID: 0}
-    volume: 0
 --- !u!114 &4477909184458164373
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8014,9 +7951,9 @@ MonoBehaviour:
   m_Time: 78.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8102,9 +8039,9 @@ MonoBehaviour:
   m_Time: 70.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8146,9 +8083,9 @@ MonoBehaviour:
   m_Time: 58.53333333333334
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8168,7 +8105,7 @@ MonoBehaviour:
   m_Time: 39.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -8192,7 +8129,7 @@ MonoBehaviour:
     enemyType: 0
     side: 1
     speed: 2.5
-    stickOut: 1
+    stickOut: 0
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8234,9 +8171,9 @@ MonoBehaviour:
   m_Time: 72.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8256,9 +8193,9 @@ MonoBehaviour:
   m_Time: 51.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8278,9 +8215,9 @@ MonoBehaviour:
   m_Time: 93.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8322,9 +8259,9 @@ MonoBehaviour:
   m_Time: 47.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8346,7 +8283,7 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8395,6 +8332,28 @@ MonoBehaviour:
     trailTime: 0.3
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &5123301783353130457
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 41.8
+  enemyParams:
+    enemyType: 0
+    side: 1
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
 --- !u!114 &5160043316050487642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8410,9 +8369,9 @@ MonoBehaviour:
   m_Time: 85.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8498,9 +8457,9 @@ MonoBehaviour:
   m_Time: 50.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8638,9 +8597,9 @@ MonoBehaviour:
   m_Time: 94.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8660,7 +8619,7 @@ MonoBehaviour:
   m_Time: 34.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 1
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -8682,9 +8641,9 @@ MonoBehaviour:
   m_Time: 32.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8704,9 +8663,9 @@ MonoBehaviour:
   m_Time: 79.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8726,9 +8685,9 @@ MonoBehaviour:
   m_Time: 118.53333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8814,9 +8773,9 @@ MonoBehaviour:
   m_Time: 59.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8836,9 +8795,9 @@ MonoBehaviour:
   m_Time: 74.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8858,9 +8817,9 @@ MonoBehaviour:
   m_Time: 103.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8880,9 +8839,9 @@ MonoBehaviour:
   m_Time: 113.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8902,9 +8861,9 @@ MonoBehaviour:
   m_Time: 111.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8924,31 +8883,9 @@ MonoBehaviour:
   m_Time: 98.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
-    speed: 2.5
-    stickOut: 0
-    radialPosition: 0
-    trailTime: 0
-    sfx: {fileID: 0}
-    volume: 0
---- !u!114 &5724912663273279969
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
-  m_Name: Enemy Marker
-  m_EditorClassIdentifier: 
-  m_Time: 42.03333333333332
-  enemyParams:
-    enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8968,9 +8905,9 @@ MonoBehaviour:
   m_Time: 99.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -8990,9 +8927,9 @@ MonoBehaviour:
   m_Time: 77.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9047,9 +8984,9 @@ MonoBehaviour:
   m_Time: 106.03333333333335
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9091,9 +9028,9 @@ MonoBehaviour:
   m_Time: 65.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9113,9 +9050,9 @@ MonoBehaviour:
   m_Time: 101.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9135,9 +9072,9 @@ MonoBehaviour:
   m_Time: 72.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9157,9 +9094,9 @@ MonoBehaviour:
   m_Time: 75.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9179,9 +9116,9 @@ MonoBehaviour:
   m_Time: 90.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9223,7 +9160,7 @@ MonoBehaviour:
   m_Time: 34.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -9247,7 +9184,7 @@ MonoBehaviour:
     enemyType: 0
     side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9267,9 +9204,9 @@ MonoBehaviour:
   m_Time: 31.533333333333324
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9311,9 +9248,9 @@ MonoBehaviour:
   m_Time: 98.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9377,9 +9314,9 @@ MonoBehaviour:
   m_Time: 86.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9399,9 +9336,9 @@ MonoBehaviour:
   m_Time: 102.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9443,9 +9380,9 @@ MonoBehaviour:
   m_Time: 108.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9487,7 +9424,7 @@ MonoBehaviour:
   m_Time: 40.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -9531,7 +9468,7 @@ MonoBehaviour:
   m_Time: 36.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -9619,9 +9556,9 @@ MonoBehaviour:
   m_Time: 53.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9663,9 +9600,9 @@ MonoBehaviour:
   m_Time: 76.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -9685,7 +9622,29 @@ MonoBehaviour:
   m_Time: 96.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
+    speed: 2.5
+    stickOut: 1
+    radialPosition: 0
+    trailTime: 0
+    sfx: {fileID: 0}
+    volume: 0
+--- !u!114 &7072019217400883010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bae0b2c9eb4b1099a86bb4aa05d2e6, type: 3}
+  m_Name: Enemy Marker
+  m_EditorClassIdentifier: 
+  m_Time: 43.81666666666667
+  enemyParams:
+    enemyType: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -9905,7 +9864,7 @@ MonoBehaviour:
   m_Version: 3
   m_AnimClip: {fileID: 0}
   m_Locked: 0
-  m_Muted: 0
+  m_Muted: 1
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
@@ -10001,7 +9960,7 @@ MonoBehaviour:
   m_Time: 39.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -10023,9 +9982,9 @@ MonoBehaviour:
   m_Time: 47.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10045,9 +10004,9 @@ MonoBehaviour:
   m_Time: 93.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10067,9 +10026,9 @@ MonoBehaviour:
   m_Time: 104.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10111,9 +10070,9 @@ MonoBehaviour:
   m_Time: 121.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10133,9 +10092,9 @@ MonoBehaviour:
   m_Time: 84.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10177,9 +10136,9 @@ MonoBehaviour:
   m_Time: 57.033333333333346
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10265,9 +10224,9 @@ MonoBehaviour:
   m_Time: 68.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10287,9 +10246,9 @@ MonoBehaviour:
   m_Time: 85.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10353,9 +10312,9 @@ MonoBehaviour:
   m_Time: 51.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10375,9 +10334,9 @@ MonoBehaviour:
   m_Time: 110.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10397,9 +10356,9 @@ MonoBehaviour:
   m_Time: 105.53333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10419,9 +10378,9 @@ MonoBehaviour:
   m_Time: 55.533333333333346
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10441,9 +10400,9 @@ MonoBehaviour:
   m_Time: 117.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10595,9 +10554,9 @@ MonoBehaviour:
   m_Time: 94.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10661,9 +10620,9 @@ MonoBehaviour:
   m_Time: 116.53333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10683,9 +10642,9 @@ MonoBehaviour:
   m_Time: 64.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10705,9 +10664,9 @@ MonoBehaviour:
   m_Time: 110.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10727,9 +10686,9 @@ MonoBehaviour:
   m_Time: 82.53333333333332
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10771,9 +10730,9 @@ MonoBehaviour:
   m_Time: 83.03333333333333
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10793,7 +10752,7 @@ MonoBehaviour:
   m_Time: 37.533333333333346
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
     stickOut: 0
     radialPosition: 0
@@ -10815,9 +10774,9 @@ MonoBehaviour:
   m_Time: 59.03333333333334
   enemyParams:
     enemyType: 0
-    side: 0
+    side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10883,7 +10842,7 @@ MonoBehaviour:
     enemyType: 0
     side: 2
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
@@ -10903,9 +10862,9 @@ MonoBehaviour:
   m_Time: 122.03333333333333
   enemyParams:
     enemyType: 0
-    side: 2
+    side: 0
     speed: 2.5
-    stickOut: 0
+    stickOut: 1
     radialPosition: 0
     trailTime: 0
     sfx: {fileID: 0}
