@@ -61,11 +61,10 @@ namespace Abu.Tools
         public static Camera CreateCameraForMesh(MeshRenderer mesh)
         {
             Bounds bounds = mesh.bounds;
-            Vector2 meshScale = new Vector2(mesh.transform.lossyScale.x, mesh.transform.lossyScale.y);
-            
+
             Camera camera = new GameObject(mesh.name + "_RenderCamera").AddComponent<Camera>();
             camera.orthographic = true;
-            camera.orthographicSize = bounds.size.y * meshScale.y / 2;
+            camera.orthographicSize = bounds.size.y / 2;
             
             camera.transform.position = mesh.transform.position;
             camera.transform.position += Vector3.back;

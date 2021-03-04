@@ -106,7 +106,7 @@ namespace Puzzle
             settings.end.thickness = endThickness;
             settings.end.size = endSize;            
             
-            FlatFx.AddEffect(position, FlatFXType.Ripple.GetHashCode());
+            FlatFx.AddEffect(position, (int) FlatFXType.Ripple);
         }
         
         public Transform CallTutorialTapEffect(Transform parent)

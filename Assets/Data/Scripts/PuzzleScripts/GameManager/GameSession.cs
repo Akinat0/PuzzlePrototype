@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Puzzle;
 using PuzzleScripts;
@@ -24,7 +25,7 @@ public class GameSession
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
-    
+
     protected static string SessionNumberKey => "game_session_number";
     
     public int SessionNumber { get; protected set; }
@@ -45,8 +46,23 @@ public class GameSession
     public LevelResult? Result { get; private set; }
 
     public float CurrentLevelTime => EndTime.HasValue ? -1 : Time.time - StartTime;
+    
+    public int CurrentCombo { get; set; }
+    
+    public void IncrementCombo()
+    {
+        const float comboTimeout = 3;
+
+        if (Time.time - lastPrefectHitTime > comboTimeout)
+            CurrentCombo = 0;
+
+        CurrentCombo++;
+        lastPrefectHitTime = Time.time;
+    }
 
     readonly int balanceOnStart;
+
+    float lastPrefectHitTime = -1;
 
     void Complete()
     {
@@ -77,6 +93,7 @@ public class GameSession
 
     void PlayerLosedHpEvent_Handler()
     {
+        CurrentCombo = 0;
         Lives--;
     }
     
@@ -91,7 +108,7 @@ public class GameSession
         EndTime = Time.time;
         Complete();
     }
-    
+
     void LevelClosedEvent_Handler()
     {
         Result = Result ?? LevelResult.Failed;

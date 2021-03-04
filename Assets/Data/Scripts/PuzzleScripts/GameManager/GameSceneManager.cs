@@ -303,6 +303,7 @@ namespace Puzzle
         public void InvokePerfectKill()
         {
             Debug.Log("Perfect kill event invoked");
+            Session.IncrementCombo();
             PerfectKillEvent?.Invoke();
         }
     }

@@ -121,8 +121,8 @@ namespace Puzzle
             float duration = 0.25f;
             float time = 0;
             
-            float sourceScaleFactor = 1f;
-            float targetScaleFactor = 1.7f;
+            float sourceScaleFactor = 1;
+            float targetScaleFactor = 2;
 
             while (time < duration)
             {

@@ -7,4 +7,5 @@ public static class RenderLayer
     public static string UI => "UI";
     public static string RenderTexture => "RenderTexture";
     public static string PuzzleHiddenLayer => "PuzzleHiddenLayer";
+    public static string LevelBackground => "LevelBackground";
 }

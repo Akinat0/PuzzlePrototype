@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7787227446555603102}
   - component: {fileID: 7035366067066188180}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6869984958127079923}
   - component: {fileID: 926671769519482827}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: blue podium gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5163372317782024660}
   - component: {fileID: 1320893241901112833}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3450321195002356178}
   - component: {fileID: 1496639545259301054}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: martini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4045452998043569851}
   - component: {fileID: 9199483049529744938}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: right lamps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1120634062215113175}
   - component: {fileID: 657114773561599133}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2632020286706393464}
   - component: {fileID: 6485776857511245046}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,7 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8265519893583056339}
   - component: {fileID: 8825275460834034129}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: projector (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1621371430682779387}
   - component: {fileID: 8980210224337426278}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: left lamps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 6300818924424044890}
   - component: {fileID: 3212859830610203757}
   - component: {fileID: 1965466667317509621}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NeonPartyBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,6 +771,7 @@ Transform:
   - {fileID: 6270896452823046316}
   - {fileID: 6780381845208347533}
   - {fileID: 8056145274385657945}
+  - {fileID: 999924403155967939}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -836,6 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb96011550475e419dab41df5059143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IgnoreList: []
 --- !u!95 &3212859830610203757
 Animator:
   serializedVersion: 3
@@ -876,7 +878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7019238594752220890}
   - component: {fileID: 3144196479954199728}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar pink neon line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2465911209866184650}
   - component: {fileID: 3538035344768139003}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: martini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2664766561893785878}
   - component: {fileID: 1187174752069081472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: projector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1119,7 +1121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5260047036344155244}
   - component: {fileID: 2127119389512331215}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar rect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1200,7 +1202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2532563140593976653}
   - component: {fileID: 6849588940438671083}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: _eon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1281,7 +1283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1451935098120385450}
   - component: {fileID: 4501419786454222021}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: small table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1362,7 +1364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6270896452823046316}
   - component: {fileID: 9106627520878665843}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: tables
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1768578197063431349}
   - component: {fileID: 2917578267496477328}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1456,7 +1458,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376656693087979493}
   - component: {fileID: 6690331662299494321}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: N_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1537,7 +1539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8299163054592359193}
   - component: {fileID: 4887067235883770856}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sign circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1618,7 +1620,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5850079603708590856}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: neon lines
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1651,7 +1653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7466125532489650245}
   - component: {fileID: 6253581631566522902}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: dude
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1732,7 +1734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619764344704801152}
   - component: {fileID: 8367976107104764574}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: side table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1814,7 +1816,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6863617831824739118}
   - component: {fileID: 7140166935825443116}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1859,7 +1861,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7233392185931422730}
   - component: {fileID: 7058384601960357289}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: projector (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1940,7 +1942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2104297742981152766}
   - component: {fileID: 8228910868431760730}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: big pink neon lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2021,7 +2023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6144321594622383182}
   - component: {fileID: 1674740833860136009}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2102,7 +2104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8619684776041077355}
   - component: {fileID: 122253237647385431}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: neon blur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2183,7 +2185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2652897493678132947}
   - component: {fileID: 9097547626181259293}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: small table (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2264,7 +2266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8156674309938599152}
   - component: {fileID: 7234636104551614113}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: podium lighting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2347,7 +2349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7011939515021615448}
   - component: {fileID: 2037835474815305064}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: projector (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2428,7 +2430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8611547605038196877}
   - component: {fileID: 3876670107329095527}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: side table (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2509,7 +2511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8600754226156945919}
   - component: {fileID: 7160407270359035137}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2590,7 +2592,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4643009685947838988}
   - component: {fileID: 101550048087099304}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2671,7 +2673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8089014427688376666}
   - component: {fileID: 9136948936774592521}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2752,7 +2754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7917186957703905271}
   - component: {fileID: 5354425984071884554}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: projector (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2832,7 +2834,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7830997294717177086}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: logo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2866,7 +2868,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8125905076665270656}
   - component: {fileID: 646933632790366059}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2947,7 +2949,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7543609939271954994}
   - component: {fileID: 5586812069163075741}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3029,7 +3031,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136082600262358574}
   - component: {fileID: 8280813872572778660}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: big pink neon lamp (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3109,7 +3111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 868353358535687371}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bottom lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3151,7 +3153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 771118449871853559}
   - component: {fileID: 6530462614847630668}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: back blue top gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3232,7 +3234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8364205707930428954}
   - component: {fileID: 6399189535483606507}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3312,7 +3314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 652754048852670797}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lamps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3346,7 +3348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6780381845208347533}
   - component: {fileID: 3375863593240609842}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: podium
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3390,7 +3392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 424346827857133960}
   - component: {fileID: 2383808089049036890}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3471,7 +3473,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2192710028713028510}
   - component: {fileID: 8418645022896251741}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: pink podium gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3552,7 +3554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8017679006706442062}
   - component: {fileID: 2520213390456458583}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar bottom light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3633,7 +3635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3257681144503348128}
   - component: {fileID: 4685643879870705237}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: bar neon bottom line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3714,7 +3716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1219457444964490978}
   - component: {fileID: 7890410636009066709}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: podium back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3917,6 +3919,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DustParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 8679067839166147016, guid: d0069f679ec5b466b8f74802d2bc5c0b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0069f679ec5b466b8f74802d2bc5c0b, type: 3}
 --- !u!4 &8056145274385657945 stripped
@@ -3924,4 +3931,94 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7131037507511882771, guid: d0069f679ec5b466b8f74802d2bc5c0b,
     type: 3}
   m_PrefabInstance: {fileID: 953537875575137354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3105469918291374776
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6954064271567186361}
+    m_Modifications:
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808180861725322623, guid: e496013570e1347719f34695977af6da,
+        type: 3}
+      propertyPath: m_Name
+      value: ShockWave
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e496013570e1347719f34695977af6da, type: 3}
+--- !u!4 &999924403155967939 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2808180861725322619, guid: e496013570e1347719f34695977af6da,
+    type: 3}
+  m_PrefabInstance: {fileID: 3105469918291374776}
   m_PrefabAsset: {fileID: 0}

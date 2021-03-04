@@ -267,7 +267,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         if (levelContainers.ContainsKey(index))
         {
-            levelContainers[index].SetActiveLevelRoot(true);
+            levelContainers[index].gameObject.SetActive(true);
             return;
         }
 
@@ -570,7 +570,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         foreach (KeyValuePair<int, LevelRootView> levelContainer in levelContainers)
         {
             if(levelContainer.Key != Index - 1 && levelContainer.Key != Index && levelContainer.Key != Index + 1)
-                levelContainer.Value.SetActiveLevelRoot(false);
+                levelContainer.Value.gameObject.SetActive(false);
         }
     }
     void ProcessNameByIndex()

@@ -30,7 +30,6 @@ public class BackgroundView : MonoBehaviour
             Vector3.one * ScreenScaler.FitHorizontal(spriteRenderer);
         
         CreateClipping();
-
     }
 
     void CreateClipping()

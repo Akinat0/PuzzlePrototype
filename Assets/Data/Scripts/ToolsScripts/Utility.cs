@@ -27,13 +27,7 @@ public static class Utility
     public static float Remap (this float value, float from1, float to1, float from2, float to2) {
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
-    
-    public static int Remap (this int value, int from1, int to1, int from2, int to2)
-    {
-        float _value = value;
-        return Mathf.RoundToInt(_value.Remap(from1, to1, from2, to2));
-    }
-    
+
     //Coroutines
     public static IEnumerator WaitUntil(Func<bool> predicate, Action finish)
     {
@@ -82,14 +76,6 @@ public static class Utility
         Vector3 position = transform.position;
         position.z = value;
         transform.position = position;
-    }
-    
-    public static void SetIndependentScale(this Transform transform)
-    {
-        transform.localScale = new Vector3(
-            transform.localScale.x * transform.localScale.x / transform.lossyScale.x,
-            transform.localScale.y * transform.localScale.y / transform.lossyScale.y,
-            transform.localScale.z * transform.localScale.z / transform.lossyScale.z);
     }
     
     //RectTransform
