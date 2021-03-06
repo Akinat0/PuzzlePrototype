@@ -48,6 +48,18 @@ namespace PuzzleScripts
             }
         }
         
+        new Collider2D collider;
+        protected virtual Collider2D Collider
+        {
+            get
+            {
+                if (collider == null)
+                    collider = GetComponent<Collider2D>();
+
+                return collider;
+            }
+        }
+
         protected virtual void Update()
         {
             if (!_appearedOnScreen)
@@ -80,7 +92,7 @@ namespace PuzzleScripts
 
         public virtual bool CanDamagePlayer(Player player)
         {
-            return true;
+            return Motion;
         }
 
         public virtual Transform Die()

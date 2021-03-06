@@ -16,7 +16,7 @@ namespace Puzzle
                 base.OnHitPlayer(player);
         }
 
-        public override bool CanDamagePlayer(Player player) => player.sides[(int)side] == stickOut;
+        public override bool CanDamagePlayer(Player player) => base.CanDamagePlayer(player) && (player.sides[(int)side] == stickOut);
 
         public override void Instantiate(EnemyParams @params)
         {

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6299672926801192824}
   - component: {fileID: 6967500312597226508}
   - component: {fileID: 4639306770842944830}
+  - component: {fileID: 3450482045168957959}
   m_Layer: 0
   m_Name: Dork_TRBL
   m_TagString: Untagged
@@ -110,6 +111,8 @@ MonoBehaviour:
   - {fileID: 8627091159557046111}
   - {fileID: 6753454710683680296}
   - {fileID: 4247580958317548904}
+  outerCollisionDetector: {fileID: 6450011215518263987}
+  innerCollisionDetector: {fileID: 3450482045168957959}
 --- !u!95 &6299672926801192824
 Animator:
   serializedVersion: 3
@@ -154,6 +157,18 @@ SortingGroup:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 1
+--- !u!114 &3450482045168957959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4188642505466174171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4287613353368233751
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +382,8 @@ GameObject:
   - component: {fileID: 4821990686485970843}
   - component: {fileID: 3634766279007953796}
   - component: {fileID: 6814308228999722325}
+  - component: {fileID: 7919785913692186614}
+  - component: {fileID: 6450011215518263987}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Untagged
@@ -486,3 +503,41 @@ MonoBehaviour:
       id: Green
       color: {r: 0, g: 0.6320754, b: 0.20006134, a: 1}
       defaultUnlocked: 0
+--- !u!61 &7919785913692186614
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8948963471917676243}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00056409836, y: -0.015651345}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.65, y: 3.65}
+    newSize: {x: 3.65, y: 3.65}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.3131151, y: 2.3270185}
+  m_EdgeRadius: 0
+--- !u!114 &6450011215518263987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8948963471917676243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

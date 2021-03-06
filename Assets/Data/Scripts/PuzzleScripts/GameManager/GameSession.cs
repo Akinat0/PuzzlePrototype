@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Puzzle;
 using PuzzleScripts;
@@ -51,7 +50,7 @@ public class GameSession
     
     public void IncrementCombo()
     {
-        const float comboTimeout = 3;
+        const float comboTimeout = 4;
 
         if (Time.time - lastPrefectHitTime > comboTimeout)
             CurrentCombo = 0;

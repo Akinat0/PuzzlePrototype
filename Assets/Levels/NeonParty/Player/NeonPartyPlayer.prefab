@@ -45,6 +45,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -185,6 +186,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -265,6 +267,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -389,6 +392,7 @@ GameObject:
   - component: {fileID: 1847343592836857317}
   - component: {fileID: 8081179802532344752}
   - component: {fileID: 8095120642653732727}
+  - component: {fileID: 4462242958709710096}
   m_Layer: 0
   m_Name: NeonPartyPlayer
   m_TagString: Untagged
@@ -456,11 +460,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _partOfScreen: 0.25
   shape: {fileID: 2194708453869913257}
+  skins: []
   TRBL_positions:
   - {fileID: 5536812718451674178}
   - {fileID: 6184390420266583654}
   - {fileID: 6632927711094952188}
   - {fileID: 801997153414769224}
+  outerCollisionDetector: {fileID: 4637454698363661703}
+  innerCollisionDetector: {fileID: 4462242958709710096}
 --- !u!50 &1847343592836857317
 Rigidbody2D:
   serializedVersion: 4
@@ -512,6 +519,18 @@ SortingGroup:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 1
+--- !u!114 &4462242958709710096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068697764657417907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6815199616862948171
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +572,8 @@ GameObject:
   - component: {fileID: 2194708453869913257}
   - component: {fileID: 5880578822815770889}
   - component: {fileID: 4460335836467190903}
+  - component: {fileID: 5776191024542234748}
+  - component: {fileID: 4637454698363661703}
   m_Layer: 0
   m_Name: Shape
   m_TagString: DamagableView
@@ -588,6 +609,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -638,3 +660,41 @@ MonoBehaviour:
   _Sprites:
   - {fileID: 21300000, guid: 1f4efd80b43b44e58884a53d61498d16, type: 3}
   - {fileID: 21300000, guid: d09d6df909cf14bab8fe2a5632f214d9, type: 3}
+--- !u!61 &5776191024542234748
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7851098994611195245}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00056409836, y: -0.015651345}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.17, y: 2.49}
+    newSize: {x: 1.87, y: 1.84}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &4637454698363661703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7851098994611195245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -202,6 +202,12 @@ public class PlayerView : MonoBehaviour
     {
         playerView.TRBL_positions = trbl;
     }
+
+    public static void SetCollisionDetectors(PlayerView view, PlayerCollisionDetector inner, PlayerCollisionDetector outer)
+    {
+        view.innerCollisionDetector = inner;
+        view.outerCollisionDetector = outer;
+    }
     
     #endif
     #endregion

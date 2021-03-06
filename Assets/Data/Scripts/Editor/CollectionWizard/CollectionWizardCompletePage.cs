@@ -94,12 +94,6 @@ public class CollectionWizardCompletePage : WizardPage
         Rigidbody2D rigidbody = puzzleObject.AddComponent<Rigidbody2D>();
         rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        BoxCollider2D collider = puzzleObject.AddComponent<BoxCollider2D>();
-        collider.isTrigger = true;
-        //empirical parameter
-        collider.offset = new Vector2(0.02280325f, 0.01400089f);
-        collider.size = new Vector2(2.17968f, 2.267714f);
-
         PlayerView playerView = puzzleObject.AddComponent<SkinPlayerView>();
         
         Animator animator = puzzleObject.AddComponent<Animator>();
@@ -114,6 +108,23 @@ public class CollectionWizardCompletePage : WizardPage
         GameObject puzzleShape = new GameObject("Shape");
         puzzleShape.transform.parent = puzzleObject.transform;
         playerView.shape = puzzleShape.transform;
+        
+        BoxCollider2D innerCollider = puzzleObject.AddComponent<BoxCollider2D>();
+        innerCollider.isTrigger = true;
+        //empirical parameter
+        innerCollider.offset = new Vector2(0.02280325f, 0.01400089f);
+        innerCollider.size = new Vector2(2.17968f, 2.267714f);
+        
+        BoxCollider2D outerCollider = puzzleShape.AddComponent<BoxCollider2D>();
+        outerCollider.isTrigger = true;
+        //empirical parameter
+        outerCollider.offset = Vector2.zero;
+        outerCollider.size = new Vector2(2.327018f, 2.327018f);
+
+        PlayerCollisionDetector innerCollisionDetector = puzzleObject.AddComponent<PlayerCollisionDetector>();
+        PlayerCollisionDetector outerCollisionDetector = puzzleShape.AddComponent<PlayerCollisionDetector>();
+
+        PlayerView.SetCollisionDetectors(playerView, innerCollisionDetector, outerCollisionDetector);
 
         SpriteRenderer spriteRenderer = puzzleShape.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = sprites[0];
@@ -294,6 +305,4 @@ public class CollectionWizardCompletePage : WizardPage
         };
     }
 
-    
-    
 }

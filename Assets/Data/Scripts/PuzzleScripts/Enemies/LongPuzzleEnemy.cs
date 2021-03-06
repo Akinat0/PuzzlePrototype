@@ -24,6 +24,8 @@ public class LongPuzzleEnemy : PuzzleEnemy
         
     public override void OnHitPlayer(Player player)
     {
+        Collider.enabled = false;
+        
         if (!CanDamagePlayer(player))
         {
             Motion = false;
@@ -87,7 +89,7 @@ public class LongPuzzleEnemy : PuzzleEnemy
 
     bool IsValidPositions(Player player)
     {
-        return (player.sides[(int) side] != stickOut);
+        return player.sides[(int) side] != stickOut;
     }
 
     void OnDestroy()

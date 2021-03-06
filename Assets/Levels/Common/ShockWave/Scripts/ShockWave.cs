@@ -1,5 +1,4 @@
-﻿using System;
-using Abu.Tools;
+﻿using Abu.Tools;
 using Puzzle;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ public class ShockWave : MonoBehaviour
         }
 
         int textureWidth = (int) ScreenScaler.ScreenSize.x;
-        renderTexture = new RenderTexture(textureWidth, textureWidth, 0);
+        renderTexture = new RenderTexture(textureWidth, textureWidth, 16);
         
         renderCamera.targetTexture = renderTexture;
         meshRenderer.material.mainTexture = renderTexture;
@@ -70,12 +69,10 @@ public class ShockWave : MonoBehaviour
     void PlayAnimation()
     {
         int combo = GameSceneManager.Instance.Session.CurrentCombo;
-        
-        Debug.LogWarning($"Perfect kill, combo {combo}");
 
-        if (combo > 10)
+        if (combo > 20)
             animator.SetTrigger(StrongComboID);
-        else if (combo > 5)
+        else if (combo > 7)
             animator.SetTrigger(MediumComboID);
         else
             animator.SetTrigger(WeakComboID);
