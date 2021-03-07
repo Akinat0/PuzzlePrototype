@@ -1,4 +1,5 @@
 using System;
+using Abu.Tools.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,8 @@ namespace Abu.Console
         [SerializeField] private Text output;
         [SerializeField] private GameObject console;
         [SerializeField] RawImage DebugImage;
+        
+        [SerializeField] GameObject DebugHapticMenu;
 
         private Console Console;
         
@@ -82,6 +85,11 @@ namespace Abu.Console
         public static void ToggleDebugImage()
         {
             instance.DebugImage.gameObject.SetActive(!instance.DebugImage.gameObject.activeSelf);
+        }
+
+        public static void ToggleHapticMenu()
+        {
+            instance.DebugHapticMenu.gameObject.SetActive(!instance.DebugHapticMenu.gameObject.activeSelf);
         }
     }
 }
