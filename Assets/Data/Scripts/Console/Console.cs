@@ -23,6 +23,7 @@ namespace Abu.Console
                 new DebugImageCommand(),
                 new DeleteLocalCommand(),
                 new AnalyticsCommand(),
+                new HapticCommand(),
             };
         }
 

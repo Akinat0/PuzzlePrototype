@@ -327,6 +327,7 @@ namespace Abu.Console
             else
                 return Help;
         }
+        
 
         string Parse(object command)
         {
@@ -364,6 +365,18 @@ namespace Abu.Console
             return "All local data deleted. Restart the application";
         }
 
+    }
+    
+    
+    public class HapticCommand : IConsoleCommand
+    {
+        public string Command => "haptic";
+        
+        public string Process(object[] args, Console console)
+        {
+            ConsoleView.ToggleHapticMenu();
+            return "success";
+        }
     }
     
 }

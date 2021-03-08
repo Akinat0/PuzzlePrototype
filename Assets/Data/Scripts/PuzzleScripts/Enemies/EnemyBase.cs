@@ -86,6 +86,7 @@ namespace PuzzleScripts
         }
         public virtual void OnHitPlayer(Player player)
         {
+            Haptic.Run(Haptic.Type.FAILURE);
             Destroy(gameObject);
             player.DealDamage(Damage);
         }
@@ -114,6 +115,8 @@ namespace PuzzleScripts
             CoinHolder coinHolder = GetComponent<CoinHolder>();
             if (coinHolder != null)
                Account.AddCoins(coinHolder.Coins); 
+
+            Haptic.Run(Haptic.Type.SUCCESS);
             
             Destroy(gameObject);
 
