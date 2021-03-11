@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Abu.Tools;
 using Puzzle;
 using PuzzleScripts;
@@ -37,8 +38,7 @@ public class PlayerView : MonoBehaviour
     [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
     Transform[] TRBL_positions;
     
-    [SerializeField] PlayerCollisionDetector outerCollisionDetector;
-    [SerializeField] PlayerCollisionDetector innerCollisionDetector;
+    [SerializeField] PlayerCollisionDetector collisionDetector;
 
     #endregion
 
@@ -47,10 +47,8 @@ public class PlayerView : MonoBehaviour
     public Transform[] TRBLPositions => TRBL_positions;
     public float PartOfScreen => _partOfScreen;
 
-    public PlayerCollisionDetector InnerCollisionDetector => innerCollisionDetector;
-
-    public PlayerCollisionDetector OuterCollisionDetector => outerCollisionDetector;
-
+    public PlayerCollisionDetector CollisionDetector => collisionDetector;
+    
     public Vector3 GetSidePosition(Side _Side)
     {
         switch (_Side)
@@ -83,7 +81,6 @@ public class PlayerView : MonoBehaviour
     
     static readonly int Damaged = Animator.StringToHash("Damaged");
     // static readonly int Kill = Animator.StringToHash("Kill");
-
     
     Quaternion defaultShapeRotation;
     
@@ -203,10 +200,9 @@ public class PlayerView : MonoBehaviour
         playerView.TRBL_positions = trbl;
     }
 
-    public static void SetCollisionDetectors(PlayerView view, PlayerCollisionDetector inner, PlayerCollisionDetector outer)
+    public static void SetCollisionDetector(PlayerView view, PlayerCollisionDetector collisionDetector)
     {
-        view.innerCollisionDetector = inner;
-        view.outerCollisionDetector = outer;
+        view.collisionDetector = collisionDetector;
     }
     
     #endif

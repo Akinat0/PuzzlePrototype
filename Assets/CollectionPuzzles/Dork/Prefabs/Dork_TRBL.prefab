@@ -10,12 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1423158591110547850}
   - component: {fileID: 8665643364095766123}
-  - component: {fileID: 3489428512259855328}
   - component: {fileID: 1339020227795621506}
   - component: {fileID: 6299672926801192824}
   - component: {fileID: 6967500312597226508}
   - component: {fileID: 4639306770842944830}
-  - component: {fileID: 3450482045168957959}
   m_Layer: 0
   m_Name: Dork_TRBL
   m_TagString: Untagged
@@ -64,32 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &3489428512259855328
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4188642505466174171}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.02280325, y: 0.01400089}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.17968, y: 2.267714}
-  m_EdgeRadius: 0
 --- !u!114 &1339020227795621506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +83,7 @@ MonoBehaviour:
   - {fileID: 8627091159557046111}
   - {fileID: 6753454710683680296}
   - {fileID: 4247580958317548904}
-  outerCollisionDetector: {fileID: 6450011215518263987}
-  innerCollisionDetector: {fileID: 3450482045168957959}
+  collisionDetector: {fileID: 6450011215518263987}
 --- !u!95 &6299672926801192824
 Animator:
   serializedVersion: 3
@@ -157,18 +128,6 @@ SortingGroup:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 1
---- !u!114 &3450482045168957959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4188642505466174171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4427f54af284f2089afed4885728576, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4287613353368233751
 GameObject:
   m_ObjectHideFlags: 0

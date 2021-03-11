@@ -13,18 +13,8 @@ namespace Puzzle
             collider = GetComponent<Collider2D>();
         }
 
-        public event Action<IEnemy> OnCollisionDetected; 
-        
-        public void Enable()
-        {
-            collider.enabled = true;
-        }
-        
-        public void Disable()
-        {
-            collider.enabled = false;
-        }
-        
+        public event Action<IEnemy> OnCollisionDetected;
+
         void OnTriggerEnter2D(Collider2D other)
         {
             IEnemy enemy = other.gameObject.GetComponent<IEnemy>();

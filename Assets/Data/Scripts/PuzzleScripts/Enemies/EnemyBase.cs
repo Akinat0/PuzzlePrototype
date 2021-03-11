@@ -29,7 +29,7 @@ namespace PuzzleScripts
     
         private int _damage = 1;
 
-        private bool _appearedOnScreen;
+        private bool isAppearedOnScreen;
 
         protected bool Motion = true;
 
@@ -62,18 +62,22 @@ namespace PuzzleScripts
 
         protected virtual void Update()
         {
-            if (!_appearedOnScreen)
+            if (!isAppearedOnScreen)
             {
                 if ((GameSceneManager.Instance.Player.transform.position - transform.position).magnitude <
                     ScreenScaler.CameraSize.y / 2)
                 {
-                    _appearedOnScreen = true;
+                    isAppearedOnScreen = true;
                     GameSceneManager.Instance.InvokeEnemyAppearedOnScreen(this);
                 }
             }
             
-            if (Motion)
-                Move();
+            if (!Motion)
+                return;
+            
+            Move();
+            
+            
         }
         public EnemyType Type => type;
 
@@ -127,6 +131,8 @@ namespace PuzzleScripts
         {
             transform.Translate(new Vector3(_speed * Time.deltaTime, 0), Space.Self);
         }
+        
+        
 
         public virtual void Instantiate(EnemyParams @params)
         {

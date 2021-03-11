@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using ScreensScripts;
 using UnityEngine;
 
@@ -13,9 +11,8 @@ namespace Puzzle
         //It's relative to Side // True means it's stick out
         [SerializeField] public bool[] sides = {false, false, true, true};
         
-        PlayerCollisionDetector outerCollisionDetector;
-        PlayerCollisionDetector innerCollisionDetector;
-        
+        PlayerCollisionDetector collisionDetector;
+
         bool ImmuneFramesEnabled;
         readonly float ImmuneTime = 0.2f;
 
@@ -23,9 +20,6 @@ namespace Puzzle
         
         IEnumerator currentScaleRoutine;
 
-        readonly List<IEnemy> innerCollisions = new List<IEnemy>();
-        readonly List<IEnemy> outerCollisions = new List<IEnemy>();
-        
         #endregion
 
         #region engine
@@ -34,52 +28,21 @@ namespace Puzzle
             PlayerView = GetComponent<PlayerView>();
             defaultShapeScale = PlayerView.shape.transform.localScale;
 
-            outerCollisionDetector = PlayerView.OuterCollisionDetector;
-            innerCollisionDetector = PlayerView.InnerCollisionDetector;
-            outerCollisionDetector.Disable();
+            collisionDetector = PlayerView.CollisionDetector;
         }
 
         void OnEnable()
         {
             MobileGameInput.TouchOnTheScreen += TouchOnScreen_Handler;
-            innerCollisionDetector.OnCollisionDetected += InnerCollisionDetected_Handler;
-            outerCollisionDetector.OnCollisionDetected += OuterCollisionDetected_Handler;
+            collisionDetector.OnCollisionDetected += CollisionDetected_Handler;
         }
 
         void OnDisable()
         {
             MobileGameInput.TouchOnTheScreen -= TouchOnScreen_Handler;
-            innerCollisionDetector.OnCollisionDetected -= InnerCollisionDetected_Handler;
-            outerCollisionDetector.OnCollisionDetected -= OuterCollisionDetected_Handler;
+            collisionDetector.OnCollisionDetected -= CollisionDetected_Handler;
         }
-
-        void LateUpdate()
-        {
-            if (currentScaleRoutine != null)
-            {
-                foreach (IEnemy enemy in outerCollisions)
-                {
-                    if (enemy.CanDamagePlayer(this))
-                        continue;
-                    
-                    enemy.OnHitPlayer(this);
-                    
-                    GameSceneManager.Instance.InvokePerfectKill();
-                    
-                    int enemyIndexInInnerList = innerCollisions.IndexOf(enemy);
-
-                    if (enemyIndexInInnerList >= 0)
-                        innerCollisions.RemoveAt(enemyIndexInInnerList);
-                }
-            }
-
-            foreach (IEnemy enemy in innerCollisions)
-                enemy.OnHitPlayer(this);
-            
-            innerCollisions.Clear();
-            outerCollisions.Clear();
-        }
-
+        
         #endregion
         
         #region public
@@ -117,8 +80,6 @@ namespace Puzzle
         
         IEnumerator ScaleRoutine()
         {
-            outerCollisionDetector.Enable();
-            
             float duration = 0.25f;
             float time = 0;
             
@@ -136,7 +97,6 @@ namespace Puzzle
                 time += Time.deltaTime;
             }
             
-            outerCollisionDetector.Disable();
             currentScaleRoutine = null;
         }
         
@@ -150,14 +110,12 @@ namespace Puzzle
             ChangeSides();
         }
 
-        void InnerCollisionDetected_Handler(IEnemy enemy)
+        void CollisionDetected_Handler(IEnemy enemy)
         {
-            innerCollisions.Add(enemy);
-        }
-        
-        void OuterCollisionDetected_Handler(IEnemy enemy)
-        {
-            outerCollisions.Add(enemy);
+            if (currentScaleRoutine != null && !enemy.CanDamagePlayer(this))
+                GameSceneManager.Instance.InvokePerfectKill();
+            
+            enemy.OnHitPlayer(this);
         }
         
         #endregion
