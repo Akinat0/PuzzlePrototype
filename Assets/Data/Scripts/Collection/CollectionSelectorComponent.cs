@@ -185,6 +185,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         if (!IsFocused || !itemContainers.ContainsKey(Index))
             return;
+        
+        ProcessIndex();
 
         if (!Current.Unlocked)
         {
@@ -217,6 +219,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         if (!IsFocused)
             return;
+        
+        ProcessIndex();
         
         Back();
     }

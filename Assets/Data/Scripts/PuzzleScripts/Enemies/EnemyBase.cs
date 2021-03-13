@@ -133,8 +133,6 @@ namespace PuzzleScripts
         {
             transform.Translate(new Vector3(_speed * Time.deltaTime, 0), Space.Self);
         }
-        
-        
 
         public virtual void Instantiate(EnemyParams @params)
         {

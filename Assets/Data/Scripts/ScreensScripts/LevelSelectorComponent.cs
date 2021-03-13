@@ -312,6 +312,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
     void OnInteract()
     {
+        ProcessIndex();
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
         
@@ -323,6 +324,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void OnCollection()
     {
+        ProcessIndex();
         ShowCollection();
     }
 
