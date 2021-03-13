@@ -46,7 +46,22 @@ public class GameSession
 
     public float CurrentLevelTime => EndTime.HasValue ? -1 : Time.time - StartTime;
     
-    public int CurrentCombo { get; set; }
+    public int CurrentCombo { get; private set; }
+
+    public ComboType CurrentComboType
+    {
+        get
+        {
+            if (CurrentCombo > 20)
+                return ComboType.Strong;
+            else if (CurrentCombo > 7)
+                return ComboType.Medium;
+            else if (CurrentCombo > 0)
+                return ComboType.Weak;
+            else
+                return ComboType.None;
+        }
+    }
     
     public void IncrementCombo()
     {
@@ -119,4 +134,13 @@ public class GameSession
         Completed = 0,
         Failed = 1
     }
+    
+    public enum ComboType
+    {
+        None,
+        Weak,
+        Medium,
+        Strong
+    }
+    
 }

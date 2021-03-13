@@ -118,10 +118,12 @@ namespace PuzzleScripts
 
             CoinHolder coinHolder = GetComponent<CoinHolder>();
             if (coinHolder != null)
-               Account.AddCoins(coinHolder.Coins); 
+               Account.AddCoins(coinHolder.Coins);
 
-            Haptic.Run(Haptic.Type.SUCCESS);
-            
+            Haptic.Run(GameSceneManager.Instance.Session.CurrentComboType >= GameSession.ComboType.Medium
+                ? Haptic.Type.IMPACT_MEDIUM
+                : Haptic.Type.IMPACT_LIGHT);
+
             Destroy(gameObject);
 
             return effect != null ? effect.transform : null;

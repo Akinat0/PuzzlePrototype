@@ -68,14 +68,18 @@ public class ShockWave : MonoBehaviour
 
     void PlayAnimation()
     {
-        int combo = GameSceneManager.Instance.Session.CurrentCombo;
-
-        if (combo > 20)
-            animator.SetTrigger(StrongComboID);
-        else if (combo > 7)
-            animator.SetTrigger(MediumComboID);
-        else
-            animator.SetTrigger(WeakComboID);
+        switch (GameSceneManager.Instance.Session.CurrentComboType)
+        {
+            case GameSession.ComboType.Weak:
+                animator.SetTrigger(WeakComboID);
+                break;
+            case GameSession.ComboType.Medium:
+                animator.SetTrigger(MediumComboID);
+                break;
+            case GameSession.ComboType.Strong:
+                animator.SetTrigger(StrongComboID);
+                break;
+        }
     }
     
     void OnEnable()
