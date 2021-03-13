@@ -67,6 +67,7 @@ public class ColorDodgeBlend : UIComponent
     void RefreshCamera()
     {
         ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
+        Camera.Render();
     }
     protected override void OnValidate()
     {
@@ -84,6 +85,7 @@ public class ColorDodgeBlend : UIComponent
     private void OnDestroy()
     {
         Camera.targetTexture = null;
+        RenderTexture.Release();
         DestroyImmediate(RenderTexture);
     }
 
