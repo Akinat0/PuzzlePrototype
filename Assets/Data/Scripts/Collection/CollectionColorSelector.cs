@@ -32,7 +32,7 @@ public class CollectionColorSelector : MonoBehaviour, ISelectionProcessor<Collec
             return;
         }
         
-        colorButtons[colorIndex].Icon.gameObject.SetActive(false);
+        colorButtons[colorIndex].Icon.SetActive(false);
         Current.ActiveColorIndex = colorIndex;
     }
     
@@ -50,7 +50,7 @@ public class CollectionColorSelector : MonoBehaviour, ISelectionProcessor<Collec
             {
                 colorButtons[i].SetActive(true);
                 colorButtons[i].Color = puzzleColors[i].Color;
-                colorButtons[i].Icon.gameObject.SetActive(!puzzleColors[i].IsUnlocked);
+                colorButtons[i].Icon.SetActive(!puzzleColors[i].IsUnlocked);
             }
             else
             {

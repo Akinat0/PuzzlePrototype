@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 namespace Abu.Tools.UI
 {
+    [RequireComponent(typeof(Button))]
     public class ButtonComponent : UIComponent, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] protected AudioClip Sound;
         [SerializeField] protected Color ButtonColor = Color.white;
-        [SerializeField] protected Image icon;
+        [SerializeField] protected Color AlternativeButtonColor = Color.white;
+        [SerializeField] protected ImageComponent icon;
 
         public event Action OnClick;
         public event Action OnHoldDown;
@@ -37,10 +39,45 @@ namespace Abu.Tools.UI
         
         public virtual Color Color
         {
-            get => Background.color;
-            set => Background.color = value;
+            get => ButtonColor;
+            set
+            {
+                if (ButtonColor == value)
+                    return;
+
+                ButtonColor = value;
+                
+                if (ColorProvider != null)
+                    ColorProvider.ApplyColor(Color, AlternativeColor);
+            }
         }
-        
+
+        public virtual Color AlternativeColor
+        {
+            get => AlternativeButtonColor;
+            set
+            {
+                if(AlternativeButtonColor == value)
+                    return;
+
+                AlternativeButtonColor = value;
+
+                if (ColorProvider != null)
+                    ColorProvider.ApplyColor(Color, AlternativeColor);
+            }
+        }
+
+        public UIColorProvider ColorProvider
+        {
+            get
+            {
+                if (colorProvider == null)
+                    colorProvider = GetComponent<UIColorProvider>();
+
+                return colorProvider;
+            }
+        }
+
         public virtual Image Background
         {
             get
@@ -64,11 +101,13 @@ namespace Abu.Tools.UI
             }
         }
 
-        public Image Icon => icon;
-        
-        private RectTransform rectTransform;
-        private Image background;
-        private Button button;
+        public ImageComponent Icon => icon;
+
+        UIColorProvider colorProvider;
+        RectTransform rectTransform;
+        Image background;
+        Button button;
+
         IEnumerator CurrentScaleRoutine;
         
         public void OnButtonClick()
@@ -121,7 +160,7 @@ namespace Abu.Tools.UI
 
         IEnumerator ScaleRoutine(Vector2 targetScale, float duration, Action finished)
         {
-            Vector2 startScale = new Vector2(RectTransform.localScale.x, RectTransform.localScale.y);
+            Vector2 startScale = RectTransform.localScale;
             float time = 0;
             
             while (time < duration)
@@ -139,7 +178,8 @@ namespace Abu.Tools.UI
         
         protected override void OnValidate()
         {
-            Color = ButtonColor;
+            if (ColorProvider != null)
+                ColorProvider.ApplyColor(Color, AlternativeColor);
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -162,6 +202,7 @@ namespace Abu.Tools.UI
             OnHoldExit?.Invoke();
         }
 
+        #if UNITY_EDITOR
         [ContextMenu("Show")]
         public void ShowEditor()
         {
@@ -173,5 +214,6 @@ namespace Abu.Tools.UI
         {
             HideComponent(finished:() => Debug.LogError("Hidden"));
         }
+        #endif
     }
 }
