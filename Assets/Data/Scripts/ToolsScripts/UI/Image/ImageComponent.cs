@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Abu.Tools.UI
 {
     [RequireComponent(typeof(Image))]
-    [Serializable]
+    [ExecuteInEditMode]
     public class ImageComponent : UIComponent, IColorReceiver
     {
         [SerializeField] Color color = Color.white; 

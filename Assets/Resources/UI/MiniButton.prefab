@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 136589146055612897}
   - component: {fileID: 2986736765927541209}
   - component: {fileID: 8042289554477874650}
+  - component: {fileID: 3985095278546010880}
   m_Layer: 5
   m_Name: MiniButton
   m_TagString: Untagged
@@ -41,8 +42,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.84558463, y: 0.9345015}
   m_AnchorMax: {x: 0.93500006, y: 0.9345015}
-  m_AnchoredPosition: {x: -0.00000095367, y: 0}
-  m_SizeDelta: {x: 0.000038146973, y: 68.354164}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.000038146973, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &136589146055612899
 CanvasRenderer:
@@ -169,6 +170,20 @@ MonoBehaviour:
   receivers:
   - {fileID: 5748726720880564384}
   - {fileID: 3457203678340894362}
+--- !u!114 &3985095278546010880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136589146055612902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1.0831233
 --- !u!1 &136589146136011443
 GameObject:
   m_ObjectHideFlags: 0

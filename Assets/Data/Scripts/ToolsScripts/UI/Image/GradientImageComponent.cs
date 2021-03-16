@@ -49,13 +49,19 @@ namespace Abu.Tools.UI
         void UpdateMaterial()
         {
 #if UNITY_EDITOR
-            Image.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Data/Materials/Common/GradientUnlit.mat");
+            if(Image.material.shader.name != "Shader Graphs/GradientUnlit")
+                Image.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Data/Materials/Common/GradientUnlit.mat");
 #endif
             
             Image.materialForRendering.SetColor(GradientColorSource, FirstColor);
             Image.materialForRendering.SetColor(GradientColorTarget, SecondColor);
         }
 
+        void Awake()
+        {
+            Image.material = Instantiate(Image.material);
+            UpdateMaterial();
+        }
         void Reset()
         {
             UpdateMaterial();

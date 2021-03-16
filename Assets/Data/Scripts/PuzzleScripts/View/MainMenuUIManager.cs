@@ -122,7 +122,7 @@ namespace Puzzle
 
         void LevelChangedEvent_Handler(LevelChangedEventArgs args)
         {
-            closeButton.Color = args.LevelConfig.ColorScheme.ButtonColor;
+            args.LevelConfig.ColorScheme.SetButtonColor(closeButton);
         }
     }
 }

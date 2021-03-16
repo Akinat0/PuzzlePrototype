@@ -483,6 +483,11 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             phase
         );
         
+        Color buttonsAltColor = Color.Lerp(Current.ColorScheme.AlternativeButtonColor,
+            Selection[nextLevel].ColorScheme.AlternativeButtonColor,
+            phase
+        );
+        
         Color walletTextColor = Color.Lerp(Current.ColorScheme.TextColorLauncher,
             Selection[nextLevel].ColorScheme.TextColorLauncher,
             phase
@@ -494,7 +499,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         );
 
         InteractBtn.Color = buttonsColor;
+        InteractBtn.AlternativeColor = buttonsAltColor;
         CollectionBtn.Color = buttonsColor;
+        CollectionBtn.AlternativeColor = buttonsAltColor;
         LauncherUI.Instance.UiManager.Wallet.Text.color = walletTextColor;
         InteractBtn.TextField.color = buttonsTextColor;
         CollectionBtn.TextField.color = buttonsTextColor;

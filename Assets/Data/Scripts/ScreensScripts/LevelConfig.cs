@@ -6,16 +6,16 @@ using UnityEngine.Timeline;
 [CreateAssetMenu(fileName = "New PuzzleLevelConfig", menuName = "Puzzle/CreatePuzzleConfig", order = 51)]
 public partial class LevelConfig : ScriptableObject
 {
-    [SerializeField] private string m_LevelName;
-    [SerializeField] private string m_SceneID;
-    [SerializeField] private GameObject m_LevelRootPrefab;
-    [SerializeField] private LevelColorScheme m_LevelColorScheme;
+    [SerializeField] string m_LevelName;
+    [SerializeField] string m_SceneID;
+    [SerializeField] GameObject m_LevelRootPrefab;
+    [SerializeField] LevelColorScheme m_LevelColorScheme;
 
     [Space(10)]
-    [SerializeField] private PuzzleSides m_PuzzleSides;
+    [SerializeField] PuzzleSides m_PuzzleSides;
     
     [Space(10)]
-    [SerializeField] private bool m_CollectionEnabled = false;
+    [SerializeField] bool m_CollectionEnabled = false;
     [SerializeField] StarView m_StarView;
 
     [Space(10)]
