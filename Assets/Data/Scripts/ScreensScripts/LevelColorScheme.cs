@@ -31,6 +31,7 @@ public class LevelColorScheme
         }
 
         button.Color = ButtonColor;
+        button.AlternativeColor = AlternativeButtonColor;
     }
     
     public void SetButtonColor(TextButtonComponent button)

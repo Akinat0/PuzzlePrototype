@@ -14,6 +14,7 @@ namespace Abu.Tools.UI
         [SerializeField] protected Color ButtonColor = Color.white;
         [SerializeField] protected Color AlternativeButtonColor = Color.white;
         [SerializeField] protected ImageComponent icon;
+        [SerializeField] protected Haptic.Type hapticType = Haptic.Type.SELECTION;
 
         public event Action OnClick;
         public event Action OnHoldDown;
@@ -119,6 +120,8 @@ namespace Abu.Tools.UI
                 
                 if(Sound != null && SoundManager.Instance != null)
                     SoundManager.Instance.PlayOneShot(Sound);
+                
+                Haptic.Run(hapticType);
             }
         }
 
@@ -158,7 +161,7 @@ namespace Abu.Tools.UI
             }));
         }
 
-        IEnumerator ScaleRoutine(Vector2 targetScale, float duration, Action finished)
+        IEnumerator ScaleRoutine(Vector2 targetScale, float duration, Action finished = null)
         {
             Vector2 startScale = RectTransform.localScale;
             float time = 0;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using Puzzle;
-using ScreensScripts;
+﻿using ScreensScripts;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour

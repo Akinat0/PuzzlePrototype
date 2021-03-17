@@ -117,9 +117,9 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         LeftBtn.Color = colorScheme.ArrowColor;
         RightBtn.Color = colorScheme.ArrowColor;
-        InteractBtn.Color = colorScheme.ButtonColor;
-        HomeBtn.Color = colorScheme.ButtonColor;
-        InteractBtn.TextField.color = colorScheme.TextColor;
+        
+        colorScheme.SetButtonColor(InteractBtn);
+        colorScheme.SetButtonColor(HomeBtn);
     }
     
     void ShowCollection(int? ItemID)
