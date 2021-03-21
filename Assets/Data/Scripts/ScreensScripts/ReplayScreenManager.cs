@@ -7,16 +7,16 @@ namespace ScreensScripts
 {
     public class ReplayScreenManager : ManagerView
     {
-        [SerializeField] private GameObject ReplayScreen;
-        [SerializeField] private TextButtonComponent ReviveButton;
-        [SerializeField] private TextButtonComponent ReplayButton;
-        [SerializeField] private ButtonComponent MenuButton;
-        [SerializeField] private ButtonComponent PauseButton;
-        [SerializeField] private TextMeshProUGUI TimerField;
+        [SerializeField] GameObject ReplayScreen;
+        [SerializeField] TextButtonComponent ReviveButton;
+        [SerializeField] TextButtonComponent ReplayButton;
+        [SerializeField] ButtonComponent MenuButton;
+        [SerializeField] ButtonComponent PauseButton;
+        [SerializeField] TextComponent TimerField;
 
-        readonly VideoPurchase Video = new VideoPurchase();
+        readonly VideoPurchase video = new VideoPurchase();
         
-        private void Start()
+        void Start()
         {
             ReplayScreen.SetActive(false);
             ReviveButton.OnClick += OnReviveClick;
@@ -24,7 +24,7 @@ namespace ScreensScripts
             MenuButton.OnClick += OnMenuClick;
         }
         
-        private void OnReplayClick()
+        void OnReplayClick()
         {
             Overlay.ChangePhase(0, 0.5f);
             GameSceneManager.Instance.InvokeResetLevel();
@@ -32,9 +32,9 @@ namespace ScreensScripts
             PauseButton.SetActive(true);
         }
 
-        private void OnReviveClick()
+        void OnReviveClick()
         {
-            Video.Process(Revive);
+            video.Process(Revive);
         }
 
         void Revive()
@@ -57,7 +57,7 @@ namespace ScreensScripts
                 GameSceneManager.Instance.InvokePlayerRevive();
             }
         }
-        private void OnMenuClick()
+        void OnMenuClick()
         {
             Overlay.ChangePhase(0, 0.5f);
             GameSceneManager.Instance.InvokeLevelClosed();

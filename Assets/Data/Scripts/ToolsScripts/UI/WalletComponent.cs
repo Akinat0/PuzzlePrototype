@@ -44,20 +44,20 @@ namespace Abu.Tools.UI
             }
         }
 
-        public TextMeshProUGUI Text
+        public TextComponent Text
         {
             get
             {
                 if (text == null)
-                    text = GetComponentInChildren<TextMeshProUGUI>();
+                    text = GetComponentInChildren<TextComponent>();
 
                 return text;
             }
         }
 
         RectTransform coinImageTransform;
-        private TextMeshProUGUI text;
-        private Image coinImage;
+        TextComponent text;
+        Image coinImage;
 
         protected override void OnValidate()
         {
@@ -66,19 +66,13 @@ namespace Abu.Tools.UI
 //            ProcessWalletLayout();
         }
 
-        void Start()
-        {
-            Text.text = Account.Coins.ToString();
-            ProcessWalletLayout();
-        }
-
         void UpdateColor()
         {
             Color spriteColor = CoinImage.color;
             spriteColor.a = Alpha;
             CoinImage.color = spriteColor;
 
-            Text.alpha = Alpha;
+            Text.Alpha = Alpha;
 
             if (Alpha < Mathf.Epsilon)
             {
@@ -99,13 +93,15 @@ namespace Abu.Tools.UI
         
         void ProcessWalletLayout()
         {
-            Text.ForceMeshUpdate();
-            float textWidth = Text.GetRenderedValues(false).x;
+            Text.TextMesh.ForceMeshUpdate();
+            float textWidth = Text.TextMesh.GetRenderedValues(false).x;
             CoinImageTransform.anchoredPosition = new Vector2(- Spacing - textWidth - CoinImageTransform.rect.width / 2, 0);
         }
 
         protected virtual void OnEnable()
         {
+            Text.Text = Account.Coins.ToString();
+            
             ProcessWalletLayout();
             LauncherUI.LevelChangedEvent += OnLevelChangedHandler;
             Account.BalanceChangedEvent += OnBalanceChangedHandler;
@@ -119,7 +115,7 @@ namespace Abu.Tools.UI
 
         void OnBalanceChangedHandler(int amount)
         {
-            Text.text = amount.ToString();
+            Text.Text = amount.ToString();
 
             ProcessWalletLayout();            
             
@@ -131,7 +127,7 @@ namespace Abu.Tools.UI
         
         void OnLevelChangedHandler(LevelChangedEventArgs args)
         {
-            Text.color = args.LevelConfig.ColorScheme.TextColorLauncher;
+            Text.Color = args.LevelConfig.ColorScheme.TextColorLauncher;
         }
     }
 }

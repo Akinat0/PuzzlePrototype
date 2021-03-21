@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class PauseManager : ManagerView
 {
-    [SerializeField] private GameObject PauseMenu;
-    [SerializeField] private TextButtonComponent ContinueButton;
-    [SerializeField] private TextButtonComponent RestartButton;
-    [SerializeField] private ButtonComponent MenuButton;
-    [SerializeField] private ButtonComponent PauseButton;
-    [SerializeField] private TextMeshProUGUI TimerField;
+    [SerializeField] GameObject PauseMenu;
+    [SerializeField] TextButtonComponent ContinueButton;
+    [SerializeField] TextButtonComponent RestartButton;
+    [SerializeField] ButtonComponent MenuButton;
+    [SerializeField] ButtonComponent PauseButton;
+    [SerializeField] TextComponent TimerField;
     
     private bool paused = false;
     public bool Paused => paused;
@@ -105,6 +105,8 @@ public class PauseManager : ManagerView
         levelColorScheme.SetButtonColor(RestartButton);
         levelColorScheme.SetButtonColor(MenuButton);
         levelColorScheme.SetButtonColor(PauseButton);
+        
+        
         if(TimerField != null)
             levelColorScheme.SetTextColor(TimerField, true);
     }

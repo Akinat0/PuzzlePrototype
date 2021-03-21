@@ -7,14 +7,14 @@ using UnityEngine;
 
 public class CoinSceneManager : ManagerView
 {
-    [SerializeField] private WalletComponent Wallet;
+    [SerializeField] WalletComponent Wallet;
 
     void Start()
     {
         AlphaSetter = alpha => Wallet.Alpha = alpha;
         AlphaGetter = () => Wallet.Alpha;
         
-        TextGroup.Add(new TextObject(Wallet.Text));
+        TextGroup.Add(new TextObject(Wallet.Text.TextMesh));
         TextGroup.OnTextSizeResolved += Wallet.ForceUpdateLayout;
     }
     

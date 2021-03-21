@@ -1,9 +1,6 @@
 ﻿using System;
 using Abu.Tools.UI;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using UnityEngine.UI;
 
 [Serializable]
 public class LevelColorScheme
@@ -47,7 +44,7 @@ public class LevelColorScheme
         button.TextField.Color = TextColor;
     }
     
-    public void SetTextColor(TextMeshProUGUI text, bool alternateColor = false)
+    public void SetTextColor(TextComponent text, bool alternateColor = false)
     {
         if (text == null)
         {
@@ -55,7 +52,7 @@ public class LevelColorScheme
             return;
         }
 
-        text.color = alternateColor ? _TextColor2 : _TextColor;
+        text.Color = alternateColor ? _TextColor2 : _TextColor;
     }
     
 }

@@ -91,16 +91,16 @@ namespace Puzzle
 
         #region timer
         
-        protected IEnumerator CountdownRoutine(TextMeshProUGUI timerField, Action onFinish)
+        protected IEnumerator CountdownRoutine(TextComponent timerField, Action onFinish)
         {
             if(!timerField.gameObject.activeSelf)
                 timerField.gameObject.SetActive(true);
             
             for (int i = 3; i > 0; i--)
             {
-                timerField.text = i.ToString();
+                timerField.Text = i.ToString();
                 timerField.DOKill();
-                timerField.rectTransform.DOPunchScale(new Vector3(1.1f, 1.1f, 1), 0.7f, 3, 0.2f).SetUpdate(true);
+                timerField.RectTransform.DOPunchScale(new Vector3(1.1f, 1.1f, 1), 0.7f, 3, 0.2f).SetUpdate(true);
                 yield return new WaitForSecondsRealtime(1);
             }
             
@@ -109,7 +109,7 @@ namespace Puzzle
         
         #endregion
         
-        protected virtual void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
+        protected void CutsceneStartedEvent_Handler(CutsceneEventArgs _args)
         {
             gameObject.SetActive(false);
         }

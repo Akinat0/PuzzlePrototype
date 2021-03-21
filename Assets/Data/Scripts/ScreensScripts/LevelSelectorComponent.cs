@@ -502,7 +502,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.AlternativeColor = buttonsAltColor;
         CollectionBtn.Color = buttonsColor;
         CollectionBtn.AlternativeColor = buttonsAltColor;
-        LauncherUI.Instance.UiManager.Wallet.Text.color = walletTextColor;
+        LauncherUI.Instance.UiManager.Wallet.Text.Color = walletTextColor;
         InteractBtn.TextField.Color = buttonsTextColor;
         CollectionBtn.TextField.Color = buttonsTextColor;
     }
@@ -599,7 +599,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         CollectionBtn.Color = Current.ColorScheme.ButtonColor;
         InteractBtn.Color = Current.ColorScheme.ButtonColor;
-        LauncherUI.Instance.UiManager.Wallet.Text.color = Current.ColorScheme.TextColorLauncher;
+        LauncherUI.Instance.UiManager.Wallet.Text.Color = Current.ColorScheme.TextColorLauncher;
         InteractBtn.TextField.Color = Current.ColorScheme.TextColor;
         CollectionBtn.TextField.Color = Current.ColorScheme.TextColor;
     }

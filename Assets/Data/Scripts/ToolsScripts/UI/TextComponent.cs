@@ -21,6 +21,18 @@ namespace Abu.Tools.UI
             }
         }
         
+        RectTransform rectTransform;
+        public RectTransform RectTransform
+        {
+            get
+            {
+                if (rectTransform == null)
+                    rectTransform = (RectTransform) transform;
+                
+                return rectTransform;
+            }
+        }
+
         public Color Color
         {
             get => color;
@@ -43,7 +55,7 @@ namespace Abu.Tools.UI
         public float Alpha
         {
             get => TextMesh.alpha;
-            set => textMesh.alpha = value;
+            set => TextMesh.alpha = value;
         }
 
         public float FontSize

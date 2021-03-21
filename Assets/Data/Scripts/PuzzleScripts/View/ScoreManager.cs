@@ -1,35 +1,31 @@
 ﻿using System.Collections;
-using Abu.Tools;
 using Abu.Tools.UI;
-using DG.Tweening;
 using PuzzleScripts;
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
 
 namespace Puzzle
 {
     public class ScoreManager : ManagerView
     {
-        private int score = 0;
-        private int tempScore = 0;
-        private TextMeshProUGUI scoreText;
+        int score = 0;
+        int tempScore = 0;
+        TextComponent scoreText;
 
-        private string Score => $"Score: {tempScore}";
+        string Score => $"Score: {tempScore}";
         
-        private string Text {
+        string Text {
             
-            set => scoreText.text = value;
+            set => scoreText.Text = value;
         }
 
         void Awake()
         {
-            scoreText = GetComponent<TextMeshProUGUI>();
-            AlphaSetter = alpha => scoreText.alpha = alpha;
-            AlphaGetter = () => scoreText.alpha;
+            scoreText = GetComponent<TextComponent>();
+            AlphaSetter = alpha => scoreText.Alpha = alpha;
+            AlphaGetter = () => scoreText.Alpha;
             Text = Score;
             
-            TextGroup.Add(new TextObject(scoreText));
+            TextGroup.Add(new TextObject(scoreText.TextMesh));
         }
 
         void AddScore(int score)
@@ -74,7 +70,6 @@ namespace Puzzle
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
             GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
-
         }
 
         void ResetLevelEvent_Handler()
