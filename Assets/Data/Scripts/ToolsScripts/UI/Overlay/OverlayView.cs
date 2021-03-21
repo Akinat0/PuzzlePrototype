@@ -66,7 +66,7 @@ namespace Abu.Tools.UI
             finished?.Invoke();
         }
 
-        void OnDestroy()
+        protected virtual void OnDestroy()
         {
             StopAllCoroutines();
         }

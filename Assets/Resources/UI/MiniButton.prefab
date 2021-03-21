@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8042289554477874650}
   - component: {fileID: 2065689972364414625}
   - component: {fileID: 7295915724025904797}
+  - component: {fileID: 5390802037586577279}
   m_Layer: 5
   m_Name: MiniButton
   m_TagString: Untagged
@@ -32,7 +33,7 @@ RectTransform:
   m_GameObject: {fileID: 136589146055612902}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 8405714891630630829}
   - {fileID: 4591490665026377575}
@@ -205,6 +206,52 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5390802037586577279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136589146055612902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2424af2f4c08473bb7a04bbdfa84b33d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86345035
+      value: 1.1746106
+      inSlope: 0.04221445
+      outSlope: 0.04221445
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.44136053
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -1.5166258
+      outSlope: -1.5166258
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.38815743
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  phase: 1
 --- !u!1 &136589146136011443
 GameObject:
   m_ObjectHideFlags: 0

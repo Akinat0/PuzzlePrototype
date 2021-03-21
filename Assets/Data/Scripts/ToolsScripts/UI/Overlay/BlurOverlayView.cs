@@ -156,6 +156,14 @@ namespace Abu.Tools.UI
             BlurImage.texture = BlurTexture;
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            
+            BlurTexture.Release();
+            Destroy(BlurTexture);
+        }
+
         void RecreateBlurTexture()
         {
             LauncherUI.Instance.MainCamera.RenderIntoTexture(BlurTexture); 
@@ -199,6 +207,7 @@ namespace Abu.Tools.UI
         {
             base.OnValidate();
             BlurImage.color = BlurColor;
+            ProcessPhase();
         }
 
         protected void BoxBlur(RenderTexture source, RenderTexture destination)

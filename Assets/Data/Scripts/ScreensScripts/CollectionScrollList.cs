@@ -1,16 +1,15 @@
 using System.Linq;
 using Abu.Tools.UI;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Data.Scripts.ScreensScripts
 {
     public class CollectionScrollList : VerticalScrollListComponent<CollectionListView>
     {
-        protected override void Start()
+        protected override void CreateList()
         {
             Selection = Account.CollectionItems.Select(item => new CollectionListView(item)).ToArray();
-            base.Start();
+            base.CreateList();
         }
 
         protected override void AddElement(CollectionListView listElement)

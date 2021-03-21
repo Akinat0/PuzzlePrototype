@@ -17,17 +17,12 @@ namespace Puzzle
         [SerializeField] ButtonComponent shopButton;
         [SerializeField] ButtonComponent closeButton;
 
-        [SerializeField] GameObject AchievementScreen;
-        [SerializeField] GameObject CollectionScreen;
-        [SerializeField] GameObject ShopScreen;
+        [SerializeField] ScreenComponent AchievementScreen;
+        [SerializeField] ScreenComponent CollectionScreen;
+        [SerializeField] ScreenComponent ShopScreen;
 
         public RectTransform Root => root;
         public WalletComponent Wallet => wallet;
-
-        void Awake()
-        {
-            HideAllScreens();
-        }
 
         void HideMiniButtons()
         {
@@ -41,35 +36,32 @@ namespace Puzzle
 
         void HideAllScreens()
         {
-            closeButton.SetActive(false);
-            AchievementScreen.SetActive(false);
-            CollectionScreen.SetActive(false);
-            ShopScreen.SetActive(false);
+            closeButton.HideComponent();
+            AchievementScreen.Hide();
+            CollectionScreen.Hide();
+            ShopScreen.Hide();
         }
 
         void ShopButtonOnClick()
         {
-            HideAllScreens();
-            closeButton.SetActive(true);
-            ShopScreen.SetActive(true);
+            closeButton.ShowComponent();
+            ShopScreen.Show();
             
             new SimpleAnalyticsEvent("mini_shop_button_clicked").Send();
         }
         
         void AchievementButtonOnClick()
         {
-            HideAllScreens();
-            closeButton.SetActive(true);
-            AchievementScreen.SetActive(true);
+            closeButton.ShowComponent();
+            AchievementScreen.Show();
             
             new SimpleAnalyticsEvent("mini_achievement_button_clicked").Send();
         }
         
         void CollectionButtonOnClick()
         {
-            HideAllScreens();
-            closeButton.SetActive(true);
-            CollectionScreen.SetActive(true);
+            closeButton.ShowComponent();
+            CollectionScreen.Show();
 
             new SimpleAnalyticsEvent("mini_collection_button_clicked").Send();
         }

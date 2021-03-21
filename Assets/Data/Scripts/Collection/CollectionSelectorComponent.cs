@@ -57,7 +57,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         Selection = Account.CollectionItems;
         HideCollection();
 
-        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField,
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh,
             possibleContent: new[] { SetAsDefaultText }));
     }
 

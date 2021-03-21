@@ -82,8 +82,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ShowUI();
         ProcessIndex();
         
-        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(CollectionBtn.TextField, isSizeSource: false));
-        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField, possibleContent: Selection.Select(config => config.Name).ToArray()));
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(CollectionBtn.TextField.TextMesh, isSizeSource: false));
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh, possibleContent: Selection.Select(config => config.Name).ToArray()));
     }
 
     protected override void MoveLeft()
@@ -429,12 +429,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         float startCollectionTextAlpha = Current.CollectionEnabled ? 1 : 0;
         float targetCollectionTextAlpha = Selection[nextLevel].CollectionEnabled ? 1 : 0;
         
-        CollectionBtn.TextField.SetAlpha(Mathf.Lerp(startCollectionTextAlpha, targetCollectionTextAlpha, phase * phase));
+        CollectionBtn.TextField.Alpha = Mathf.Lerp(startCollectionTextAlpha, targetCollectionTextAlpha, phase * phase);
 
         float startCollectionFontSize = Current.CollectionEnabled ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
         float targetCollectionFontSize = Selection[nextLevel].CollectionEnabled ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
         
-        CollectionBtn.TextField.fontSize = Mathf.Lerp(startCollectionFontSize, targetCollectionFontSize, phase * phase);
+        CollectionBtn.TextField.FontSize = Mathf.Lerp(startCollectionFontSize, targetCollectionFontSize, phase * phase);
     }
     
     void ProcessSideButtons()
@@ -503,9 +503,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         CollectionBtn.Color = buttonsColor;
         CollectionBtn.AlternativeColor = buttonsAltColor;
         LauncherUI.Instance.UiManager.Wallet.Text.color = walletTextColor;
-        InteractBtn.TextField.color = buttonsTextColor;
-        CollectionBtn.TextField.color = buttonsTextColor;
-
+        InteractBtn.TextField.Color = buttonsTextColor;
+        CollectionBtn.TextField.Color = buttonsTextColor;
     }
     
     #endregion
@@ -568,7 +567,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         InteractBtn.RectTransform.anchorMax = Current.CollectionEnabled ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
         InteractBtn.RectTransform.anchorMin = Current.CollectionEnabled ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
         
-        CollectionBtn.TextField.SetAlpha(Current.CollectionEnabled ? 1 : 0);
+        CollectionBtn.TextField.Alpha = Current.CollectionEnabled ? 1 : 0;
     }
     
     void ProcessLevelsByIndex()
@@ -601,8 +600,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         CollectionBtn.Color = Current.ColorScheme.ButtonColor;
         InteractBtn.Color = Current.ColorScheme.ButtonColor;
         LauncherUI.Instance.UiManager.Wallet.Text.color = Current.ColorScheme.TextColorLauncher;
-        InteractBtn.TextField.color = Current.ColorScheme.TextColor;
-        CollectionBtn.TextField.color = Current.ColorScheme.TextColor;
+        InteractBtn.TextField.Color = Current.ColorScheme.TextColor;
+        CollectionBtn.TextField.Color = Current.ColorScheme.TextColor;
     }
     
     #endregion

@@ -44,7 +44,7 @@ public class LevelColorScheme
 
         button.Color = ButtonColor;
         button.AlternativeColor = AlternativeButtonColor;
-        button.TextField.color = TextColor;
+        button.TextField.Color = TextColor;
     }
     
     public void SetTextColor(TextMeshProUGUI text, bool alternateColor = false)

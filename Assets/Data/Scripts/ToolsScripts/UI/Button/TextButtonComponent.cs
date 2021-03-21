@@ -1,29 +1,28 @@
 ﻿using Abu.Tools.UI;
-using TMPro;
 using UnityEngine;
 
 public class TextButtonComponent : ButtonComponent
 {
-    [SerializeField] private string ButtonText = "Text";
+    [SerializeField] string ButtonText = "Text";
 
     public string Text
     {
-        get => TextField.text;
-        set => TextField.text = value;
+        get => TextField.Text;
+        set => TextField.Text = value;
     }
 
-    public TextMeshProUGUI TextField
+    public TextComponent TextField
     {
         get
         {
             if (textField == null)
-                textField = GetComponentInChildren<TextMeshProUGUI>();
+                textField = GetComponentInChildren<TextComponent>();
             
             return textField;
         }
     }
 
-    private TextMeshProUGUI textField;
+    private TextComponent textField;
 
     protected override void OnValidate()
     {

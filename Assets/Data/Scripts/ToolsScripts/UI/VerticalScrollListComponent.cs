@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,18 +19,22 @@ namespace Abu.Tools.UI
         
         protected LayoutGroup Layout => layout;
 
+        protected readonly List<T> Elements = new List<T>();
 
-        protected virtual void Start()
+        protected void Awake()
         {
             CreateList();
         }
-
+            
         protected virtual void CreateList()
         {
             Content.offsetMin += new Vector2(0, Layout.padding.bottom + Layout.padding.top);
-            
+
             foreach (T item in Selection)
+            {
                 AddElement(item);
+                Elements.Add(item);
+            }
         }
         
         protected virtual void AddElement(T listElement)

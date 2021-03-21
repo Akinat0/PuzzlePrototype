@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Abu.Tools.UI
 {
-    [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(Button), typeof(UIScaleComponent))]
     public class ButtonComponent : UIComponent, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] protected AudioClip Sound;
@@ -26,6 +26,16 @@ namespace Abu.Tools.UI
         {
             get => Button.interactable;
             set => Button.interactable = value;
+        }
+        
+        public virtual UIScaleComponent ScaleComponent
+        {
+            get
+            {
+                if(scaleComponent == null)
+                    scaleComponent = GetComponent<UIScaleComponent>();
+                return scaleComponent;
+            }
         }
         
         public virtual RectTransform RectTransform
@@ -106,11 +116,12 @@ namespace Abu.Tools.UI
 
         UIColorProvider colorProvider;
         RectTransform rectTransform;
+        UIScaleComponent scaleComponent;
         Image background;
         Button button;
 
-        IEnumerator CurrentScaleRoutine;
-        
+        IEnumerator currentScaleRoutine;
+
         public void OnButtonClick()
         {
             //Interactable condition is already into account
@@ -125,7 +136,7 @@ namespace Abu.Tools.UI
             }
         }
 
-        public virtual void ShowComponent(float duration = 0.5f, Action finished = null)
+        public virtual void ShowComponent(float duration = 0.2f, Action finished = null)
         {
             SetActive(true);
             
@@ -135,13 +146,13 @@ namespace Abu.Tools.UI
                 return;
             }
             
-            if(CurrentScaleRoutine != null)
-                StopCoroutine(CurrentScaleRoutine);
+            if(currentScaleRoutine != null)
+                StopCoroutine(currentScaleRoutine);
 
-            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.one, duration, finished));
+            StartCoroutine(currentScaleRoutine = ScaleRoutine(1, duration, finished));
         }
 
-        public virtual void HideComponent(float duration = 0.5f, Action finished = null)
+        public virtual void HideComponent(float duration = 0.2f, Action finished = null)
         {
             if (!gameObject.activeInHierarchy)
             {
@@ -150,10 +161,10 @@ namespace Abu.Tools.UI
             }
 
             Interactable = false;
-            if (CurrentScaleRoutine != null)
-                StopCoroutine(CurrentScaleRoutine);
+            if (currentScaleRoutine != null)
+                StopCoroutine(currentScaleRoutine);
 
-            StartCoroutine(CurrentScaleRoutine = ScaleRoutine(Vector2.zero, duration, () =>
+            StartCoroutine(currentScaleRoutine = ScaleRoutine(0, duration, () =>
             {
                 SetActive(false);
                 Interactable = true;
@@ -161,19 +172,19 @@ namespace Abu.Tools.UI
             }));
         }
 
-        IEnumerator ScaleRoutine(Vector2 targetScale, float duration, Action finished = null)
+        IEnumerator ScaleRoutine(float targetScale, float duration, Action finished = null)
         {
-            Vector2 startScale = RectTransform.localScale;
+            float sourceScale = ScaleComponent.Phase;
             float time = 0;
             
             while (time < duration)
             {
-                RectTransform.localScale = Vector2.Lerp(startScale, targetScale, time / duration);
+                ScaleComponent.Phase = Mathf.Lerp(sourceScale, targetScale, time / duration);
                 time += Time.unscaledDeltaTime;
                 yield return null;
             }
 
-            RectTransform.localScale = targetScale;
+            ScaleComponent.Phase = targetScale;
             
             finished?.Invoke();
         }

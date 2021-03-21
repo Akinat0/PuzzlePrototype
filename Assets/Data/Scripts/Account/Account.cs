@@ -36,46 +36,39 @@ public class Account : MonoBehaviour
             return levelsManager;
         }
     }
-    public static Achievement[] Achievements => instance.achievements;
-    public static Booster[] Boosters => instance.boosters;
-    public static Tier[] Tiers => instance.tiers;
-    public static RemoteConfig RemoteConfig => instance.remoteConfig;
-    public static PuzzleAnalytics Analytics => instance.analytics;
-    public static PuzzleAdvertisement Advertisement => instance.advertisement;
+    public static Achievement[] Achievements => achievements = achievements ?? Achievement.CreateAllAchievements();
+    public static Booster[] Boosters => boosters = boosters ?? Booster.CreateAllBoosters();
+    public static Tier[] Tiers => tiers = tiers ?? Tier.CreateAllTiers();
+    public static RemoteConfig RemoteConfig => remoteConfig = remoteConfig ?? new RemoteConfig();
+    public static PuzzleAnalytics Analytics => analytics = analytics ?? new PuzzleAnalytics();
+    public static PuzzleAdvertisement Advertisement => advertisement = advertisement ?? new PuzzleAdvertisement();
 
-    RemoteConfig remoteConfig;
-    PuzzleAnalytics analytics;
-    PuzzleAdvertisement advertisement;
+    static RemoteConfig remoteConfig;
+    static PuzzleAnalytics analytics;
+    static PuzzleAdvertisement advertisement;
     
-    Achievement[] achievements;
-    Booster[] boosters;
-    Tier[] tiers;
-    WalletManager walletManager;
-    CollectionManager collectionManager;
-    LevelsManager levelsManager;
+    static Achievement[] achievements;
+    static Booster[] boosters;
+    static Tier[] tiers;
+    static WalletManager walletManager;
+    static CollectionManager collectionManager;
+    static LevelsManager levelsManager;
 
     void Awake()
     {
         instance = this;
-        boosters = Booster.CreateAllBoosters();
-        tiers = Tier.CreateAllTiers();
-        achievements = Achievement.CreateAllAchievements();
-        
-        remoteConfig = new RemoteConfig();
-        analytics = new PuzzleAnalytics();
-        advertisement = new PuzzleAdvertisement();
     }
     
     #region Boosters
 
     public static T GetBooster<T>() where T : Booster
     {
-        return instance.boosters.FirstOrDefault(booster => booster.GetType() == typeof(T)) as T;
+        return Boosters.FirstOrDefault(booster => booster.GetType() == typeof(T)) as T;
     }
     
     public static Booster[] GetActiveBoosters()
     {
-        return instance.boosters.Where(booster => booster.IsActivated).ToArray();
+        return Boosters.Where(booster => booster.IsActivated).ToArray();
     } 
     
     #endregion
@@ -84,12 +77,12 @@ public class Account : MonoBehaviour
 
     public static Tier GetTier<T>() where T : Tier
     {
-        return instance.tiers.FirstOrDefault(tier => tier.GetType() == typeof(T)) as T;
+        return Tiers.FirstOrDefault(tier => tier.GetType() == typeof(T)) as T;
     }
     
     public static Tier GetTier(int id)
     {
-        return instance.tiers.FirstOrDefault(tier => tier.ID == id);
+        return Tiers.FirstOrDefault(tier => tier.ID == id);
     }
     
     #endregion
@@ -98,7 +91,7 @@ public class Account : MonoBehaviour
     
     public static T GetAchievement<T>() where T : Achievement
     {
-        return instance.achievements.FirstOrDefault(achievement => achievement.GetType() == typeof(T)) as T;
+        return Achievements.FirstOrDefault(achievement => achievement.GetType() == typeof(T)) as T;
     }
 
     #endregion

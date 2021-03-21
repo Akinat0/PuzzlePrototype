@@ -1,23 +1,21 @@
-
-using TMPro;
+using Abu.Tools.UI;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class AchievementViewComponent : TextButtonComponent
 {
-     [SerializeField] protected TextMeshProUGUI Description;
+     [SerializeField] protected TextComponent Description;
      [SerializeField] public RectTransform RewardContainer;
      [SerializeField] protected Image iconImage;
      
      Slider progressBar;
 
-     public TextMeshProUGUI DescriptionField => Description;
+     public TextComponent DescriptionField => Description;
 
      public string DescriptionText
      {
-          get => Description.text;
-          set => Description.text = value;
+          get => Description.Text;
+          set => Description.Text = value;
      }
 
      public void CreateReward(Reward reward)

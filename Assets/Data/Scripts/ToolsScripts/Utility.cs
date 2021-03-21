@@ -3,10 +3,7 @@ using System.Collections;
 using System.IO;
 using Abu.Tools;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public static class Utility 
 {
