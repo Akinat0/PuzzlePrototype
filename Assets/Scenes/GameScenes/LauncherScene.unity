@@ -1706,10 +1706,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 796403786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffafbe2117004d8bba21f825d2835270, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fab804f8a9f4a74a5410046c0dc56c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   overlay: {fileID: 1956329348}
+  collection: {fileID: 3144595638959892601}
 --- !u!222 &796403789
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7025,7 +7026,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &3144595639775483201
 GameObject:
@@ -7100,10 +7101,10 @@ MonoBehaviour:
   fitType: 4
   rows: 0
   columns: 3
-  cellSize: {x: 341.82666, y: NaN}
-  spacing: {x: 40, y: 90}
-  fitX: 1
-  fitY: 1
+  cellSize: {x: 204.95866, y: 200}
+  spacing: {x: 0, y: 70}
+  fitX: 0
+  fitY: 0
 --- !u!224 &3144595640446033750
 RectTransform:
   m_ObjectHideFlags: 0

@@ -42,8 +42,6 @@ namespace Abu.Tools.UI
             listElement.Create(Layout.transform);
             Content.offsetMin -= new Vector2(0, listElement.Size.y);
         }
-
-        
     }
 }
 

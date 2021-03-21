@@ -55,7 +55,7 @@ namespace Data.Scripts.ScreensScripts
 
             TitleTextGroup.Add(new TextObject(entity.TextField.TextMesh, updateOnce: true));
             DescriptionTextGroup.Add(new TextObject(entity.DescriptionField.TextMesh, updateOnce: true));
-
+            
             UpdateView();
 
             entity.OnClick += () =>

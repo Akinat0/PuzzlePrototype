@@ -8,8 +8,6 @@ namespace Data.Scripts.ScreensScripts
 {
     public class AchievementScrollList : VerticalScrollListComponent<AchievementListView>
     {
-        const float Delay = 0.06f; 
-        
         TextGroupComponent titleTextGroup;
         TextGroupComponent descriptionTextGroup;
 
@@ -49,8 +47,10 @@ namespace Data.Scripts.ScreensScripts
                 finished?.Invoke();
             }
             
+            const float delay = 0.06f; 
+            
             for (int i = 0; i < Elements.Count; i++)
-                Elements[i].Show(i * Delay, Finished);
+                Elements[i].Show(i * delay, Finished);
         }
 
         public void Hide(Action finished = null)
@@ -73,10 +73,12 @@ namespace Data.Scripts.ScreensScripts
                 finished?.Invoke();
             }
             
-            float totalDelay = Elements.Count * Delay; 
+            const float delay = 0.025f; 
+            
+            float totalDelay = Elements.Count * delay; 
             
             for (int i = 0; i < Elements.Count; i++)
-                Elements[i].Hide(totalDelay - i * Delay, Finished);
+                Elements[i].Hide(totalDelay - i * delay, Finished);
         }
 
     }

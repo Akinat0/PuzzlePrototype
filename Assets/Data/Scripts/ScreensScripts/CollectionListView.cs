@@ -1,6 +1,8 @@
+using System;
 using Abu.Tools.UI;
 using ScreensScripts;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Data.Scripts.ScreensScripts
 {
@@ -38,6 +40,7 @@ namespace Data.Scripts.ScreensScripts
             entity.PuzzleID = collectionItem.ID; 
             entity.Text = collectionItem.Name;
             entity.name = collectionItem.Name + " puzzle";
+            entity.ScaleComponent.Phase = 0;
 
             entity.OnClick += () =>
             {
@@ -55,6 +58,18 @@ namespace Data.Scripts.ScreensScripts
                 entity.PuzzleView.transform.localScale = new Vector3(1f, 1f, 1f);
             };
 
+        }
+        
+        public void Show(float delay, Action finished = null)
+        {
+            entity.SetActive(true);
+            entity.Invoke(() => entity.ShowComponent(0.23f, finished), delay);
+        }
+
+        public void Hide(float delay, Action finished = null)
+        {
+            finished += () => entity.SetActive(false);
+            entity.Invoke(() => entity.HideComponent(0.23f, finished), delay);
         }
         
     }
