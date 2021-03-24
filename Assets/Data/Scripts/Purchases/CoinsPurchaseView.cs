@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoinsPurchaseView : UIComponent
 {
-    [SerializeField] TextMeshProUGUI text;
+    [SerializeField] TextComponent text;
     
     static CoinsPurchaseView prefab;
     static CoinsPurchaseView Prefab
@@ -18,12 +18,12 @@ public class CoinsPurchaseView : UIComponent
         }
     }
 
-    public TextMeshProUGUI Text => text;
+    public TextComponent Text => text;
 
     public static CoinsPurchaseView Create(RectTransform container, CoinsPurchase purchase)
     {
         CoinsPurchaseView purchaseView = Instantiate(Prefab, container);
-        purchaseView.Text.text = purchase.Cost.ToString();
+        purchaseView.Text.Text = purchase.Cost.ToString();
         return purchaseView;
     }
     
