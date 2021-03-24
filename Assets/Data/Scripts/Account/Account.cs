@@ -57,6 +57,7 @@ public class Account : MonoBehaviour
     void Awake()
     {
         instance = this;
+        advertisement = advertisement ?? new PuzzleAdvertisement();
     }
     
     #region Boosters

@@ -1,21 +1,47 @@
 ﻿using System;
+using System.Collections;
 using Abu.Tools.UI;
 using DG.Tweening;
 using ScreensScripts;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(UIScaleComponent), typeof(CanvasGroup))]
 public class Window : UIComponent
 {
     [SerializeField] protected TextButtonComponent OkButton;
     [SerializeField] protected RectTransform ContentContainer;
-    [SerializeField] protected TextMeshProUGUI Title;
+    [SerializeField] protected TextComponent Title;
     
     protected static RectTransform Root => LauncherUI.Instance.UiManager.Root;
 
     protected OverlayView Overlay;
     protected RectTransform Transform => (RectTransform) transform;
-    
+
+    CanvasGroup canvasGroup;
+    protected CanvasGroup CanvasGroup
+    {
+        get
+        {
+            if (canvasGroup == null)
+                canvasGroup = GetComponent<CanvasGroup>();
+            
+            return canvasGroup;
+        }
+    }
+
+    UIScaleComponent scaleComponent;
+    public UIScaleComponent ScaleComponent
+    {
+        get
+        {
+            if (scaleComponent == null)
+                scaleComponent = GetComponent<UIScaleComponent>();
+            return scaleComponent;
+        }
+    }
+
+    IEnumerator currentScaleRoutine;
 
     public static Window Create(Action<RectTransform> createContent, Action onSuccess, string title, string okText)
     {
@@ -42,7 +68,7 @@ public class Window : UIComponent
     {
         Transform.SetAsLastSibling();
 
-        Title.text = title;
+        Title.Text = title;
         
         Overlay = OverlayView.Create<BlurOverlayView>(Root, Transform.GetSiblingIndex() - 1);
         Overlay.OnClick += onSuccess;
@@ -51,26 +77,60 @@ public class Window : UIComponent
         OkButton.OnClick += onSuccess;
         
         createContent?.Invoke(ContentContainer);
-        
-        Transform.localScale = Vector2.zero;
+
         Show();
     }
 
     public void Hide()
     {
+        Overlay.ChangePhase(0, 0.2f);
         
-        Transform.DOScale(Vector2.zero, 0.2f);
-        Overlay.ChangePhase(0, 0.2f, () =>
+        if(currentScaleRoutine != null)
+            StopCoroutine(currentScaleRoutine);
+
+        StartCoroutine(currentScaleRoutine = ScaleRoutine(0, 0.2f, () =>
         {
             Destroy(Overlay.gameObject);
             Destroy(gameObject);
-        });
+        }));
     }
 
     public void Show()
     {
-        Transform.DOScale(Vector2.one, 0.2f);
         Overlay.ChangePhase(1, 0.2f);
+        
+        ScaleComponent.Phase = 0;
+        CanvasGroup.alpha = 0;
+        Overlay.Phase = 0;
+        
+        if(currentScaleRoutine != null)
+            StopCoroutine(currentScaleRoutine);
+
+        StartCoroutine(currentScaleRoutine = ScaleRoutine(1, 0.2f));
+    }
+
+    IEnumerator ScaleRoutine(float targetValue, float duration, Action finished = null)
+    {
+        float sourceScale = ScaleComponent.Phase;
+        float sourceAlpha = CanvasGroup.alpha;
+
+        float time = 0;
+            
+        while (time < duration)
+        {
+            float phase = time / duration;
+            
+            ScaleComponent.Phase = Mathf.Lerp(sourceScale, targetValue, phase);
+            CanvasGroup.alpha = Mathf.Lerp(sourceAlpha, targetValue, phase);
+            
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        ScaleComponent.Phase = targetValue;
+        CanvasGroup.alpha = targetValue;
+        
+        finished?.Invoke();
     }
     
 }

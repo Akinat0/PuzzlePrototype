@@ -49,11 +49,25 @@ namespace Abu.Tools.UI
 
             UIVertex vertex = new UIVertex();
 
+            float yMin = float.MaxValue;
+            float yMax = float.MinValue;
+            
             for (int i = 0; i < toFill.currentVertCount; i++)
             {
                 toFill.PopulateUIVertex(ref vertex, i);
+                yMin = Mathf.Min(yMin, vertex.position.y);
+                yMax = Mathf.Max(yMax, vertex.position.y);
+            }
+            
+            for (int i = 0; i < toFill.currentVertCount; i++)
+            {
+                toFill.PopulateUIVertex(ref vertex, i);
+                
                 vertex.color = Color.LerpUnclamped(secondColor, firstColor,
-                    inverseGradient ? 1 - vertex.uv0.y : vertex.uv0.y);
+                    inverseGradient 
+                    ? 1 - vertex.position.y.Remap(yMin, yMax, 0, 1)
+                    : vertex.position.y.Remap(yMin, yMax, 0, 1));
+                
                 toFill.SetUIVertex(vertex, i);
             }
         }

@@ -32,7 +32,7 @@ public class CancelableWindow : Window
     {
         Transform.SetAsLastSibling();
 
-        Title.text = title;
+        Title.Text = title;
         
         Overlay = OverlayView.Create<BlurOverlayView>(Root, Transform.GetSiblingIndex() - 1);
         Overlay.OnClick += onCancel;

@@ -6,9 +6,33 @@ namespace Abu.Tools.UI
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class TextComponent : UIComponent
     {
+        #region factory
+
+        static TextComponent prefab;
+
+        static TextComponent Prefab
+        {
+            get
+            {
+                if (prefab != null)
+                    prefab = Resources.Load<TextComponent>("UI/CommonText");
+                
+                return prefab;
+            }
+        }
+
+        public static TextComponent Create(RectTransform parent, string text = "")
+        {
+            TextComponent textComponent = Instantiate(Resources.Load<TextComponent>("UI/CommonText"), parent);
+            textComponent.Text = text;
+            return textComponent;
+        }
+
+        #endregion
+        
         [SerializeField] Color color = Color.white;
         [SerializeField] bool gradient = true;
-        
+
         TextMeshProUGUI textMesh;
         public TextMeshProUGUI TextMesh
         {

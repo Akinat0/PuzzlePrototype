@@ -1,5 +1,5 @@
 using System;
-using TMPro;
+using Abu.Tools.UI;
 using UnityEngine;
 
 public class PuzzleColorWindow : CancelableWindow
@@ -22,8 +22,7 @@ public class PuzzleColorWindow : CancelableWindow
         
         void CreateContent(RectTransform container)
         {
-            var text = Instantiate(Resources.Load<TextMeshProUGUI>("UI/CommonText"), container);
-            text.text = $"Unlock color {colorData.ID}";
+            TextComponent.Create(container, $"Unlock color {colorData.ID}");
         }
 
         void OnSuccess()
