@@ -21,11 +21,22 @@ namespace Abu.Tools.UI
 
         protected readonly List<T> Elements = new List<T>();
 
+        bool isListInitialized = false;
+        
         protected void Awake()
         {
+            InitializeList();
+        }
+
+        public void InitializeList()
+        {
+            if(isListInitialized)
+                return;
+
+            isListInitialized = true; 
             CreateList();
         }
-            
+        
         protected virtual void CreateList()
         {
             Content.offsetMin += new Vector2(0, Layout.padding.bottom + Layout.padding.top);

@@ -7,6 +7,11 @@ public class ScreenComponent : UIComponent
     [SerializeField] OverlayView overlay;
     
     public bool Shown { get; private set; }
+
+    public virtual void CreateContent()
+    {
+        
+    }
     
     public virtual bool Show(Action finished = null)
     {

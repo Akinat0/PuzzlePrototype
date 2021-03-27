@@ -24,6 +24,11 @@ namespace Puzzle
         public RectTransform Root => root;
         public WalletComponent Wallet => wallet;
 
+        void Start()
+        {
+            AchievementScreen.CreateContent();
+        }
+
         void HideMiniButtons()
         {
             miniButtonsContainer.DOAnchorPosY(-600, LevelSelectorComponent.UiAnimationDuration);
@@ -100,6 +105,7 @@ namespace Puzzle
         {
             HideAllScreens();
         }
+        
         void PlayLauncherEvent_Handler(PlayLauncherEventArgs _ )
         {
             HideMiniButtons();

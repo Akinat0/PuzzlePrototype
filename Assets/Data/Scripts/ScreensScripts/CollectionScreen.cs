@@ -7,6 +7,12 @@ namespace Data.Scripts.ScreensScripts
     {
         [SerializeField] CollectionScrollList collection;
         
+        public override void CreateContent()
+        {
+            base.CreateContent();
+            collection.InitializeList();
+        }
+        
         public override bool Show(Action finished = null)
         {
             if (!base.Show(finished))
