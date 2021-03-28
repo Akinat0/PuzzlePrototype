@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 namespace Abu.Tools.UI
 {
+    [ExecuteInEditMode]
     [RequireComponent(typeof(Button), typeof(UIScaleComponent))]
     public class ButtonComponent : UIComponent, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
@@ -191,6 +192,12 @@ namespace Abu.Tools.UI
         
         
         protected override void OnValidate()
+        {
+            if (ColorProvider != null)
+                ColorProvider.ApplyColor(Color, AlternativeColor);
+        }
+
+        void OnDidApplyAnimationProperties()
         {
             if (ColorProvider != null)
                 ColorProvider.ApplyColor(Color, AlternativeColor);

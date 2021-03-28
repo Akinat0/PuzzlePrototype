@@ -1,4 +1,3 @@
-using System;
 using Abu.Tools.UI;
 using DG.Tweening;
 using Puzzle.Analytics;

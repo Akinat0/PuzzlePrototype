@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Puzzle.Analytics;
+using ScreensScripts;
 using UnityEngine;
 
 public abstract class Achievement
@@ -37,11 +38,13 @@ public abstract class Achievement
 
     protected Achievement()
     {
-        int StateCode = PlayerPrefs.GetInt(StateKey, 0);
+        int stateCode = PlayerPrefs.GetInt(StateKey, 0);
         
-        State = (AchievementState)StateCode;
+        State = (AchievementState)stateCode;
 
         Progress = PlayerPrefs.GetFloat(ProgressKey, 0.0f);
+
+        AchievementReceivedEvent += () => LauncherUI.Instance.InvokeAchievementReceived(this);
     }
 
     public abstract string Name { get; }

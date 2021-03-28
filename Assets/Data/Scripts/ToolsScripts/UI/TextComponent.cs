@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Abu.Tools.UI
 {
+    [ExecuteInEditMode]
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class TextComponent : UIComponent
     {

@@ -18,6 +18,7 @@ namespace ScreensScripts
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
+        public static event Action<Achievement> AchievementReceived; 
 
 
         [SerializeField] private AsyncLoader asyncLoader;
@@ -101,6 +102,12 @@ namespace ScreensScripts
                 playerEntity = args.PlayerView.transform;
             
             CloseCollectionEvent?.Invoke(args);
+        }
+        
+        public void InvokeAchievementReceived(Achievement achievement)
+        {
+            Debug.Log($"Achievement {achievement.Name} received Invoked");
+            AchievementReceived?.Invoke(achievement);
         }
 
     }

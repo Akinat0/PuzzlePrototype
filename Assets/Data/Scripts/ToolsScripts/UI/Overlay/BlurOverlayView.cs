@@ -160,6 +160,13 @@ namespace Abu.Tools.UI
         {
             base.OnDestroy();
             
+            #if UNITY_EDITOR
+
+            if (!Application.isPlaying)
+                return;
+            
+            #endif
+            
             BlurTexture.Release();
             Destroy(BlurTexture);
         }
