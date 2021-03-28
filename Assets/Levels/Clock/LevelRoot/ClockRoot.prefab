@@ -179,8 +179,6 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 5245869288584564500, guid: d15fd95d6cf8e48409b1d8eb62e01db2, type: 2}
     value: {fileID: 0}
-  - key: {fileID: 6642938348848920766, guid: e37a44fe0db8548afb8fb954adabf6d0, type: 2}
-    value: {fileID: 2738945539232970757}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &8015675962621134005
@@ -212,7 +210,7 @@ MonoBehaviour:
   coinProbability: 0.2
   costOfEnemy: 1
   enemyPrefab:
-  - {fileID: 8385284075992252128, guid: b1b4617a78f0e4002810ede0ba1a1f05, type: 3}
+  - {fileID: 8385284075992252128, guid: d85bb13cbf9964b9f8b8f18493743f20, type: 3}
   partOfThePLayerOnTheScreen: 0.25
 --- !u!114 &8451470797596012761
 MonoBehaviour:
@@ -547,12 +545,6 @@ PrefabInstance:
 --- !u!4 &8348584142521743421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5698771513561150735, guid: a398cfc80d3c4427a8ac0d74fe36f20e,
-    type: 3}
-  m_PrefabInstance: {fileID: 4380378957134613810}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2738945539232970757 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 1929945276144284983, guid: a398cfc80d3c4427a8ac0d74fe36f20e,
     type: 3}
   m_PrefabInstance: {fileID: 4380378957134613810}
   m_PrefabAsset: {fileID: 0}

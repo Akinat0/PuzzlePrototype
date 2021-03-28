@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8385284075992252135}
   - component: {fileID: 8385284075992252133}
   - component: {fileID: 8385284075992252134}
-  - component: {fileID: 5686504893628616598}
+  - component: {fileID: 1726653256487425600}
+  - component: {fileID: 453813903229301308}
   m_Layer: 0
-  m_Name: DawnPuzzle
+  m_Name: ClockPuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8385284075992252128}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -2.55}
-  m_LocalScale: {x: 0.3199817, y: 0.3199817, z: 0.3199817}
+  m_LocalScale: {x: 0.31647503, y: 0.31647503, z: 0.31647503}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8385284075992252133
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a06de487f80074b5dafad857441fe70f, type: 3}
-  m_Color: {r: 0.29411766, g: 0.7764706, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e8f39a76cb4744d34a03de78217a8cc3, type: 3}
+  m_Color: {r: 0.95686275, g: 0.9137255, b: 0.84705883, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -100,7 +101,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.61, y: 3.64}
+    oldSize: {x: 3.65, y: 3.65}
     newSize: {x: 7.2, y: 6.99}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -109,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.214662, y: 2.3009043}
   m_EdgeRadius: 0
---- !u!114 &5686504893628616598
+--- !u!114 &1726653256487425600
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,10 +119,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8385284075992252128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb8a8bd57afe34ad38d4113d65552f68, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ce0c805fa25cc043aaa0595156e0577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfx: {fileID: 2834689649091276865, guid: 846385ceac2924917a1b5210f902b97c, type: 3}
+  _Sprites:
+  - {fileID: 21300000, guid: e8f39a76cb4744d34a03de78217a8cc3, type: 3}
+  - {fileID: 21300000, guid: 9997f7d23398d424a9db1c835a1114ed, type: 3}
+--- !u!114 &453813903229301308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385284075992252128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8b610c2a774bd6b61bdcedfbe42275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfx: {fileID: 2834689649091276865, guid: 1d1fa7d29246d456482348d4ea7fb422, type: 3}
   sfx: {fileID: 0}
   score: 15
   type: 0
