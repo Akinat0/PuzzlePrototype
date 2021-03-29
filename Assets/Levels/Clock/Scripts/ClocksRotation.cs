@@ -21,7 +21,7 @@ public class ClocksRotation : MonoBehaviour
         UpdateDefaults();
     }
 
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(UpdateRoutine());
     }

@@ -253,7 +253,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4300709966943044208}
   - component: {fileID: 8782046530245290012}
-  - component: {fileID: 6229803497471102186}
   m_Layer: 0
   m_Name: SoundPlayer
   m_TagString: Untagged
@@ -287,22 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11fc045edc9da4598996cc1603460358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6229803497471102186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7495435775185474235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1865dca9a4484b7185de3252100de7de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  frequencyMultiplier: 10
-  defaultDecrease: 0.005
-  decreaseAcceleration: 1.085
-  fftWindow: 4
 --- !u!1001 &4380378957134613810
 PrefabInstance:
   m_ObjectHideFlags: 0
