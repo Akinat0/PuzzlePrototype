@@ -197,7 +197,7 @@ namespace Abu.Tools.UI
                 ColorProvider.ApplyColor(Color, AlternativeColor);
         }
 
-        void OnDidApplyAnimationProperties()
+        protected virtual void OnDidApplyAnimationProperties()
         {
             if (ColorProvider != null)
                 ColorProvider.ApplyColor(Color, AlternativeColor);
