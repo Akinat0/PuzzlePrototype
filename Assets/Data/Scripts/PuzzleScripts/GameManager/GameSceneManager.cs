@@ -29,10 +29,8 @@ namespace Puzzle
         public static event Action<int> HeartsAmountChangedEvent;
         public static event Action<string> TimelineEvent;
         public static event Action PerfectKillEvent;
-
-        [SerializeField] RuntimeAnimatorController cameraAnimatorController;
-        [SerializeField] CompleteScreenManager completeScreenManager;
-        [SerializeField] ReplayScreenManager replayScreenManager;
+        
+        
         [SerializeField] Transform gameSceneRoot;
 
         public Transform GameSceneRoot => gameSceneRoot;
@@ -121,17 +119,6 @@ namespace Puzzle
             Destroy(player.GetComponent<Player>());
             Destroy(gameObject);
         }
-
-        void CallEndgameMenu()
-        {
-            replayScreenManager.CreateReplyScreen(Session.ReviveUsed);
-        }
-
-        void CallCompleteMenu(int stars, bool isNewRecord)
-        {
-            completeScreenManager.CreateReplyScreen(stars, isNewRecord);
-        }
-
         protected virtual void OnEnable() { }
 
         protected virtual void OnDisable() { }
@@ -183,7 +170,6 @@ namespace Puzzle
             InvokePauseLevel(true);
             Debug.Log("PlayerDied Invoked");
             PlayerDiedEvent?.Invoke();
-            CallEndgameMenu();
         }
 
         public void InvokePlayerLosedHp()
@@ -240,8 +226,6 @@ namespace Puzzle
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
-                Session.ActiveBoosters.ToArray(), Session.ReviveUsed));
             
             //Get stars amount from difficulty
             int stars = (int)LevelConfig.DifficultyLevel;
@@ -251,7 +235,8 @@ namespace Puzzle
             if(isNewRecord)
                 LevelConfig.StarsAmount = stars;
             
-            CallCompleteMenu(stars, isNewRecord);
+            LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
+                Session.ActiveBoosters.ToArray(), Session.ReviveUsed));
         }
         
         public void InvokePlayAudio(LevelPlayAudioEventArgs args)

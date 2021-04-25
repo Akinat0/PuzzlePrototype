@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Puzzle
 {
-    public class ScoreManager : ManagerView
+    public class ScoreManager : GameText
     {
-        int score = 0;
-        int tempScore = 0;
+        int score;
+        int tempScore;
         TextComponent scoreText;
 
         string Score => $"Score: {tempScore}";
@@ -35,7 +35,7 @@ namespace Puzzle
             
         }
 
-        private IEnumerator ScrollScore()
+        IEnumerator ScrollScore()
         {
             float delay = 0.5f / (score - tempScore);
             while (tempScore < score)
@@ -54,18 +54,18 @@ namespace Puzzle
             PlayerPrefs.SetInt("score", score);
         }
 
-        protected override void OnEnable()
+        void OnEnable()
         {
-            base.OnEnable();
+            GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent += PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
             GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         }
 
-        protected override void OnDisable()
+        void OnDisable()
         {
-            base.OnDisable();
+            GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
             GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
             GameSceneManager.PlayerDiedEvent -= PlayerDiedEvent_Handler;
             GameSceneManager.EnemyDiedEvent -= EnemyDiedEvent_Handler;
@@ -98,7 +98,7 @@ namespace Puzzle
                 HideLong();
         }
         
-        protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+        void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
         {
             levelColorScheme.SetTextColor(scoreText, true);
         }

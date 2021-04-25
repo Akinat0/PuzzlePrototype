@@ -32,7 +32,6 @@ public abstract class Achievement
             new FirstReviveAchievement(),
             new HeartBoosterAchievement(),
         };
-        
         return achievements.ToArray();
     }
 

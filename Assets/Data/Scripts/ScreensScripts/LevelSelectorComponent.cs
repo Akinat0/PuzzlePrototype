@@ -366,7 +366,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         float phase = Mathf.Abs(Offset - Index) / 1;
 
-        DifficultyButton.gameObject.SetActive(true);
+        //TODO remove with difficulty button
+        // DifficultyButton.gameObject.SetActive(true);
         
         Color startColor = GetColorByDifficulty(Current.DifficultyLevel);
         Color targetColor = GetColorByDifficulty(Selection[nextLevel].DifficultyLevel);
@@ -597,11 +598,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void ProcessColorsByIndex()
     {
-        CollectionBtn.Color = Current.ColorScheme.ButtonColor;
-        InteractBtn.Color = Current.ColorScheme.ButtonColor;
+        Current.ColorScheme.SetButtonColor(CollectionBtn);
+        Current.ColorScheme.SetButtonColor(InteractBtn);
+        
         LauncherUI.Instance.UiManager.Wallet.Text.Color = Current.ColorScheme.TextColorLauncher;
-        InteractBtn.TextField.Color = Current.ColorScheme.TextColor;
-        CollectionBtn.TextField.Color = Current.ColorScheme.TextColor;
     }
     
     #endregion

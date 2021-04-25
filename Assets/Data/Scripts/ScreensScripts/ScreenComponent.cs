@@ -23,7 +23,10 @@ public class ScreenComponent : UIComponent
 
         Shown = true;
         
-        overlay.ChangePhase(1, 0.5f, finished);
+        if(overlay != null)
+            overlay.ChangePhase(1, 0.5f, finished);
+        else
+            finished?.Invoke();
 
         return true;
     }

@@ -1,11 +1,8 @@
-﻿using Abu.Tools;
-using Abu.Tools.UI;
-using DG.Tweening;
+﻿using Abu.Tools.UI;
 using Puzzle;
-using TMPro;
 using UnityEngine;
 
-public class CoinSceneManager : ManagerView
+public class CoinSceneManager : GameText
 {
     [SerializeField] WalletComponent Wallet;
 
@@ -18,26 +15,26 @@ public class CoinSceneManager : ManagerView
         TextGroup.OnTextSizeResolved += Wallet.ForceUpdateLayout;
     }
     
-    protected override void OnEnable()
+    void OnEnable()
     {
-        base.OnEnable();
+        GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
 
-    protected override void OnDisable()
+    void OnDisable()
     {
-        base.OnDisable();
+        GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
     }
 
-    protected override void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
+    void SetupLevelEvent_Handler(LevelColorScheme levelColorScheme)
     {
         levelColorScheme.SetTextColor(Wallet.Text, true);
     }
 
-    private void BalanceChangedEvent_Handler(int balance)
+    void BalanceChangedEvent_Handler(int balance)
     {
         ShowShort();
         TextGroup.UpdateTextSize();
