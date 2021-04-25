@@ -13,7 +13,6 @@ public class LevelPreview : MonoBehaviour
     void Awake()
     {
         Animator = GetComponent<Animator>();
-        Show(true);
     }
 
     void Show(bool instant = false)
@@ -29,6 +28,7 @@ public class LevelPreview : MonoBehaviour
 
     void OnEnable()
     {
+        Show(true);
         LauncherUI.GameEnvironmentLoadedEvent += GameEnvironmentLoadedEventHandler;
         LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
     }
