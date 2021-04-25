@@ -94,6 +94,9 @@ namespace Data.Scripts.ScreensScripts
                     break;
                 
                 case Achievement.AchievementState.Received:
+                    firstColor = new Color(0, 0.9f, 0.1f);
+                    secondColor = new Color(0, 0.6f, 0.3f);
+                    break;
                 case Achievement.AchievementState.Claimed:
                     firstColor = Color.yellow;
                     secondColor = new Color(1, 0.7f, 0.1f);
