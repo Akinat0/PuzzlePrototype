@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Abu.Tools;
 using Abu.Tools.UI;
 using Data.Scripts.Tools.Input;
 using ScreensScripts;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 public class LevelSelectorComponent : SelectorComponent<LevelConfig>
@@ -17,8 +15,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     [SerializeField] Transform LevelsContainer;
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
-    [SerializeField] ButtonComponent DifficultyButton;
-    [SerializeField] Image DifficultyImage;
 
     #endregion
 
@@ -130,10 +126,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         float buttonsOffset = ScreenScaler.ScreenSize.x / 4;
         RightBtn.RectTransform.DOAnchorPos(new Vector2(buttonsOffset, 0), UiAnimationDuration);
         LeftBtn.RectTransform.DOAnchorPos(new Vector2(-buttonsOffset, 0), UiAnimationDuration);
-        
-        DifficultyButton.Interactable = false;
-        DifficultyButton.RectTransform.DOAnchorPos(new Vector2(-buttonsOffset, 0), UiAnimationDuration);
-        
+
         Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(new Vector2(0, -ScreenScaler.ScreenSize.y), UiAnimationDuration);
         interactBtnTweener.onPlay = () => InteractBtn.Interactable = false; 
         interactBtnTweener.onComplete = () => InteractBtn.SetActive(false);
@@ -149,10 +142,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LeftBtn.SetActive(true);
         RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
-        DifficultyButton.Interactable = true;
-        DifficultyButton.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
+
         InteractBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f)
             .onPlay = () =>
         {
@@ -173,10 +163,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         RightBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         LeftBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
-        DifficultyButton.Interactable = true;
-        DifficultyButton.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
-        
+
         Tweener interactBtnTweener = InteractBtn.RectTransform.DOAnchorPos(Vector2.zero, UiAnimationDuration).SetDelay(0.25f);
         interactBtnTweener.onPlay = () =>
         {
@@ -350,51 +337,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessColors();
         ProcessButtons();
         ProcessSideButtons();
-        ProcessDifficultyButton();
-        
+
         int closestIndex = Mathf.RoundToInt(Offset);
         if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
             Index = closestIndex;
     }
 
-    void ProcessDifficultyButton()
-    {
-        int nextLevel = NextLevel;
-
-        if (!HasLevel(nextLevel))
-            return;
-        
-        float phase = Mathf.Abs(Offset - Index) / 1;
-
-        //TODO remove with difficulty button
-        // DifficultyButton.gameObject.SetActive(true);
-        
-        Color startColor = GetColorByDifficulty(Current.DifficultyLevel);
-        Color targetColor = GetColorByDifficulty(Selection[nextLevel].DifficultyLevel);
-        
-        DifficultyImage.color = Color.Lerp(startColor, targetColor, phase);
-
-        Color startButtonColor = Current.DifficultyLevel != DifficultyLevel.Invalid ? Color.white : Color.clear;
-        Color targetButtonColor = Selection[nextLevel].DifficultyLevel != DifficultyLevel.Invalid ? Color.white : Color.clear;
-
-        DifficultyButton.Color = Color.Lerp(startButtonColor, targetButtonColor, phase);
-    }
-
-    Color GetColorByDifficulty(DifficultyLevel difficulty)
-    {
-        switch (difficulty)
-        {
-            case DifficultyLevel.Easy:
-                return Color.green;
-            case DifficultyLevel.Medium:
-                return Color.yellow;
-            case DifficultyLevel.Hard:
-                return Color.red;
-            default:
-                return Color.clear;
-        }
-    }
-    
     void ProcessButtons()
     {
         int nextLevel = NextLevel;
@@ -545,19 +493,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
-        ProcessDifficultyButtonByIndex();
-    }
-
-    void ProcessDifficultyButtonByIndex()
-    {
-        if (Current.DifficultyLevel == DifficultyLevel.Invalid)
-        {
-            DifficultyButton.gameObject.SetActive(false);
-            return;
-        }
-        
-        DifficultyButton.gameObject.SetActive(true);
-        DifficultyImage.color = GetColorByDifficulty(Current.DifficultyLevel);
     }
     
     void ProcessButtonsByIndex()
@@ -614,7 +549,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         InteractBtn.OnClick += OnInteract;
         CollectionBtn.OnClick += OnCollection;
-        DifficultyButton.OnClick += OnDifficulty;
     }
 
     protected override void OnDisable()
@@ -628,7 +562,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         InteractBtn.OnClick -= OnInteract;
         CollectionBtn.OnClick -= OnCollection;
-        DifficultyButton.OnClick -= OnDifficulty;
     }
 
     protected override void OnTouchDown_Handler(Vector2 position)
