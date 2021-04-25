@@ -83,7 +83,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessIndex();
         
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(CollectionBtn.TextField.TextMesh, isSizeSource: false));
-        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh, possibleContent: Selection.Select(config => config.Name).ToArray()));
+        LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh, possibleContent: new []{"Play"}));
     }
 
     protected override void MoveLeft()
@@ -542,7 +542,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LevelsContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
         
         ProcessLevelsByIndex();
-        ProcessNameByIndex();
         ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
@@ -581,10 +580,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             if(levelContainer.Key != Index - 1 && levelContainer.Key != Index && levelContainer.Key != Index + 1)
                 levelContainer.Value.gameObject.SetActive(false);
         }
-    }
-    void ProcessNameByIndex()
-    {
-        InteractBtn.Text = Current.Name;
     }
 
     void ProcessSideButtonsByIndex()
