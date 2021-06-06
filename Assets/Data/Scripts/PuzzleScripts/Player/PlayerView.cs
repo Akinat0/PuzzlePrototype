@@ -35,8 +35,8 @@ public class PlayerView : MonoBehaviour
     const string TRBLTooltip = "Top, Right, Bottom and Left transforms respectively";
     
     
-    [SerializeField, Tooltip(ShapeTooltip)] public Transform shape;
-    [SerializeField, Tooltip(BackgroundTooltip)] public SpriteRenderer background;
+    [SerializeField, Tooltip(ShapeTooltip)] Transform shape;
+    [SerializeField, Tooltip(BackgroundTooltip)] SpriteRenderer background;
     [SerializeField] PlayerViewSkin[] skins;
 
     [Space(10)]
@@ -205,6 +205,17 @@ public class PlayerView : MonoBehaviour
     {
         view.collisionDetector = collisionDetector;
     }
+
+    public static void SetShape(PlayerView view, Transform shapeTransform)
+    {
+        view.shape = shapeTransform;
+    }
+    
+    public static void SetBackground(PlayerView view, SpriteRenderer background)
+    {
+        view.background = background;
+    }
+    
     
     #endif
     #endregion

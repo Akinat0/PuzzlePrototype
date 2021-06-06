@@ -87,14 +87,14 @@ public class CollectionWizardCompletePage : WizardPage
 
     void CreatePrefabs(string prefabsFolder, AnimatorController controller, CollectionItem collectionItem)
     {
-        Sprite[] sprites = GetShapeVariants(new PuzzleSides(true, true, true, true));
+        
 
         GameObject puzzleObject = new GameObject($"{Name}_TRBL");
         
         Rigidbody2D rigidbody = puzzleObject.AddComponent<Rigidbody2D>();
         rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
 
-        PlayerView playerView = puzzleObject.AddComponent<SkinPlayerView>();
+        SkinPlayerView playerView = puzzleObject.AddComponent<SkinPlayerView>();
         
         Animator animator = puzzleObject.AddComponent<Animator>();
         animator.runtimeAnimatorController = controller;
@@ -105,9 +105,9 @@ public class CollectionWizardCompletePage : WizardPage
         sortingGroup.sortingLayerName = "Player";
         sortingGroup.sortingOrder = 1;
         
-        GameObject puzzleShape = new GameObject("Shape");
+        GameObject puzzleShape = new GameObject("shape");
         puzzleShape.transform.parent = puzzleObject.transform;
-        playerView.shape = puzzleShape.transform;
+        PlayerView.SetShape(playerView, puzzleShape.transform);
 
         BoxCollider2D collider = puzzleShape.AddComponent<BoxCollider2D>();
         collider.isTrigger = true;
@@ -119,26 +119,66 @@ public class CollectionWizardCompletePage : WizardPage
 
         PlayerView.SetCollisionDetector(playerView, collisionDetector);
 
-        SpriteRenderer spriteRenderer = puzzleShape.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprites[0];
-        spriteRenderer.sortingLayerName = "Player";
-        
-        SkinContainer skinContainer = puzzleShape.AddComponent<SkinContainer>();
-        SkinContainer.SetEditorSprites(skinContainer, sprites);
+        GameObject precontent = new GameObject("precontent");
+        GameObject masked = new GameObject("masked");
+        GameObject postcontent = new GameObject("postcontent");
 
-        PlayerViewColorSkin playerViewColorSkin = puzzleShape.AddComponent<PlayerViewColorSkin>();
-        PlayerView.SetEditorColorSkins(playerView, new []{playerViewColorSkin});
+        precontent.transform.parent = puzzleShape.transform;
+        masked.transform.parent = puzzleShape.transform;
+        postcontent.transform.parent = puzzleShape.transform;
+
+        SpriteRenderer shadow = new GameObject("shadow").AddComponent<SpriteRenderer>();
+        SpriteRenderer background = new GameObject("background").AddComponent<SpriteRenderer>();
+        SpriteRenderer outline = new GameObject("outline").AddComponent<SpriteRenderer>();
+
+        shadow.transform.parent = precontent.transform;
+        background.transform.parent = masked.transform;
+        outline.transform.parent = postcontent.transform;
+
+        background.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        
+        //we will scale the puzzle by shadow, not by actual background
+        PlayerView.SetBackground(playerView, shadow); 
+        
+        PuzzleSides sidesTRBL = new PuzzleSides(true, true, true, true);
+        
+        Sprite[] shapeSprites = GetShapeVariants(sidesTRBL);
+        Sprite[] shadowSprites = GetShadowVariants(sidesTRBL);
+        Sprite[] outlineSprites = GetOutlineVariants(sidesTRBL);
+        
+        SpriteMask mask = masked.AddComponent<SpriteMask>();
+        mask.sprite = shapeSprites[0];
+        mask.alphaCutoff = 1;
+
+        MaskSkinContainer maskSkinContainer = masked.AddComponent<MaskSkinContainer>();
+        MaskSkinContainer.SetEditorSprites(maskSkinContainer, shapeSprites);
+
+        shadow.sprite = shadowSprites[0];
+        background.sprite = shapeSprites[0];
+        outline.sprite = outlineSprites[0];
+
+        SkinContainer shadowSkinContainer = shadow.gameObject.AddComponent<SkinContainer>();
+        SkinContainer backgroundSkinContainer = background.gameObject.AddComponent<SkinContainer>();
+        SkinContainer outlineSkinContainer = outline.gameObject.AddComponent<SkinContainer>();
+        
+        SkinContainer.SetEditorSprites(shadowSkinContainer, shadowSprites);
+        SkinContainer.SetEditorSprites(backgroundSkinContainer, shapeSprites);
+        SkinContainer.SetEditorSprites(outlineSkinContainer, outlineSprites);
+
+        PlayerViewColorSkin backgroundColorSkin = background.gameObject.AddComponent<PlayerViewColorSkin>();
+        
+        PlayerView.SetEditorColorSkins(playerView, new []{backgroundColorSkin});
+        
+        SkinPlayerView.SetEditorSkinContainers(playerView, new []{shadowSkinContainer, backgroundSkinContainer, outlineSkinContainer});
+        SkinPlayerView.SetEditorMaskContainers(playerView, new []{maskSkinContainer});
         
         List<PlayerViewColorSkin.ColorSkin> colorSkins = new List<PlayerViewColorSkin.ColorSkin>();
         
         foreach (PuzzleColorData puzzleColor in PuzzleColors)
-        {
-            PlayerViewColorSkin.ColorSkin colorSkin = new PlayerViewColorSkin.ColorSkin{Color = puzzleColor.Color, PuzzleColor = puzzleColor};
-            colorSkins.Add(colorSkin);
-        }
-
-        playerViewColorSkin.EditorColorSkins = colorSkins.ToArray();
+            colorSkins.Add(new PlayerViewColorSkin.ColorSkin{Color = puzzleColor.Color, PuzzleColor = puzzleColor});
         
+        backgroundColorSkin.EditorColorSkins = colorSkins.ToArray();
+
         Transform top = new GameObject("top").transform;
         top.parent = puzzleObject.transform;
         top.localPosition = new Vector3(0, 2, 0);
@@ -185,17 +225,28 @@ public class CollectionWizardCompletePage : WizardPage
     {
         GameObject variantInstance = (GameObject) PrefabUtility.InstantiatePrefab(originalPrefab);
 
-        Sprite[] sprites = GetShapeVariants(sides);
+        Sprite[] shadowSprites = GetShadowVariants(sides);
+        Sprite[] backgroundSprites = GetShapeVariants(sides);
+        Sprite[] outlineSprites = GetOutlineVariants(sides);
         
-        Transform shape = variantInstance.transform.Find("Shape");
+        Transform shadow = variantInstance.transform.Find("shape/precontent/shadow");
+        Transform background = variantInstance.transform.Find("shape/masked/background");
+        Transform outline = variantInstance.transform.Find("shape/postcontent/outline");
+        Transform masked = variantInstance.transform.Find("shape/masked");
         
-        SpriteRenderer spriteRenderer = shape.GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = sprites[0];
+        shadow.GetComponent<SpriteRenderer>().sprite = shadowSprites[0];
+        background.GetComponent<SpriteRenderer>().sprite = backgroundSprites[0];
+        outline.GetComponent<SpriteRenderer>().sprite = outlineSprites[0];
 
-        SkinContainer skinContainer = shape.GetComponent<SkinContainer>();
-        SkinContainer.SetEditorSprites(skinContainer, sprites);
+        masked.GetComponent<SpriteMask>().sprite = backgroundSprites[0];
+
+        SkinContainer.SetEditorSprites(shadow.GetComponent<SkinContainer>(), shadowSprites);
+        SkinContainer.SetEditorSprites(background.GetComponent<SkinContainer>(), backgroundSprites);
+        SkinContainer.SetEditorSprites(outline.GetComponent<SkinContainer>(), outlineSprites);
         
-        GameObject prefabVariant = PrefabUtility.SaveAsPrefabAsset(variantInstance, prefabsFolder + $"/{Name}_{sides.ToString()}.prefab");
+        MaskSkinContainer.SetEditorSprites(masked.GetComponent<MaskSkinContainer>(), backgroundSprites);
+
+        GameObject prefabVariant = PrefabUtility.SaveAsPrefabAsset(variantInstance, $"{prefabsFolder}/{Name}_{sides.ToString()}.prefab");
         
         Object.DestroyImmediate(variantInstance);
         
@@ -286,16 +337,31 @@ public class CollectionWizardCompletePage : WizardPage
 
         return controller;
     }
-
-    Sprite[] GetShapeVariants(PuzzleSides sides)
+    
+    Sprite[] GetShadowVariants(PuzzleSides sides)
     {
-        string shapes = sides.ToString();
-
         return new[]
         {
-            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{1.ToString()}.png"),
-            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{2.ToString()}.png")
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_shadow_{sides.ToString()}_{1.ToString()}.png"),
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_shadow_{sides.ToString()}_{2.ToString()}.png")
+        };
+    }
+    
+    Sprite[] GetShapeVariants(PuzzleSides sides)
+    {
+        return new[]
+        {
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_shape_{sides.ToString()}_{1.ToString()}.png"),
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_shape_{sides.ToString()}_{2.ToString()}.png")
         };
     }
 
+    Sprite[] GetOutlineVariants(PuzzleSides sides)
+    {
+        return new[]
+        {
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_outline_{sides.ToString()}_{1.ToString()}.png"),
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/puzzle_{sides.ToString()}/puzzle_outline_{sides.ToString()}_{2.ToString()}.png")
+        };
+    }
 }

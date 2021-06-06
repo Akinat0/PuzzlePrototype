@@ -26,7 +26,7 @@ namespace Puzzle
         protected virtual void Awake()
         {
             PlayerView = GetComponent<PlayerView>();
-            defaultShapeScale = PlayerView.shape.transform.localScale;
+            defaultShapeScale = PlayerView.Shape.localScale;
 
             collisionDetector = PlayerView.CollisionDetector;
         }
@@ -88,7 +88,7 @@ namespace Puzzle
 
             while (time < duration)
             {
-                PlayerView.shape.localScale =
+                PlayerView.Shape.localScale =
                     defaultShapeScale * Mathf.Lerp(sourceScaleFactor, targetScaleFactor,
                         Mathf.PingPong(time, duration / 2));
                 

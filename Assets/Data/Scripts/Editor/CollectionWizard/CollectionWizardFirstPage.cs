@@ -98,7 +98,7 @@ public class CollectionWizardFirstPage : WizardPage
         
         PlayerView playerView = PlayerView.Create(null, collectionItem);
 
-        Texture2D texture = CaptureUtility.Capture(playerView.shape.GetComponent<SpriteRenderer>(), inOtherLayer:false);
+        Texture2D texture = CaptureUtility.Capture(playerView.Background, inOtherLayer:false);
         
         Object.DestroyImmediate(playerView.gameObject);
         

@@ -40,4 +40,18 @@ public class SkinPlayerView : PlayerView
     {
         ActiveSkin = 0;
     }
+    
+    #if UNITY_EDITOR
+    
+    public static void SetEditorSkinContainers(SkinPlayerView playerView, SkinContainer[] skins)
+    {
+        playerView.skinContainers = (SkinContainer[]) skins.Clone();
+    }
+    
+    public static void SetEditorMaskContainers(SkinPlayerView playerView, MaskSkinContainer[] skins)
+    {
+        playerView.maskContainers = (MaskSkinContainer[]) skins.Clone();
+    }
+    
+    #endif
 }
