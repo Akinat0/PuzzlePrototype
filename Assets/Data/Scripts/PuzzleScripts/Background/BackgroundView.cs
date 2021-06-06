@@ -2,6 +2,7 @@
 using System.Linq;
 using Abu.Tools;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class BackgroundView : MonoBehaviour
@@ -10,18 +11,11 @@ public class BackgroundView : MonoBehaviour
     
     SpriteRenderer spriteRenderer;
     SpriteMask spriteMask;
+    SortingGroup sortingGroup;
     
     SpriteRenderer[] spritesInChildren;
-    SpriteRenderer[] SpritesInChildren
-    {
-        get
-        {
-            if (spritesInChildren == null)
-                spritesInChildren = GetComponentsInChildren<SpriteRenderer>(true);
-
-            return spritesInChildren;
-        }
-    }
+    SpriteRenderer[] SpritesInChildren => 
+        spritesInChildren ?? (spritesInChildren = GetComponentsInChildren<SpriteRenderer>(true));
 
     void Awake()
     {
@@ -34,6 +28,9 @@ public class BackgroundView : MonoBehaviour
 
     void CreateClipping()
     {
+        if (!gameObject.TryGetComponent(out sortingGroup))
+            sortingGroup = gameObject.AddComponent<SortingGroup>();
+        
         spriteMask = gameObject.AddComponent<SpriteMask>();
         spriteMask.sprite = spriteRenderer.sprite;
 

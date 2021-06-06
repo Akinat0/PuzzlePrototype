@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public abstract class SkinContainerBase : MonoBehaviour
 {
     [SerializeField] protected Sprite[] _Sprites;

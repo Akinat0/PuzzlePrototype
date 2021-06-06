@@ -21,9 +21,6 @@ namespace Puzzle
         
         [Header("Enemy params")]
         [SerializeField] protected GameObject[] enemyPrefab;
-        
-        [Tooltip("The percent which player's puzzle will take on the any screen")]
-        [SerializeField] protected float partOfThePLayerOnTheScreen = 0.25f;
 
         private GameObject m_PlayerEntity;
         private PlayerView m_PlayerView;
@@ -68,8 +65,8 @@ namespace Puzzle
             
             float playerScale =
                 ScreenScaler.ScaleToFillPartOfScreen(
-                    m_PlayerView.shape.GetComponent<SpriteRenderer>(),
-                    partOfThePLayerOnTheScreen);
+                    m_PlayerView.Background,
+                    m_PlayerView.PartOfScreen);
 
             m_PlayerEntity.transform.localScale = Vector3.one * playerScale;
 
@@ -77,7 +74,7 @@ namespace Puzzle
             {
                 float enemyScale = ScreenScaler.ScaleToFillPartOfScreen(
                     prefab.GetComponent<SpriteRenderer>(),
-                    partOfThePLayerOnTheScreen);
+                    m_PlayerView.PartOfScreen);
                 
                 prefab.transform.localScale = Vector3.one * enemyScale;
             }

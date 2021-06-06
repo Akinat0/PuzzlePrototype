@@ -17,14 +17,14 @@ namespace Abu.Tools.UI
             {
                 if (prefab != null)
                     prefab = Resources.Load<TextComponent>("UI/CommonText");
-                
+
                 return prefab;
             }
         }
 
         public static TextComponent Create(RectTransform parent, string text = "")
         {
-            TextComponent textComponent = Instantiate(Resources.Load<TextComponent>("UI/CommonText"), parent);
+            TextComponent textComponent = Instantiate(Prefab, parent);
             textComponent.Text = text;
             return textComponent;
         }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Abu.Tools;
 using Puzzle;
 using PuzzleScripts;
@@ -30,22 +29,31 @@ public class PlayerView : MonoBehaviour
     #endregion
     
     #region serialized
+
+    const string ShapeTooltip = "The transform will be scaled on tap";
+    const string BackgroundTooltip = "The sprite renderer will be used for sizing puzzle on scene";
+    const string TRBLTooltip = "Top, Right, Bottom and Left transforms respectively";
     
-    [SerializeField] float _partOfScreen = 0.25f;
-    [SerializeField] public Transform shape;
+    
+    [SerializeField, Tooltip(ShapeTooltip)] public Transform shape;
+    [SerializeField, Tooltip(BackgroundTooltip)] public SpriteRenderer background;
     [SerializeField] PlayerViewSkin[] skins;
 
-    [Space(10), SerializeField, Tooltip("Top, Right, Bottom and Left transforms respectively")] 
-    Transform[] TRBL_positions;
+    [Space(10)]
+    [SerializeField, Tooltip(TRBLTooltip)] Transform[] TRBL_positions;
     
     [SerializeField] PlayerCollisionDetector collisionDetector;
 
     #endregion
 
-    #region public 
-    
+    #region public
+
+    public SpriteRenderer Background => background;
+
+    public Transform Shape => shape;
+
     public Transform[] TRBLPositions => TRBL_positions;
-    public float PartOfScreen => _partOfScreen;
+    public float PartOfScreen => 0.25f;
 
     public PlayerCollisionDetector CollisionDetector => collisionDetector;
     
@@ -83,14 +91,6 @@ public class PlayerView : MonoBehaviour
     // static readonly int Kill = Animator.StringToHash("Kill");
     
     Quaternion defaultShapeRotation;
-    
-    void SetScale(float partOfScreen)
-    {
-        transform.localScale = Vector3.one * 
-                               ScreenScaler.ScaleToFillPartOfScreen(
-                                   shape.gameObject.GetComponent<SpriteRenderer>(),
-                                   partOfScreen);
-    }
 
     protected virtual void RestoreView()
     {
@@ -125,7 +125,8 @@ public class PlayerView : MonoBehaviour
     protected virtual void Start()
     {
         Animator = GetComponent<Animator>();
-        SetScale(_partOfScreen);
+        transform.localScale = 
+            Vector3.one * ScreenScaler.ScaleToFillPartOfScreen(background, PartOfScreen);
         defaultShapeRotation = shape.rotation;
 
         CollectionItem = Account.GetCollectionItem(ID);

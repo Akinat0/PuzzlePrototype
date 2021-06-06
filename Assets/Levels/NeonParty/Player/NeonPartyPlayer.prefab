@@ -430,8 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf2782783d30466db27b7559320fca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _partOfScreen: 0.25
   shape: {fileID: 2194708453869913257}
+  background: {fileID: 5880578822815770889}
   skins: []
   TRBL_positions:
   - {fileID: 5536812718451674178}
@@ -439,6 +439,9 @@ MonoBehaviour:
   - {fileID: 6632927711094952188}
   - {fileID: 801997153414769224}
   collisionDetector: {fileID: 4637454698363661703}
+  skinContainers:
+  - {fileID: 4460335836467190903}
+  maskContainers: []
 --- !u!50 &1847343592836857317
 Rigidbody2D:
   serializedVersion: 4

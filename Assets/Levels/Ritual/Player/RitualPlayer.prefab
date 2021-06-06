@@ -461,7 +461,6 @@ GameObject:
   - component: {fileID: 1847343592836857317}
   - component: {fileID: 8081179802532344752}
   - component: {fileID: 8095120642653732727}
-  - component: {fileID: 6757515019325931857}
   m_Layer: 0
   m_Name: RitualPlayer
   m_TagString: Untagged
@@ -500,8 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4d34e18b944b928150c49ae1e14444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _partOfScreen: 0.25
   shape: {fileID: 2194708453869913257}
+  background: {fileID: 5880578822815770889}
   skins: []
   TRBL_positions:
   - {fileID: 5536812718451674178}
@@ -509,6 +508,9 @@ MonoBehaviour:
   - {fileID: 6632927711094952188}
   - {fileID: 801997153414769224}
   collisionDetector: {fileID: 7326562086081259838}
+  skinContainers:
+  - {fileID: 4460335836467190903}
+  maskContainers: []
 --- !u!50 &1847343592836857317
 Rigidbody2D:
   serializedVersion: 4
@@ -560,56 +562,6 @@ SortingGroup:
   m_SortingLayerID: 974043859
   m_SortingLayer: 2
   m_SortingOrder: 0
---- !u!212 &6757515019325931857
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6068697764657417907}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: e6d3554504335c74a876329e4198e145, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 2.37, y: 2.37}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &6166778720302443136
 GameObject:
   m_ObjectHideFlags: 0

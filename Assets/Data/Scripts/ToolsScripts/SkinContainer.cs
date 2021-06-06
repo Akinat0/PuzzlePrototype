@@ -26,14 +26,7 @@ public class SkinContainer : SkinContainerBase
         if (_SpriteRenderer == null)
             _SpriteRenderer = GetComponent<SpriteRenderer>();
 
-        try
-        {
-            _SpriteRenderer.sprite = _Sprites[index];
-        }
-        catch
-        {
-            Debug.LogError("Index " + index);
-        }
+        _SpriteRenderer.sprite = _Sprites[index];
     }
     
     #if UNITY_EDITOR

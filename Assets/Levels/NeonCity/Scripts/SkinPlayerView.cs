@@ -1,21 +1,43 @@
-﻿public class SkinPlayerView : PlayerView
+﻿using UnityEngine;
+
+public class SkinPlayerView : PlayerView
 {
-    private SkinContainer _shapeSkinContainer;
-    
+    [SerializeField, Tooltip("Skin changes by tap")] SkinContainer[] skinContainers;
+    [SerializeField, Tooltip("Mask changes by tap")] MaskSkinContainer[] maskContainers;
+
+    int activeSkin = 0;
+    int ActiveSkin
+    {
+        get => activeSkin;
+        set
+        {
+            if (activeSkin == value)
+                return;
+
+            activeSkin = value;
+
+            foreach (SkinContainer skinContainer in skinContainers)
+                skinContainer.Skin = activeSkin;
+            
+            foreach (MaskSkinContainer maskContainer in maskContainers)
+                maskContainer.Skin = activeSkin;
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
-        _shapeSkinContainer = shape.GetComponent<SkinContainer>();
-        _shapeSkinContainer.Skin = 0;
+
+        ActiveSkin = 0;
     }
 
     public override void ChangeSides()
     {
-        _shapeSkinContainer.Skin = _shapeSkinContainer.Skin == 0 ? 1 : 0;
+        ActiveSkin = ActiveSkin == 0 ? 1 : 0;
     }
 
     protected override void RestoreView()
     {
-        _shapeSkinContainer.Skin = 0;
+        ActiveSkin = 0;
     }
 }

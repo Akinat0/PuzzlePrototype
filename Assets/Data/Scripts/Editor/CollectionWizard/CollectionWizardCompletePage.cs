@@ -293,8 +293,8 @@ public class CollectionWizardCompletePage : WizardPage
 
         return new[]
         {
-            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{1}.png"),
-            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{2}.png")
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{1.ToString()}.png"),
+            AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Data/Images/Puzzles/BasePuzzle/Base_{shapes}/base_state_{shapes}_{2.ToString()}.png")
         };
     }
 
