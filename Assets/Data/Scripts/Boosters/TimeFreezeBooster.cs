@@ -1,4 +1,3 @@
-using System;
 using Abu.Tools.UI;
 using ScreensScripts;
 
@@ -18,8 +17,6 @@ public class TimeFreezeBooster : Booster
             return freeze;
         }
     }
-
-    Action HideFreezeScreen; 
 
     protected override void Apply()
     {
