@@ -97,9 +97,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2519492217652267502}
-  - component: {fileID: -4533454536893284241}
+  - component: {fileID: 8334469541319254107}
   m_Layer: 5
-  m_Name: CoinsPurchaseView
+  m_Name: StarsRewardView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +125,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-4533454536893284241
+--- !u!114 &8334469541319254107
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,10 +134,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2519492217652267503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9502b201a724003aa2898257a84b4ee, type: 3}
+  m_Script: {fileID: 11500000, guid: c0cf987c29da44078ee7288aa9db6eb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2979179480698860893}
 --- !u!1 &6524347446223484976
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c8d5ad6b546654f3a936900c5d972a43, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7b7c66416651645c398dd6cc7da0527e, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

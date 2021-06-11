@@ -84,7 +84,7 @@ public abstract class Tier
         {
             {"tier_id", ID},
             {"tier_type", Type},
-            {"balance", Account.Coins}
+            {"stars", Account.Stars.Amount}
         };
         
         new SimpleAnalyticsEvent("tier_obtained", eventData).Send();

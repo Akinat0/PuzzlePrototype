@@ -9,26 +9,15 @@ using Random = UnityEngine.Random;
 namespace Puzzle
 {
     public enum Side {Left = 0, Up = 1, Right = 2, Down = 3 }
+    
     public  class SpawnerBase : MonoBehaviour
     {
-        [Header("Coins params")]
-        [SerializeField] private bool spawnCoins = true;
-        
-        [Range(0,1)]
-        [SerializeField] private float coinProbability = 0.2f;
-
-        [SerializeField] private int costOfEnemy = 1;
-        
         [Header("Enemy params")]
         [SerializeField] protected GameObject[] enemyPrefab;
 
-        private GameObject m_PlayerEntity;
-        private PlayerView m_PlayerView;
-        private Player m_Player;
-
-        public bool SpawnCoins => spawnCoins;
-        public float CoinProbability => coinProbability;
-        public int CostOfEnemy => costOfEnemy;
+        GameObject m_PlayerEntity;
+        PlayerView m_PlayerView;
+        Player m_Player;
 
         int enemiesCount;
         
@@ -92,9 +81,6 @@ namespace Puzzle
             
             EnemyBase enemy = Instantiate(prefabToInstantiate, GameSceneManager.Instance.GameSceneRoot);
             enemy.Instantiate(@params);
-
-            if (Random.Range(0.0f, 1.0f) < coinProbability)
-                enemy.SetCoinHolder(1);
 
             enemiesCount++;
             enemy.Renderer.sortingOrder = enemiesCount % 20000;

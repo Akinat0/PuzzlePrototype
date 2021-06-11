@@ -132,7 +132,7 @@ public abstract class Achievement
         return new Dictionary<string, object>()
         {
             {"achievement_name", Name},
-            {"balance", Account.Coins}
+            {"stars", Account.Stars.Amount}
         };
     }
     

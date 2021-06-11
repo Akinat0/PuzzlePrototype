@@ -9,7 +9,7 @@ namespace Puzzle
     public class MainMenuUIManager : MonoBehaviour
     {
         [SerializeField] RectTransform root; 
-        [SerializeField] WalletComponent wallet;
+        [SerializeField] StarsComponent stars;
         [SerializeField] RectTransform miniButtonsContainer;
         [SerializeField] ButtonComponent collectionButton;
         [SerializeField] ButtonComponent achievementButton;
@@ -21,7 +21,7 @@ namespace Puzzle
         [SerializeField] ScreenComponent ShopScreen;
 
         public RectTransform Root => root;
-        public WalletComponent Wallet => wallet;
+        public StarsComponent Stars => stars;
 
         void Start()
         {
@@ -108,13 +108,13 @@ namespace Puzzle
         void PlayLauncherEvent_Handler(PlayLauncherEventArgs _ )
         {
             HideMiniButtons();
-            Wallet.Alpha = 0;
+            Stars.Alpha = 0;
         }
 
         void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
         {
             ShowMiniButtons();
-            Wallet.Alpha = 1;
+            Stars.Alpha = 1;
         }
 
         void LevelChangedEvent_Handler(LevelChangedEventArgs args)

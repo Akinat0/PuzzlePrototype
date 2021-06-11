@@ -44,17 +44,6 @@ public class LongPuzzleEnemy : PuzzleEnemy
         }
     }
 
-    public override Transform Die()
-    {
-        Account.AddCoins(1);
-        return base.Die();
-    }
-
-    public override void SetCoinHolder(int CostOfEnemy)
-    {
-        gameObject.AddComponent<EmptyCoinHolder>().SetupCoinHolder(CostOfEnemy);
-    }
-
     Vector3 GetTargetPosition(Player player)
     {
         Vector3 targetPosition = player.PlayerView.GetSidePosition(side);

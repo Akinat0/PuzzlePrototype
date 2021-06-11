@@ -12,7 +12,7 @@ public sealed class TutorialAchievement : Achievement
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
     
-    readonly CoinsReward reward = new CoinsReward(100);
+    readonly StarsReward reward = new StarsReward(100);
     
     public override string Name => "Start Learning";
     public override string Description => "Complete tutorial";

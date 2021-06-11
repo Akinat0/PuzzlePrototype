@@ -2,23 +2,23 @@
 using System;
 using UnityEngine;
 
-public class CoinsPurchase : Purchase
+public class StarsPurchase : Purchase
 {
-    public CoinsPurchase(int cost)
+    public StarsPurchase(int cost)
     {
         Cost = cost;
     }
 
     public int Cost { get; set; }
 
-    public override bool Available => Account.Coins >= Cost;
+    public override bool Available => Account.HasStars(Cost);
 
     public override bool Process(Action success)
     {
         if (!Available)
             return false;
 
-        if (Account.RemoveCoins(Cost))
+        if (Account.HasStars(Cost))
         {
             success?.Invoke();
             return true;
@@ -29,6 +29,6 @@ public class CoinsPurchase : Purchase
 
     public override GameObject CreateView(RectTransform rectTransform)
     {
-        return CoinsPurchaseView.Create(rectTransform, this).gameObject;
+        return StarsPurchaseView.Create(rectTransform, this).gameObject;
     }
 }

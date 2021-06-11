@@ -10,7 +10,7 @@ public sealed class FirstReviveAchievement : Achievement
         GameSceneManager.PlayerReviveEvent += PlayerReviveEvent_Handler;
     }
     
-    readonly CoinsReward reward = new CoinsReward(250);
+    readonly StarsReward reward = new StarsReward(250);
     
     public override string Name => "New life";
     public override string Description => "Use Revive";

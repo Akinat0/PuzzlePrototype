@@ -334,7 +334,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             {"puzzle_color", Account.CollectionDefaultItem.ActiveColorIndex},
             {"previous_puzzle", previousPuzzleName ?? string.Empty},
             {"level_name", LauncherUI.Instance.LevelConfig.Name},
-            {"balance", Account.Coins}
+            {"stars", Account.Stars.Amount}
         };
 
         new SimpleAnalyticsEvent("puzzle_changed", eventData).Send();

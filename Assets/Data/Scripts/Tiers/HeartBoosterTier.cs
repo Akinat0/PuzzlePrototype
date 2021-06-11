@@ -3,7 +3,6 @@ public sealed class HeartBoosterTier : Tier
     public HeartBoosterTier()
     {
         Available = Purchase.Available;
-        Account.BalanceChangedEvent += OnBalanceChangedEvent_Handler;
     }
     
     Purchase purchase = new VideoPurchase();
@@ -19,14 +18,7 @@ public sealed class HeartBoosterTier : Tier
         if(tierInfo == null)
             return;
         
-        //TODO
-        // purchase = new CoinsPurchase(tierInfo.Cost);
         reward = new BoosterReward(tierInfo.Amount, Account.GetBooster<HeartBooster>());
         InvokeTierValueChanged();
-    }
-    
-    void OnBalanceChangedEvent_Handler(int balance)
-    {
-        Available = Purchase.Available;
     }
 }

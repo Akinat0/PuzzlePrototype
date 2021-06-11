@@ -15,14 +15,11 @@ public class GameSession
         StartTime = Time.time;
         Puzzle = Account.CollectionDefaultItem;
 
-        balanceOnStart = Account.Coins;
-        
         GameSceneManager.ApplyBoosterEvent += ApplyBoosterEvent_Handler;
         GameSceneManager.PlayerReviveEvent += PlayerReviveEvent_Handler;
         GameSceneManager.PlayerLosedHpEvent += PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
-        Account.BalanceChangedEvent += BalanceChangedEvent_Handler;
     }
 
     protected static string SessionNumberKey => "game_session_number";
@@ -33,8 +30,7 @@ public class GameSession
     public DifficultyLevel Difficulty => LevelConfig.DifficultyLevel;
     public HashSet<Booster> ActiveBoosters { get; protected set; } = new HashSet<Booster>();
     public List<EnemyParams> Enemies { get; protected set; } = new List<EnemyParams>();
-    public int CollectedCoins { get; protected set; }
-    
+
     public int TotalLives { get; protected set; }
     public int Lives { get; protected set; } = GameSceneManager.DEFAULT_HEARTS;
     public bool ReviveUsed { get; protected set; }
@@ -85,7 +81,6 @@ public class GameSession
         GameSceneManager.PlayerLosedHpEvent -= PlayerLosedHpEvent_Handler;
         GameSceneManager.LevelCompletedEvent -= LevelCompletedEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
-        Account.BalanceChangedEvent -= BalanceChangedEvent_Handler;
     }
 
     void ApplyBoosterEvent_Handler(Booster booster)
@@ -109,11 +104,6 @@ public class GameSession
     {
         CurrentCombo = 0;
         Lives--;
-    }
-    
-    void BalanceChangedEvent_Handler(int balance)
-    {
-        CollectedCoins = balance - balanceOnStart;
     }
 
     void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)

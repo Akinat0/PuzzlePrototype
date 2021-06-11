@@ -9,14 +9,12 @@ namespace Puzzle
     public class VFXManager : MonoBehaviour
     {
         public static VFXManager Instance;
-
-        private Transform[] m_ConfettiHolders = new Transform[5];
-        private FlatFX m_FlatFx;
-        private Coroutine m_LevelCompleteRoutine;
-        private GameObject m_ConfettiVfx;
-        private GameObject m_TapVfx;
-        private GameObject m_TadaSFX;
-        private Volume m_Volume;
+        
+        FlatFX m_FlatFx;
+        Coroutine m_LevelCompleteRoutine;
+        GameObject m_TapVfx;
+        GameObject m_TadaSFX;
+        Volume m_Volume;
 
         public Vignette Vignette
         {
@@ -28,41 +26,13 @@ namespace Puzzle
 
         public FlatFX FlatFx => m_FlatFx;
 
-        private void Awake()
+        void Awake()
         {
             Instance = this;
             m_FlatFx = GetComponent<FlatFX>();
             m_Volume = GetComponent<Volume>();
             m_TapVfx = Resources.Load<GameObject>("Prefabs/Tap");
-            m_ConfettiVfx = Resources.Load<GameObject>("Prefabs/Confetti");
             m_TadaSFX = Resources.Load<GameObject>("Prefabs/WinningSound");
-            SetConfettiHoldersPositions();
-        }
-
-        public void CallLevelCompleteSunshineEffect(Vector2 position, FlatFXState startState = null, FlatFXState endState = null)
-        {
-            int effectNumber = (int)FlatFXType.SunRays;
-            
-            FlatFx.settings[effectNumber].lifetime = 3.0f;
-            FlatFx.settings[effectNumber].sectorCount = 20;
-
-            if (startState != null)
-            {
-                FlatFx.settings[effectNumber].start.size = startState.size;
-                FlatFx.settings[effectNumber].start.thickness = startState.size;
-                FlatFx.settings[effectNumber].start.innerColor = startState.innerColor;
-                FlatFx.settings[effectNumber].start.outerColor = startState.outerColor;
-            }
-
-            if (endState != null)
-            {
-                FlatFx.settings[effectNumber].end.size = endState.size;
-                FlatFx.settings[effectNumber].end.thickness = endState.size;
-                FlatFx.settings[effectNumber].end.innerColor = endState.innerColor;
-                FlatFx.settings[effectNumber].end.outerColor = endState.outerColor;
-            }
-            
-            FlatFx.AddEffect(position, effectNumber);
         }
 
         public void StopLevelCompleteSunshineEffect()
@@ -74,15 +44,6 @@ namespace Puzzle
         {
             FlatFx.useUnscaledTime = false;
             FlatFx.AddEffect(position, (int)FlatFXType.Crosslight);
-        }
-        
-        public void CallConfettiEffect()
-        {
-            foreach (Transform confettiHolder in m_ConfettiHolders)
-            {
-                if (m_ConfettiVfx != null)
-                    Instantiate(m_ConfettiVfx, confettiHolder);
-            }
         }
 
         public void CallWinningSound()
@@ -122,54 +83,6 @@ namespace Puzzle
             return tap;
         }
         
-        public Transform CallTutorialTapEffect(Transform parent, Color color)
-        {
-            Transform tap = CallTutorialTapEffect(parent);
-
-            foreach (SpriteRenderer spriteRenderer in tap.GetComponentsInChildren<SpriteRenderer>())
-                spriteRenderer.color = color;
-
-            return tap;
-        }
-
-        private void SetConfettiHoldersPositions()
-        {
-            for(int i = 0; i < 5; i++)
-                m_ConfettiHolders[i] = new GameObject("ConfettiHolder_" + i).transform;
-            
-            foreach (Transform confettiHolder in m_ConfettiHolders)
-                confettiHolder.parent = Camera.main.transform;
-
-            Vector2 camSize = ScreenScaler.CameraSize;
-
-            m_ConfettiHolders[0].position = new Vector3(0, -camSize.y/2, 3);
-            m_ConfettiHolders[0].gameObject.SetActive(false);
-            m_ConfettiHolders[1].position = new Vector3(-camSize.x/2, -camSize.y/2, 3);
-            m_ConfettiHolders[2].position = new Vector3(camSize.x/2, -camSize.y/2, 3);
-            m_ConfettiHolders[3].position = new Vector3(-camSize.x/2, camSize.y/2, 3);
-            m_ConfettiHolders[4].position = new Vector3(camSize.x/2, camSize.y/2, 3);
-            
-            foreach (Transform confettiHolder in m_ConfettiHolders)
-                confettiHolder.LookAt(new Vector3(0, 0, 0));
-            
-        }
-        
-        IEnumerator LevelCompleteSunshineEffectRoutine(Vector2 position, int effectNumber, FlatFXState start, FlatFXState end)
-        {
-            while (true)
-            {
-
-                if (start != null && end != null)
-                {
-                    
-                }
-
-
-                FlatFx.AddEffect(position, effectNumber);
-                yield return new WaitForSeconds(2.5f);
-            }
-        } 
-        
         //Editor
 #if UNITY_EDITOR
         
@@ -179,28 +92,7 @@ namespace Puzzle
             if (Application.IsPlaying(this))
                 CallTutorialTapEffect(null);
         }
-        
-        [ContextMenu("Confetti")]
-        public void EditorCallConfettiEffect()
-        {
-            if (Application.IsPlaying(this))
-                CallConfettiEffect();
-        }
 
-        [ContextMenu("CompleteSunshineStart")]
-        public void EditorCallSunshineStart()
-        {
-            if(Application.IsPlaying(this))
-                CallLevelCompleteSunshineEffect(Vector2.zero);
-        }
-
-        [ContextMenu("CompleteSunshineStop")]
-        public void EditorEndCompleteSunshine()
-        {
-            if(Application.IsPlaying(this))
-                StopLevelCompleteSunshineEffect();
-        }
-        
         [ContextMenu("CallWinningSound")]
         public void EditorCallWinningSound()
         {

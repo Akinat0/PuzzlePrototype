@@ -7,17 +7,6 @@ public class Account : MonoBehaviour
 {
     static Account instance;
 
-    public static event Action<int> BalanceChangedEvent;
-
-    WalletManager WalletManager
-    {
-        get
-        {
-            if (walletManager == null)
-                walletManager = gameObject.AddComponent<WalletManager>();
-            return walletManager;
-        }
-    }
     CollectionManager CollectionManager
     {
         get
@@ -27,6 +16,7 @@ public class Account : MonoBehaviour
             return collectionManager;
         }
     }
+    
     LevelsManager LevelsManager
     {
         get
@@ -36,21 +26,23 @@ public class Account : MonoBehaviour
             return levelsManager;
         }
     }
+    
     public static Achievement[] Achievements => achievements = achievements ?? Achievement.CreateAllAchievements();
     public static Booster[] Boosters => boosters = boosters ?? Booster.CreateAllBoosters();
     public static Tier[] Tiers => tiers = tiers ?? Tier.CreateAllTiers();
     public static RemoteConfig RemoteConfig => remoteConfig = remoteConfig ?? new RemoteConfig();
     public static PuzzleAnalytics Analytics => analytics = analytics ?? new PuzzleAnalytics();
     public static PuzzleAdvertisement Advertisement => advertisement = advertisement ?? new PuzzleAdvertisement();
+    public static Wallet Stars => stars = stars ?? new Wallet("stars"); 
 
     static RemoteConfig remoteConfig;
     static PuzzleAnalytics analytics;
     static PuzzleAdvertisement advertisement;
+    static Wallet stars;
     
     static Achievement[] achievements;
     static Booster[] boosters;
     static Tier[] tiers;
-    static WalletManager walletManager;
     static CollectionManager collectionManager;
     static LevelsManager levelsManager;
 
@@ -58,6 +50,7 @@ public class Account : MonoBehaviour
     {
         instance = this;
         advertisement = advertisement ?? new PuzzleAdvertisement();
+        
     }
     
     #region Boosters
@@ -99,31 +92,16 @@ public class Account : MonoBehaviour
     
     #region Wallet
 
-    public static int Coins => instance.WalletManager.Coins;
-
-    public static void AddCoins(int amount)
+    public static event Action<int> StarsAmountChanged
     {
-        instance.WalletManager.AddCoins(amount);
-        InvokeBalanceChanged();
+        add => Stars.AmountChanged += value;
+        remove => Stars.AmountChanged -= value;
     }
-
-    public static bool RemoveCoins(int amount)
-    {
-        if (Coins < amount)
-            return false;
         
-        instance.WalletManager.RemoveCoins(amount);
-        InvokeBalanceChanged();
-        return true;
-    }
+    public static void AddStars(int amount) => Stars.Add(amount);
 
-    private static void InvokeBalanceChanged()
-    {
-        int balance = instance.WalletManager.Coins;
-        Debug.Log($"[Account] BalanceChangedEvent invoked. New balance is {balance}.");
-        BalanceChangedEvent?.Invoke(balance);
-    }
-    
+    public static bool HasStars(int amount) => Stars.Has(amount);
+
     #endregion
 
     #region Collection

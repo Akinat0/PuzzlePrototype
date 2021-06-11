@@ -21,7 +21,7 @@ namespace Puzzle.Analytics
             EventData["puzzle_color"] = Account.CollectionDefaultItem.ActiveColorIndex;
             EventData["freeze_booster"] = Account.GetActiveBoosters().Any(booster => booster is TimeFreezeBooster);
             EventData["live_booster"] = Account.GetActiveBoosters().Any(booster => booster is HeartBooster);
-            EventData["balance"] = Account.Coins;
+            EventData["stars"] = Account.Stars.Amount;
             
             Send();
         }

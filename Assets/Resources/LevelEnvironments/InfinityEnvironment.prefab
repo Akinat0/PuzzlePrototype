@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3414204649140283966}
   - component: {fileID: 3414204649140283964}
   m_Layer: 8
-  m_Name: GameContainer
+  m_Name: InfinityEnvironment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -261,12 +261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26a3e2aa8ea4af08a8e19362e2fc926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoins: 1
-  coinProbability: 0.2
-  costOfEnemy: 1
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: 931080af2c8bf424692d3d097664326d, type: 3}
-  partOfThePLayerOnTheScreen: 0.25
   enemySpeedDenominator: 1.25
   patternTimeLineSpeedDenominator: 3
 --- !u!82 &3414204649140283966
@@ -377,10 +373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ccb7ab165b745f1a36bb7a8242e23bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraAnimatorController: {fileID: 9100000, guid: 865d4b065d96c7a4c9b1cf9e10da9831,
-    type: 2}
-  completeScreenManager: {fileID: 1889641402138984313}
-  replayScreenManager: {fileID: 1889641402138984310}
   gameSceneRoot: {fileID: 3414204649140283962}
   startEnemySpeed: 2.5
   startPatternTimeLineSpeed: 0.7
@@ -473,6 +465,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3414204649140283962}
     m_Modifications:
+    - target: {fileID: 546853228590422365, guid: e30652d47158b43f9a73a6d3742896f5,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3060154080058063802, guid: e30652d47158b43f9a73a6d3742896f5,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -491,6 +488,11 @@ PrefabInstance:
     - target: {fileID: 3060154080058063802, guid: e30652d47158b43f9a73a6d3742896f5,
         type: 3}
       propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3844081618858094298, guid: e30652d47158b43f9a73a6d3742896f5,
+        type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3844081620010751872, guid: e30652d47158b43f9a73a6d3742896f5,
@@ -648,6 +650,11 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8209422473043909488, guid: e30652d47158b43f9a73a6d3742896f5,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e30652d47158b43f9a73a6d3742896f5, type: 3}
 --- !u!224 &1889641402138984307 stripped
@@ -656,27 +663,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 3414204649954355443}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1889641402138984310 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3844081620010751877, guid: e30652d47158b43f9a73a6d3742896f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3414204649954355443}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2949ecebdff007c40992e31f0836b320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1889641402138984313 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3844081620010751882, guid: e30652d47158b43f9a73a6d3742896f5,
-    type: 3}
-  m_PrefabInstance: {fileID: 3414204649954355443}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03e08812af0c4dddaa0bbce7942df636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

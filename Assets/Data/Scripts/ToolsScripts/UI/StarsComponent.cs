@@ -1,36 +1,35 @@
 ﻿using DG.Tweening;
 using ScreensScripts;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Abu.Tools.UI
 {
-    public class WalletComponent : UIComponent
+    public class StarsComponent : UIComponent
     {
         [SerializeField] protected Sprite Sprite;
         [SerializeField, Range(0, 1)] protected float AlphaSelf = 1;
         [SerializeField] protected float Spacing = 5;
         
-        RectTransform CoinImageTransform
+        RectTransform StarImageTransform
         {
             get
             {
-                if (coinImageTransform == null)
-                    coinImageTransform = CoinImage.GetComponent<RectTransform>();
+                if (starImageTransform == null)
+                    starImageTransform = StarImage.GetComponent<RectTransform>();
                 
-                return coinImageTransform;
+                return starImageTransform;
             }
         }
         
-        Image CoinImage
+        Image StarImage
         {
             get
             {
-                if (coinImage == null)
-                    coinImage = GetComponentInChildren<Image>();
+                if (starImage == null)
+                    starImage = GetComponentInChildren<Image>();
 
-                return coinImage;
+                return starImage;
             }
         }
         
@@ -55,74 +54,68 @@ namespace Abu.Tools.UI
             }
         }
 
-        RectTransform coinImageTransform;
+        RectTransform starImageTransform;
         TextComponent text;
-        Image coinImage;
+        Image starImage;
 
         protected override void OnValidate()
         {
-            CoinImage.sprite = Sprite;
+            StarImage.sprite = Sprite;
             UpdateColor();
-//            ProcessWalletLayout();
         }
 
         void UpdateColor()
         {
-            Color spriteColor = CoinImage.color;
+            Color spriteColor = StarImage.color;
             spriteColor.a = Alpha;
-            CoinImage.color = spriteColor;
+            StarImage.color = spriteColor;
 
             Text.Alpha = Alpha;
 
             if (Alpha < Mathf.Epsilon)
             {
-                CoinImage.enabled = false;
+                StarImage.enabled = false;
                 Text.enabled = false;
             }
             else
             {
-                CoinImage.enabled = true;
+                StarImage.enabled = true;
                 Text.enabled = true;
             }
         }
 
-        public void ForceUpdateLayout()
-        {
-            ProcessWalletLayout();
-        }
-        
         void ProcessWalletLayout()
         {
             Text.TextMesh.ForceMeshUpdate();
             float textWidth = Text.TextMesh.GetRenderedValues(false).x;
-            CoinImageTransform.anchoredPosition = new Vector2(- Spacing - textWidth - CoinImageTransform.rect.width / 2, 0);
+            StarImageTransform.anchoredPosition = new Vector2(- Spacing - textWidth - StarImageTransform.rect.width / 2, 0);
         }
 
         protected virtual void OnEnable()
         {
-            Text.Text = Account.Coins.ToString();
+            Text.Text = Account.Stars.Amount.ToString();
             
             ProcessWalletLayout();
             LauncherUI.LevelChangedEvent += OnLevelChangedHandler;
-            Account.BalanceChangedEvent += OnBalanceChangedHandler;
+            Account.StarsAmountChanged += OnStarsAmountChangedHandler;
         }
 
         protected virtual void OnDisable()
         {
             LauncherUI.LevelChangedEvent -= OnLevelChangedHandler;
-            Account.BalanceChangedEvent -= OnBalanceChangedHandler;
+            Account.StarsAmountChanged -= OnStarsAmountChangedHandler;
         }
 
-        void OnBalanceChangedHandler(int amount)
+        void OnStarsAmountChangedHandler(int amount)
         {
             Text.Text = amount.ToString();
 
             ProcessWalletLayout();            
             
-            CoinImage.transform.DOKill();
-            CoinImage.transform.localScale = Vector3.one;
+            StarImage.transform.DOKill();
+            StarImage.transform.localScale = Vector3.one;
             
-            CoinImage.transform.DOPunchScale(new Vector3(1.1f, 1.1f, 1.1f), 0.3f, 2, 0.6f);
+            StarImage.transform.DOPunchScale(new Vector3(1.1f, 1.1f, 1.1f), 0.3f, 2, 0.6f);
         }
         
         void OnLevelChangedHandler(LevelChangedEventArgs args)

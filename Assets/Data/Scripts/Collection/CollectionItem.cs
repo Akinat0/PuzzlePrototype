@@ -71,7 +71,7 @@ public class CollectionItem : ScriptableObject
             {"puzzle_name", Name},
             {"previous_color", prevColorIndex},
             {"puzzle_color", newColorIndex},
-            {"balance", Account.Coins}
+            {"stars", Account.Stars.Amount}
         };
         
         new SimpleAnalyticsEvent("puzzle_color_changed", eventData).Send();

@@ -1,22 +1,22 @@
 
 using UnityEngine;
 
-public class CoinsReward : Reward
+public class StarsReward : Reward
 {
     public int Amount { get; }
     
-    public CoinsReward(int amount)
+    public StarsReward(int amount)
     {
         Amount = amount;
     }
 
     public override GameObject CreateView(RectTransform container)
     {
-        return CoinsRewardView.Create(container, this).gameObject;
+        return StarsRewardView.Create(container, this).gameObject;
     }
 
     public override void Claim()
     {
-        Account.AddCoins(Amount);
+        Account.AddStars(Amount);
     }
 }

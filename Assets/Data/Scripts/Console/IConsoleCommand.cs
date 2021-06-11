@@ -45,18 +45,18 @@ namespace Abu.Console
 
     public class WalletConsoleCommand : IConsoleCommand
     {
-        public string Command => "wallet";
+        public string Command => "stars";
 
         public string Process(object[] args, Console console)
         {
             string result = "Success";
             
             if (args.Length < 2)
-                return "Fail. First arg should be integer amount of coins" ;
+                return "Fail. First arg should be integer amount of stars" ;
             
             try
             {
-                Account.AddCoins(int.Parse(args[1].ToString()));;
+                Account.AddStars(int.Parse(args[1].ToString()));;
             }
             catch (Exception e)
             {

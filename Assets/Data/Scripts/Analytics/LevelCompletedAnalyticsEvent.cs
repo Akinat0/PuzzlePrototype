@@ -22,7 +22,7 @@ namespace Puzzle.Analytics
             EventData["freeze_booster"] = args.BoostersUsed.Any(booster => booster is TimeFreezeBooster);
             EventData["live_booster"] = args.BoostersUsed.Any(booster => booster is HeartBooster);
             EventData["revive"] = args.ReviveUsed;
-            EventData["balance"] = Account.Coins;
+            EventData["stars"] = Account.Stars.Amount;
             
             Send();
         }

@@ -116,10 +116,6 @@ namespace PuzzleScripts
             
             GameSceneManager.Instance.InvokeEnemyDied(this);
 
-            CoinHolder coinHolder = GetComponent<CoinHolder>();
-            if (coinHolder != null)
-               Account.AddCoins(coinHolder.Coins);
-
             Haptic.Run(GameSceneManager.Instance.Session.CurrentComboType >= GameSession.ComboType.Medium
                 ? Haptic.Type.IMPACT_MEDIUM
                 : Haptic.Type.IMPACT_LIGHT);
@@ -173,12 +169,7 @@ namespace PuzzleScripts
                     break;
             }
         }
-    
-        public virtual void SetCoinHolder(int CostOfEnemy)
-        {
-            gameObject.AddComponent<CoinHolder>().SetupCoinHolder(CostOfEnemy);
-        }
-        
+
         protected virtual void OnEnable()
         {
             GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;

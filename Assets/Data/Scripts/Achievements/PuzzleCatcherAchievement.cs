@@ -12,7 +12,7 @@ public sealed class PuzzleCatcherAchievement : Achievement
         GameSceneManager.EnemyDiedEvent += EnemyDiedEvent_Handler;
     }
     
-    readonly CoinsReward reward = new CoinsReward(250);
+    readonly StarsReward reward = new StarsReward(250);
     
     public override string Name => "Puzzle Catcher";
     public override string Description => "Catch 1000 puzzle";

@@ -10,7 +10,7 @@ public sealed class HearthBoosterAchievement : Achievement
         Account.GetBooster<HeartBooster>().BoosterUsedEvent += BoosterUsedEvent_Handler;
     }
     
-    readonly CoinsReward reward = new CoinsReward(400);
+    readonly StarsReward reward = new StarsReward(400);
     
     public override string Name => "Hearth booster";
     public override string Description => "Use Hearth Booster 5 times";
