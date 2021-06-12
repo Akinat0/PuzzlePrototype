@@ -17,6 +17,7 @@ namespace PuzzleScripts
     public class EnemyBase : MonoBehaviour, IEnemy
     {
         public static readonly float Distance = 10f; //Distance to target
+        public static readonly float ReactionTime = 0.75f; //Distance to target
 
         [SerializeField] protected GameObject vfx;
         [SerializeField] protected AudioClip sfx;

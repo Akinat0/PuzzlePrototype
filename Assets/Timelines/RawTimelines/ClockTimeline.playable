@@ -2412,6 +2412,45 @@ MonoBehaviour:
     trailTime: 0.3
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-4965976447300966759
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c2b9628d54b40639415b79e12c0ac8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Time: 0
+  looped: 0
+  audioClip: {fileID: 8300000, guid: 59bc028ee04e64482a229578654323b3, type: 3}
+  soundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &-4927596198228764032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7258,6 +7297,7 @@ MonoBehaviour:
     - {fileID: 3711115400595225232}
     - {fileID: -1991950168495597692}
     - {fileID: -1557280393638938290}
+    - {fileID: -4965976447300966759}
 --- !u!114 &4059021279608984169
 MonoBehaviour:
   m_ObjectHideFlags: 1
