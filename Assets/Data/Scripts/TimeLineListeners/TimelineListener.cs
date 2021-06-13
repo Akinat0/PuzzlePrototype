@@ -50,9 +50,13 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
                     Debug.Log($"Notification received {time} type: {typeof(CutsceneMarker)} : {cutsceneMarker.SceneId}"); 
                     GameSceneManager.Instance.InvokeCutsceneStarted(new CutsceneEventArgs(cutsceneMarker.SceneId, cutsceneMarker.SceneTransitionType));
                     break;
-                case LevelEndMarker levelEndMarker:
+                case LevelEndMarker _:
                     Debug.Log($"Notification received {time} type: {typeof(LevelEndMarker)}");
                     GameSceneManager.Instance.InvokeLevelCompleted();
+                    break;
+                case FirstStarMarker _:
+                    Debug.Log($"Notification received {time} type: {typeof(FirstStarMarker)}");
+                    GameSceneManager.Instance.LevelConfig.ObtainFirstStar();
                     break;
                 case EventMarker eventMarker:
                     Debug.Log($"Notification received {time} type: {typeof(EventMarker)} : {eventMarker.EventData}");

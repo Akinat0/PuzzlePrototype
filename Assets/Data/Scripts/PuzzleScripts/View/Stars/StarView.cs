@@ -1,11 +1,11 @@
 using System;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Animator)), RequireComponent(typeof(SpriteRenderer))]
 public class StarView : MonoBehaviour
 {
+    bool isShown;
+    bool isActive;
 
     SpriteRenderer background;
 
@@ -22,9 +22,9 @@ public class StarView : MonoBehaviour
     
     Animator Animator;
 
-    private static readonly int ShowID = Animator.StringToHash("Show");
-    private static readonly int InstantID = Animator.StringToHash("Instant");
-    private static readonly int ActiveID = Animator.StringToHash("Active");
+    static readonly int ShowID = Animator.StringToHash("Show");
+    static readonly int InstantID = Animator.StringToHash("Instant");
+    static readonly int ActiveID = Animator.StringToHash("Active");
 
     Action HideStateAction;
     Action ShowStateAction;
@@ -41,10 +41,22 @@ public class StarView : MonoBehaviour
         HideState.OnExit += InvokeHideState;
         ShowState.OnExit += InvokeShowState;
     }
-    
-    
+
+    void OnEnable()
+    {
+        if (isShown)
+        {
+            Animator.SetBool(ShowID, true);
+            Animator.SetBool(InstantID, true);
+            Animator.SetBool(ActiveID, isActive);
+        }
+    }
+
     public void Show(bool active, bool instant = false, Action finished = null)
     {
+        isShown = true;
+        isActive = active;
+        
         ShowStateAction += finished;
         Animator.SetBool(InstantID, instant);
         Animator.SetBool(ShowID, true);
@@ -53,6 +65,8 @@ public class StarView : MonoBehaviour
 
     public void Hide(Action finished = null)
     {
+        isShown = false;
+        
         HideStateAction += finished;
         Animator.SetBool(ShowID, false);
     }

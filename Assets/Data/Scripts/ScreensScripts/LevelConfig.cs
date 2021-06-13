@@ -16,7 +16,8 @@ public partial class LevelConfig : ScriptableObject
     
     [Space(10)]
     [SerializeField] bool m_CollectionEnabled = false;
-    [SerializeField] StarView m_StarView;
+    [SerializeField] bool m_StarsEnabled;
+    [SerializeField, Range(1, 5)] int m_ThirdStarThreshold = 5; 
 
     [Space(10)]
     [SerializeField] TimelineAsset EasyTimeline;
@@ -28,9 +29,8 @@ public partial class LevelConfig : ScriptableObject
     public GameObject LevelRootPrefab => m_LevelRootPrefab;
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
     public bool CollectionEnabled => m_CollectionEnabled;
-    public bool StarsEnabled => StarView != null;
-    public StarView StarView => m_StarView;
-    
+    public bool StarsEnabled => m_StarsEnabled;
+
     public PuzzleSides PuzzleSides => m_PuzzleSides;
 
     public TimelineAsset GetTimeline(DifficultyLevel difficulty)
@@ -48,10 +48,17 @@ public partial class LevelConfig : ScriptableObject
         return null;
     }
 
-    public bool SupportsDifficultyLevel(DifficultyLevel difficulty)
+    public bool SupportsDifficultyLevel(DifficultyLevel difficulty) => GetTimeline(difficulty) != null;
+
+    public bool TryObtainThirdStar(int hearts)
     {
-        return GetTimeline(difficulty) != null;
+        if (hearts < m_ThirdStarThreshold)
+            return false;
+        
+        ObtainThirdStar();
+        return true;
     }
+
 }
 
 public enum DifficultyLevel

@@ -75,6 +75,8 @@ public partial class LevelConfig
             if (starsAmount == value)
                 return;
 
+            Account.Stars.Add(value - starsAmount);
+
             starsAmount = value;
 
             PlayerPrefs.SetInt(StarsKey, starsAmount);
@@ -83,7 +85,36 @@ public partial class LevelConfig
             StarsAmountChanged?.Invoke(starsAmount);
         }
     }
+
+    public bool ObtainFirstStar()
+    {
+        if (StarsAmount >= 1)
+            return false;
+
+        StarsAmount = 1;
+        return true;
+    }
     
+    public bool ObtainSecondStar()
+    {
+        if (StarsAmount >= 2)
+            return false;
+
+        StarsAmount = 2;
+        return true;
+    }
+    
+    private bool ObtainThirdStar()
+    {
+        if (StarsAmount >= 3)
+            return false;
+
+        StarsAmount = 3;
+        return true;
+    }
+
+    public bool HasStar(int starIndex) => StarsAmount >= starIndex; 
+
     #endregion
     
     #region score

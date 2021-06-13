@@ -1,12 +1,10 @@
-﻿using System.Linq;
-using UnityEngine;
-using UnityEngine.Rendering;
+﻿using UnityEngine;
 
 public class LevelRootView : MonoBehaviour
 {
-    [SerializeField] private PlayerView m_PlayerView;
+    [SerializeField] PlayerView m_PlayerView;
 
-    StarsManager starsManager;
+    StarsController starsController;
 
     public PlayerView PlayerView
     {
@@ -19,15 +17,15 @@ public class LevelRootView : MonoBehaviour
         }
     }
 
-    public StarsManager GetStarsManager(LevelConfig config)
+    public StarsController GetStarsManager(LevelConfig config)
     {
         if (!config.StarsEnabled)
             return null;
 
-        if (starsManager == null)
-            starsManager = StarsManager.Create(transform, config.StarView);
+        if (starsController == null)
+            starsController = StarsController.Create(transform);
         
-        return starsManager;
+        return starsController;
     
     }
 }

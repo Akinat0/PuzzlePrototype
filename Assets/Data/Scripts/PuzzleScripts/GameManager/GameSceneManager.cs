@@ -226,14 +226,12 @@ namespace Puzzle
         public void InvokeLevelCompleted()
         {
             Debug.Log("LevelComplete Invoked");
-            
-            //Get stars amount from difficulty
-            int stars = (int)LevelConfig.DifficultyLevel;
-            
-            bool isNewRecord = LevelConfig.StarsAmount < stars; 
-            
-            if(isNewRecord)
-                LevelConfig.StarsAmount = stars;
+
+            if (LevelConfig.StarsEnabled)
+            {
+                LevelConfig.ObtainSecondStar();
+                LevelConfig.TryObtainThirdStar(CurrentHearts);
+            }
             
             LevelCompletedEvent?.Invoke(new LevelCompletedEventArgs(levelConfig, currentHearts,
                 Session.ActiveBoosters.ToArray(), Session.ReviveUsed));

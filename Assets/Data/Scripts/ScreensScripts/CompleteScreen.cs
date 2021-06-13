@@ -6,7 +6,7 @@ public class CompleteScreen : ScreenComponent
 {
     [SerializeField] TextButtonComponent MenuButton;
     
-    StarsManager StarsManager => GameSceneManager.Instance.LevelRootView.GetStarsManager(GameSceneManager.Instance.LevelConfig);
+    StarsController StarsController => GameSceneManager.Instance.LevelRootView.GetStarsManager(GameSceneManager.Instance.LevelConfig);
     bool StarsEnabled => GameSceneManager.Instance.LevelConfig.StarsEnabled;
 
     int cachedStarsAmount;
@@ -27,7 +27,7 @@ public class CompleteScreen : ScreenComponent
         MenuButton.ShowComponent();
 
         if (StarsEnabled)
-            StarsManager.ShowStarsAnimation(GameSceneManager.Instance.LevelConfig.StarsAmount);
+            StarsController.ShowStarsAnimation(GameSceneManager.Instance.LevelConfig.StarsAmount);
         
         CallEffects();
 
@@ -52,7 +52,7 @@ public class CompleteScreen : ScreenComponent
         bool hideStars = StarsEnabled && starsAmount < cachedStarsAmount; 
         
         if (hideStars)
-            StarsManager.HideStars();
+            StarsController.HideStars();
         
         GameSceneManager.Instance.InvokeLevelClosed(hideStars);
     }
