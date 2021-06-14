@@ -299,6 +299,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
     void OnInteract()
     {
+        if(!CanPlayLevel(Current))
+            return;
+        
         ProcessIndex();
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
@@ -324,7 +327,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         return levelIndex >= 0 && levelIndex < Length;
     }
-    
+
+    bool CanPlayLevel(LevelConfig levelConfig) 
+        => Account.Stars.Has(levelConfig.Cost);
+
     #endregion
     
     #region Offset
@@ -493,6 +499,18 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
+        ProcessTextByIndex();
+    }
+    
+    void ProcessTextByIndex()
+    {
+        bool canPlayLevel = CanPlayLevel(Current);
+
+        InteractBtn.Text = !canPlayLevel 
+            ? $"{Account.Stars.Amount}/{Current.Cost}{EmojiHelper.StarEmoji}" 
+            : "Play";
+
+        InteractBtn.Interactable = canPlayLevel;
     }
     
     void ProcessButtonsByIndex()

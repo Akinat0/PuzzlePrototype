@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -22,7 +23,20 @@ namespace Abu.Tools.UI
             }
         }
 
-        public static TextComponent Create(RectTransform parent, string text = "")
+        static TMP_SpriteAsset spriteAsset;
+
+        static TMP_SpriteAsset SpriteAsset
+        {
+            get
+            {
+                if (spriteAsset == null)
+                    spriteAsset = Resources.Load<TMP_SpriteAsset>("UI/common_text_sprites_asset");
+
+                return spriteAsset;
+            }
+        }
+
+        public static TextComponent Create(RectTransform parent, string text)
         {
             TextComponent textComponent = Instantiate(Prefab, parent);
             textComponent.Text = text;
@@ -87,6 +101,11 @@ namespace Abu.Tools.UI
         {
             get => TextMesh.fontSize;
             set => TextMesh.fontSize = value;
+        }
+
+        void Start()
+        {
+            TextMesh.spriteAsset = SpriteAsset;
         }
 
         void UpdateColor()

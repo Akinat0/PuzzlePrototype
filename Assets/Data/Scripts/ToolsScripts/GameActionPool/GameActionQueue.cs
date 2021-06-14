@@ -14,8 +14,6 @@ public class GameActionQueue : MonoBehaviour
 
     public void Pop(GameAction gameAction)
     {
-        // Debug.LogWarning($"[GameActionQueue] Game Action {gameAction.GetType().Name} poped");
-        
         if (gameAction != Current)
         {
             Debug.LogError($"[GameActionQueue] Game action {gameAction.GetType().Name} doesn't match");

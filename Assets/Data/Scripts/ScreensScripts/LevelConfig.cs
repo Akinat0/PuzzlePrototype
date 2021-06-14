@@ -17,7 +17,10 @@ public partial class LevelConfig : ScriptableObject
     [Space(10)]
     [SerializeField] bool m_CollectionEnabled = false;
     [SerializeField] bool m_StarsEnabled;
-    [SerializeField, Range(1, 5)] int m_ThirdStarThreshold = 5; 
+    [SerializeField, Range(1, 5)] int m_ThirdStarThreshold = 5;
+    
+    [Space(10)]
+    [SerializeField] int m_Cost;
 
     [Space(10)]
     [SerializeField] TimelineAsset EasyTimeline;
@@ -30,6 +33,8 @@ public partial class LevelConfig : ScriptableObject
     public LevelColorScheme ColorScheme => m_LevelColorScheme;
     public bool CollectionEnabled => m_CollectionEnabled;
     public bool StarsEnabled => m_StarsEnabled;
+    public int Cost => m_Cost;
+    
 
     public PuzzleSides PuzzleSides => m_PuzzleSides;
 
@@ -49,15 +54,6 @@ public partial class LevelConfig : ScriptableObject
     }
 
     public bool SupportsDifficultyLevel(DifficultyLevel difficulty) => GetTimeline(difficulty) != null;
-
-    public bool TryObtainThirdStar(int hearts)
-    {
-        if (hearts < m_ThirdStarThreshold)
-            return false;
-        
-        ObtainThirdStar();
-        return true;
-    }
 
 }
 

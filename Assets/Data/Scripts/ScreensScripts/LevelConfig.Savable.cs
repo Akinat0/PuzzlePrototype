@@ -7,7 +7,7 @@ public partial class LevelConfig
     
     #region difficulty level
 
-    string DifficultyLevelKey => "Difficulty " + Key;
+    string DifficultyLevelKey => $"difficulty_{Key}";
     
     DifficultyLevel difficultyLevel;
     bool isDifficultyLevelLoaded = false;
@@ -40,10 +40,10 @@ public partial class LevelConfig
     }
 
     #endregion
-    
+
     #region stars
     
-    string StarsKey => "Stars " + Key;
+    string StarsKey => $"stars_{Key}";
 
     int starsAmount;
     bool isStarsAmountLoaded;
@@ -104,12 +104,21 @@ public partial class LevelConfig
         return true;
     }
     
-    private bool ObtainThirdStar()
+    public bool ObtainThirdStar()
     {
         if (StarsAmount >= 3)
             return false;
 
         StarsAmount = 3;
+        return true;
+    }
+    
+    public bool TryObtainThirdStar(int hearts)
+    {
+        if (hearts < m_ThirdStarThreshold)
+            return false;
+        
+        ObtainThirdStar();
         return true;
     }
 
@@ -149,6 +158,5 @@ public partial class LevelConfig
     }
     
     #endregion
-    
 }
 

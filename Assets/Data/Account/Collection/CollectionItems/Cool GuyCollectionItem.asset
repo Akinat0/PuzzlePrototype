@@ -13,7 +13,35 @@ MonoBehaviour:
   m_Name: Cool GuyCollectionItem
   m_EditorClassIdentifier: 
   Name: Cool Guy
-  puzzleVariants: []
+  puzzleVariants:
+  - sides:
+      _Top: 1
+      _Right: 1
+      _Bottom: 1
+      _Left: 1
+    puzzle: {fileID: 7166297236375918495, guid: dfe9f4d43f2c14406bcecc59a16245bd,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 1
+    puzzle: {fileID: 2073256403129539530, guid: a6e27969900a94afa955ad28d99212a1,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 1
+      _Left: 0
+    puzzle: {fileID: 4441682199577482044, guid: 97c5cfe91c23b4815a63963f71fa1127,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 0
+    puzzle: {fileID: 6762961197181670320, guid: ec7054ee397cd442a87b784ab4af8f7e,
+      type: 3}
   defaultUnlocked: 1
   puzzleColors:
   - id: Pink

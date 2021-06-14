@@ -53,6 +53,7 @@ public class TutorialSceneManager : GameSceneManager
         base.OnEnable();
         ResetLevelEvent += ResetLevelEvent_Handler;
         LevelClosedEvent += OnLevelClosedEvent_Handler;
+        LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
 
     protected override void OnDisable()
@@ -61,8 +62,13 @@ public class TutorialSceneManager : GameSceneManager
         ResetLevelEvent -= ResetLevelEvent_Handler;
         LevelClosedEvent -= OnLevelClosedEvent_Handler;
     }
-    
 
+    void LevelCompletedEvent_Handler(LevelCompletedEventArgs _)
+    {
+        //In tutorial we obtain all three stars on complete
+        LevelConfig.ObtainThirdStar();
+    }
+    
     void ResetLevelEvent_Handler()
     {
         VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
