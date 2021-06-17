@@ -21,10 +21,7 @@ namespace ScreensScripts
         public static event Action<Achievement> AchievementReceived; 
 
 
-        [SerializeField] private AsyncLoader asyncLoader;
-        [SerializeField] private Transform playerEntity;
-        [SerializeField] private GameObject backgroundContainer;
-
+        [SerializeField] AsyncLoader asyncLoader;
         [SerializeField] MainMenuUIManager uiManager;
         [SerializeField] MainCameraComponent mainCamera;
 
@@ -38,6 +35,7 @@ namespace ScreensScripts
         private LevelConfig _levelConfig;
 
         LevelRootView actualLevelRootView;
+        Transform playerEntity;
         
         public TextGroupComponent LauncherTextGroup { get; private set; }
         
