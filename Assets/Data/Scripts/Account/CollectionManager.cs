@@ -7,7 +7,15 @@ public class CollectionManager : MonoBehaviour
     public CollectionItem[] CollectionItems => CollectionData.CollectionItems;
 
     public int DefaultItemID {
-        get => CollectionData.DefaultItemID;
+        get
+        {
+            //validate default item
+            if (CollectionData.CollectionItems.Length <= CollectionData.DefaultItemID)
+                CollectionData.DefaultItemID = CollectionData.CollectionItems.Length - 1;
+            
+            return CollectionData.DefaultItemID;
+        }
+
         set
         {
             if (CollectionData == null || CollectionData.DefaultItemID == value)
