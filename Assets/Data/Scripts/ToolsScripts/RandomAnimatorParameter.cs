@@ -4,14 +4,14 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Animator))]
 public class RandomAnimatorParameter : MonoBehaviour
 {
-    [SerializeField] private string ParameterName = "RandomParameter";
-    [SerializeField] private int ParameterRange = 3;
+    [SerializeField] string ParameterName = "RandomParameter";
+    [SerializeField] int ParameterRange = 3;
 
-    private AnimationEventBehaviour[] EventBehaviours;
-    private int PreviousParameterValue = -1;
+    AnimationEventBehaviour[] EventBehaviours;
+    int PreviousParameterValue = -1;
     
-    private Animator Animator;
-    private void Awake()
+    Animator Animator;
+    void Awake()
     {
         Animator = GetComponent<Animator>();
 
@@ -24,7 +24,7 @@ public class RandomAnimatorParameter : MonoBehaviour
             behaviour.OnExit += RandomizeParameter;
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         foreach (AnimationEventBehaviour behaviour in EventBehaviours)
             behaviour.OnExit -= RandomizeParameter;
