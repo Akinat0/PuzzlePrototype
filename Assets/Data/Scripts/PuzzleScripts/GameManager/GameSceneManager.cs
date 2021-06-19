@@ -88,6 +88,20 @@ namespace Puzzle
             Instance = null;
         }
 
+        void OnApplicationFocus(bool hasFocus)
+        {
+            #if !UNITY_EDITOR
+            if (!hasFocus) InvokePauseLevel(true);
+            #endif
+        }
+
+        void OnApplicationPause(bool pause)
+        {
+            #if !UNITY_EDITOR
+            if (pause) InvokePauseLevel(true);
+            #endif
+        }
+
         public void SetupScene(GameObject _player, LevelConfig config, LevelRootView levelRootView)
         {
             player = _player.AddComponent<Player>();
