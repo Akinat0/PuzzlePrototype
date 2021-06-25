@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Abu.Tools.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,22 +24,22 @@ namespace Abu.Console
             Debug.Log("[Console] " + log);
         } 
         
-        [SerializeField] private InputField inputField;
-        [SerializeField] private Text output;
-        [SerializeField] private GameObject console;
+        [SerializeField] InputField inputField;
+        [SerializeField] Text output;
+        [SerializeField] GameObject console;
         [SerializeField] RawImage DebugImage;
         
         [SerializeField] GameObject DebugHapticMenu;
 
-        private Console Console;
+        Console Console;
         
-        private bool _isConsoleActive = false;
+        bool isConsoleActive = false;
         public bool IsConsoleActive
         {
-            get => _isConsoleActive;
+            get => isConsoleActive;
             private set
             {
-                _isConsoleActive = value;
+                isConsoleActive = value;
                 console.SetActive(value);
                 
                 if (console.activeInHierarchy)
@@ -46,17 +47,25 @@ namespace Abu.Console
             }
         }
 
-        private void Start()
+        IEnumerator Start()
         {
             instance = this;   
             IsConsoleActive = false;
             Console = new Console();
+
+            yield return new WaitForEndOfFrame();
+
+            while (true)
+            {
+                yield return null;
+                ProcessInput();
+            }
         }
 
-        private void Update()
+        void ProcessInput()
         {
             bool mobileInput = Input.touchCount > 2 && (Input.touches[0].phase == TouchPhase.Began ||
-                Input.touches[1].phase == TouchPhase.Began);
+                                                        Input.touches[1].phase == TouchPhase.Began);
 
             bool computerInput = Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.F); 
             
@@ -69,17 +78,15 @@ namespace Abu.Console
             if (!inputField.gameObject.activeInHierarchy || !output.gameObject.activeInHierarchy) return;
             
             if (Input.GetKey(KeyCode.Return) && !String.IsNullOrWhiteSpace(inputField.text))
-            {
                 Process();
-            }
         }
-
-        public void Process()
+        
+        void Process()
         {
             output.text = output.text + inputField.text + Environment.NewLine;
             string result = Console.Process(inputField.text) + Environment.NewLine;
             output.text += result;
-            inputField.text = "";
+            inputField.text = string.Empty;
         }
 
         public static void ToggleDebugImage()
