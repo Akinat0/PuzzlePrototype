@@ -115,7 +115,7 @@ public partial class LevelConfig
     
     public bool TryObtainThirdStar(int hearts)
     {
-        if (hearts < m_ThirdStarThreshold)
+        if (hearts < ThirdStarThreshold)
             return false;
         
         ObtainThirdStar();

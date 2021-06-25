@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 5103431488091864233}
   - component: {fileID: 8451470797596012761}
   - component: {fileID: 4093590969475131619}
+  - component: {fileID: 1937742879033633395}
   m_Layer: 0
   m_Name: DawnRoot
   m_TagString: Untagged
@@ -382,6 +383,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1937742879033633395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396439755969541175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc78f82393d84ad280318399833bd7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7495435775185474235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,9 +1099,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92f4cf3cbf21b4f359c48c72c8d5852e, type: 3}
---- !u!4 &7769655118583709514 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6068697764657417908, guid: 92f4cf3cbf21b4f359c48c72c8d5852e,
+--- !u!1 &3471588450943941116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1136748861578692610, guid: 92f4cf3cbf21b4f359c48c72c8d5852e,
     type: 3}
   m_PrefabInstance: {fileID: 4605779839614906878}
   m_PrefabAsset: {fileID: 0}
@@ -1104,9 +1117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbf2782783d30466db27b7559320fca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3471588450943941116 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1136748861578692610, guid: 92f4cf3cbf21b4f359c48c72c8d5852e,
+--- !u!4 &7769655118583709514 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6068697764657417908, guid: 92f4cf3cbf21b4f359c48c72c8d5852e,
     type: 3}
   m_PrefabInstance: {fileID: 4605779839614906878}
   m_PrefabAsset: {fileID: 0}

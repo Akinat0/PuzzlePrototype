@@ -68,7 +68,6 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
 
     protected virtual void OnEnable()
     {
-        GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
@@ -76,22 +75,13 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
 
     protected virtual void OnDisable()
     {
-        GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
     }
     
-    protected virtual void GameStartedEvent_Handler()
-    {
-        ReceiveNotifications = true;
-        
-        EditorStartLevel();
-        
-        PlayableDirector.Play();
-    }
 
-    protected virtual void PauseLevelEvent_Handler(bool paused)
+    protected void PauseLevelEvent_Handler(bool paused)
     {
         Pause(paused);
     }
@@ -114,7 +104,11 @@ public partial class TimelineListener : MonoBehaviour, INotificationReceiver
         PlayableDirector.Stop();
         PlayableDirector.time = 0;
         
+        EditorStartLevel();
+        
         ReceiveNotifications = true;
+        
+        PlayableDirector.Play();
     }
 
     void LevelClosedEvent_Handler()

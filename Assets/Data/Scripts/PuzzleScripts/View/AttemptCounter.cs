@@ -18,16 +18,16 @@ public class AttemptCounter : GameText
     void OnEnable()
     {
         GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
-        GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
+        GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
     }
 
     void OnDisable()
     {
         GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
-        GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
+        GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
     }
 
-    void GameStartedEvent_Handler()
+    void ResetLevelEvent_Handler()
     {
         attemptNumber++;
         TextPlaceholder.Text = $"Attempt #{attemptNumber}";

@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 5103431488091864233}
   - component: {fileID: 8451470797596012761}
   - component: {fileID: 4093590969475131619}
+  - component: {fileID: 4246511974125666043}
   m_Layer: 0
   m_Name: FruitsRoot
   m_TagString: Untagged
@@ -120,15 +121,15 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -2553467702996215427, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -4020282461027728124, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: 641748832752874192, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -358701913501755738, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -6529725823784387233, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 0}
@@ -170,9 +171,9 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 4396439755969541175}
-  - key: {fileID: 7647077780714157433, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -2366354441053149257, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
   - key: {fileID: 7647077780714157433, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
     value: {fileID: 0}
@@ -219,12 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoins: 1
-  coinProbability: 0.2
-  costOfEnemy: 1
   enemyPrefab:
   - {fileID: 5592148314577438307, guid: 44d5d54e8a55a4756840d86dd93795e5, type: 3}
-  partOfThePLayerOnTheScreen: 0.25
 --- !u!114 &8451470797596012761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +253,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4246511974125666043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396439755969541175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc78f82393d84ad280318399833bd7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7495435775185474235
 GameObject:
   m_ObjectHideFlags: 0

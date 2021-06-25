@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Abu.Tools;
 using PuzzleScripts;
 using ScreensScripts;
 using UnityEngine;
@@ -10,7 +11,7 @@ namespace Puzzle
     {
         public static GameSceneManager Instance;
 
-        public static event Action GameStartedEvent;
+        public static event Action LevelStartedEvent;
         public static event Action ResetLevelEvent;
         public static event Action<bool> PauseLevelEvent;
         public static event Action PlayerReviveEvent;
@@ -65,7 +66,8 @@ namespace Puzzle
         }
 
         public GameSession Session { get; private set; }
-        
+        public Requests Requests { get; private set; }
+
         public const int DEFAULT_HEARTS = 5;
         
         int currentHearts = DEFAULT_HEARTS;
@@ -81,6 +83,8 @@ namespace Puzzle
                 Instance = this;
             else
                 Debug.LogError("There's more than one GameSceneManager in the scene");
+
+            Requests = new Requests();
         }
 
         void OnDestroy()
@@ -117,6 +121,8 @@ namespace Puzzle
             levelConfig = config;
             this.levelRootView = levelRootView; 
 
+            InvokeLevelStarted();
+            
             if (config.ColorScheme != null)
                 InvokeSetupLevel(config.ColorScheme);
 
@@ -157,14 +163,13 @@ namespace Puzzle
                 foreach (Booster booster in Session.ActiveBoosters)
                     booster.Release();
             }
-
+            
             Session = new GameSession(levelConfig);
             
             CurrentHearts = DEFAULT_HEARTS;
             TotalHearts = DEFAULT_HEARTS;
 
             ResetLevelEvent?.Invoke();
-            GameStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
         }
 
@@ -188,11 +193,11 @@ namespace Puzzle
 
         public void InvokePlayerLosedHp()
         {
+            CurrentHearts--; 
+            
             Debug.Log("PlayerLosedHp Invoked");
             PlayerLosedHpEvent?.Invoke();
-            
-            CurrentHearts--;
-            
+
             if(CurrentHearts == 0)
                 InvokePlayerDied();
         }
@@ -203,10 +208,10 @@ namespace Puzzle
             EnemyDiedEvent?.Invoke(enemy);
         }
 
-        public void InvokeGameStarted()
+        public void InvokeLevelStarted()
         {
-            Debug.Log("GameStarted Invoked");
-            GameStartedEvent?.Invoke();
+            Debug.Log("LevelStarted Invoked");
+            LevelStartedEvent?.Invoke();
             InvokePauseLevel(false); //Unpausing
         }
 
@@ -230,9 +235,13 @@ namespace Puzzle
                 booster.Release();
             
             InvokePauseLevel(true);
+            
             Debug.Log("LevelClosed Invoked");
             LevelClosedEvent?.Invoke();
+            
+            Requests.Dispose();
             DestroyEnvironment();
+            
             LauncherUI.Instance.InvokeGameEnvironmentUnloaded(
                 new GameSceneUnloadedArgs(GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed, showStars, levelConfig));
         }

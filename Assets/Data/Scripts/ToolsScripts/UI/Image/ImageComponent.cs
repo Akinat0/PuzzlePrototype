@@ -46,5 +46,10 @@ namespace Abu.Tools.UI
             base.OnValidate();
             Image.color = color;
         }
+
+        protected void OnDidApplyAnimationProperties()
+        {
+            Image.color = color;
+        }
     }
 }

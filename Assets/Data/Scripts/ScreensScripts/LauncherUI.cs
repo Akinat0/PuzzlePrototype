@@ -28,18 +28,18 @@ namespace ScreensScripts
         public MainMenuUIManager UiManager => uiManager;
         public MainCameraComponent MainCamera => mainCamera; 
 
-        public LevelConfig LevelConfig => _levelConfig;
+        public LevelConfig LevelConfig => levelConfig;
         
-        private GameSceneManager GameSceneManager;
+        GameSceneManager GameSceneManager;
 
-        private LevelConfig _levelConfig;
+        LevelConfig levelConfig;
 
         LevelRootView actualLevelRootView;
         Transform playerEntity;
         
         public TextGroupComponent LauncherTextGroup { get; private set; }
         
-        private void Awake()
+        void Awake()
         {
             Instance = this;
             SceneManager.LoadScene("PuzzleAtlasScene", LoadSceneMode.Additive);
@@ -55,16 +55,16 @@ namespace ScreensScripts
         public void InvokePlayLauncher(PlayLauncherEventArgs args)
         {
             Debug.Log("PlayLauncher Invoked");
-            _levelConfig = args.LevelConfig;
+            levelConfig = args.LevelConfig;
             actualLevelRootView = args.LevelRootView;
-            PlayLevel(args.LevelConfig);
             PlayLauncherEvent?.Invoke(args);
+            PlayLevel(args.LevelConfig);
         }
         
         public void InvokeGameEnvironmentLoaded(GameSceneManager gameSceneManager)
         {
             Debug.Log("GameEnvironmentLoaded Invoked");
-            gameSceneManager.SetupScene(playerEntity.gameObject, _levelConfig, actualLevelRootView); //LauncherUI is launcher scene root
+            gameSceneManager.SetupScene(playerEntity.gameObject, levelConfig, actualLevelRootView); //LauncherUI is launcher scene root
             GameEnvironmentLoadedEvent?.Invoke(gameSceneManager);
         }
 
@@ -82,7 +82,7 @@ namespace ScreensScripts
         {
             Debug.Log("LevelChanged Invoked");
             playerEntity = args.PlayerView.transform;
-            _levelConfig = args.LevelConfig;
+            levelConfig = args.LevelConfig;
             LevelChangedEvent?.Invoke(args);
         }
 

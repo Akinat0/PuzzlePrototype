@@ -34,8 +34,8 @@ public partial class LevelConfig : ScriptableObject
     public bool CollectionEnabled => m_CollectionEnabled;
     public bool StarsEnabled => m_StarsEnabled;
     public int Cost => m_Cost;
+    public int ThirdStarThreshold => m_ThirdStarThreshold;
     
-
     public PuzzleSides PuzzleSides => m_PuzzleSides;
 
     public TimelineAsset GetTimeline(DifficultyLevel difficulty)

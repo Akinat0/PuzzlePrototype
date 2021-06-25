@@ -303,8 +303,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             return;
         
         ProcessIndex();
-        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         CleanContainers();
+        LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
         
         if(Selection[Index].StarsEnabled)
             levelContainers[Index].GetStarsManager(Selection[Index]).HideStars();

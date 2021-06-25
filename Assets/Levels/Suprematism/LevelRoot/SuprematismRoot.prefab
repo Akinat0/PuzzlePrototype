@@ -1964,15 +1964,15 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -2553467702996215427, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -4020282461027728124, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: 641748832752874192, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -358701913501755738, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -6529725823784387233, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 0}
@@ -2014,9 +2014,9 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 4396439755969541175}
-  - key: {fileID: 7647077780714157433, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -2366354441053149257, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 3299606205061107757}
   - key: {fileID: 7647077780714157433, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
     value: {fileID: 0}
@@ -2049,12 +2049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoins: 1
-  coinProbability: 0.2
-  costOfEnemy: 1
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: 9bc54d567663e418bba852f4a58816c6, type: 3}
-  partOfThePLayerOnTheScreen: 0.25
 --- !u!114 &8451470797596012761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2178,7 +2174,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8100284607584693550}
   - component: {fileID: 8931516342404800612}
-  - component: {fileID: 807757603066054507}
+  - component: {fileID: 5226190554110845713}
+  - component: {fileID: 5958008327015670273}
   m_Layer: 0
   m_Name: MarkerTimeline
   m_TagString: Untagged
@@ -2209,21 +2206,21 @@ PlayableDirector:
   m_GameObject: {fileID: 4744857202644830421}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: 5e1a6fde6a8101149aae81cc79c4a6ce, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -2553467702996215427, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -4020282461027728124, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: 641748832752874192, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -358701913501755738, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -6529725823784387233, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 0}
@@ -2265,19 +2262,21 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 4396439755969541175}
-  - key: {fileID: 7647077780714157433, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -2366354441053149257, guid: 88881c7fad32841fd96fc33e29f9c377, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 3299606205061107757}
   - key: {fileID: 7647077780714157433, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
     value: {fileID: 0}
   - key: {fileID: -2366354441053149257, guid: bd2030e63ff3840c5946eaa28861e6a1, type: 2}
     value: {fileID: 3299606205061107757}
-  - key: {fileID: 7647077780714157433, guid: 57e20c28c4f664d20827b7168bca0d1c, type: 2}
+  - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 7647077780714157433, guid: 5e1a6fde6a8101149aae81cc79c4a6ce, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
---- !u!114 &807757603066054507
+--- !u!114 &5226190554110845713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2286,7 +2285,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4744857202644830421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f97ba39c08412ba399ba3e160244ac, type: 3}
+  m_Script: {fileID: 11500000, guid: bc78f82393d84ad280318399833bd7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5958008327015670273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4744857202644830421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd095f6d9187cff4e9e157cbd6bd7c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4785001099547833615

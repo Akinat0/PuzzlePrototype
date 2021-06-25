@@ -90,16 +90,15 @@ namespace Puzzle
 
         protected virtual void OnEnable()
         {
-            GameSceneManager.GameStartedEvent += GameStartedEvent_Handler;
+            GameSceneManager.LevelStartedEvent += LevelStartedEvent_Handler;
         }
 
         protected virtual void OnDisable()
         {
-            GameSceneManager.GameStartedEvent -= GameStartedEvent_Handler;
+            GameSceneManager.LevelStartedEvent -= LevelStartedEvent_Handler;
         }
         
-
-        protected void GameStartedEvent_Handler()
+        void LevelStartedEvent_Handler()
         {
             RescaleGame();
         }

@@ -6157,7 +6157,7 @@ MonoBehaviour:
   m_Version: 3
   m_AnimClip: {fileID: 0}
   m_Locked: 0
-  m_Muted: 0
+  m_Muted: 1
   m_CustomPlayableFullTypename: 
   m_Curves: {fileID: 0}
   m_Parent: {fileID: 11400000}
@@ -11227,6 +11227,19 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &-4318418161214501579
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046302ccf3ba4475a69fa7589814db8a, type: 3}
+  m_Name: First Star Marker
+  m_EditorClassIdentifier: 
+  m_Time: 47.833333333333336
 --- !u!114 &-4316037703525938073
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14349,6 +14362,8 @@ MonoBehaviour:
     - {fileID: 5643080057821428108}
     - {fileID: -8771269456650713838}
     - {fileID: -1989051261609278705}
+    - {fileID: -4318418161214501579}
+    - {fileID: 1791160093034961864}
 --- !u!114 &-2894069089098579604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24148,6 +24163,45 @@ MonoBehaviour:
     trailTime: 0
     sfx: {fileID: 0}
     volume: 0
+--- !u!114 &1791160093034961864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c2b9628d54b40639415b79e12c0ac8, type: 3}
+  m_Name: Play Audio Marker
+  m_EditorClassIdentifier: 
+  m_Time: 0
+  looped: 0
+  audioClip: {fileID: 8300000, guid: 899fa631c7a344f8faeac12a18048fe9, type: 3}
+  soundCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1795900770246970251
 MonoBehaviour:
   m_ObjectHideFlags: 1

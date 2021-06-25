@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4396439755969541174}
   - component: {fileID: 4396439755969541169}
-  - component: {fileID: 1375640897906925060}
   - component: {fileID: 8015675962621134005}
   - component: {fileID: 5103431488091864233}
+  - component: {fileID: 6056749016657061541}
+  - component: {fileID: 1746632272833390995}
   m_Layer: 0
   m_Name: NeonPartyRoot
   m_TagString: Untagged
@@ -48,21 +49,21 @@ PlayableDirector:
   m_GameObject: {fileID: 4396439755969541175}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 0}
+  m_PlayableAsset: {fileID: 11400000, guid: c574b28f02f0c614e8dc4f2f10cfe1e5, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: -2553467702996215427, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -4020282461027728124, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: 641748832752874192, guid: e6a35aa30772a4444a81680e17905863, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -358701913501755738, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -6529725823784387233, guid: 5b6a78e8424691f4eb25dcc1f423b5a1, type: 2}
+  - key: {fileID: 0}
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 0}
@@ -104,20 +105,12 @@ PlayableDirector:
     value: {fileID: 0}
   - key: {fileID: 0}
     value: {fileID: 4396439755969541175}
+  - key: {fileID: -358701913501755738, guid: c574b28f02f0c614e8dc4f2f10cfe1e5, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -6529725823784387233, guid: c574b28f02f0c614e8dc4f2f10cfe1e5, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
---- !u!114 &1375640897906925060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4396439755969541175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04f97ba39c08412ba399ba3e160244ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8015675962621134005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,14 +136,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3f2115e96f1b24f9a301a6c2783a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCoins: 1
-  coinProbability: 0.2
-  costOfEnemy: 1
   enemyPrefab:
   - {fileID: 8385284075992252128, guid: ab2e51e505f984131a1da584fb06e7fd, type: 3}
   - {fileID: 5592148314577438307, guid: a0fd2a2d203264c76a604a31695c340f, type: 3}
   - {fileID: 5592148314577438307, guid: 515a4486cb9753a4d955286b3a348866, type: 3}
-  partOfThePLayerOnTheScreen: 0.25
+--- !u!114 &6056749016657061541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396439755969541175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd095f6d9187cff4e9e157cbd6bd7c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1746632272833390995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4396439755969541175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc78f82393d84ad280318399833bd7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5862797368793226214
 GameObject:
   m_ObjectHideFlags: 0

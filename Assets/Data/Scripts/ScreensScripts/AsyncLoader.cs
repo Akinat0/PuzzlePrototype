@@ -7,11 +7,11 @@ namespace Abu.Tools
 {
     public class AsyncLoader : MonoBehaviour
     {
-        [SerializeField] private GameObject loadingIndicator;
+        [SerializeField] GameObject loadingIndicator;
 
-        private Action<GameSceneManager> OnEnvironmentLoaded;
+        Action<GameSceneManager> OnEnvironmentLoaded;
         
-        private void Awake()
+        void Awake()
         {
             loadingIndicator.gameObject.SetActive(false);
         }
@@ -24,6 +24,8 @@ namespace Abu.Tools
 
         IEnumerator AsyncEnvironmentLoading(string scene)
         {
+            yield return null;
+            
             ResourceRequest request = Resources.LoadAsync<GameObject>(scene);
             
             loadingIndicator.gameObject.SetActive(true);
