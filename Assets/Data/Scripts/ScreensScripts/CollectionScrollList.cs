@@ -2,28 +2,34 @@ using System;
 using System.Linq;
 using Abu.Tools.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Data.Scripts.ScreensScripts
 {
     public class CollectionScrollList : VerticalScrollListComponent<CollectionListView>
     {
-        const float Delay = 0.02f; 
-        
+        const float Delay = 0.02f;
+
         protected override void CreateList()
         {
             Selection = Account.CollectionItems.Select(item => new CollectionListView(item)).ToArray();
+            
+            GridLayoutGroup layoutGroup = (GridLayoutGroup) Layout;
+            RectTransform layoutTransform = (RectTransform) layoutGroup.transform;
+            float cellSize = layoutTransform.rect.width / 3 ;
+            layoutGroup.cellSize = new Vector2(cellSize, cellSize);
+
             base.CreateList();
         }
 
         protected override void AddElement(CollectionListView listElement)
         {
             listElement.Create(Layout.transform);
-            
-            if(Elements.Count % 3 != 1)
-                return;
 
-            FlexibleLayoutGroup layoutGroup = (FlexibleLayoutGroup) Layout;
-            Content.offsetMin -= new Vector2(0, listElement.Size.y + layoutGroup.spacing.y);
+            if (Elements.Count % 3 != 1) return;
+            
+            GridLayoutGroup layoutGroup = (GridLayoutGroup)Layout;
+            Content.offsetMin -= new Vector2(0, layoutGroup.cellSize.y + layoutGroup.spacing.y);
         }
 
         public void Show(Action finished = null)

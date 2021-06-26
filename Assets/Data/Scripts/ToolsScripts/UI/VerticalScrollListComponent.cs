@@ -23,7 +23,7 @@ namespace Abu.Tools.UI
 
         bool isListInitialized = false;
         
-        protected void Awake()
+        void Awake()
         {
             InitializeList();
         }
@@ -43,8 +43,8 @@ namespace Abu.Tools.UI
 
             foreach (T item in Selection)
             {
-                AddElement(item);
                 Elements.Add(item);
+                AddElement(item);
             }
         }
         
