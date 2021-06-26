@@ -13,7 +13,34 @@ MonoBehaviour:
   m_Name: EyezyCollectionItem
   m_EditorClassIdentifier: 
   Name: Eyezy
-  puzzleVariants: []
+  puzzleVariants:
+  - sides:
+      _Top: 1
+      _Right: 1
+      _Bottom: 1
+      _Left: 1
+    puzzle: {fileID: 5100618227764061004, guid: 66d99fbe4613e4087951c4ed6452c39f,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 1
+    puzzle: {fileID: 3843223914172433053, guid: e8a13336279f3438f8cf95f18b295583,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 1
+      _Left: 0
+    puzzle: {fileID: 6804766181554415515, guid: 1e4a84e38135d477f8b620d2be533dd0,
+      type: 3}
+  - sides:
+      _Top: 1
+      _Right: 0
+      _Bottom: 0
+      _Left: 0
+    puzzle: {fileID: 185241093851202730, guid: bcc770789376346ff8b75a754278c72a, type: 3}
   defaultUnlocked: 1
   puzzleColors:
   - id: Night
