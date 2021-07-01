@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Abu.Tools.UI;
-using DG.Tweening;
 using ScreensScripts;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(UIScaleComponent), typeof(CanvasGroup))]
@@ -16,7 +14,6 @@ public class Window : UIComponent
     protected static RectTransform Root => LauncherUI.Instance.UiManager.Root;
 
     protected OverlayView Overlay;
-    protected RectTransform Transform => (RectTransform) transform;
 
     CanvasGroup canvasGroup;
     protected CanvasGroup CanvasGroup
@@ -66,11 +63,11 @@ public class Window : UIComponent
     
     protected virtual void Instantiate(Action<RectTransform> createContent, Action onSuccess, string title, string okText)
     {
-        Transform.SetAsLastSibling();
+        RectTransform.SetAsLastSibling();
 
         Title.Text = title;
         
-        Overlay = OverlayView.Create<BlurOverlayView>(Root, Transform.GetSiblingIndex() - 1);
+        Overlay = OverlayView.Create<BlurOverlayView>(Root, RectTransform.GetSiblingIndex() - 1);
         Overlay.OnClick += onSuccess;
 
         OkButton.Text = okText;

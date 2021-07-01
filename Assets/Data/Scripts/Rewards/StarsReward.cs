@@ -1,4 +1,5 @@
 
+using Abu.Tools.UI;
 using UnityEngine;
 
 public class StarsReward : Reward
@@ -10,9 +11,9 @@ public class StarsReward : Reward
         Amount = amount;
     }
 
-    public override GameObject CreateView(RectTransform container)
+    public override UIComponent CreateView(RectTransform container)
     {
-        return StarsRewardView.Create(container, this).gameObject;
+        return StarsRewardView.Create(container, this);
     }
 
     public override void Claim()

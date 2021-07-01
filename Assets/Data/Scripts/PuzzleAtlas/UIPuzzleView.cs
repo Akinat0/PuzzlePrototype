@@ -1,5 +1,4 @@
-﻿using System;
-using Abu.Tools.UI;
+﻿using Abu.Tools.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,17 +50,6 @@ public class UIPuzzleView : UIComponent
             return puzzleImage;
         }
     }
-    
-    RectTransform rectTransform;
-    public virtual RectTransform RectTransform
-    {
-        get
-        {
-            if(rectTransform == null)
-                rectTransform = transform as RectTransform;
-            return rectTransform;
-        }
-    }
 
     protected virtual void Start()
     {
@@ -69,6 +57,7 @@ public class UIPuzzleView : UIComponent
 
         RuntimePuzzleAtlas.Instance.RebuildPuzzlesAtlas += OnRebuildPuzzlesAtlas_Handler;
     }
+    
     protected void Update()
     {
         bool isRectVisible = RectTransform.IsVisibleOnTheScreen();

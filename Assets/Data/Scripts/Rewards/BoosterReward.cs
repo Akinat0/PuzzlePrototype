@@ -1,3 +1,4 @@
+using Abu.Tools.UI;
 using UnityEngine;
 
 public class BoosterReward : Reward
@@ -11,9 +12,9 @@ public class BoosterReward : Reward
         Booster = booster;
     }
     
-    public override GameObject CreateView(RectTransform container)
+    public override UIComponent CreateView(RectTransform container)
     {
-        return BoosterRewardView.Create(container, this).gameObject;
+        return BoosterRewardView.Create(container, this);
     }
 
     public override void Claim()

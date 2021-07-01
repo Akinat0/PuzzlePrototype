@@ -51,7 +51,7 @@ public class ShopItem : UIComponent
     {
         Button.Interactable = Tier.Available;
         PurchaseView = Tier.Purchase.CreateView(PurchaseContainer);
-        RewardView = Tier.Reward.CreateView(RewardContainer); 
+        RewardView = Tier.Reward.CreateView(RewardContainer).gameObject; 
     }
 
     void OnAvailableChangedEvent_Handler(bool available)

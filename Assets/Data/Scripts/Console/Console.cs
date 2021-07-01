@@ -24,6 +24,7 @@ namespace Abu.Console
                 new DeleteLocalCommand(),
                 new AnalyticsCommand(),
                 new HapticCommand(),
+                new ChestCommand()
             };
         }
 

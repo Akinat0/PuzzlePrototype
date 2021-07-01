@@ -30,11 +30,11 @@ public class CancelableWindow : Window
     
     protected void Initialize(Action<RectTransform> createContent, Action onSuccess, Action onCancel, string title, string okText, string cancelText)
     {
-        Transform.SetAsLastSibling();
+        RectTransform.SetAsLastSibling();
 
         Title.Text = title;
         
-        Overlay = OverlayView.Create<BlurOverlayView>(Root, Transform.GetSiblingIndex() - 1);
+        Overlay = OverlayView.Create<BlurOverlayView>(Root, RectTransform.GetSiblingIndex());
         Overlay.OnClick += onCancel;
 
         CancelButton.Text = cancelText;
@@ -45,7 +45,7 @@ public class CancelableWindow : Window
         
         createContent?.Invoke(ContentContainer);
         
-        Transform.localScale = Vector2.zero;
+        RectTransform.localScale = Vector2.zero;
         Show();
     }
 }

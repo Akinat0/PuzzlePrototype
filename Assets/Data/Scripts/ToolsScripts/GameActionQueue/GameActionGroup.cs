@@ -32,6 +32,13 @@ namespace Abu.Tools.GameActionPool
                 gameAction.Abort();
         }
 
+        public override void Dispose()
+        {
+            foreach (GameAction gameAction in GameActions)
+                gameAction.Dispose();
+        }
+
+
         void OnGameActionCompleted(GameAction gameAction)
         {
             GameActions.Remove(gameAction);

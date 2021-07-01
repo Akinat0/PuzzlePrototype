@@ -59,18 +59,6 @@ namespace Abu.Tools.UI
                 return textMesh;
             }
         }
-        
-        RectTransform rectTransform;
-        public RectTransform RectTransform
-        {
-            get
-            {
-                if (rectTransform == null)
-                    rectTransform = (RectTransform) transform;
-                
-                return rectTransform;
-            }
-        }
 
         public Color Color
         {

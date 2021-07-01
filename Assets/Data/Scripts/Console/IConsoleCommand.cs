@@ -378,5 +378,37 @@ namespace Abu.Console
             return "success";
         }
     }
+
+    public class ChestCommand : IConsoleCommand
+    {
+        public string Command => "chest";
+        
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 3)
+                return Parse(args[1], args[2]);
+            else
+                return Help;
+        }
+
+        string Parse(object rarity, object count)
+        {
+            try
+            {
+                if (!Enum.TryParse(rarity.ToString(), true, out Rarity parsedRarity))
+                    return $"Rarity can be {string.Join(", ", Enum.GetValues(typeof(Rarity)))}";
+                
+                Account.GetChest(parsedRarity).Add(int.Parse(count.ToString()));
+                return "Success.";
+
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+        }
+        
+        string Help => "chest {Epic|Rare|Common} {int}";
+    }
     
 }

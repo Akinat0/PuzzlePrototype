@@ -8,12 +8,11 @@ public sealed class RichBitchAchievement : Achievement
         
         Account.StarsAmountChanged += StarsAmountChangedEvent_Handler;
     }
-    
-    readonly StarsReward reward = new StarsReward(10);
-    
+
     public override string Name => "Rich Bitch";
     public override string Description => "Collect 10 stars";
-    public override Reward Reward => reward;
+    public override Reward Reward { get; } = new ChestReward(Rarity.Common, 1);
+
     public override float Goal => 1000;
     
     void StarsAmountChangedEvent_Handler(int balance)

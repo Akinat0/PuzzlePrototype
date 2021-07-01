@@ -11,6 +11,12 @@ namespace Abu.Tools.UI
         [SerializeField] Color color = Color.white; 
         Image image;
 
+        public Sprite Sprite
+        {
+            get => image.sprite;
+            set => image.sprite = value;
+        }
+        
         public Image Image
         {
             get

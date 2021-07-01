@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameActionQueue : MonoBehaviour
 {
-    readonly LinkedList<GameAction> GameActions = new LinkedList<GameAction>();
+    protected readonly List<GameAction> GameActions = new List<GameAction>();
 
-    GameAction Current { get; set; }
+    protected GameAction Current { get; set; }
     
     void Update()
     {
@@ -24,18 +25,17 @@ public class GameActionQueue : MonoBehaviour
         
         Queue<GameAction> subActions = gameAction.SubActions;
         foreach (GameAction action in subActions)
-            GameActions.AddFirst(action);
-        
-        
+            GameActions.Insert(0, action);
+
         if(GameActions.Count == 0)
             return;
 
-        Current = GameActions.First.Value;
-        GameActions.RemoveFirst();
+        Current = GameActions.First();
+        GameActions.RemoveAt(0);
         Current.Start();
     }
 
-    public void Add(GameAction gameAction)
+    public virtual void Add(GameAction gameAction)
     {
         gameAction.Initialize(this);
         
@@ -46,12 +46,14 @@ public class GameActionQueue : MonoBehaviour
             return;
         }
 
-        GameActions.AddLast(gameAction);
+        GameActions.Add(gameAction);
     }
     public void Reset()
     {
         Current?.Abort();
         Current = null;
+        foreach (GameAction gameAction in GameActions)
+            gameAction.Dispose();
         GameActions.Clear();
     }
 }

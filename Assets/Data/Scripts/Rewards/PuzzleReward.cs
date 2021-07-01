@@ -1,4 +1,5 @@
 
+using Abu.Tools.UI;
 using UnityEngine;
 
 public class PuzzleReward : Reward
@@ -10,9 +11,9 @@ public class PuzzleReward : Reward
         PuzzleID = puzzleID;
     }
     
-    public override GameObject CreateView(RectTransform container)
+    public override UIComponent CreateView(RectTransform container)
     {
-        return PuzzleRewardView.Create(container, this).gameObject;
+        return PuzzleRewardView.Create(container, this);
     }
 
     public override void Claim()

@@ -39,16 +39,6 @@ namespace Abu.Tools.UI
             }
         }
         
-        public virtual RectTransform RectTransform
-        {
-            get
-            {
-                if(rectTransform == null)
-                    rectTransform = transform as RectTransform;
-                return rectTransform;
-            }
-        }
-        
         public virtual Color Color
         {
             get => ButtonColor;
@@ -116,7 +106,6 @@ namespace Abu.Tools.UI
         public ImageComponent Icon => icon;
 
         UIColorProvider colorProvider;
-        RectTransform rectTransform;
         UIScaleComponent scaleComponent;
         Image background;
         Button button;

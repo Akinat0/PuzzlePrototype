@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 namespace Abu.Tools.UI
@@ -13,5 +14,9 @@ namespace Abu.Tools.UI
         public bool ActiveSelf => gameObject.activeSelf;
 
         protected virtual void OnValidate() { }
+
+        RectTransform rectTransform;
+        public RectTransform RectTransform =>
+            rectTransform ? rectTransform : rectTransform = transform as RectTransform;
     }
 }

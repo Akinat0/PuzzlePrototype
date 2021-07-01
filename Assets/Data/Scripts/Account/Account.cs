@@ -33,6 +33,10 @@ public class Account : MonoBehaviour
     public static RemoteConfig RemoteConfig => remoteConfig = remoteConfig ?? new RemoteConfig();
     public static PuzzleAnalytics Analytics => analytics = analytics ?? new PuzzleAnalytics();
     public static PuzzleAdvertisement Advertisement => advertisement = advertisement ?? new PuzzleAdvertisement();
+    
+    public static Chest CommonChest => commonChest = commonChest ?? new Chest(Rarity.Common, new CommonChestResolver()); 
+    public static Chest RareChest => rareChest = rareChest ?? new Chest(Rarity.Rare, new CommonChestResolver()); 
+    public static Chest EpicChest => epicChest = epicChest ?? new Chest(Rarity.Epic, new CommonChestResolver()); 
     public static Wallet Stars => stars = stars ?? new Wallet("stars"); 
 
     static RemoteConfig remoteConfig;
@@ -46,12 +50,34 @@ public class Account : MonoBehaviour
     static CollectionManager collectionManager;
     static LevelsManager levelsManager;
 
+    static Chest commonChest;
+    static Chest rareChest;
+    static Chest epicChest;
+
     void Awake()
     {
         instance = this;
         advertisement = advertisement ?? new PuzzleAdvertisement();
-        
     }
+
+    #region Chests
+
+    public static Chest GetChest(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common:
+                return CommonChest;
+            case Rarity.Rare:
+                return RareChest;
+            case Rarity.Epic:
+                return EpicChest;
+            default:
+                return null;
+        }
+    } 
+
+    #endregion
     
     #region Boosters
 
