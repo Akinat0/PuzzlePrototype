@@ -2,7 +2,7 @@ using System;
 
 namespace Data.Scripts.Tools.Input
 {
-    public class MobileInput
+    public static class MobileInput
     {
         public static Action<bool> OnInputConditionChanged;
         
@@ -12,11 +12,11 @@ namespace Data.Scripts.Tools.Input
             
             set
             {
-                if (value != condition)
-                {
-                    condition = value;
-                    OnInputConditionChanged?.Invoke(condition);
-                }
+                if (value == condition)
+                    return;
+                
+                condition = value;
+                OnInputConditionChanged?.Invoke(condition);
             }
         }
 

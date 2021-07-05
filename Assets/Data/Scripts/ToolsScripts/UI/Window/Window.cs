@@ -94,12 +94,12 @@ public class Window : UIComponent
 
     public void Show()
     {
-        Overlay.ChangePhase(1, 0.2f);
-        
         ScaleComponent.Phase = 0;
         CanvasGroup.alpha = 0;
         Overlay.Phase = 0;
         
+        Overlay.ChangePhase(1, 0.2f);
+
         if(currentScaleRoutine != null)
             StopCoroutine(currentScaleRoutine);
 

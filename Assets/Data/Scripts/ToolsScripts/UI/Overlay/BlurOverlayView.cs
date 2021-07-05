@@ -14,6 +14,12 @@ namespace Abu.Tools.UI
             Big
         }
 
+        public enum RaycastTargetMode
+        {
+            OnZero,
+            OnOne
+        }
+
         #region serialized fields
 
         [SerializeField] Color blurColor = Color.white;
@@ -28,7 +34,9 @@ namespace Abu.Tools.UI
         
         [SerializeField] bool gammaCorrection = true;
 
-        [SerializeField] bool recreateWhileUpdate = false;
+        [SerializeField] bool recreateWhileUpdate;
+
+        [SerializeField] RaycastTargetMode raycastMode = RaycastTargetMode.OnOne;
 
         #endregion
         
@@ -88,6 +96,19 @@ namespace Abu.Tools.UI
         {
             get => recreateWhileUpdate;
             set => recreateWhileUpdate = value;
+        }
+
+        public RaycastTargetMode RaycastMode
+        {
+            get => raycastMode;
+            set
+            {
+                if(raycastMode == value)
+                    return;
+
+                raycastMode = value;
+                ProcessRaycastTarget();
+            }
         }
         
         #endregion
@@ -204,10 +225,23 @@ namespace Abu.Tools.UI
             bool isEnabled = Phase > Mathf.Epsilon;
             BlurImage.enabled = isEnabled;
             Background.enabled = isEnabled;
+            
+            ProcessRaycastTarget();
+        }
 
-            bool isRaycastTarget = Mathf.Approximately(Phase, 1);
-
-            RaycastTarget = isRaycastTarget;
+        void ProcessRaycastTarget()
+        {
+            switch (RaycastMode)
+            {
+                case RaycastTargetMode.OnOne:
+                    RaycastTarget = Mathf.Approximately(Phase, 1);
+                    break;
+                case RaycastTargetMode.OnZero:
+                    RaycastTarget = Phase > Mathf.Epsilon;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         protected override void OnValidate()

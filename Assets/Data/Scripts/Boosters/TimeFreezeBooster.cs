@@ -4,6 +4,7 @@ using ScreensScripts;
 public class TimeFreezeBooster : Booster
 {
     public override string Name => "Time Freeze";
+    public override Rarity Rarity => Rarity.Rare;
 
     FreezeOverlayView freeze;
 

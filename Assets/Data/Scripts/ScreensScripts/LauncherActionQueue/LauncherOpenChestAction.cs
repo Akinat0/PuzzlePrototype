@@ -1,3 +1,5 @@
+using Data.Scripts.Tools.Input;
+
 public class LauncherOpenChestAction : LauncherAction
 {
     public LauncherOpenChestAction(Rarity rarity) : base(LauncherActionOrder.Chest)
@@ -9,11 +11,17 @@ public class LauncherOpenChestAction : LauncherAction
 
     public override void Start()
     {
-        StartCoroutine(Coroutines.FramesDelay(1, OpenChest));
+        //hack to disable input
+        MobileInput.Condition = false;
+        
+        StartCoroutine(Coroutines.Delay(0.3f, OpenChest));
     }
 
     void OpenChest()
     {
+        //hack to disable input
+        MobileInput.Condition = true;
+        
         Chest chest = Account.GetChest(Rarity); 
 
         if (chest.Count <= 0)

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BoosterReward : Reward
 {
+    public override Rarity Rarity => Booster.Rarity;
+
     public int Amount { get; }
     public Booster Booster { get; }
 

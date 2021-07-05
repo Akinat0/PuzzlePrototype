@@ -10,7 +10,9 @@ public class PuzzleReward : Reward
     {
         PuzzleID = puzzleID;
     }
-    
+
+    public override Rarity Rarity => Rarity.None;
+
     public override UIComponent CreateView(RectTransform container)
     {
         return PuzzleRewardView.Create(container, this);

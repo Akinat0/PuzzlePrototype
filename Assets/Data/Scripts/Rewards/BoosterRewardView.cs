@@ -1,6 +1,4 @@
-using System;
 using Abu.Tools.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,25 +31,13 @@ public class BoosterRewardView : UIComponent
         set
         {
             boosterReward = value;
-            TextField.text = boosterReward.Amount.ToString();
 
+            //TODO use badge system for amount
+            
             string path =
-                $"Textures/{boosterReward.Booster.Name.Replace(" ", String.Empty).ToLowerInvariant()}_booster_image";
+                $"Textures/{boosterReward.Booster.Name.Replace(" ", string.Empty).ToLowerInvariant()}_booster_image";
 
             Image.sprite = Resources.Load<Sprite>(path);
-        }
-    }
-
-    protected TextMeshProUGUI textField;
-    
-    protected TextMeshProUGUI TextField
-    {
-        get
-        {
-            if (textField == null)
-                textField = GetComponentInChildren<TextMeshProUGUI>();
-
-            return textField;
         }
     }
     

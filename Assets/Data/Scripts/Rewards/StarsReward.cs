@@ -11,6 +11,8 @@ public class StarsReward : Reward
         Amount = amount;
     }
 
+    public override Rarity Rarity => Rarity.None;
+
     public override UIComponent CreateView(RectTransform container)
     {
         return StarsRewardView.Create(container, this);

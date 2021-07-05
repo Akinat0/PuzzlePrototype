@@ -117,6 +117,7 @@ public abstract class Booster
     }
     
     public abstract string Name { get; }
+    public abstract Rarity Rarity { get; }
     protected abstract void Apply();
     public abstract void Release();
 

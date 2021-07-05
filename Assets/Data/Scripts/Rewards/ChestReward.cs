@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ChestReward : Reward
 {
+    public override Rarity Rarity { get; }
     int Amount { get; }
-    Rarity Rarity { get; }
     
     public ChestReward(Rarity rarity, int amount)
     {

@@ -14,6 +14,14 @@ namespace Abu.Tools.GameActionPool
                 gameAction.OnComplete += () => { OnGameActionCompleted(gameAction); };
         }
         
+        public GameActionGroup(IEnumerable<GameAction> gameActions)
+        {
+            GameActions = new List<GameAction>(gameActions);
+            
+            foreach (GameAction gameAction in GameActions)
+                gameAction.OnComplete += () => { OnGameActionCompleted(gameAction); };
+        }
+        
         public override void Start()
         {
             foreach (GameAction gameAction in GameActions)
