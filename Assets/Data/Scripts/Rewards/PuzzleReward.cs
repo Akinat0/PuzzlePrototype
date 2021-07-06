@@ -5,14 +5,14 @@ using UnityEngine;
 public class PuzzleReward : Reward
 {
     public readonly int PuzzleID;
-    
+    public override Rarity Rarity { get; }
+
     public PuzzleReward(int puzzleID)
     {
         PuzzleID = puzzleID;
+        Rarity = Account.GetCollectionItem(puzzleID).Rarity;
     }
-
-    public override Rarity Rarity => Rarity.None;
-
+    
     public override UIComponent CreateView(RectTransform container)
     {
         return PuzzleRewardView.Create(container, this);

@@ -10,17 +10,20 @@ public class CollectionWizardParametersPage : WizardPage
     public override string Title => "Parameters";
     public override string Description => "Here you should assign a name and other parameters";
 
-
     ReorderableList puzzleColorsReordableList;
     
     string Name = string.Empty;
     bool DefaultUnlocked;
+    Rarity rarity = Rarity.Common;
+
     readonly List<PuzzleColorData> PuzzleColors = new List<PuzzleColorData>();
 
+    readonly string[] rarityValues = { "Common", "Rare", "Epic" };
+
     protected override bool Valid => !string.IsNullOrEmpty(Name.Trim()) && 
-                                     PuzzleColors.Count <= 5 &&
-                                     !PuzzleColors.Any(puzzleColor => string.IsNullOrEmpty(puzzleColor.ID.Trim())) &&
-                                     PuzzleColors.Any(puzzleColor => puzzleColor.DefaultUnlocked);
+         PuzzleColors.Count <= 5 &&
+         !PuzzleColors.Any(puzzleColor => string.IsNullOrEmpty(puzzleColor.ID.Trim())) &&
+         PuzzleColors.Any(puzzleColor => puzzleColor.DefaultUnlocked);
 
     protected override string GetErrors()
     {
@@ -81,6 +84,10 @@ public class CollectionWizardParametersPage : WizardPage
         EditorGUILayout.LabelField("Default Unlocked", Wizard.BlackLabel);
         DefaultUnlocked = EditorGUILayout.Toggle(DefaultUnlocked);
         
+        //int hack to receive correct enum value
+        EditorGUILayout.LabelField("Rarity", Wizard.BlackLabel);
+        rarity = (Rarity) (EditorGUILayout.Popup((int)rarity - 1, rarityValues) + 1);
+
         EditorGUILayout.Space(10);
         
         puzzleColorsReordableList.DoLayoutList();

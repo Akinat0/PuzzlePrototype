@@ -12,6 +12,7 @@ public class CollectionItem : ScriptableObject
     [SerializeField] public PuzzleVariant[] puzzleVariants;
     [SerializeField] public bool defaultUnlocked;
     [SerializeField] public PuzzleColorData[] puzzleColors;
+    [SerializeField] public Rarity Rarity;
 
     public event Action<bool> OnUnlockedEvent;
     public event Action<int> OnActiveColorChangedEvent;

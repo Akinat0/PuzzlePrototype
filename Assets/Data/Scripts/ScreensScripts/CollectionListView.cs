@@ -42,6 +42,23 @@ namespace Data.Scripts.ScreensScripts
             entity.name = collectionItem.Name + " puzzle";
             entity.ScaleComponent.Phase = 0;
 
+            Color textFieldColor = Color.gray;
+
+            switch (collectionItem.Rarity)
+            {
+                case Rarity.Common:
+                    textFieldColor = new Color(0.679f, 0.679f, 0.679f);
+                    break;
+                case Rarity.Rare:
+                    textFieldColor = new Color(0.287f, 0.843f, 1f);
+                    break;
+                case Rarity.Epic:
+                    textFieldColor = new Color(0.988f, 0.485f, 1f);
+                    break;
+            }
+
+            entity.TextField.Color = textFieldColor;
+
             entity.OnClick += () =>
             {
                 LauncherUI.Instance.InvokeShowCollection(
