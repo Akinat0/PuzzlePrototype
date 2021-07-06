@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Abu.Tools.GameActionPool;
 using Abu.Tools.UI;
@@ -123,11 +121,9 @@ public class OpenChestWindow : Window
         readonly RectTransform Container;
         readonly RectTransform Source;
         readonly float Duration;
-
-        IEnumerator delayRoutine;
-        RewardShine rewardShine;
-        bool aborted;
         
+        RewardShine rewardShine;
+
         public RewardAnimationAction(float duration,  RectTransform container, RectTransform source, Reward reward)
         {
             Reward = reward;
@@ -138,9 +134,7 @@ public class OpenChestWindow : Window
         
         public override void Start()
         {
-            rewardShine = RewardShine.Create(Container, Reward.Rarity);
-
-            Reward.CreateView(rewardShine.RectTransform);
+            CreateShine();
             
             rewardShine.RectTransform.localScale = Vector3.zero;
             rewardShine.RectTransform.position = Source.position;
@@ -158,6 +152,12 @@ public class OpenChestWindow : Window
             rewardShine.RectTransform.DOMove(Container.position, Duration).OnComplete(Finished);
         }
 
+        void CreateShine()
+        {
+            rewardShine = RewardShine.Create(Container, Reward.Rarity);
+            Reward.CreateView(rewardShine.RectTransform);
+        }
+
         public override void Update() { }
         
         public override void Abort()
@@ -169,6 +169,8 @@ public class OpenChestWindow : Window
 
         public override void Dispose()
         {
+            CreateShine();
+            
             rewardShine.RectTransform.DOKill();
             rewardShine.RectTransform.position = Container.position;
             rewardShine.RectTransform.localScale = Vector3.one;

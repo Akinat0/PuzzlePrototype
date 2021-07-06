@@ -13,7 +13,7 @@ public sealed class RichBitchAchievement : Achievement
     public override string Description => "Collect 10 stars";
     public override Reward Reward { get; } = new ChestReward(Rarity.Common, 1);
 
-    public override float Goal => 1000;
+    public override float Goal => 10;
     
     void StarsAmountChangedEvent_Handler(int balance)
     {
