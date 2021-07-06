@@ -16,9 +16,12 @@ namespace Data.Scripts.ScreensScripts
             
             GridLayoutGroup layoutGroup = (GridLayoutGroup) Layout;
             RectTransform layoutTransform = (RectTransform) layoutGroup.transform;
-            float cellSize = layoutTransform.rect.width / 3 ;
+            
+            //there are 3 elements in row, so spacing should be took into account twice
+            float cellSize = layoutTransform.rect.width / 3  - layoutGroup.spacing.x * 2;
+            
             layoutGroup.cellSize = new Vector2(cellSize, cellSize);
-
+            
             base.CreateList();
         }
 
