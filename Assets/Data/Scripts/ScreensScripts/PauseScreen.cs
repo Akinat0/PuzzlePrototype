@@ -8,7 +8,6 @@ public class PauseScreen : ScreenComponent
     [SerializeField] TextButtonComponent ContinueButton;
     [SerializeField] TextButtonComponent RestartButton;
     [SerializeField] ButtonComponent MenuButton;
-    [SerializeField] GameTimer gameTimer;
 
     public override bool Show(Action finished = null)
     {
@@ -47,20 +46,12 @@ public class PauseScreen : ScreenComponent
 
     void OnContinueClick()
     {
-        if (gameTimer != null)
-        {
-            Hide();
-            gameTimer.StartTimer(Resume);
-        }
-        else
-        {
-            Resume();
-        }
+        Resume();
     }
     
     void Resume()
     {
-        GameSceneManager.Instance.InvokePauseLevel(false);
+        GameSceneManager.Instance.InvokePauseLevel(false, false);
         Hide();
     }
     

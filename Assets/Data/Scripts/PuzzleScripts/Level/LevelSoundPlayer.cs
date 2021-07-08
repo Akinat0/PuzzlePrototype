@@ -67,7 +67,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent += ResetLevelEvent_Handler;
         GameSceneManager.LevelClosedEvent += LevelClosedEvent_Handler;
-        TimeManager.DefaultTimeScaleValueChanged += DefaultTimeScaleValueChanged_Handler;
+        TimeManager.TimeScaleValueChanged += TimeScaleValueChanged_Handler;
     }
 
     protected virtual void OnDisable()
@@ -76,7 +76,7 @@ public class LevelSoundPlayer : MonoBehaviour
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
         GameSceneManager.ResetLevelEvent -= ResetLevelEvent_Handler;
         GameSceneManager.LevelClosedEvent -= LevelClosedEvent_Handler;
-        TimeManager.DefaultTimeScaleValueChanged -= DefaultTimeScaleValueChanged_Handler;
+        TimeManager.TimeScaleValueChanged -= TimeScaleValueChanged_Handler;
     }
 
     void PlayAudioEvent_Handler(LevelPlayAudioEventArgs args)
@@ -117,7 +117,7 @@ public class LevelSoundPlayer : MonoBehaviour
         ClearAudio();
     }
 
-    void DefaultTimeScaleValueChanged_Handler(float timeScale)
+    void TimeScaleValueChanged_Handler(float timeScale)
     {
         foreach (AudioSource audioSource in audioSources.Keys)
             audioSource.pitch = timeScale;

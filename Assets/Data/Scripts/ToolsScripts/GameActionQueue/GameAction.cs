@@ -7,12 +7,6 @@ using UnityEngine;
 
 public abstract class GameAction
 {
-    static MonoHelper coroutinesHolder;
-
-    static MonoHelper CoroutinesHolder => coroutinesHolder
-        ? coroutinesHolder
-        : coroutinesHolder = new GameObject("game_action_coroutine_holder").AddComponent<MonoHelper>(); 
-    
     public Action OnComplete;
 
     GameActionQueue Queue { get; set; }
@@ -41,11 +35,11 @@ public abstract class GameAction
 
     protected void StartCoroutine(IEnumerator coroutine)
     {
-        CoroutinesHolder.StartCoroutine(coroutine);
+        CoroutineHelper.StartRoutine(coroutine);
     }
     
     protected void StopCoroutine(IEnumerator coroutine)
     {
-        CoroutinesHolder.StopCoroutine(coroutine);
+        CoroutineHelper.StopRoutine(coroutine);
     }
 }

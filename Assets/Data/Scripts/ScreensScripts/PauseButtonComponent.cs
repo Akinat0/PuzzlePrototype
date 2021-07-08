@@ -11,7 +11,7 @@ public class PauseButtonComponent : ButtonComponent
         
         GameSceneManager.PauseLevelEvent += OnPauseLevelEvent_Handler;
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
-        OnClick += () => GameSceneManager.Instance.InvokePauseLevel(true);
+        OnClick += () => GameSceneManager.Instance.InvokePauseLevel(true, false);
     }
 
     void OnDestroy()

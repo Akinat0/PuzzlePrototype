@@ -1,10 +1,13 @@
 
 using System;
+using System.Collections;
+using Abu.Tools;
+using DG.Tweening;
 using UnityEngine;
 
 public static class TimeManager
 {
-    public static event Action<float> DefaultTimeScaleValueChanged; 
+    public static event Action<float> TimeScaleValueChanged; 
     
     static float defaultTimeScale = 1;
     
@@ -14,28 +17,69 @@ public static class TimeManager
 
         set
         {
+            if(Mathf.Approximately(DefaultTimeScale, value))
+                return;
+            
             defaultTimeScale = value;
 
-            if (!IsPaused)
-                Unpause();
-
-            DefaultTimeScaleValueChanged?.Invoke(DefaultTimeScale);
+            TimeScale = Mathf.Clamp(TimeScale, 0, TimeScale);
         }
     }
 
-    public static float TimeScale => Time.timeScale;
+    public static float TimeScale
+    {
+        get => Time.timeScale;
+        set
+        {
+            value = Mathf.Clamp(value, 0, DefaultTimeScale);
+            
+            if(Mathf.Approximately(Time.timeScale, value))
+                return;
 
-    public static bool IsPaused { get; private set; }
-    
+            Time.timeScale = value;
+            
+            TimeScaleValueChanged?.Invoke(Time.timeScale);
+        }
+    }
+
+    static IEnumerator currentUnpauseRoutine;
+
     public static void Pause()
     {
-        IsPaused = true;
+        if(currentUnpauseRoutine != null)
+            CoroutineHelper.StopRoutine(currentUnpauseRoutine);
+        
         Time.timeScale = 0;
     }
 
-    public static void Unpause()
+    public static void Unpause(bool instant = true)
     {
-        IsPaused = false;
-        Time.timeScale = DefaultTimeScale;
+        if(currentUnpauseRoutine != null)
+            CoroutineHelper.StopRoutine(currentUnpauseRoutine);
+
+        currentUnpauseRoutine = null; //clear this anyway
+        
+        if (instant)
+            TimeScale = DefaultTimeScale;
+        else
+            CoroutineHelper.StartRoutine(currentUnpauseRoutine = UnpauseRoutine(1));
+    }
+
+    static IEnumerator UnpauseRoutine(float duration)
+    {
+        float time = 0;
+        float startTimeScale = TimeScale;
+        
+        while (time <= duration)
+        {
+            float value = Mathf.Lerp(startTimeScale, DefaultTimeScale, time / duration);
+            TimeScale = value * value; //apply quadratic function except linear
+            time += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        TimeScale = DefaultTimeScale;
+
+        currentUnpauseRoutine = null;
     }
 }

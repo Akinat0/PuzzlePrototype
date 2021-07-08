@@ -24,8 +24,6 @@ namespace Puzzle
         public static event Action<LevelCompletedEventArgs> LevelCompletedEvent;
         public static event Action<LevelPlayAudioEventArgs> PlayAudioEvent;
         public static event Action<EnemyBase> EnemyAppearedOnScreenEvent;
-        public static event Action<CutsceneEventArgs> CutsceneStartedEvent;
-        public static event Action<CutsceneEventArgs> CutsceneEndedEvent;
         public static event Action<Booster> ApplyBoosterEvent;
         public static event Action<int> HeartsAmountChangedEvent;
         public static event Action<string> TimelineEvent;
@@ -170,15 +168,16 @@ namespace Puzzle
             TotalHearts = DEFAULT_HEARTS;
 
             ResetLevelEvent?.Invoke();
-            InvokePauseLevel(false); //Unpausing
+            
+            InvokePauseLevel(false);
         }
 
-        public void InvokePauseLevel(bool pause)
+        public void InvokePauseLevel(bool pause, bool instant = true)
         {
             if (pause)
                 TimeManager.Pause();
             else
-                TimeManager.Unpause();
+                TimeManager.Unpause(instant);
             
             Debug.Log("PauseLevel Invoked " + (pause ? "paused" : "unpaused"));
             PauseLevelEvent?.Invoke(pause);
@@ -220,7 +219,7 @@ namespace Puzzle
             Debug.Log("PlayerRevive Invoked");
             CurrentHearts = TotalHearts;
             PlayerReviveEvent?.Invoke();
-            InvokePauseLevel(false);
+            InvokePauseLevel(false, false);
         }
         
         public void InvokeCreateEnemy(EnemyParams @params)
@@ -272,20 +271,6 @@ namespace Puzzle
             EnemyAppearedOnScreenEvent?.Invoke(enemyBase);
         }
         
-        public void InvokeCutsceneStarted(CutsceneEventArgs args)
-        {
-            Debug.Log("CutsceneStarted Invoked " + args.SceneID);
-            InvokePauseLevel(true);
-            CutsceneStartedEvent?.Invoke(args);
-        }
-        
-        public void InvokeCutsceneEnded(CutsceneEventArgs args)
-        {
-            Debug.Log("CutsceneEnded Invoked " + args.SceneID);
-            InvokePauseLevel(false);
-            CutsceneEndedEvent?.Invoke(args);
-        }
-
         public void InvokeApplyBooster(Booster booster)
         {
             Debug.Log("Apply Booster Invoked " + booster.Name);

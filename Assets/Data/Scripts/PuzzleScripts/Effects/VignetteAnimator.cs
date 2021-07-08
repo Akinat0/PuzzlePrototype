@@ -9,48 +9,18 @@ using Object = UnityEngine.Object;
 
 public static class VignetteAnimator
 {
-    private const float FocusTime = 0.8f;
-    private const float FadeOutTime = 0.2f;
-    private const float Sampling = 60f;
+    const float FocusTime = 0.8f;
+    const float FadeOutTime = 0.2f;
+    const float Sampling = 60f;
 
-    private static MonoHelper coroutineHolder;
-
-    private static GameObject holderObject;
-    private static GameObject HolderObject
-    {
-        get
-        {
-            if (holderObject == null)
-                holderObject = new GameObject("Vignette Animator Coroutine Holder");
-            
-            return holderObject;
-        }
-    }
-
-    static void Clear()
-    {
-        if(coroutineHolder != null && coroutineHolder.gameObject != null)
-            Object.DestroyImmediate(coroutineHolder);
-
-        coroutineHolder = HolderObject.AddComponent<MonoHelper>();
-    }
-    
     public static void FocusAndFollow(Vignette vignette, Transform target, Action onSuccess = null, Action onFail = null, float? focusTime = null)
     {
-        Clear();
-        
-        Action successAction = () => { Object.DestroyImmediate(coroutineHolder); };
-        successAction += onSuccess;
-        
-        Action failAction = () => { Object.DestroyImmediate(coroutineHolder); };
-        failAction += onFail;
-        
         vignette.active = true;
         vignette.rounded.value = true;
         vignette.smoothness.value = 1;
         vignette.color.value = new Color(0.2f, 0.2f, 0.2f);
         
-        coroutineHolder.StartCoroutine(FollowRoutine(target, successAction, failAction, focusTime ?? FocusTime, vignette));
+        CoroutineHelper.StartRoutine(FollowRoutine(target, onSuccess, onFail, focusTime ?? FocusTime, vignette));
     }
 
     
@@ -82,12 +52,7 @@ public static class VignetteAnimator
 
     public static void FadeOut(Vignette vignette, Action onSuccess = null, float? fadeTime = null)
     {
-        Clear();
-        
-        Action successAction = () => { Object.DestroyImmediate(coroutineHolder); };
-        successAction += onSuccess;
-
-        coroutineHolder.StartCoroutine(FadeOutRoutine(successAction, fadeTime ?? FadeOutTime, vignette));
+        CoroutineHelper.StartRoutine(FadeOutRoutine(onSuccess, fadeTime ?? FadeOutTime, vignette));
     }
 
     

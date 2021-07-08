@@ -10,7 +10,6 @@ namespace ScreensScripts
         [SerializeField] TextButtonComponent ReviveButton;
         [SerializeField] TextButtonComponent ReplayButton;
         [SerializeField] ButtonComponent MenuButton;
-        [SerializeField] GameTimer gameTimer;
 
         readonly VideoPurchase video = new VideoPurchase();
 
@@ -75,16 +74,9 @@ namespace ScreensScripts
         void Revive()
         {
             Hide();
-
-            if (gameTimer != null)
-            {
-                gameTimer.StartTimer(() => GameSceneManager.Instance.InvokePlayerRevive());
-            }
-            else
-            {
-                GameSceneManager.Instance.InvokePlayerRevive();
-            }
+            GameSceneManager.Instance.InvokePlayerRevive();
         }
+        
         void OnMenuClick()
         {
             Hide();
