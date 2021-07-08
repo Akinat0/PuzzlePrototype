@@ -22,9 +22,10 @@ namespace Data.Scripts.ScreensScripts
             achievement.AchievementClaimedEvent += AchievementClaimedEvent_Handler;
         }
 
-        readonly Achievement achievement;
+        public readonly Achievement achievement;
         
         public Vector2 Size => entity.RectTransform.rect.size;
+        public Vector3 Position => entity.RectTransform.position;
 
         AchievementViewComponent entity;
 

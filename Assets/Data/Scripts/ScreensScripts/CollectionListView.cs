@@ -15,8 +15,9 @@ namespace Data.Scripts.ScreensScripts
 
         readonly CollectionItem collectionItem;
 
-        public Vector2 Size => prefab.RectTransform.rect.size;
-        
+        public Vector2 Size => entity.RectTransform.rect.size;
+        public Vector3 Position => entity.RectTransform.position;
+
         CollectionViewComponent entity;
 
         const string pathToPrefab = "UI/CollectionView";

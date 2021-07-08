@@ -1,4 +1,7 @@
+using System;
+using Abu.Tools;
 using Abu.Tools.UI;
+using Data.Scripts.ScreensScripts;
 using DG.Tweening;
 using Puzzle.Analytics;
 using ScreensScripts;
@@ -16,7 +19,7 @@ namespace Puzzle
         [SerializeField] ButtonComponent shopButton;
         [SerializeField] ButtonComponent closeButton;
 
-        [SerializeField] ScreenComponent AchievementScreen;
+        [SerializeField] AchievementsScreen AchievementScreen;
         [SerializeField] ScreenComponent CollectionScreen;
         [SerializeField] ScreenComponent ShopScreen;
 
@@ -38,12 +41,14 @@ namespace Puzzle
             miniButtonsContainer.DOAnchorPosY(0, LevelSelectorComponent.UiAnimationDuration).SetDelay(0.25f);
         }
 
-        void HideAllScreens()
+        void HideAllScreens(Action finished = null)
         {
-            closeButton.HideComponent();
-            AchievementScreen.Hide();
-            CollectionScreen.Hide();
-            ShopScreen.Hide();
+            DelegateGroup complete = new DelegateGroup(4, finished);
+            
+            closeButton.HideComponent(0.2f, complete);
+            AchievementScreen.Hide(complete);
+            CollectionScreen.Hide(complete);
+            ShopScreen.Hide(complete);
         }
 
         void ShopButtonOnClick()
@@ -70,7 +75,7 @@ namespace Puzzle
             new SimpleAnalyticsEvent("mini_collection_button_clicked").Send();
         }
 
-        void CloseButtonOnClick()
+        void CloseButtonClick()
         {
             HideAllScreens();
         }
@@ -81,11 +86,12 @@ namespace Puzzle
             LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
+            LauncherUI.ShowAchievementsScreenEvent += ShowAchievementScreenEvent_Handler;
             
             collectionButton.OnClick += CollectionButtonOnClick;
             achievementButton.OnClick += AchievementButtonOnClick;
             shopButton.OnClick += ShopButtonOnClick;
-            closeButton.OnClick += CloseButtonOnClick;
+            closeButton.OnClick += CloseButtonClick;
         }
 
         void OnDisable()
@@ -97,7 +103,7 @@ namespace Puzzle
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
             shopButton.OnClick -= ShopButtonOnClick;
-            closeButton.OnClick -= CloseButtonOnClick;
+            closeButton.OnClick -= CloseButtonClick;
         }
         
         void ShowCollectionEvent_Handler(ShowCollectionEventArgs _)
@@ -120,6 +126,21 @@ namespace Puzzle
         void LevelChangedEvent_Handler(LevelChangedEventArgs args)
         {
             args.LevelConfig.ColorScheme.SetButtonColor(closeButton);
+        }
+
+        void ShowAchievementScreenEvent_Handler(Achievement achievement)
+        {
+            void ShowAchievements()
+            {
+                closeButton.ShowComponent();
+                AchievementScreen.Show();
+            }
+            
+            if (!AchievementScreen.Shown)
+                HideAllScreens(ShowAchievements);
+            
+            if(achievement != null)
+                AchievementScreen.FocusOn(achievement);
         }
     }
 }

@@ -18,7 +18,8 @@ namespace ScreensScripts
         public static event Action<LevelChangedEventArgs> LevelChangedEvent;
         public static event Action<ShowCollectionEventArgs> ShowCollectionEvent;
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
-        public static event Action<Achievement> AchievementReceived; 
+        public static event Action<Achievement> AchievementReceived;
+        public static event Action<Achievement> ShowAchievementsScreenEvent;
 
 
         [SerializeField] AsyncLoader asyncLoader;
@@ -106,6 +107,12 @@ namespace ScreensScripts
         {
             Debug.Log($"Achievement {achievement.Name} received Invoked");
             AchievementReceived?.Invoke(achievement);
+        }
+
+        public void InvokeShowAchievementScreen(Achievement achievement)
+        {
+            Debug.Log($"Show achievements screen Invoked");
+            ShowAchievementsScreenEvent?.Invoke(achievement);
         }
 
     }

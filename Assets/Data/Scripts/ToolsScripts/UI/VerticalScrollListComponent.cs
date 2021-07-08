@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace Abu.Tools.UI
     {
         void Create(Transform container);
         Vector2 Size { get; }
+        Vector3 Position { get; }
     }
     
     public abstract class VerticalScrollListComponent<T> : ListBaseComponent<T> where T : IListElement
@@ -52,6 +54,23 @@ namespace Abu.Tools.UI
         {
             listElement.Create(Layout.transform);
             Content.offsetMin -= new Vector2(0, listElement.Size.y);
+        }
+
+        public void SnapTo(Predicate<T> predicate)
+        {
+            int index = Elements.FindIndex(predicate);
+            
+            if (index < 0)
+                return;
+
+            T target = Elements[index];
+            
+            Canvas.ForceUpdateCanvases();
+
+            Vector2 contentPanelPosition = RectTransform.InverseTransformPoint(Content.position);
+            Vector2 targetPosition = RectTransform.InverseTransformPoint(target.Position);
+            
+            Content.anchoredPosition = contentPanelPosition - targetPosition;
         }
     }
 }

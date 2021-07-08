@@ -7,6 +7,14 @@ namespace Data.Scripts.ScreensScripts
     {
         [SerializeField] AchievementScrollList achievements;
 
+        public void FocusOn(Achievement achievement)
+        {
+            bool Predicate(AchievementListView listView) 
+                => listView.achievement == achievement;
+            
+            achievements.SnapTo(Predicate);
+        }
+        
         public override void CreateContent()
         {
             base.CreateContent();
