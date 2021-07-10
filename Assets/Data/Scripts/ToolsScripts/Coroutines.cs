@@ -9,6 +9,12 @@ public static class Coroutines
         yield return new WaitForSeconds(delay);
         finished?.Invoke();
     }
+
+    public static IEnumerator DelayRealtime(float delay, Action finished = null)
+    {
+        yield return new WaitForSecondsRealtime(delay);
+        finished?.Invoke();
+    }
     
     public static IEnumerator FramesDelay(int frames, Action finished = null)
     {

@@ -187,6 +187,11 @@ namespace Puzzle
         {
             InvokePauseLevel(true);
             Debug.Log("PlayerDied Invoked");
+            
+            //TODO uncomment this to enable auto restart
+            // this.InvokeRealtime(InvokeResetLevel, 2f);
+            // return;
+            
             PlayerDiedEvent?.Invoke();
         }
 

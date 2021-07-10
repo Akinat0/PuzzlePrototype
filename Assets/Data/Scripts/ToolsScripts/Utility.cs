@@ -8,16 +8,14 @@ using UnityEngine;
 public static class Utility 
 {
     //Monobehaviour
-    public static void Invoke(this MonoBehaviour _monoBehaviour, Action _action, float _time)
+    public static void Invoke(this MonoBehaviour monoBehaviour, Action action, float time)
     {
-        _monoBehaviour.StartCoroutine(CallInTime(_action, _time));
+        monoBehaviour.StartCoroutine(Coroutines.Delay(time, action));
     }
-
-    public static IEnumerator CallInTime(Action _action, float _time)
+    
+    public static void InvokeRealtime(this MonoBehaviour monoBehaviour, Action action, float time)
     {
-        yield return new WaitForSeconds(_time);
-        
-        _action?.Invoke();
+        monoBehaviour.StartCoroutine(Coroutines.DelayRealtime(time, action));
     }
 
     //Float
