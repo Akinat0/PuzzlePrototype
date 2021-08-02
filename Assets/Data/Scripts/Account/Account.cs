@@ -34,9 +34,9 @@ public class Account : MonoBehaviour
     public static PuzzleAnalytics Analytics => analytics = analytics ?? new PuzzleAnalytics();
     public static PuzzleAdvertisement Advertisement => advertisement = advertisement ?? new PuzzleAdvertisement();
     
-    public static Chest CommonChest => commonChest = commonChest ?? new Chest(Rarity.Common, new CommonChestResolver()); 
-    public static Chest RareChest => rareChest = rareChest ?? new Chest(Rarity.Rare, new CommonChestResolver()); 
-    public static Chest EpicChest => epicChest = epicChest ?? new Chest(Rarity.Epic, new CommonChestResolver()); 
+    public static Chest CommonChest => commonChest = commonChest ?? new Chest(Rarity.Common, new CommonChestContentResolver()); 
+    public static Chest RareChest => rareChest = rareChest ?? new Chest(Rarity.Rare, new RareChestContentResolver()); 
+    public static Chest EpicChest => epicChest = epicChest ?? new Chest(Rarity.Epic, new EpicChestContentResolver()); 
     public static Wallet Stars => stars = stars ?? new Wallet("stars"); 
 
     static RemoteConfig remoteConfig;

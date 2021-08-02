@@ -11,7 +11,7 @@ public class NeonPartyAchievement : Achievement
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
 
-    readonly StarsReward reward = new StarsReward(500);
+    readonly ChestReward reward = new ChestReward(Rarity.Rare, 1);
 
     public override string Name => "Neon Party";
     public override string Description => "Complete Neon Party";

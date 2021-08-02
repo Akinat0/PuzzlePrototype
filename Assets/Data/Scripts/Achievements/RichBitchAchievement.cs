@@ -11,7 +11,7 @@ public sealed class RichBitchAchievement : Achievement
 
     public override string Name => "Rich Bitch";
     public override string Description => "Collect 10 stars";
-    public override Reward Reward { get; } = new ChestReward(Rarity.Common, 1);
+    public override Reward Reward { get; } = new ChestReward(Rarity.Epic, 1);
 
     public override float Goal => 10;
     

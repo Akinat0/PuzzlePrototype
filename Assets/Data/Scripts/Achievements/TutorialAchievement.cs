@@ -14,7 +14,7 @@ public sealed class TutorialAchievement : Achievement
 
     public override string Name => "Start Learning";
     public override string Description => "Complete tutorial";
-    public override Reward Reward { get; } = new ChestReward(Rarity.Epic, 1);
+    public override Reward Reward { get; } = new ChestReward(Rarity.Common, 1);
 
     public override float Goal => 1;
 

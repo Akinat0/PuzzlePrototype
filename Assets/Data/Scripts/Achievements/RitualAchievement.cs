@@ -11,7 +11,7 @@ public class RitualAchievement : Achievement
         GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
     }
 
-    readonly StarsReward reward = new StarsReward(230);
+    readonly ChestReward reward = new ChestReward(Rarity.Epic, 1);
 
     public override string Name => "Ritual";
     public override string Description => "Complete ritual";

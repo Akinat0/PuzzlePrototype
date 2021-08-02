@@ -104,14 +104,14 @@ namespace Puzzle
             #endif
         }
 
-        public void SetupScene(GameObject _player, LevelConfig config, LevelRootView levelRootView)
+        public void SetupScene(GameObject levelPlayer, LevelConfig config, LevelRootView levelRootView)
         {
-            player = _player.AddComponent<Player>();
+            player = levelPlayer.AddComponent<Player>();
             player.sides = config.PuzzleSides.ToArray();
             
-            _player.AddComponent<PlayerInput>();
+            levelPlayer.AddComponent<PlayerInput>();
             
-            FindObjectOfType<SpawnerBase>().PlayerEntity = _player;
+            FindObjectOfType<SpawnerBase>().PlayerEntity = levelPlayer;
 
             playerCachedParent = player.transform.parent;
             player.transform.parent = GameSceneRoot;

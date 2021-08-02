@@ -53,8 +53,8 @@ public abstract class Achievement
     public virtual Sprite Icon => Resources.Load<Sprite>("Achievements/DefaultAchievement");
 
     string Key => Name;
-    string ProgressKey => Key + "Progress";
-    string StateKey => Key + "State";
+    string ProgressKey => $"{Key}_progress";
+    string StateKey => $"{Key}_state";
 
     AchievementState state;
 
@@ -136,7 +136,6 @@ public abstract class Achievement
         };
     }
     
-    [Obsolete("Use it only in console commands")]
     public void ResetAchievement()
     {
         State = AchievementState.InProgress;
