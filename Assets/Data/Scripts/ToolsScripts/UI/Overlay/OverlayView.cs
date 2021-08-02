@@ -6,7 +6,14 @@ namespace Abu.Tools.UI
 {
     public abstract class OverlayView : ButtonComponent
     {
-        public static T Create<T>(Transform parent, int siblingIndex) where T : OverlayView
+        public enum RaycastTargetMode
+        {
+            Never,
+            OnZero,
+            OnOne
+        }
+        
+        public static T Create<T>(Transform parent, int siblingIndex, RaycastTargetMode raycastMode = RaycastTargetMode.OnOne) where T : OverlayView
         {
             T prefab = Resources.Load<T>("UI/" + typeof(T).Name);
 
@@ -20,10 +27,13 @@ namespace Abu.Tools.UI
             entity.RectTransform.offsetMin = Vector2.zero;
             entity.RectTransform.offsetMax = Vector2.zero;
 
+            entity.RaycastMode = raycastMode;
+
             return entity;
         }
 
         [SerializeField, Range(0, 1)] float phase;
+        [SerializeField] RaycastTargetMode raycastMode = RaycastTargetMode.OnOne;
 
         protected virtual bool RaycastTarget
         {
@@ -37,8 +47,26 @@ namespace Abu.Tools.UI
             set
             {
                 phase = Mathf.Clamp01(value);
-                ProcessPhase();
+                ProcessPhaseInternal();
             }
+        }
+        
+        public RaycastTargetMode RaycastMode
+        {
+            get => raycastMode;
+            set
+            {
+                if(raycastMode == value)
+                    return;
+
+                raycastMode = value;
+                ProcessRaycastTarget();
+            }
+        }
+        
+        protected virtual void OnDestroy()
+        {
+            StopAllCoroutines();
         }
 
         public virtual void ChangePhase(float targetValue, float duration, Action finished = null)
@@ -66,9 +94,28 @@ namespace Abu.Tools.UI
             finished?.Invoke();
         }
 
-        protected virtual void OnDestroy()
+        void ProcessRaycastTarget()
         {
-            StopAllCoroutines();
+            switch (RaycastMode)
+            {
+                case RaycastTargetMode.OnOne:
+                    RaycastTarget = Mathf.Approximately(Phase, 1);
+                    break;
+                case RaycastTargetMode.OnZero:
+                    RaycastTarget = Phase > Mathf.Epsilon;
+                    break;
+                case RaycastTargetMode.Never:
+                    RaycastTarget = false;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        void ProcessPhaseInternal()
+        {
+            ProcessPhase();
+            ProcessRaycastTarget();
         }
 
         protected abstract void ProcessPhase();

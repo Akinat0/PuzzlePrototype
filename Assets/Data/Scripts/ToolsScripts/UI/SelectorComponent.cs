@@ -6,7 +6,6 @@ namespace Abu.Tools.UI
 {
     public abstract class SelectorComponent<T> : ListBaseComponent<T>
     {
-        
         #region serialized
         
         [SerializeField] protected ButtonComponent RightBtn;
@@ -56,7 +55,7 @@ namespace Abu.Tools.UI
         protected MobileSwipe MobileSwipe => mobileSwipe;
 
         readonly MobileSwipe mobileSwipe = new MobileSwipe();
-        
+
         #endregion
         
         #region methods

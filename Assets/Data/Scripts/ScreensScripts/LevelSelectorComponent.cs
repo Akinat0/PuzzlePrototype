@@ -16,6 +16,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     [SerializeField] TextButtonComponent InteractBtn;
     [SerializeField] TextButtonComponent CollectionBtn;
 
+    [SerializeField] LevelSelectorFadeProcessor fadeProcessor;
+
     #endregion
 
     #region properties
@@ -299,7 +301,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
     void OnInteract()
     {
-        if(!CanPlayLevel(Current))
+        if(!Current.CanPlayLevel)
             return;
         
         ProcessIndex();
@@ -328,9 +330,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         return levelIndex >= 0 && levelIndex < Length;
     }
 
-    bool CanPlayLevel(LevelConfig levelConfig) 
-        => Account.Stars.Has(levelConfig.Cost);
-
     #endregion
     
     #region Offset
@@ -343,6 +342,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessColors();
         ProcessButtons();
         ProcessSideButtons();
+
+        fadeProcessor.ProcessOffset(Offset, Index, Selection, Selection[NextLevel]);
 
         int closestIndex = Mathf.RoundToInt(Offset);
         if (Mathf.Abs(closestIndex - Offset) <= 0.005f && closestIndex != Index) // Like epsilon
@@ -431,7 +432,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if (!HasLevel(nextLevel))
             return;
         
-        float phase = Mathf.Abs(Offset - Index) / 1; 
+        float phase = Mathf.Abs(Offset - Index); 
 
         Color buttonsColor = Color.Lerp(Current.ColorScheme.ButtonColor,
             Selection[nextLevel].ColorScheme.ButtonColor,
@@ -494,17 +495,19 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         Offset = Index;
         
         LevelsContainer.position = - Index * ScreenScaler.CameraSize.x * Vector3.right;
-        
+
         ProcessLevelsByIndex();
         ProcessSideButtonsByIndex();
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
         ProcessTextByIndex();
+        
+        fadeProcessor.ProcessIndex(Index, Selection);
     }
     
     void ProcessTextByIndex()
     {
-        bool canPlayLevel = CanPlayLevel(Current);
+        bool canPlayLevel = Current.CanPlayLevel;
 
         InteractBtn.Text = !canPlayLevel 
             ? $"{Account.Stars.Amount}/{Current.Cost}{EmojiHelper.StarEmoji}" 

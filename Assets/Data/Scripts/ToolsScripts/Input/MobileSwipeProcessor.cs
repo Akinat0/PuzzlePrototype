@@ -2,6 +2,7 @@ using System;
 using Data.Scripts.Tools.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Scripting;
 using Input = UnityEngine.Input;
 
 
@@ -27,7 +28,8 @@ public class MobileSwipe
 
     bool inProgress;
     
-    private void SwipeMobile()
+    [Preserve]
+    void SwipeMobile()
     {
         if (Input.touches.Length <= 0)
             return;
@@ -57,7 +59,7 @@ public class MobileSwipe
     
     }
 
-    private void SwipeMouse()
+    void SwipeMouse()
     {
         
         if (EventSystem.current.IsPointerOverGameObject() || !MobileInput.Condition)

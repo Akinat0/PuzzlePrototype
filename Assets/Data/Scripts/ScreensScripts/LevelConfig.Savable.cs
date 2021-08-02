@@ -50,6 +50,8 @@ public partial class LevelConfig
 
     public event Action<int> StarsAmountChanged;
     
+    public bool CanPlayLevel => Account.Stars.Has(Cost);
+    
     public int StarsAmount
     {
         get

@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace Abu.Tools.UI
         {
             get
             {
-                if (prefab != null)
+                if (prefab == null)
                     prefab = Resources.Load<TextComponent>("UI/CommonText");
 
                 return prefab;

@@ -1,7 +1,7 @@
 using Abu.Tools.UI;
 using UnityEngine;
 
-public class CollectionColorSelector : MonoBehaviour, ISelectionProcessor<CollectionItem>
+public class CollectionColorSelector : MonoBehaviour
 {
     [SerializeField] ButtonComponent[] colorButtons;
 
@@ -41,6 +41,10 @@ public class CollectionColorSelector : MonoBehaviour, ISelectionProcessor<Collec
     public void ProcessIndex(int index, CollectionItem[] selection)
     {
         Current = selection[index];
+        
+        //Don't show colors if puzzle locked
+        if(!Current.Unlocked) 
+            return;
         
         PuzzleColorData[] puzzleColors = Current.PuzzleColors;
 

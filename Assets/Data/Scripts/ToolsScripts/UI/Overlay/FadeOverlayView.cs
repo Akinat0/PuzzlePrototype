@@ -6,11 +6,9 @@ namespace Abu.Tools.UI
     {
         protected override void ProcessPhase()
         {
-            Color color = Color;
+            Color color = Background.color;
             color.a = Phase;
-            Color = color;
-
-            Background.raycastTarget = Phase > Mathf.Epsilon;
+            Background.color = color;
         }
     }
 }

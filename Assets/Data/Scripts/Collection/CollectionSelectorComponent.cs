@@ -265,7 +265,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (!HasItem(nextItem))
             return;
         
-        float phase = Mathf.Abs(Offset - Index) / 1;
+        float phase = Mathf.Abs(Offset - Index);
 
         int direction = Index > nextItem ? 1 : -1;
 
