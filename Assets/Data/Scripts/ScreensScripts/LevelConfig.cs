@@ -26,6 +26,8 @@ public partial class LevelConfig : ScriptableObject
     [SerializeField] TimelineAsset EasyTimeline;
     [SerializeField] TimelineAsset MediumTimeline;
     [SerializeField] TimelineAsset HardTimeline;
+
+    [Space(10)] [SerializeField] AudioClip m_Theme;
     
     public string Name => m_LevelName;
     public string SceneID => m_SceneID;
@@ -35,6 +37,8 @@ public partial class LevelConfig : ScriptableObject
     public bool StarsEnabled => m_StarsEnabled;
     public int Cost => m_Cost;
     public int ThirdStarThreshold => m_ThirdStarThreshold;
+
+    public AudioClip Theme => m_Theme;
     
     public PuzzleSides PuzzleSides => m_PuzzleSides;
 

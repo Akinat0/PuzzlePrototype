@@ -1,28 +1,41 @@
-﻿using ScreensScripts;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-    
-    [SerializeField] private AudioClip launcherTheme;
 
-    private AudioSource currentThemeSource;
-    private AudioSource oneShotPlayer;
-    private void Awake()
+    AudioSource themePlayer;
+    AudioSource oneShotPlayer;
+
+    IEnumerator changeThemeVolumeRoutine;
+
+    AudioSource OneShotPlayer => oneShotPlayer ? oneShotPlayer 
+        : oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
+    
+    AudioSource ThemePlayer
     {
-        Instance = this;
-        
-        if(launcherTheme != null)
-            PlayTheme(launcherTheme);
-        
-        oneShotPlayer = new GameObject("OneShotPlayer").AddComponent<AudioSource>();
+        get
+        {
+            if (themePlayer == null)
+            {
+                themePlayer = new GameObject("ThemePlayer").AddComponent<AudioSource>();
+                themePlayer.loop = true;
+            }
+
+            return themePlayer;
+        }
     }
 
-    public AudioSource PlayOneShot(AudioClip audioClip, float volume = 1)
+    void Awake()
     {
-        oneShotPlayer.PlayOneShot(audioClip, volume);
-        return oneShotPlayer;
+        Instance = this;
+    }
+
+    public void PlayOneShot(AudioClip audioClip, float volume = 1)
+    {
+        OneShotPlayer.PlayOneShot(audioClip, volume);
     }
 
     public void SetVolume(float volume)
@@ -30,41 +43,55 @@ public class SoundManager : MonoBehaviour
         AudioListener.volume = volume;
     }
 
-    private void PlayTheme(AudioClip clip)
+    public void PlayTheme(AudioClip theme, float delay = 0)
     {
-        if(currentThemeSource != null) 
-            Destroy(currentThemeSource.gameObject);
+        if(ThemePlayer.clip != null && ThemePlayer.clip == theme)
+            return;
         
-        currentThemeSource = new GameObject("Theme " + clip.name).AddComponent<AudioSource>();
-        currentThemeSource.clip = clip;
-        currentThemeSource.Play();
+        ThemePlayer.Stop();
+        
+        ThemePlayer.gameObject.name = $"Theme_{theme.name}";
+        ThemePlayer.clip = theme;
+        
+        if(Mathf.Approximately(delay, 0))
+            ThemePlayer.Play();
+        else
+            ThemePlayer.PlayDelayed(delay);
     }
 
-    public void PauseTheme()
+    public void StopTheme()
     {
-        if(currentThemeSource != null)
-            currentThemeSource.Pause();
+        ThemePlayer.clip = null;
+        ThemePlayer.Stop();
     }
 
-    private void OnEnable()
+    public void SetThemeVolume(float volume)
     {
-        LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler; 
-        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler; 
-    }
-
-    private void OnDisable()
-    {
-        LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
-        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
-    }
-
-    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
-    {
-        PauseTheme();   
+        ThemePlayer.volume = volume;
     }
     
-    void GameEnvironmentUnloadedEventHandler(GameSceneUnloadedArgs _)
+    public void ChangeThemeVolume(float targetVolume, float duration, Action finished = null)
     {
-        PlayTheme(launcherTheme);   
+        if(changeThemeVolumeRoutine != null)
+            StopCoroutine(changeThemeVolumeRoutine);
+
+        StartCoroutine(changeThemeVolumeRoutine = ChangeThemeVolumeRoutine(targetVolume, duration, finished));
+    }
+
+    IEnumerator ChangeThemeVolumeRoutine(float targetVolume, float duration, Action finished)
+    {
+        float sourceVolume = ThemePlayer.volume;
+        float time = 0;
+
+        while (time < duration)
+        {
+            yield return null;
+            time += Time.deltaTime;
+
+            ThemePlayer.volume = Mathf.Lerp(sourceVolume, targetVolume, time / duration);
+        }
+        
+        ThemePlayer.volume = targetVolume;
+        finished?.Invoke();
     }
 }

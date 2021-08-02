@@ -307,11 +307,14 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessIndex();
         CleanContainers();
         LauncherUI.Instance.InvokePlayLauncher(new PlayLauncherEventArgs(Current, levelContainers[Index]));
-        
+
         if(Selection[Index].StarsEnabled)
             levelContainers[Index].GetStarsManager(Selection[Index]).HideStars();
         
         IsFocused = false;
+        
+        SoundManager.Instance.SetThemeVolume(0);
+        SoundManager.Instance.StopTheme();
     }
 
     void OnCollection()
@@ -342,6 +345,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessColors();
         ProcessButtons();
         ProcessSideButtons();
+        ProcessTheme();
 
         fadeProcessor.ProcessOffset(Offset, Index, Selection, Selection[NextLevel]);
 
@@ -350,6 +354,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
             Index = closestIndex;
     }
 
+    void ProcessTheme()
+    {
+        float volume = Mathf.Clamp01(1 - Mathf.Abs(Offset - Index));
+        SoundManager.Instance.SetThemeVolume(volume);
+    }
+    
     void ProcessButtons()
     {
         int nextLevel = NextLevel;
@@ -501,10 +511,16 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ProcessColorsByIndex();
         ProcessButtonsByIndex();
         ProcessTextByIndex();
+        ProcessThemeByIndex();
         
         fadeProcessor.ProcessIndex(Index, Selection);
     }
     
+    void ProcessThemeByIndex()
+    {
+        SoundManager.Instance.PlayTheme(Current.Theme, 1);
+    }
+
     void ProcessTextByIndex()
     {
         bool canPlayLevel = Current.CanPlayLevel;
@@ -630,7 +646,10 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         if(args.Reason == GameSceneUnloadedArgs.GameSceneUnloadedReason.LevelClosed || args.ShowStars)
             CreateStars(Index, true);
         
-        ShowUI();   
+        ShowUI();
+        
+        SoundManager.Instance.SetThemeVolume(1);
+        SoundManager.Instance.PlayTheme(Current.Theme, 2);
     }
 
     //The handler handles two behaviours: if we chose new player or if we not

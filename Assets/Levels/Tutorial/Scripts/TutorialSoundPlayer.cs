@@ -7,12 +7,12 @@ public class TutorialSoundPlayer : LevelSoundPlayer
     private bool quietSound;
     protected override void Update()
     {
-        foreach (AudioSource audioSource in audioSources.Keys)
+        foreach (AudioSource audioSource in AudioSources.Keys)
         {
             if(audioSource == null)
                 continue;
             
-            AnimationCurve soundCurve = audioSources[audioSource];
+            AnimationCurve soundCurve = AudioSources[audioSource];
             float soundCurveLength = soundCurve.keys.Last().time;
             float audioLength = audioSource.clip.length;
             float timeOnCurve = audioSource.time.Remap(0, audioLength, 0, soundCurveLength);

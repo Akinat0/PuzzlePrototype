@@ -93,14 +93,14 @@ namespace Puzzle
         void OnApplicationFocus(bool hasFocus)
         {
             #if !UNITY_EDITOR
-            if (!hasFocus) InvokePauseLevel(true);
+            if (!hasFocus && Session != null && !Session.Result.HasValue) InvokePauseLevel(true);
             #endif
         }
 
         void OnApplicationPause(bool pause)
         {
             #if !UNITY_EDITOR
-            if (pause) InvokePauseLevel(true);
+            if (pause && Session != null && !Session.Result.HasValue) InvokePauseLevel(true);
             #endif
         }
 

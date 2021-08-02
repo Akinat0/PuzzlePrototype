@@ -4,10 +4,10 @@ using AudioVisualization;
 using Puzzle;
 using UnityEngine;
 
-
 public class LevelSoundPlayer : MonoBehaviour
 {
-    protected Dictionary<AudioSource, AnimationCurve> audioSources = new Dictionary<AudioSource, AnimationCurve>();
+    protected readonly Dictionary<AudioSource, AnimationCurve> AudioSources =
+        new Dictionary<AudioSource, AnimationCurve>();
 
     AudioDataSource audioDataSource;
 
@@ -18,15 +18,15 @@ public class LevelSoundPlayer : MonoBehaviour
 
     protected virtual void Update()
     {
-        if(audioSources.Count == 0)
+        if(AudioSources.Count == 0)
             return;
         
-        foreach (AudioSource audioSource in audioSources.Keys)
+        foreach (AudioSource audioSource in AudioSources.Keys)
         {
             if(audioSource == null)
                 continue;
             
-            AnimationCurve soundCurve = audioSources[audioSource];
+            AnimationCurve soundCurve = AudioSources[audioSource];
             float soundCurveLength = soundCurve.keys.Last().time;
             float audioLength = audioSource.clip.length;
             float timeOnCurve = audioSource.time.Remap(0, audioLength, 0, soundCurveLength);
@@ -34,22 +34,22 @@ public class LevelSoundPlayer : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    void OnDestroy()
     {
         ClearAudio();
     }
 
-    protected void ClearAudio()
+    void ClearAudio()
     {
-        foreach (AudioSource audioSource in audioSources.Keys)
+        foreach (AudioSource audioSource in AudioSources.Keys)
             Destroy(audioSource);
         
-        audioSources.Clear();
+        AudioSources.Clear();
     }
 
     protected virtual void Pause(bool pause)
     {
-        foreach (var audioSource in audioSources.Keys)
+        foreach (var audioSource in AudioSources.Keys)
         {
             if(audioSource == null)
                 continue;
@@ -82,14 +82,14 @@ public class LevelSoundPlayer : MonoBehaviour
     void PlayAudioEvent_Handler(LevelPlayAudioEventArgs args)
     {
         AudioSource audioSource = gameObject.AddComponent<AudioSource>();
-        audioSources.Add(audioSource, args.SoundCurve);
+        AudioSources.Add(audioSource, args.SoundCurve);
         audioSource.clip = args.AudioClip;
         audioSource.loop = args.Looped;
         audioSource.time = (float)args.Time;
         if (!args.Looped)
             this.Invoke(() =>
                 {
-                    audioSources.Remove(audioSource);
+                    AudioSources.Remove(audioSource);
                     Destroy(audioSource);
                 },
                 audioSource.clip.length);
@@ -119,7 +119,7 @@ public class LevelSoundPlayer : MonoBehaviour
 
     void TimeScaleValueChanged_Handler(float timeScale)
     {
-        foreach (AudioSource audioSource in audioSources.Keys)
+        foreach (AudioSource audioSource in AudioSources.Keys)
             audioSource.pitch = timeScale;
     }
 
