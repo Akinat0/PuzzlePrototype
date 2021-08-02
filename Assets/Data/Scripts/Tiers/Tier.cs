@@ -35,7 +35,7 @@ public abstract class Tier
     public abstract TierType Type { get; }
     public abstract void Parse(TierInfo tierInfo);
 
-    string AvailableKey => ID + "Available";
+    string AvailableKey => $"tier_{ID}_available";
 
     bool available;
 

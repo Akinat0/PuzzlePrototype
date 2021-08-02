@@ -98,8 +98,8 @@ public struct PuzzleVariant
         this.puzzle = prefab;
     }
     
-    [SerializeField] private PuzzleSides sides;
-    [SerializeField] private GameObject puzzle;
+    [SerializeField] PuzzleSides sides;
+    [SerializeField] GameObject puzzle;
 
     public PuzzleSides Sides => sides;
     public GameObject Puzzle => puzzle;
