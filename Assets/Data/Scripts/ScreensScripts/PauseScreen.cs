@@ -67,14 +67,18 @@ public class PauseScreen : ScreenComponent
         Hide();
     }
     
-    void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
+        
         GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent += PauseLevelEvent_Handler;
     }
 
-    void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
+        
         GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
         GameSceneManager.PauseLevelEvent -= PauseLevelEvent_Handler;
     }

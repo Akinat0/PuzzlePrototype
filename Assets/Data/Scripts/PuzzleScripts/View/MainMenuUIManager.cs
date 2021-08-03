@@ -29,6 +29,16 @@ namespace Puzzle
         void Start()
         {
             AchievementScreen.CreateContent();
+            AchievementScreen.OnOverlayClick += HideAllScreens;
+            CollectionScreen.OnOverlayClick += HideAllScreens;
+            ShopScreen.OnOverlayClick += HideAllScreens;
+        }
+        
+        void OnDestroy()
+        {
+            AchievementScreen.OnOverlayClick -= HideAllScreens;
+            CollectionScreen.OnOverlayClick -= HideAllScreens;
+            ShopScreen.OnOverlayClick -= HideAllScreens;
         }
 
         void HideMiniButtons()
@@ -41,7 +51,15 @@ namespace Puzzle
             miniButtonsContainer.DOAnchorPosY(0, LevelSelectorComponent.UiAnimationDuration).SetDelay(0.25f);
         }
 
-        void HideAllScreens(Action finished = null)
+        void HideAllScreens()
+        {
+            closeButton.HideComponent(0.2f);
+            AchievementScreen.Hide();
+            CollectionScreen.Hide();
+            ShopScreen.Hide();
+        }
+        
+        void HideAllScreens(Action finished)
         {
             DelegateGroup complete = new DelegateGroup(4, finished);
             

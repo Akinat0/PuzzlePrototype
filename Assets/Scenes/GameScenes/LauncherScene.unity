@@ -722,7 +722,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 540213012}
-  - component: {fileID: 540213014}
   - component: {fileID: 540213013}
   m_Layer: 5
   m_Name: AchievementsScreen
@@ -765,14 +764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlay: {fileID: 1956329348}
   achievements: {fileID: 4722373669277717534}
---- !u!222 &540213014
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540213011}
-  m_CullTransparentMesh: 0
 --- !u!1 &608563359
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.6556604, g: 1, b: 0.7405319, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1174,7 +1165,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 796403787}
-  - component: {fileID: 796403789}
   - component: {fileID: 796403788}
   m_Layer: 5
   m_Name: CollectionScreen
@@ -1217,14 +1207,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   overlay: {fileID: 1956329348}
   collection: {fileID: 3144595638959892601}
---- !u!222 &796403789
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796403786}
-  m_CullTransparentMesh: 0
 --- !u!1 &979057079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,6 +1762,41 @@ MonoBehaviour:
   spacing: {x: 10, y: 0}
   fitX: 1
   fitY: 0
+--- !u!84 &1106124949
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 720
+  m_Height: 1280
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1204572081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,41 +2579,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1433034008
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 720
-  m_Height: 1280
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1451478131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,7 +2588,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1451478132}
-  - component: {fileID: 1451478134}
   - component: {fileID: 1451478133}
   m_Layer: 5
   m_Name: ShopScreen
@@ -2651,14 +2632,6 @@ MonoBehaviour:
   shopItems:
   - {fileID: 63827005}
   - {fileID: 298332348}
---- !u!222 &1451478134
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451478131}
-  m_CullTransparentMesh: 0
 --- !u!1 &1496698474
 GameObject:
   m_ObjectHideFlags: 0
@@ -7357,7 +7330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.6556604, g: 1, b: 0.7405319, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -8000,7 +7973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

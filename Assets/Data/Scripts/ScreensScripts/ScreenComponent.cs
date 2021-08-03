@@ -5,6 +5,8 @@ using Abu.Tools.UI;
 public class ScreenComponent : UIComponent
 {
     [SerializeField] OverlayView overlay;
+
+    public event Action OnOverlayClick;
     
     public bool Shown { get; private set; }
 
@@ -12,7 +14,11 @@ public class ScreenComponent : UIComponent
     {
         
     }
+
+    protected virtual void OnEnable() { }
     
+    protected virtual void OnDisable() { }
+
     public virtual bool Show(Action finished = null)
     {
         if (Shown)
@@ -22,11 +28,16 @@ public class ScreenComponent : UIComponent
         }
 
         Shown = true;
-        
-        if(overlay != null)
+
+        if (overlay != null)
+        {
             overlay.ChangePhase(1, 0.5f, finished);
+            overlay.OnClick += OnOverlayClick;
+        }
         else
+        {
             finished?.Invoke();
+        }
 
         return true;
     }
@@ -42,11 +53,15 @@ public class ScreenComponent : UIComponent
         Shown = false;
 
         if (overlay != null)
+        {
             overlay.ChangePhase(0, 0.5f, finished);
+            overlay.OnClick -= OnOverlayClick;
+        }
         else
+        {
             finished?.Invoke();
-        
+        }
+
         return true;
     }
-    
 }

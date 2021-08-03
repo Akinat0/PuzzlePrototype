@@ -34,13 +34,15 @@ public class CompleteScreen : ScreenComponent
         return true;
     }
 
-    void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         GameSceneManager.SetupLevelEvent += SetupLevelEvent_Handler;
     }
 
-    void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         GameSceneManager.SetupLevelEvent -= SetupLevelEvent_Handler;
     }
 

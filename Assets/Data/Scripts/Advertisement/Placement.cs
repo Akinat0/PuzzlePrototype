@@ -30,8 +30,10 @@ namespace Puzzle.Advertisements
 
             bool success = Account.Advertisement.ShowPlacement(this);
 
-            if (success)
-                WasShown = false;
+            WasShown = success;
+            
+            if(!success)
+                Failed?.Invoke();
         }
         
         #region IUnityAdsListener

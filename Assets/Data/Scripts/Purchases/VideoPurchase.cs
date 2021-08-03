@@ -12,8 +12,14 @@ public class VideoPurchase : Purchase
     {
         if (!Available)
             return false;
+
+        void Failed() =>
+            ErrorWindow.Create(null, ErrorWindow.ErrorType.InternetConnection);
         
-        videoPlacement = new RewardedVideoPlacement(success, null, null);
+        void Skipped() =>
+            ErrorWindow.Create(null, ErrorWindow.ErrorType.AdSkipped);
+        
+        videoPlacement = new RewardedVideoPlacement(success, Skipped, Failed);
         videoPlacement.Show();
 
         return true;
