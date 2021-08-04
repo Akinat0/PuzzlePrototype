@@ -16,6 +16,7 @@ namespace Abu.Tools.UI
         [SerializeField] protected Color AlternativeButtonColor = Color.white;
         [SerializeField] protected ImageComponent icon;
         [SerializeField] protected Haptic.Type hapticType = Haptic.Type.SELECTION;
+        [SerializeField] protected RectTransform content;
 
         public event Action OnClick;
         public event Action OnHoldDown;
@@ -28,6 +29,8 @@ namespace Abu.Tools.UI
             get => Button.interactable;
             set => Button.interactable = value;
         }
+
+        public virtual RectTransform Content => content;
         
         public virtual UIScaleComponent ScaleComponent
         {

@@ -3,28 +3,28 @@ using UnityEngine;
 
 public class TierWindow : CancelableWindow
 {
-    public static TierWindow Create(int TierID, Action onSuccess = null, Action onCancel = null)
+    public static TierWindow Create(Tier tier, Action onSuccess = null, Action onCancel = null)
     {
         CancelableWindow prefab = Resources.Load<CancelableWindow>("UI/CancelableWindow");
         CancelableWindow cancelableWindow = Instantiate(prefab, Root);
 
         TierWindow window = ConvertTo<TierWindow>(cancelableWindow);
         
-        window.Initialize(TierID, onSuccess, onCancel);
+        window.Initialize(tier, onSuccess, onCancel);
         
         return window;
     }
 
-    protected Tier Tier;
-    
-    protected void Initialize(int TierID, Action onSuccess, Action onCancel)
-    {
-        Tier = Account.GetTier(TierID);
+    Tier Tier { get; set; }
 
-        Tier.Purchase.CreateView(OkButton.RectTransform);
+    void Initialize(Tier tier, Action onSuccess, Action onCancel)
+    {
+        Tier = tier;
+        
+        Tier.Purchase.CreateView(OkButton.Content);
 
         OkButton.Interactable = Tier.Available;
-        
+
         void CreateContent(RectTransform container)
         {
             Tier.Reward.CreateView(container);

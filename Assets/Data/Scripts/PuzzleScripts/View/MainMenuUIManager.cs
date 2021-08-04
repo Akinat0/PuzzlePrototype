@@ -19,6 +19,8 @@ namespace Puzzle
         [SerializeField] ButtonComponent shopButton;
         [SerializeField] ButtonComponent closeButton;
 
+        [SerializeField] ShardsWalletComponent[] shardsWallets;
+
         [SerializeField] AchievementsScreen AchievementScreen;
         [SerializeField] ScreenComponent CollectionScreen;
         [SerializeField] ScreenComponent ShopScreen;
@@ -53,6 +55,11 @@ namespace Puzzle
 
         void HideAllScreens()
         {
+            foreach (ShardsWalletComponent wallet in shardsWallets)
+                wallet.Hide();
+            
+            stars.Show();
+
             closeButton.HideComponent(0.2f);
             AchievementScreen.Hide();
             CollectionScreen.Hide();
@@ -61,8 +68,13 @@ namespace Puzzle
         
         void HideAllScreens(Action finished)
         {
-            DelegateGroup complete = new DelegateGroup(4, finished);
+            foreach (ShardsWalletComponent wallet in shardsWallets)
+                wallet.Hide();
             
+            stars.Show();
+            
+            DelegateGroup complete = new DelegateGroup(4, finished);
+
             closeButton.HideComponent(0.2f, complete);
             AchievementScreen.Hide(complete);
             CollectionScreen.Hide(complete);
@@ -87,6 +99,9 @@ namespace Puzzle
         
         void CollectionButtonOnClick()
         {
+            foreach (ShardsWalletComponent wallet in shardsWallets)
+                wallet.Show();
+            
             closeButton.ShowComponent();
             CollectionScreen.Show();
 
@@ -103,6 +118,7 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent += PlayLauncherEvent_Handler;
             LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
+            LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
             LauncherUI.ShowAchievementsScreenEvent += ShowAchievementScreenEvent_Handler;
             
@@ -117,6 +133,9 @@ namespace Puzzle
             LauncherUI.PlayLauncherEvent -= PlayLauncherEvent_Handler;
             LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
+            LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
+            LauncherUI.LevelChangedEvent -= LevelChangedEvent_Handler;
+            LauncherUI.ShowAchievementsScreenEvent -= ShowAchievementScreenEvent_Handler;
             
             collectionButton.OnClick -= CollectionButtonOnClick;
             achievementButton.OnClick -= AchievementButtonOnClick;
@@ -127,6 +146,15 @@ namespace Puzzle
         void ShowCollectionEvent_Handler(ShowCollectionEventArgs _)
         {
             HideAllScreens();
+            
+            foreach (ShardsWalletComponent wallet in shardsWallets)
+                wallet.Show();
+        }
+        
+        void CloseCollectionEvent_Handler(CloseCollectionEventArgs _)
+        {
+            foreach (ShardsWalletComponent wallet in shardsWallets)
+                wallet.Hide();
         }
         
         void PlayLauncherEvent_Handler(PlayLauncherEventArgs _ )

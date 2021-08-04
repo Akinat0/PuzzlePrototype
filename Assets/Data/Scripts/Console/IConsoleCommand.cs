@@ -273,7 +273,7 @@ namespace Abu.Console
     
     public class SetStarsCommand : IConsoleCommand
     {
-        public string Command => "stars";
+        public string Command => "levelstars";
 
         public string Process(object[] args, Console console)
         {
@@ -301,7 +301,7 @@ namespace Abu.Console
         }
 
 
-        string Help => $"stars \"level name\" (without whitespaces) \"progress\" to stars amount. ";
+        string Help => $"levelstars \"level name\" (without whitespaces) \"progress\" to stars amount. ";
     }
     
     public class DebugImageCommand : IConsoleCommand
@@ -409,6 +409,96 @@ namespace Abu.Console
         }
         
         string Help => "chest {Epic|Rare|Common} {int}";
+    }
+
+    public class ShardsCommand : IConsoleCommand
+    {
+        public string Command => "shards";
+
+        public string Process(object[] args, Console console)
+        {
+            if (args.Length == 4)
+                return Perform(args[1], args[2], args[3]);
+            else
+                return Help;
+        }
+        
+        string Perform(object action, object rarity, object amount)
+        {
+            switch (action.ToString().ToLowerInvariant())
+            {
+                case "add":
+                    return Add(rarity, amount);
+                case "remove":
+                    return Remove(rarity, amount);
+                case "set":
+                    return Set(rarity, amount);
+                default:
+                    return Help;
+            }
+        }
+
+        string Add(object rarity, object amount)
+        {
+            try
+            {
+                if (Enum.TryParse(rarity.ToString(), true, out Rarity result))
+                {
+                    Account.GetShards(result).Add(int.Parse(amount.ToString()));
+                    return GetSuccessText(result);
+                }
+                
+                return Help;
+                
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+        }
+
+        string Remove(object rarity, object amount)
+        {
+            try
+            {
+                if (Enum.TryParse(rarity.ToString(), out Rarity result))
+                {
+                    Account.GetShards(result).Amount -= int.Parse(amount.ToString());
+                    return GetSuccessText(result);
+                }
+                
+                return Help;
+                
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+        }
+
+        string Set(object rarity, object amount)
+        {
+            try
+            {
+                if (Enum.TryParse(rarity.ToString(), out Rarity result))
+                {
+                    Account.GetShards(result).Amount = int.Parse(amount.ToString());
+                    return GetSuccessText(result);
+                }
+                
+                return Help;
+                
+            }
+            catch (Exception e)
+            {
+                return $"Fail. {e.Message}";
+            }
+        }
+
+        string GetSuccessText(Rarity rarity) =>
+            $"Success. Now {rarity} shards amount is {Account.GetShards(rarity).Amount}";
+        
+        string Help => "shards {add|remove|set} {common|rare|epic} [amount]";
     }
     
 }

@@ -240,7 +240,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 0.9551508, b: 0.759434, a: 1}
     bottomRight: {r: 1, g: 0.9551508, b: 0.759434, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 4c26e8f78567f42fbb4e5cfa52eea17b, type: 2}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
   m_faceColor:
@@ -663,7 +663,7 @@ PrefabInstance:
     - target: {fileID: 3405342823599425133, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
       propertyPath: m_fontSize
-      value: 50.6
+      value: 29.65
       objectReference: {fileID: 0}
     - target: {fileID: 5250877854773478971, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
@@ -679,6 +679,11 @@ PrefabInstance:
         type: 3}
       propertyPath: color.b
       value: 0.5554276
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220233871459175033, guid: 3dd23ba2e7d17488e83749bbd8418134,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7091424496035167544, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
@@ -1011,8 +1016,14 @@ PrefabInstance:
     - target: {fileID: 3405342823599425133, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
       propertyPath: m_fontSize
-      value: 50.6
+      value: 29.65
       objectReference: {fileID: 0}
+    - target: {fileID: 3405342823599425133, guid: 3dd23ba2e7d17488e83749bbd8418134,
+        type: 3}
+      propertyPath: m_spriteAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c26e8f78567f42fbb4e5cfa52eea17b,
+        type: 2}
     - target: {fileID: 5250877854773478971, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
       propertyPath: color.r

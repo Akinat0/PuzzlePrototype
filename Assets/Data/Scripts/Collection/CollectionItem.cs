@@ -8,16 +8,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PuzzleCollectionItem", menuName = "Puzzle/CreateCollectionItem", order = 51)]
 public class CollectionItem : ScriptableObject
 {
+    //TODO i don't know how this encapsulation problem happens 
     [SerializeField] public string Name;
     [SerializeField] public PuzzleVariant[] puzzleVariants;
     [SerializeField] public bool defaultUnlocked;
     [SerializeField] public PuzzleColorData[] puzzleColors;
     [SerializeField] public Rarity Rarity;
+    [SerializeField] public int cost;
 
     public event Action<bool> OnUnlockedEvent;
     public event Action<int> OnActiveColorChangedEvent;
-    
+
     public bool DefaultUnlocked => defaultUnlocked;
+    public int Cost => Mathf.Max(0, cost); // Cost should be greater then zero
 
     bool unlocked;
     public bool Unlocked

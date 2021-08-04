@@ -9,7 +9,7 @@ public class StarsPurchase : Purchase
         Cost = cost;
     }
 
-    public int Cost { get; set; }
+    public int Cost { get; }
 
     public override bool Available => Account.HasStars(Cost);
 

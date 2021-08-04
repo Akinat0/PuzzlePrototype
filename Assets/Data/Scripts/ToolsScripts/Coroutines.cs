@@ -17,6 +17,23 @@ public static class Coroutines
         finished?.Invoke();
     }
 
+    public static IEnumerator LerpRoutine(Func<float> valueGetter, Action<float> valueSetter, float targetValue, float duration, Action finished = null)
+    {
+        float sourceValue = valueGetter();
+        float time = 0;
+
+        while (time < duration)
+        {
+            yield return null;
+            time += Time.deltaTime;
+            valueSetter(Mathf.Lerp(sourceValue, targetValue, time / duration));
+        }
+        
+        valueSetter(targetValue);
+        
+        finished?.Invoke();
+    }
+    
     public static IEnumerator Repeat(float delay, [NotNull] Action repeatAction)
     {
         while (true)

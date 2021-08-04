@@ -43,9 +43,14 @@ public class CollectionColorSelector : MonoBehaviour
         Current = selection[index];
         
         //Don't show colors if puzzle locked
-        if(!Current.Unlocked) 
+        if (!Current.Unlocked)
+        {
+            foreach (ButtonComponent button in colorButtons)
+                button.SetActive(false);
+            
             return;
-        
+        }
+
         PuzzleColorData[] puzzleColors = Current.PuzzleColors;
 
         for (int i = 0; i < colorButtons.Length; i++)
@@ -63,7 +68,5 @@ public class CollectionColorSelector : MonoBehaviour
         }
     }
 
-    public void ProcessOffset(float offset, int index, CollectionItem[] selection) { }
-    
     #endregion
 }

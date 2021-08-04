@@ -36,7 +36,10 @@ public class Account : MonoBehaviour
     
     public static Chest CommonChest => commonChest = commonChest ?? new Chest(Rarity.Common, new CommonChestContentResolver()); 
     public static Chest RareChest => rareChest = rareChest ?? new Chest(Rarity.Rare, new RareChestContentResolver()); 
-    public static Chest EpicChest => epicChest = epicChest ?? new Chest(Rarity.Epic, new EpicChestContentResolver()); 
+    public static Chest EpicChest => epicChest = epicChest ?? new Chest(Rarity.Epic, new EpicChestContentResolver());
+    public static Wallet CommonShards => commonShards = commonShards ?? new Wallet("common_shards");
+    public static Wallet RareShards => rareShards = rareShards ?? new Wallet("rare_shards");
+    public static Wallet EpicShards => epicShards = epicShards ?? new Wallet("epic_shards");
     public static Wallet Stars => stars = stars ?? new Wallet("stars"); 
 
     static RemoteConfig remoteConfig;
@@ -54,12 +57,35 @@ public class Account : MonoBehaviour
     static Chest rareChest;
     static Chest epicChest;
 
+    static Wallet commonShards;
+    static Wallet rareShards;
+    static Wallet epicShards;
+
     void Awake()
     {
         instance = this;
         advertisement = advertisement ?? new PuzzleAdvertisement();
     }
 
+    #region Shards
+
+    public static Wallet GetShards(Rarity rarity)
+    {
+        switch (rarity)
+        {
+            case Rarity.Common:
+                return CommonShards;
+            case Rarity.Rare:
+                return RareShards;
+            case Rarity.Epic:
+                return EpicShards;
+            default:
+                return null;
+        }
+    } 
+
+    #endregion
+    
     #region Chests
 
     public static Chest GetChest(Rarity rarity)
@@ -95,12 +121,7 @@ public class Account : MonoBehaviour
 
     #region Tiers
 
-    public static Tier GetTier<T>() where T : Tier
-    {
-        return Tiers.FirstOrDefault(tier => tier.GetType() == typeof(T)) as T;
-    }
-    
-    public static Tier GetTier(int id)
+    public static Tier GetTier(string id)
     {
         return Tiers.FirstOrDefault(tier => tier.ID == id);
     }
@@ -116,7 +137,7 @@ public class Account : MonoBehaviour
 
     #endregion
     
-    #region Wallet
+    #region Stars
 
     public static event Action<int> StarsAmountChanged
     {

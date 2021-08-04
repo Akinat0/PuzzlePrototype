@@ -1,44 +1,43 @@
 using Abu.Tools.UI;
-using TMPro;
 using UnityEngine;
 
 public class PuzzleRewardView : UIComponent
 {
-    #region factory
-    
-    static PuzzleRewardView prefab;
-    static PuzzleRewardView Prefab
-    {
-        get
-        {
-            if (prefab == null)
-                prefab = Resources.Load<PuzzleRewardView>("UI/PuzzleRewardView");
-
-            return prefab;
-        }
-    } 
-    
     public static PuzzleRewardView Create(RectTransform container, PuzzleReward puzzleReward)
     {
-        PuzzleRewardView rewardView = Instantiate(Prefab, container);
-        rewardView.PuzzleReward = puzzleReward;
+        PuzzleRewardView rewardView = Instantiate(Resources.Load<PuzzleRewardView>("UI/PuzzleRewardView"), container);
+        
+        rewardView.Create(puzzleReward);
+        
         return rewardView;
     }
-    
-    #endregion
 
     [SerializeField] RectTransform PuzzleContainer;
-    [SerializeField] TextMeshProUGUI TextField;
-    
-    PuzzleReward puzzleReward;
+    [SerializeField] TextComponent Text;
 
-    protected PuzzleReward PuzzleReward
+
+    void Create(PuzzleReward reward)
     {
-        set
+        Color textFieldColor;
+
+        switch (reward.Rarity)
         {
-            puzzleReward = value;
-            TextField.text = Account.GetCollectionItem(puzzleReward.PuzzleID).Name;
-            UIPuzzleView.Create(puzzleReward.PuzzleID, PuzzleContainer);
+            case Rarity.Common:
+                textFieldColor = new Color(0.679f, 0.679f, 0.679f);
+                break;
+            case Rarity.Rare:
+                textFieldColor = new Color(0.287f, 0.843f, 1f);
+                break;
+            case Rarity.Epic:
+                textFieldColor = new Color(0.988f, 0.485f, 1f);
+                break;
+            default:
+                textFieldColor = Color.gray;
+                break;
         }
+
+        Text.Color = textFieldColor;
+        Text.Text = Account.GetCollectionItem(reward.PuzzleID).Name;;
+        UIPuzzleView.Create(reward.PuzzleID, PuzzleContainer);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Puzzle.Analytics;
 using UnityEngine;
 
@@ -18,18 +19,22 @@ public abstract class Tier
 
     public static Tier[] CreateAllTiers()
     {
-        return new List<Tier>
+        IEnumerable<Tier> collectionTiers =
+            Account.CollectionItems.Where(item => !item.Unlocked).Select(item => new CollectionTier(item));
+
+        IEnumerable<Tier> commonTiers = new List<Tier>
         {
             new HeartBoosterTier(),
             new TimeFreezeBoosterTier(),
-            
-        }.ToArray();
+        }; 
+        
+        return commonTiers.Concat(collectionTiers).ToArray();
     }
 
     public event Action OnTierValueChangedEvent;
     public event Action<bool> OnAvailableChangedEvent;
 
-    public abstract int ID { get; }
+    public abstract string ID { get; }
     public abstract Reward Reward { get; }
     public abstract Purchase Purchase { get; }
     public abstract TierType Type { get; }

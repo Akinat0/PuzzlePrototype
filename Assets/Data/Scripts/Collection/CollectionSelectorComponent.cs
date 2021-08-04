@@ -195,7 +195,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
             if(puzzleTier == null)
                 return;
 
-            TierWindow.Create(puzzleTier.ID, UpdateInteractButtonText);
+            TierWindow.Create(puzzleTier, UpdateInteractButtonText);
             return;
         }
 

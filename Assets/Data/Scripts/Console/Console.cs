@@ -5,7 +5,7 @@ namespace Abu.Console
 {
     public class Console
     {
-        private const string Prefix = "/";
+        const string Prefix = "/";
         public readonly List<IConsoleCommand> Commands;
 
         public Console()
@@ -24,7 +24,8 @@ namespace Abu.Console
                 new DeleteLocalCommand(),
                 new AnalyticsCommand(),
                 new HapticCommand(),
-                new ChestCommand()
+                new ChestCommand(),
+                new ShardsCommand()
             };
         }
 

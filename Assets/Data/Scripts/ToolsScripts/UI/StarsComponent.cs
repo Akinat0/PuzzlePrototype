@@ -1,72 +1,33 @@
 ﻿using ScreensScripts;
-using UnityEngine;
 
 namespace Abu.Tools.UI
 {
-    public class StarsComponent : UIComponent
+    public class StarsComponent : WalletComponent
     {
-        [SerializeField, Range(0, 1)] float AlphaSelf = 1;
 
-        public float Alpha
-        {
-            get => AlphaSelf;
-            set
-            {
-                AlphaSelf = Mathf.Clamp01(value);
-                UpdateColor();
-            }
-        }
+        protected override Wallet Wallet => Account.Stars;
+        protected override string IconText => EmojiHelper.StarEmoji;
 
-        TextComponent text;
-        public TextComponent Text
-        {
-            get
-            {
-                if (text == null)
-                    text = GetComponentInChildren<TextComponent>();
 
-                return text;
-            }
-        }
-        
-        protected override void OnValidate()
+        protected override void OnEnable()
         {
-            UpdateColor();
-        }
-
-        void UpdateColor()
-        {
-            Text.Alpha = Alpha;
-            Text.enabled = !(Alpha < Mathf.Epsilon);
-        }
-
-        void UpdateText()
-        {
-            Text.Text = $"{EmojiHelper.StarEmoji}{Account.Stars.Amount.ToString()}";
-        }
-
-        void OnEnable()
-        {
-            UpdateText();
+            base.OnEnable();
             
             LauncherUI.LevelChangedEvent += OnLevelChangedHandler;
-            Account.StarsAmountChanged += OnStarsAmountChangedHandler;
         }
 
-        void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             LauncherUI.LevelChangedEvent -= OnLevelChangedHandler;
-            Account.StarsAmountChanged -= OnStarsAmountChangedHandler;
         }
 
-        void OnStarsAmountChangedHandler(int amount)
-        {
-            UpdateText();
-        }
-        
         void OnLevelChangedHandler(LevelChangedEventArgs args)
         {
             Text.Color = args.LevelConfig.ColorScheme.TextColorLauncher;
         }
+
+        
     }
 }

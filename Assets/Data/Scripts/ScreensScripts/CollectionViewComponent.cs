@@ -6,7 +6,7 @@ namespace Data.Scripts.ScreensScripts
         
         public int PuzzleID
         {
-            set => PuzzleView = UIPuzzleView.Create(value, RectTransform);
+            set => PuzzleView = UIPuzzleView.Create(value, Content);
         }
     }
 }

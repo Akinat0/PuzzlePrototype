@@ -13,6 +13,19 @@ public class PuzzleReward : Reward
         Rarity = Account.GetCollectionItem(puzzleID).Rarity;
     }
     
+    public PuzzleReward(string puzzleName)
+    {
+        CollectionItem collectionItem = Account.GetCollectionItem(puzzleName);
+        Rarity = collectionItem.Rarity;
+        PuzzleID = collectionItem.ID;
+    }
+    
+    public PuzzleReward(CollectionItem collectionItem)
+    {
+        Rarity = collectionItem.Rarity;
+        PuzzleID = collectionItem.ID;
+    }
+    
     public override UIComponent CreateView(RectTransform container)
     {
         return PuzzleRewardView.Create(container, this);

@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(UIScaleComponent))]
 public class ShopItem : UIComponent
 {
-    [SerializeField] int TierID;
+    [SerializeField] string TierID;
 
     [SerializeField] RectTransform RewardContainer;
     [SerializeField] RectTransform PurchaseContainer;
@@ -20,7 +20,7 @@ public class ShopItem : UIComponent
     IEnumerator currentScaleRoutine;
 
     UIScaleComponent scaleComponent;
-    public virtual UIScaleComponent ScaleComponent
+    public UIScaleComponent ScaleComponent
     {
         get
         {

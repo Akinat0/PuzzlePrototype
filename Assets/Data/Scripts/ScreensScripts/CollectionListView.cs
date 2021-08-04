@@ -20,45 +20,13 @@ namespace Data.Scripts.ScreensScripts
 
         CollectionViewComponent entity;
 
-        const string pathToPrefab = "UI/CollectionView";
-
-        static CollectionViewComponent prefab;
-        
-        static CollectionViewComponent Prefab
-        {
-            get
-            {
-                if (prefab == null)
-                    prefab = Resources.Load<CollectionViewComponent>(pathToPrefab);
-
-                return prefab;
-            }        
-        }
-        
         public void Create(Transform container)
         {
-            entity = Object.Instantiate(Prefab, container);
+            entity = Object.Instantiate(Resources.Load<CollectionViewComponent>("UI/CollectionView"), container);
             entity.PuzzleID = collectionItem.ID; 
             entity.Text = collectionItem.Name;
             entity.name = collectionItem.Name + " puzzle";
             entity.ScaleComponent.Phase = 0;
-
-            Color textFieldColor = Color.gray;
-
-            switch (collectionItem.Rarity)
-            {
-                case Rarity.Common:
-                    textFieldColor = new Color(0.679f, 0.679f, 0.679f);
-                    break;
-                case Rarity.Rare:
-                    textFieldColor = new Color(0.287f, 0.843f, 1f);
-                    break;
-                case Rarity.Epic:
-                    textFieldColor = new Color(0.988f, 0.485f, 1f);
-                    break;
-            }
-
-            entity.TextField.Color = textFieldColor;
 
             entity.OnClick += () =>
             {

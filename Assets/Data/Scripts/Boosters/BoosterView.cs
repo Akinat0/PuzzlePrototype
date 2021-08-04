@@ -69,7 +69,7 @@ namespace Data.Scripts.Boosters
             if (boosterTier == null)
                 return;
             
-            TierWindow.Create(boosterTier.ID, () => IsOn = true);
+            TierWindow.Create(boosterTier, () => IsOn = true);
         }
     }
 }
