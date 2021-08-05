@@ -115,6 +115,13 @@ namespace Abu.Tools.UI
 
         IEnumerator currentScaleRoutine;
 
+        void Start()
+        {
+            Animator animator = GetComponent<Animator>();
+            if (animator != null)
+                animator.keepAnimatorControllerStateOnDisable = true;
+        }
+        
         public void OnButtonClick()
         {
             //Interactable condition is already into account

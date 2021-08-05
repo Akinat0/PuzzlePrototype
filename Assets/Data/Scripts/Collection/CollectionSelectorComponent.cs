@@ -55,10 +55,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         ItemsContainer.SetY(ScreenScaler.CameraSize.y);
         Selection = Account.CollectionItems;
-        HideCollection();
 
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh,
             possibleContent: new[] { SetAsDefaultText }));
+        
+        HideCollection();
     }
 
     protected override void MoveLeft()
@@ -155,6 +156,8 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     
     void HideCollection(bool animated = false)
     {
+        ProcessIndex();
+        
         if (animated)
             Content.DOAnchorPos(Vector3.up * ScreenScaler.ScreenSize.y, LevelSelectorComponent.UiAnimationDuration);
         else
@@ -211,24 +214,14 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(newPlayerView));
         
         SendPuzzleChangedAnalyticsEvent(previousPuzzleName);
-
-        HideCollection(true);
     }
 
     void OnBack()
     {
         if (!IsFocused)
             return;
-        
-        ProcessIndex();
-        
-        Back();
-    }
 
-    void Back()
-    {
-        HideCollection(true);
-        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs(null));
+        LauncherUI.Instance.InvokeCloseCollection(new CloseCollectionEventArgs());
     }
 
     bool HasItem(int levelIndex)
@@ -319,7 +312,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
         if (Current.Unlocked)
             UpdateInteractButtonText();
         else
-            InteractBtn.Text = LockedText;
+            InteractBtn.Text = $"{Account.GetShards(Current.Rarity).Amount}/{Current.Cost}{EmojiHelper.GetShardEmojiText(Current.Rarity)}";
     }
     
     #endregion
@@ -348,6 +341,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         base.OnEnable();
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
+        LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
         InteractBtn.OnClick += OnChoose;
         HomeBtn.OnClick += OnBack;
     }
@@ -356,6 +350,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     {
         base.OnDisable();
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
+        LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
         InteractBtn.OnClick -= OnChoose;
         HomeBtn.OnClick -= OnBack;
     }
@@ -397,6 +392,11 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     void ShowCollectionEvent_Handler(ShowCollectionEventArgs _Args)
     {
         ShowCollection(_Args.ItemID);
+    }
+
+    void CloseCollectionEvent_Handler(CloseCollectionEventArgs _)
+    {
+        HideCollection(true);
     }
     
     #endregion

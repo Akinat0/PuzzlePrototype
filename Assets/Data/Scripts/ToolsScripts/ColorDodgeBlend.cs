@@ -69,12 +69,6 @@ public class ColorDodgeBlend : UIComponent
         ScreenScaler.FocusCameraOnBounds(MeshRenderer.bounds, Camera);
         Camera.Render();
     }
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        RefreshMaterial();
-        RefreshCamera();
-    }
 
     void OnDidApplyAnimationProperties()
     {

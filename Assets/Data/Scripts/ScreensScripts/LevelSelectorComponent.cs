@@ -72,7 +72,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     #region private
     
-    void Start()
+    void Awake()
     {
         Selection = Account.LevelConfigs;
         Index = Mathf.Clamp(Account.DefaultLevelId, 0, Length - 1);
@@ -636,7 +636,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
     }
     
-    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _Args)
+    void PlayLauncherEvent_Handler(PlayLauncherEventArgs _)
     {
         HideUI();
     }

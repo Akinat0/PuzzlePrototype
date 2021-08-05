@@ -22,11 +22,7 @@ namespace Data.Scripts.ScreensScripts
 
         public void Create(Transform container)
         {
-            entity = Object.Instantiate(Resources.Load<CollectionViewComponent>("UI/CollectionView"), container);
-            entity.PuzzleID = collectionItem.ID; 
-            entity.Text = collectionItem.Name;
-            entity.name = collectionItem.Name + " puzzle";
-            entity.ScaleComponent.Phase = 0;
+            entity = CollectionViewComponent.Create(container, collectionItem);
 
             entity.OnClick += () =>
             {
