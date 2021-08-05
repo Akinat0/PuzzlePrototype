@@ -468,6 +468,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9dd4a0796544847923127102bbb4a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!84 &107957773
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 640
+  m_Height: 480
+  m_AntiAliasing: 1
+  m_MipCount: -1
+  m_DepthFormat: 1
+  m_ColorFormat: 8
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &244467911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,6 +1068,11 @@ PrefabInstance:
       propertyPath: ButtonText
       value: Collection
       objectReference: {fileID: 0}
+    - target: {fileID: 7862504848748164814, guid: 3dd23ba2e7d17488e83749bbd8418134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2000122
+      objectReference: {fileID: 0}
     - target: {fileID: 8837885727616567408, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
       propertyPath: m_Color.b
@@ -1440,6 +1480,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5052433367988734679, guid: a106ee8a791714836ad830fdb94db5d4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a106ee8a791714836ad830fdb94db5d4, type: 3}
 --- !u!1001 &924017747
@@ -1608,6 +1653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052433367988734679, guid: a106ee8a791714836ad830fdb94db5d4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a106ee8a791714836ad830fdb94db5d4, type: 3}
@@ -2407,6 +2457,11 @@ PrefabInstance:
       propertyPath: ButtonText
       value: Select
       objectReference: {fileID: 0}
+    - target: {fileID: 7862504848748164814, guid: 3dd23ba2e7d17488e83749bbd8418134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2000122
+      objectReference: {fileID: 0}
     - target: {fileID: 8837885727616567408, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
       propertyPath: m_Color.b
@@ -2986,41 +3041,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1427763167
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 720
-  m_Height: 1280
-  m_AntiAliasing: 1
-  m_MipCount: -1
-  m_DepthFormat: 1
-  m_ColorFormat: 8
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1451478131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3796,6 +3816,11 @@ PrefabInstance:
         type: 3}
       propertyPath: ButtonText
       value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862504848748164814, guid: 3dd23ba2e7d17488e83749bbd8418134,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.2000122
       objectReference: {fileID: 0}
     - target: {fileID: 8837885727616567408, guid: 3dd23ba2e7d17488e83749bbd8418134,
         type: 3}
@@ -4742,6 +4767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052433367988734679, guid: a106ee8a791714836ad830fdb94db5d4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a106ee8a791714836ad830fdb94db5d4, type: 3}
@@ -9099,7 +9129,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!95 &7295915725295443827
 Animator:
   serializedVersion: 3
@@ -9118,7 +9148,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!95 &7295915725312800802
 Animator:
   serializedVersion: 3
@@ -9156,7 +9186,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!95 &7295915725740072347
 Animator:
   serializedVersion: 3
@@ -9175,7 +9205,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorControllerStateOnDisable: 1
 --- !u!224 &7535269198538653862
 RectTransform:
   m_ObjectHideFlags: 0

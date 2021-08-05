@@ -9,19 +9,6 @@ namespace Abu.Tools.UI
     {
         #region factory
 
-        static TextComponent prefab;
-
-        static TextComponent Prefab
-        {
-            get
-            {
-                if (prefab == null)
-                    prefab = Resources.Load<TextComponent>("UI/CommonText");
-
-                return prefab;
-            }
-        }
-
         static TMP_SpriteAsset spriteAsset;
 
         static TMP_SpriteAsset SpriteAsset
@@ -35,10 +22,14 @@ namespace Abu.Tools.UI
             }
         }
 
-        public static TextComponent Create(RectTransform parent, string text)
+        public static TextComponent Create(RectTransform parent, string text, string name = null)
         {
-            TextComponent textComponent = Instantiate(Prefab, parent);
+            TextComponent textComponent = Instantiate(Resources.Load<TextComponent>("UI/CommonText"), parent);
             textComponent.Text = text;
+
+            if (name != null)
+                textComponent.name = name;
+            
             return textComponent;
         }
 

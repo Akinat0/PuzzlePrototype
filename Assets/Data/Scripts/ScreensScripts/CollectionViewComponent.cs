@@ -11,7 +11,7 @@ namespace Data.Scripts.ScreensScripts
             return view;
         }
         
-        public UIPuzzleView PuzzleView { get; protected set; }
+        public UIPuzzleView PuzzleView { get; private set; }
 
         void Create(CollectionItem collectionItem)
         {
@@ -20,22 +20,7 @@ namespace Data.Scripts.ScreensScripts
             name = $"{collectionItem.Name} puzzle";
             ScaleComponent.Phase = 0;
             
-            Color textFieldColor = Color.gray;
-
-            switch (collectionItem.Rarity)
-            {
-                case Rarity.Common:
-                    textFieldColor = new Color(0.679f, 0.679f, 0.679f);
-                    break;
-                case Rarity.Rare:
-                    textFieldColor = new Color(0.287f, 0.843f, 1f);
-                    break;
-                case Rarity.Epic:
-                    textFieldColor = new Color(0.988f, 0.485f, 1f);
-                    break;
-            }
-
-            TextField.Color = textFieldColor;
+            TextField.Color = collectionItem.Rarity.GetColor();
         }
     }
 }

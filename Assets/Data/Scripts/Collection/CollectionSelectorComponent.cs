@@ -35,7 +35,6 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
     }
 
     string SelectText => "Select";
-    string LockedText => "Unlock";
     string SetAsDefaultText => "SetAsDefault";
     
     #endregion
@@ -181,7 +180,20 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     void UpdateInteractButtonText()
     {
-        InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? SelectText : SetAsDefaultText;
+        LauncherUI.Instance.LevelConfig.ColorScheme.SetButtonColor(InteractBtn);
+        
+        if (Current.Unlocked)
+        {
+            InteractBtn.Text = LauncherUI.Instance.LevelConfig.CollectionEnabled ? SelectText : SetAsDefaultText;
+        }
+        else
+        {
+            Wallet shards = Account.GetShards(Current.Rarity);
+            InteractBtn.Text = $"{shards.Amount}/{Current.Cost}{EmojiHelper.GetShardEmojiText(Current.Rarity)}";
+            
+            if (!shards.Has(Current.Cost))
+                InteractBtn.TextField.Color = new Color(1f, 0.49f, 0.58f);
+        }
     }
     
     void OnChoose()
@@ -309,10 +321,7 @@ public class CollectionSelectorComponent : SelectorComponent<CollectionItem>
 
     void ProcessInteractButtonByIndex()
     {
-        if (Current.Unlocked)
-            UpdateInteractButtonText();
-        else
-            InteractBtn.Text = $"{Account.GetShards(Current.Rarity).Amount}/{Current.Cost}{EmojiHelper.GetShardEmojiText(Current.Rarity)}";
+        UpdateInteractButtonText();
     }
     
     #endregion

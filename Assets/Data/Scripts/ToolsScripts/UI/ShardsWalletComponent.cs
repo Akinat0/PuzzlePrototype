@@ -11,6 +11,7 @@ namespace Abu.Tools.UI
 
         void Start()
         {
+            Text.Color = rarity.GetColor();
             Alpha = 0;
         }
     }
