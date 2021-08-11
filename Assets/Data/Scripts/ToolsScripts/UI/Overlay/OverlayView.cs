@@ -15,7 +15,7 @@ namespace Abu.Tools.UI
         
         public static T Create<T>(Transform parent, int siblingIndex, RaycastTargetMode raycastMode = RaycastTargetMode.OnOne) where T : OverlayView
         {
-            T prefab = Resources.Load<T>("UI/" + typeof(T).Name);
+            T prefab = Resources.Load<T>($"UI/{typeof(T).Name}");
 
             T entity = Instantiate(prefab, parent);
             
