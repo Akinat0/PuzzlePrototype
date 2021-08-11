@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,20 +6,13 @@ namespace Abu.Tools.UI
     public class UIColorProvider : MonoBehaviour, IColorReceiver
     {
         [SerializeField] Color[] colors;
-        [SerializeField] MonoBehaviour[] receivers;
+        [SerializeField, RequireType(typeof(IColorReceiver))] 
+        MonoBehaviour[] receivers;
 
-        IColorReceiver[] internalReceivers;
+        IColorReceiver[] colorReceivers;
 
-        public IColorReceiver[] Receivers
-        {
-            get
-            {
-                if(!Application.isPlaying || internalReceivers == null)
-                    CreateInternalReceivers();
-                
-                return internalReceivers;
-            }
-        }
+        public IColorReceiver[] Receivers => 
+            colorReceivers ?? (colorReceivers = receivers.OfType<IColorReceiver>().ToArray());
 
         public Color[] Colors
         {
@@ -52,35 +43,6 @@ namespace Abu.Tools.UI
         void OnDidApplyAnimationProperties()
         {
             ApplyColor(Colors);
-        }
-
-        void CreateInternalReceivers()
-        {
-            List<IColorReceiver> colorReceivers = new List<IColorReceiver>();
-            colorReceivers.AddRange(receivers.Where(receiver => receiver is IColorReceiver).Cast<IColorReceiver>());
-            
-            foreach (MonoBehaviour receiver in receivers)
-            {
-                IColorReceiver colorReceiver = receiver as IColorReceiver;
-                
-                if (colorReceiver != null)
-                {
-                    colorReceivers.Add(colorReceiver);
-                    continue;
-                }
-                
-                colorReceiver = receiver.GetComponent<IColorReceiver>();
-                
-                if (colorReceiver != null)
-                {
-                    colorReceivers.Add(colorReceiver);
-                    continue;
-                }
-                
-                Debug.Log($"Component {receiver.name} is not ColorReceiver");
-            }
-
-            internalReceivers = colorReceivers.ToArray();
         }
     }
 }
