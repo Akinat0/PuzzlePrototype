@@ -1,5 +1,4 @@
-﻿using Abu.Tools;
-using Puzzle;
+﻿using Puzzle;
 using UnityEngine;
 
 public class RippleOnClickEffect : MonoBehaviour

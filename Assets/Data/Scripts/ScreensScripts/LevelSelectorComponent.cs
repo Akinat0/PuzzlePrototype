@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Abu.Tools;
 using Abu.Tools.UI;
@@ -298,11 +299,14 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
         levelRootView.PlayerView = newPlayerView;
     }
-        
-    void OnInteract()
+
+    void PlaySelectedLevel()
     {
-        if(!Current.CanPlayLevel)
+        if (!Current.CanPlayLevel)
+        {
+            ErrorWindow.Create(null, ErrorWindow.ErrorType.AdSkipped);
             return;
+        }
         
         ProcessIndex();
         CleanContainers();
@@ -583,8 +587,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEventHandler;
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
+        LauncherUI.PlayLevelEvent += PlayLevelEvent_Handler;
         
-        InteractBtn.OnClick += OnInteract;
+        InteractBtn.OnClick += PlaySelectedLevel;
         CollectionBtn.OnClick += OnCollection;
     }
 
@@ -596,8 +601,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEventHandler;
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
+        LauncherUI.PlayLevelEvent -= PlayLevelEvent_Handler;
 
-        InteractBtn.OnClick -= OnInteract;
+        InteractBtn.OnClick -= PlaySelectedLevel;
         CollectionBtn.OnClick -= OnCollection;
     }
 
@@ -662,6 +668,12 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     {
         HideUI();
         HideActivePlayer();
+    }
+
+    void PlayLevelEvent_Handler(LevelConfig levelConfig)
+    {
+        Index = Array.IndexOf(Selection, levelConfig);
+        PlaySelectedLevel();
     }
     
     #endregion

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Abu.Tools;
 using Puzzle.Advertisements;
 using UnityEngine;
 
@@ -40,12 +41,22 @@ public class Account : MonoBehaviour
     public static Wallet CommonShards => commonShards = commonShards ?? new Wallet("common_shards");
     public static Wallet RareShards => rareShards = rareShards ?? new Wallet("rare_shards");
     public static Wallet EpicShards => epicShards = epicShards ?? new Wallet("epic_shards");
-    public static Wallet Stars => stars = stars ?? new Wallet("stars"); 
+    public static Wallet Stars => stars = stars ?? new Wallet("stars");
+
+    public static Trigger BoostersAvailable => boostersAvailable = boostersAvailable ?? new Trigger("booster_available"); 
+    public static Trigger CollectionAvailable => collectionAvailable = collectionAvailable ?? new Trigger("collection_available"); 
+    public static Trigger AchievementsAvailable => achievementsAvailable = achievementsAvailable ?? new Trigger("achievements_available"); 
+    public static Trigger ShopAvailable => shopAvailable = shopAvailable ?? new Trigger("shop_available");
 
     static RemoteConfig remoteConfig;
     static PuzzleAnalytics analytics;
     static PuzzleAdvertisement advertisement;
     static Wallet stars;
+
+    static Trigger boostersAvailable;
+    static Trigger collectionAvailable;
+    static Trigger achievementsAvailable;
+    static Trigger shopAvailable;
     
     static Achievement[] achievements;
     static Booster[] boosters;

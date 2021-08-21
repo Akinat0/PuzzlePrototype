@@ -28,9 +28,10 @@ public class LauncherActionQueue : MonoBehaviour
         Account.CommonChest.OnAmountAdded -= ChestCommonOnAmountAdded_Handler;
     }
 
-    void Awake()
+    void Start()
     {
         actionQueue = gameObject.AddComponent<SortedActionQueue>();
+        AddTutorialActions();
         AddChestActions();
     }
 
@@ -39,6 +40,11 @@ public class LauncherActionQueue : MonoBehaviour
         actionQueue.Add(launcherAction);
     }
 
+    void AddTutorialActions()
+    {
+        AddAction(new FirstStartTutorialAction());
+    }
+    
     void AddChestActions()
     {
         int commonChestsCount = Account.CommonChest.Count;

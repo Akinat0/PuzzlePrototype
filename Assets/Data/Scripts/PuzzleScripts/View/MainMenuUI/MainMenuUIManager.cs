@@ -48,13 +48,25 @@ namespace Puzzle
         }
 
         void Start()
-        {
+        {    
             AchievementScreen.CreateContent();
+            
+            ManageButton(Account.AchievementsAvailable, achievementButton);
+            ManageButton(Account.CollectionAvailable, collectionButton);
+            ManageButton(Account.ShopAvailable, shopButton);
+
+            Account.AchievementsAvailable.Changed += AchievementsAvailableChanged_Handler;
+            Account.CollectionAvailable.Changed += CollectionsAvailableChanged_Handler;
+            Account.ShopAvailable.Changed += ShopAvailableChanged_Handler;
         }
 
         void OnDestroy()
         {
             DisposeStates();
+            
+            Account.AchievementsAvailable.Changed -= AchievementsAvailableChanged_Handler;
+            Account.CollectionAvailable.Changed -= CollectionsAvailableChanged_Handler;
+            Account.ShopAvailable.Changed -= ShopAvailableChanged_Handler;
         }
         
         void OnEnable()
@@ -70,7 +82,9 @@ namespace Puzzle
             LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent -= LevelChangedEvent_Handler;
         }
-        
+
+        void ManageButton(bool available, ButtonComponent button) => button.SetActive(available);
+
         void CreateStates()
         {
             states = new Dictionary<Type, MainMenuUIState>
@@ -120,5 +134,14 @@ namespace Puzzle
             foreach (ShardsWalletComponent wallet in shardsWallets)
                 wallet.Hide();
         }
+
+        void CollectionsAvailableChanged_Handler(bool available)
+            => ManageButton(available, collectionButton);
+        
+        void AchievementsAvailableChanged_Handler(bool available)
+            => ManageButton(available, achievementButton);
+        
+        void ShopAvailableChanged_Handler(bool available)
+            => ManageButton(available, shopButton);
     }
 }

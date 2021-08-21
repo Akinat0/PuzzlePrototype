@@ -20,6 +20,7 @@ namespace ScreensScripts
         public static event Action<CloseCollectionEventArgs> CloseCollectionEvent;
         public static event Action<Achievement> AchievementReceived;
         public static event Action<Achievement> ShowAchievementsScreenEvent;
+        public static event Action<LevelConfig> PlayLevelEvent; 
 
 
         [SerializeField] AsyncLoader asyncLoader;
@@ -47,7 +48,10 @@ namespace ScreensScripts
             LauncherTextGroup = TextGroupComponent.AttachTo(gameObject);
         }
 
-        void PlayLevel(LevelConfig config)
+        public static void PlayLevel(LevelConfig levelConfig) => Instance.InvokePlayLevel(levelConfig); 
+        
+        
+        void LoadLevel(LevelConfig config)
         {
             if (asyncLoader.gameObject != null && config != null && !string.IsNullOrEmpty(config.SceneID))
                 asyncLoader.LoadGameEnvironment(config.SceneID, InvokeGameEnvironmentLoaded);
@@ -59,7 +63,7 @@ namespace ScreensScripts
             levelConfig = args.LevelConfig;
             actualLevelRootView = args.LevelRootView;
             PlayLauncherEvent?.Invoke(args);
-            PlayLevel(args.LevelConfig);
+            LoadLevel(args.LevelConfig);
         }
         
         public void InvokeGameEnvironmentLoaded(GameSceneManager gameSceneManager)
@@ -113,6 +117,12 @@ namespace ScreensScripts
         {
             Debug.Log($"Show achievements screen Invoked");
             ShowAchievementsScreenEvent?.Invoke(achievement);
+        }
+
+        public void InvokePlayLevel(LevelConfig levelConfig)
+        {
+            Debug.Log($"Play level {levelConfig.Name} Invoked");
+            PlayLevelEvent?.Invoke(this.levelConfig);
         }
 
     }

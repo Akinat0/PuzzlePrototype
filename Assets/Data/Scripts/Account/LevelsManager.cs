@@ -2,7 +2,7 @@
 
 public class LevelsManager : MonoBehaviour
 {
-    [SerializeField] private LevelsData LevelsData;
+    [SerializeField] LevelsData LevelsData;
 
     public LevelConfig[] LevelConfigs => LevelsData.LevelItems;
 
@@ -13,13 +13,4 @@ public class LevelsManager : MonoBehaviour
 
     public LevelConfig DefaultLevel => LevelsData.DefaultItem;
     
-    void Awake()
-    {
-        LevelsData.LoadSettings();
-    }
-
-    void OnApplicationQuit()
-    {
-        LevelsData.SaveSettings();
-    }
 }

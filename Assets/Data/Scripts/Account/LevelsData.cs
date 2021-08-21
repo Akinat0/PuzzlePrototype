@@ -2,24 +2,27 @@
 
 [CreateAssetMenu(fileName = "new LevelsData", menuName = "Account/LevelsData", order = 51)]
 
-public class LevelsData : SaveableScriptableObject
+public class LevelsData : ScriptableObject
 {
     [SerializeField, HideInInspector] LevelConfig[] _LevelItems;
-    [SerializeField] public int DefaultLevelID;
-    
+
+    const string Key = "default_level_id";
+    int? defaultLevelID;
+
+    public int DefaultLevelID
+    {
+        get => defaultLevelID ?? (defaultLevelID = PlayerPrefs.GetInt(Key, 0)).Value;
+        set
+        {
+            if(defaultLevelID.HasValue && defaultLevelID == value)
+                return;
+            
+            defaultLevelID = value;
+            PlayerPrefs.SetInt(Key, defaultLevelID.Value);
+        }
+    }
 
     public LevelConfig DefaultItem => _LevelItems[DefaultLevelID];
     public LevelConfig[] LevelItems => _LevelItems;
     
-    public override void LoadSettings()
-    {
-        base.LoadSettings();
-        Debug.Log($"Configs was loaded. Default level is {DefaultLevelID}, his name is {DefaultItem.name}");
-    }
-    
-    public override void SaveSettings()
-    {
-        base.SaveSettings();
-        Debug.Log($"Configs was saved. Default level is {DefaultLevelID}, his name is {DefaultItem.name}");
-    }
 }

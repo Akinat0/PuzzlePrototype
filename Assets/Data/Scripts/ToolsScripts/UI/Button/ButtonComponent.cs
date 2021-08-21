@@ -115,7 +115,7 @@ namespace Abu.Tools.UI
 
         IEnumerator currentScaleRoutine;
 
-        void Start()
+        protected virtual void Start()
         {
             Animator animator = GetComponent<Animator>();
             if (animator != null)

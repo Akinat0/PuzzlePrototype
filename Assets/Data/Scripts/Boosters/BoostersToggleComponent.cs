@@ -34,6 +34,10 @@ public class BoostersToggleComponent : ToggleComponent
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
         heartBoosterView.Initialize(Account.GetBooster<HeartBooster>());
         //add here other boosters initialization
+
+        Account.BoostersAvailable.Changed += BoosterAvailableChanged_Handler; 
+            
+        SetActive(Account.BoostersAvailable);
     }
 
     void OnEnable()
@@ -78,9 +82,16 @@ public class BoostersToggleComponent : ToggleComponent
         Interactable = true;
         RectTransform.DOAnchorPos(Vector2.zero, AnimationDuration);
     }
+
+    void BoosterAvailableChanged_Handler(bool available)
+    {
+        SetActive(available);
+    }
     
     protected virtual void OnDestroy()
     {
+        Account.BoostersAvailable.Changed -= BoosterAvailableChanged_Handler;
+        
         if(fade != null && fade.gameObject != null)
             Destroy(fade.gameObject);
     }
