@@ -6,7 +6,7 @@ public class TierWindow : CancelableWindow
     public static TierWindow Create(Tier tier, Action onSuccess = null, Action onCancel = null)
     {
         CancelableWindow prefab = Resources.Load<CancelableWindow>("UI/CancelableWindow");
-        CancelableWindow cancelableWindow = Instantiate(prefab, Root);
+        CancelableWindow cancelableWindow = Instantiate(prefab, GetRoot());
 
         TierWindow window = ConvertTo<TierWindow>(cancelableWindow);
         

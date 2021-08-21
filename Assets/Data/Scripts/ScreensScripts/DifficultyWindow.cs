@@ -12,7 +12,7 @@ public class DifficultyWindow : CancelableWindow
     public static DifficultyWindow Create(LevelConfig levelConfig, Action onSuccess = null)
     {
         DifficultyWindow prefab = Resources.Load<DifficultyWindow>("UI/DifficultyWindow");
-        DifficultyWindow difficultyWindow = Instantiate(prefab, Root);
+        DifficultyWindow difficultyWindow = Instantiate(prefab, GetRoot());
         
         difficultyWindow.Initialize(levelConfig, onSuccess);
         

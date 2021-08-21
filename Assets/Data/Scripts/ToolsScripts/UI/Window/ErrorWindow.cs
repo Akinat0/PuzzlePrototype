@@ -29,7 +29,7 @@ public class ErrorWindow : Window
         Debug.LogWarning($"[ErrorWindow] ShowError window. Error type {errorType}");
         
         Window prefab = Resources.Load<Window>("UI/Window");
-        ErrorWindow window = ConvertTo<ErrorWindow>(Instantiate(prefab, Root));
+        ErrorWindow window = ConvertTo<ErrorWindow>(Instantiate(prefab, GetRoot()));
 
         void CreateContent(RectTransform rectTransform)
         { 

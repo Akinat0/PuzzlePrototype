@@ -7,7 +7,7 @@ public class PuzzleColorWindow : CancelableWindow
     public static PuzzleColorWindow Create(int PuzzleID, PuzzleColorData colorData, Action onSuccess = null)
     {
         CancelableWindow prefab = Resources.Load<CancelableWindow>("UI/CancelableWindow");
-        CancelableWindow cancelableWindow = Instantiate(prefab, Root);
+        CancelableWindow cancelableWindow = Instantiate(prefab, GetRoot());
 
         PuzzleColorWindow window = ConvertTo<PuzzleColorWindow>(cancelableWindow);
 

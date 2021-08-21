@@ -6,11 +6,18 @@ public class CancelableWindow : Window
 {
     [SerializeField] protected TextButtonComponent CancelButton;
     
-    public static CancelableWindow Create(Action<RectTransform> createContent, Action onSuccess, Action onCancel, string title, string okText, string cancelText)
+    public static CancelableWindow Create(string text, Action onSuccess, Action onCancel, string title, string okText, string cancelText, RectTransform root = null)
+    {
+        void CreateContent(RectTransform container) => TextComponent.Create(container, text);
+        
+        return Create(CreateContent, onSuccess, onCancel, title, okText, cancelText, root);
+    } 
+    
+    public static CancelableWindow Create(Action<RectTransform> createContent, Action onSuccess, Action onCancel, string title, string okText, string cancelText, RectTransform root = null)
     {
         CancelableWindow prefab = Resources.Load<CancelableWindow>("UI/CancelableWindow");
-        CancelableWindow window = Instantiate(prefab, Root);
-        window.Initialize(createContent, onSuccess, onCancel, title, okText, cancelText);
+        CancelableWindow window = Instantiate(prefab, GetRoot(root));
+        window.Initialize(createContent, onSuccess, onCancel, title, okText, cancelText, root);
         return window;
     }
     
@@ -28,13 +35,13 @@ public class CancelableWindow : Window
         return newWindow;
     }
     
-    protected void Initialize(Action<RectTransform> createContent, Action onSuccess, Action onCancel, string title, string okText, string cancelText)
+    protected void Initialize(Action<RectTransform> createContent, Action onSuccess, Action onCancel, string title, string okText, string cancelText, RectTransform root = null)
     {
         RectTransform.SetAsLastSibling();
 
         Title.Text = title;
         
-        Overlay = OverlayView.Create<BlurOverlayView>(Root, RectTransform.GetSiblingIndex());
+        Overlay = OverlayView.Create<BlurOverlayView>(GetRoot(root), RectTransform.GetSiblingIndex());
         Overlay.OnClick += onCancel;
 
         CancelButton.Text = cancelText;

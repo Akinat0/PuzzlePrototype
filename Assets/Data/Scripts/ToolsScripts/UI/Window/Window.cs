@@ -11,7 +11,7 @@ public class Window : UIComponent
     [SerializeField] protected RectTransform ContentContainer;
     [SerializeField] protected TextComponent Title;
     
-    protected static RectTransform Root => LauncherUI.Instance.UiManager.Root;
+    static RectTransform Root => LauncherUI.Instance.UiManager.Root;
 
     protected OverlayView Overlay;
 
@@ -106,6 +106,11 @@ public class Window : UIComponent
         StartCoroutine(currentScaleRoutine = ScaleRoutine(1, 0.2f));
     }
 
+    protected static RectTransform GetRoot(RectTransform rootTransform = null)
+    {
+        return rootTransform != null ? rootTransform : Root;
+    }
+
     IEnumerator ScaleRoutine(float targetValue, float duration, Action finished = null)
     {
         float sourceScale = ScaleComponent.Phase;
@@ -129,5 +134,4 @@ public class Window : UIComponent
         
         finished?.Invoke();
     }
-    
 }

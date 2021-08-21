@@ -18,7 +18,7 @@ public class OpenChestWindow : Window
     
     public static OpenChestWindow Create(Reward[] rewards, Rarity rarity, Action onSuccess = null)
     {
-        OpenChestWindow window = Instantiate(Resources.Load<OpenChestWindow>("UI/OpenChestWindow"), Root);
+        OpenChestWindow window = Instantiate(Resources.Load<OpenChestWindow>("UI/OpenChestWindow"), GetRoot());
 
         window.Initialize(rewards, rarity, onSuccess);
         
@@ -52,7 +52,7 @@ public class OpenChestWindow : Window
 
         Title.Text = rarity.ToString();
         
-        BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(Root, RectTransform.GetSiblingIndex());
+        BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(GetRoot(), RectTransform.GetSiblingIndex());
         blurOverlay.BlurColor = new Color32(135, 135, 135, byte.MaxValue);
         blurOverlay.RaycastMode = BlurOverlayView.RaycastTargetMode.OnZero;
         

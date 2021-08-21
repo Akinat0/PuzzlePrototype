@@ -55,7 +55,7 @@ public class PauseScreen : ScreenComponent
         Hide();
     }
     
-    void OnMenuClick()
+    protected virtual void OnMenuClick()
     {
         GameSceneManager.Instance.InvokeLevelClosed();
         Hide();

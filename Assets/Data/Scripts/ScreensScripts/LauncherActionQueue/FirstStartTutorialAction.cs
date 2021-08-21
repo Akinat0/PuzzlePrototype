@@ -6,13 +6,11 @@ using UnityEngine;
 
 public class FirstStartTutorialAction : LauncherAction
 {
-    readonly Trigger tutorialCompleted = new Trigger("first_start_tutorial_completed");
-    
     public FirstStartTutorialAction() : base(LauncherActionOrder.Tutorial) { }
 
     public override void Start()
     {
-        if (tutorialCompleted)
+        if (Account.TutorialCompleted)
         {
             Pop();
             return;
@@ -48,7 +46,6 @@ public class FirstStartTutorialAction : LauncherAction
     void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
     {
         LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEvent_Handler;
-        tutorialCompleted.Value = true;
         Pop();
     }
 }

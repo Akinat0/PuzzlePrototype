@@ -47,6 +47,7 @@ public class Account : MonoBehaviour
     public static Trigger CollectionAvailable => collectionAvailable = collectionAvailable ?? new Trigger("collection_available"); 
     public static Trigger AchievementsAvailable => achievementsAvailable = achievementsAvailable ?? new Trigger("achievements_available"); 
     public static Trigger ShopAvailable => shopAvailable = shopAvailable ?? new Trigger("shop_available");
+    public static Trigger TutorialCompleted => tutorialCompleted = tutorialCompleted ?? new Trigger("tutorial_completed");
 
     static RemoteConfig remoteConfig;
     static PuzzleAnalytics analytics;
@@ -57,6 +58,7 @@ public class Account : MonoBehaviour
     static Trigger collectionAvailable;
     static Trigger achievementsAvailable;
     static Trigger shopAvailable;
+    static Trigger tutorialCompleted;
     
     static Achievement[] achievements;
     static Booster[] boosters;
