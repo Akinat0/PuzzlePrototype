@@ -1,4 +1,3 @@
-
 using Puzzle;
 
 public sealed class TutorialAchievement : Achievement
@@ -9,7 +8,7 @@ public sealed class TutorialAchievement : Achievement
         if (State == AchievementState.Claimed || State == AchievementState.Received)
             return;
 
-        GameSceneManager.LevelCompletedEvent += LevelCompletedEvent_Handler;
+        GameSceneManager.LevelStartedEvent += LevelStartedEvent_Handler;
     }
 
     public override string Name => "Start Learning";
@@ -18,9 +17,9 @@ public sealed class TutorialAchievement : Achievement
 
     public override float Goal => 1;
 
-    void LevelCompletedEvent_Handler(LevelCompletedEventArgs args)
+    void LevelStartedEvent_Handler()
     {
-        if (args.LevelConfig.Name == "Tutorial")
+        if (GameSceneManager.Instance.LevelConfig.Name == "Tutorial")
             Progress = Goal;
     }
     

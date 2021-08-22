@@ -23,26 +23,6 @@ public static class Utility
         return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 
-    //Coroutines
-    public static IEnumerator WaitUntil(Func<bool> predicate, Action finish)
-    {
-        yield return new WaitUntil(predicate);
-        finish?.Invoke();
-    }
-
-    public static IEnumerator WaitFrames(int frames, Action finish)
-    {
-        int count = 0;
-
-        while (count < frames)
-        {
-            yield return null;
-            count++;
-        }
-        
-        finish?.Invoke();
-    }
-    
     //Colors
     public static void SetAlpha(this TextMeshProUGUI textMesh, float value)
     {
@@ -119,6 +99,32 @@ public static class Utility
         return maxY > 0 && minY < screenSize.y && maxX > 0 && minX < screenSize.x;
     }
     
+    public static Rect TransformRect(this Transform transform, Rect rect)
+    {
+        Vector3 lossyScale = transform.lossyScale;
+        Vector3 position = transform.position;
+        
+        return new Rect(
+            rect.x * lossyScale.x + position.x,
+            rect.y * lossyScale.y + position.y,
+            rect.width * lossyScale.x,
+            rect.height * lossyScale.y
+        );
+    }
+
+    public static Rect InverseTransformRect(this Transform transform, Rect rect)
+    {
+        Vector3 lossyScale = transform.lossyScale;
+        Vector3 position = transform.position;
+        
+        return new Rect(
+            (rect.x - position.x) / lossyScale.x,
+            (rect.y - position.y) / lossyScale.y,
+            rect.width / lossyScale.x,
+            rect.height / lossyScale.y
+        );
+    }
+
     //Texture2D
     public static Texture2D Crop(this Texture2D texture, int width, int height)
     {
@@ -198,6 +204,12 @@ public static class Utility
         noiseTex.Apply();
 
         return noiseTex;
+    }
+    
+    //Rect
+    public static Vector4 ToVector4(this Rect rect)
+    {
+        return new Vector4(rect.x, rect.y, rect.width, rect.height);
     }
     
     //Editor

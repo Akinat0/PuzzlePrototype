@@ -10,8 +10,9 @@ public class LauncherActionQueue : MonoBehaviour
     
     void OnEnable()
     {
-        LauncherUI.GameEnvironmentLoadedEvent += GameEnvironmentLoadedEvent_Handler;
-        LauncherUI.AchievementReceived        += AchievementReceived_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent   += GameEnvironmentLoadedEvent_Handler;
+        LauncherUI.AchievementReceived          += AchievementReceived_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEvent_Handler;
         
         Account.EpicChest.OnAmountAdded   += ChestEpicOnAmountAdded_Handler;
         Account.RareChest.OnAmountAdded   += ChestRareOnAmountAdded_Handler;
@@ -20,8 +21,9 @@ public class LauncherActionQueue : MonoBehaviour
 
     void OnDisable()
     {
-        LauncherUI.GameEnvironmentLoadedEvent -= GameEnvironmentLoadedEvent_Handler;
-        LauncherUI.AchievementReceived        -= AchievementReceived_Handler;
+        LauncherUI.GameEnvironmentLoadedEvent   -= GameEnvironmentLoadedEvent_Handler;
+        LauncherUI.AchievementReceived          -= AchievementReceived_Handler;
+        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEvent_Handler;
         
         Account.EpicChest.OnAmountAdded   -= ChestEpicOnAmountAdded_Handler;
         Account.RareChest.OnAmountAdded   -= ChestRareOnAmountAdded_Handler;
@@ -63,12 +65,19 @@ public class LauncherActionQueue : MonoBehaviour
 
     void AchievementReceived_Handler(Achievement achievement)
     {
-        AddAction(new LauncherAchievementAction(achievement, achievementNotification));
+        if (Account.AchievementsAvailable)
+            AddAction(new LauncherAchievementAction(achievement, achievementNotification));
     }
 
     void GameEnvironmentLoadedEvent_Handler(GameSceneManager _)
     {
         AddAction(new LauncherBlockAction());
+    }
+
+    void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
+    {
+        if (args.LevelConfig.Name == "Tutorial" && !Account.AchievementsAvailable)
+            AddAction(new AchievementTutorialAction(achievementNotification));
     }
 
     void ChestEpicOnAmountAdded_Handler(int amount)

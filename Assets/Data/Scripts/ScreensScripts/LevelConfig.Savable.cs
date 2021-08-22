@@ -130,7 +130,7 @@ public partial class LevelConfig
     
     #region score
     
-    string ScoreKey => "Score " + Key;
+    string ScoreKey => $"Score {Key}";
 
     int score;
     bool isScoreLoaded = false;

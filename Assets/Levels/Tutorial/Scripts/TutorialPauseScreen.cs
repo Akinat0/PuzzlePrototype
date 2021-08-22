@@ -14,7 +14,7 @@ public class TutorialPauseScreen : PauseScreen
         
         void ExitTutorial()
         {
-            GameSceneManager.Instance.LevelConfig.StarsAmount = 3;
+            GameSceneManager.Instance.LevelConfig.ObtainThirdStar();
             base.OnMenuClick();
         }
 

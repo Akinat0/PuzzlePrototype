@@ -14,6 +14,12 @@ public class LauncherAchievementAction : LauncherAction
 
     public override void Start()
     {
+        if (!Account.AchievementsAvailable)
+        {
+            Pop();
+            return;
+        }
+        
         AchievementNotification.Setup(Achievement);
         AchievementNotification.Show(Pop);
     }

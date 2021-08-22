@@ -5,9 +5,14 @@ namespace Abu.Tools.UI
 {
     public abstract class UIComponent : MonoBehaviour
     {
-        public void SetActive(bool value)
+        public void SetActive(bool value) => gameObject.SetActive(value);
+
+        public void Destroy(float time = -1)
         {
-            gameObject.SetActive(value);
+            if(time < 0)
+                DestroyImmediate(gameObject);
+            else
+                Destroy(gameObject, time);   
         }
         
         public bool ActiveInHierarchy => gameObject.activeInHierarchy;

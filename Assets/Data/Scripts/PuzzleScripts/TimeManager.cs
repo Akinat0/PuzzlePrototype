@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using Abu.Tools;
-using DG.Tweening;
 using UnityEngine;
 
 public static class TimeManager
@@ -22,14 +21,14 @@ public static class TimeManager
             
             defaultTimeScale = value;
 
-            TimeScale = Mathf.Clamp(TimeScale, 0, TimeScale);
+            TimeScale = Mathf.Clamp(TimeScale, 0, DefaultTimeScale);
         }
     }
 
     public static float TimeScale
     {
         get => Time.timeScale;
-        set
+        private set
         {
             value = Mathf.Clamp(value, 0, DefaultTimeScale);
             
@@ -49,7 +48,7 @@ public static class TimeManager
         if(currentUnpauseRoutine != null)
             CoroutineHelper.StopRoutine(currentUnpauseRoutine);
         
-        Time.timeScale = 0;
+        TimeScale = 0;
     }
 
     public static void Unpause(bool instant = true)
@@ -73,7 +72,7 @@ public static class TimeManager
         while (time <= duration)
         {
             float value = Mathf.Lerp(startTimeScale, DefaultTimeScale, time / duration);
-            TimeScale = value * value; //apply quadratic function except linear
+            TimeScale = value * value; //apply quadratic function instead of linear
             time += Time.unscaledDeltaTime;
             yield return null;
         }

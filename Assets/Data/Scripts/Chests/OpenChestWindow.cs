@@ -52,10 +52,9 @@ public class OpenChestWindow : Window
 
         Title.Text = rarity.ToString();
         
-        BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(GetRoot(), RectTransform.GetSiblingIndex());
+        BlurOverlayView blurOverlay = OverlayView.Create<BlurOverlayView>(GetRoot(), RectTransform.GetSiblingIndex(), OverlayView.RaycastTargetMode.OnZero);
         blurOverlay.BlurColor = new Color32(135, 135, 135, byte.MaxValue);
-        blurOverlay.RaycastMode = BlurOverlayView.RaycastTargetMode.OnZero;
-        
+
         void OnClick()
         {
             if (completed)

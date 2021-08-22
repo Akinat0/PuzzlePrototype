@@ -1,15 +1,17 @@
 ﻿using System;
-using Puzzle;
 using ScreensScripts;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 public class AchievementNotification : TextButtonComponent
 {
+    public event Action<AchievementNotification> OnShown;
+    
     static readonly int ShowID = Animator.StringToHash("Show");
 
     Animator animator;
     AnimationEventBehaviour completeAnimation;
+    AnimationEventBehaviour shownAnimation;
 
     Action completedAction;
 
@@ -19,7 +21,10 @@ public class AchievementNotification : TextButtonComponent
     {
         animator = GetComponent<Animator>();
         completeAnimation = AnimationEventBehaviour.FindState(animator, "complete");
+        shownAnimation = AnimationEventBehaviour.FindState(animator, "shown");
+        
         completeAnimation.OnComplete += InvokeAnimationCompleted;
+        shownAnimation.OnComplete += InvokeAchievementShown;
 
         OnClick += ProcessClick;
     }
@@ -59,5 +64,10 @@ public class AchievementNotification : TextButtonComponent
     {
         Hide();
         LauncherUI.Instance.InvokeShowAchievementScreen(achievement);
+    }
+
+    void InvokeAchievementShown()
+    {
+        OnShown?.Invoke(this);
     }
 }

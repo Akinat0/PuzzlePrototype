@@ -36,7 +36,7 @@ public class FirstStartTutorialAction : LauncherAction
         LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEvent_Handler;
         LauncherUI.PlayLevel(Account.GetLevel("Tutorial"));
         
-        overlay.ChangePhase(0, 0.2f);
+        overlay.ChangePhase(0, 0.2f, () => overlay.Destroy());
         
         yield return new WaitForSeconds(0.2f);
         
