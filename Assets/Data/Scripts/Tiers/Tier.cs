@@ -26,6 +26,7 @@ public abstract class Tier
         {
             new HeartBoosterTier(),
             new TimeFreezeBoosterTier(),
+            new FreeHeartBoosterTier()
         }; 
         
         return commonTiers.Concat(collectionTiers).ToArray();
@@ -61,7 +62,7 @@ public abstract class Tier
         }
     }
 
-    public bool Obtain()
+    public virtual bool Obtain(Action onSuccess = null)
     {
         if (!Available)
             return false;
@@ -70,6 +71,7 @@ public abstract class Tier
         {
             Reward.Claim();
             SendTierObtainedAnalyticsEvent();
+            onSuccess?.Invoke();
         }
             
         if (!Purchase.Process(OnPurchaseSuccess))

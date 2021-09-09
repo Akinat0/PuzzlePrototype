@@ -151,9 +151,10 @@ namespace Abu.Tools.UI
 
         static readonly int Radius = Shader.PropertyToID("_Radius");
         
-        protected virtual void Awake()
+        protected override void Awake()
         {
             BlurImage.texture = BlurTexture;
+            base.Awake();
         }
 
         protected override void OnDestroy()

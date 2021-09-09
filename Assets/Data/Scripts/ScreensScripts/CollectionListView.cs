@@ -2,7 +2,6 @@ using System;
 using Abu.Tools.UI;
 using ScreensScripts;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Data.Scripts.ScreensScripts
 {
@@ -17,6 +16,9 @@ namespace Data.Scripts.ScreensScripts
 
         public Vector2 Size => entity.RectTransform.rect.size;
         public Vector3 Position => entity.RectTransform.position;
+
+        public CollectionViewComponent View => entity;
+        public CollectionItem CollectionItem => collectionItem;
 
         CollectionViewComponent entity;
 

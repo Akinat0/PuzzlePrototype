@@ -74,6 +74,21 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
+            
+            Account.CollectionAvailable.Changed += CollectionAvailableChanged_Handler;
+        }
+
+        void CollectionAvailableChanged_Handler(bool available)
+        {
+            if (!available)
+                return;
+
+            ButtonComponent CollectionItemViewGetter(CollectionItem collectionItem)
+                => CollectionScreen.GetItemButton(collectionItem);
+
+            bool CanStartPredicate() => CurrentState.GetType() == typeof(MainMenuIdleScreenState);
+            
+            LauncherUI.Instance.ActionQueue.AddAction(new CollectionTutorialAction(collectionButton, CollectionItemViewGetter, CanStartPredicate));
         }
 
         void OnDisable()

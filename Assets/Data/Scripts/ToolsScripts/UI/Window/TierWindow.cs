@@ -32,7 +32,7 @@ public class TierWindow : CancelableWindow
 
         void OnSuccess()
         {
-            if(Tier.Obtain())
+            if (Tier.Obtain())
                 onSuccess?.Invoke();
             
             Hide();

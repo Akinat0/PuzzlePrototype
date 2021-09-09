@@ -81,8 +81,6 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         ShowUI();
         ProcessIndex();
 
-        Account.CollectionAvailable.Changed += _ => ProcessIndex();
-        
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(CollectionBtn.TextField.TextMesh, isSizeSource: false));
         LauncherUI.Instance.LauncherTextGroup.Add(new TextObject(InteractBtn.TextField.TextMesh, possibleContent: new []{"Play"}));
     }
@@ -188,7 +186,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         else
         {
             //Bring back old player view
-            playerView.transform.DOMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
+            playerView.transform.DOLocalMove(Vector3.zero, UiAnimationDuration).SetDelay(0.25f);
         }
         
         foreach (int levelIndex in levelContainers.Keys)
@@ -204,7 +202,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
 
     void HideActivePlayer()
     {
-        playerView.transform.DOMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
+        playerView.transform.DOLocalMove(Vector3.down * ScreenScaler.CameraSize.y, UiAnimationDuration);
     }
 
     void ShowCollectionButton(float _Duration = 0, float _Delay = 0)
@@ -375,38 +373,39 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         float phase = Mathf.Abs(Offset - Index) / 1;
 
-        bool collectionAvailable = Account.CollectionAvailable; 
+        bool currentCollectionAvailable = Current.CollectionEnabled && Account.CollectionAvailable; 
+        bool nextCollectionAvailable = Selection[nextLevel].CollectionEnabled && Account.CollectionAvailable; 
         
         Vector2 startCollectionBtnMaxAnchor = 
-            Current.CollectionEnabled && collectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+            currentCollectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
         Vector2 targetCollectionBtnMaxAnchor = 
-            Selection[nextLevel].CollectionEnabled && collectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+            nextCollectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
 
         CollectionBtn.RectTransform.anchorMax =
             Vector2.Lerp(startCollectionBtnMaxAnchor, targetCollectionBtnMaxAnchor, phase * phase);
 
         Vector2 startPlayBtnMinAnchor = 
-            Current.CollectionEnabled && collectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+            currentCollectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
         Vector2 targetPlayBtnMinAnchor = 
-            Selection[nextLevel].CollectionEnabled && collectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+            nextCollectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
         
         Vector2 startPlayBtnMaxAnchor = 
-            Current.CollectionEnabled && collectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+            currentCollectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
         Vector2 targetPlayBtnMaxAnchor = 
-            Selection[nextLevel].CollectionEnabled && collectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+            nextCollectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
         
         InteractBtn.RectTransform.anchorMin =
             Vector2.Lerp(startPlayBtnMinAnchor, targetPlayBtnMinAnchor, phase * phase);
         InteractBtn.RectTransform.anchorMax =
             Vector2.Lerp(startPlayBtnMaxAnchor, targetPlayBtnMaxAnchor, phase * phase);
         
-        float startCollectionTextAlpha = Current.CollectionEnabled && collectionAvailable ? 1 : 0;
-        float targetCollectionTextAlpha = Selection[nextLevel].CollectionEnabled && collectionAvailable ? 1 : 0;
+        float startCollectionTextAlpha = currentCollectionAvailable ? 1 : 0;
+        float targetCollectionTextAlpha = nextCollectionAvailable ? 1 : 0;
         
         CollectionBtn.TextField.Alpha = Mathf.Lerp(startCollectionTextAlpha, targetCollectionTextAlpha, phase * phase);
 
-        float startCollectionFontSize = Current.CollectionEnabled && collectionAvailable ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
-        float targetCollectionFontSize = Selection[nextLevel].CollectionEnabled && collectionAvailable ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
+        float startCollectionFontSize = currentCollectionAvailable ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
+        float targetCollectionFontSize = nextCollectionAvailable ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
         
         CollectionBtn.TextField.FontSize = Mathf.Lerp(startCollectionFontSize, targetCollectionFontSize, phase * phase);
     }
@@ -542,14 +541,16 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void ProcessButtonsByIndex()
     {
-        bool collectionAvailable = Account.CollectionAvailable;
+        bool collectionAvailable = Current.CollectionEnabled && Account.CollectionAvailable;
         
-        CollectionBtn.RectTransform.anchorMax = Current.CollectionEnabled && collectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
+        CollectionBtn.RectTransform.anchorMax = collectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
         
-        InteractBtn.RectTransform.anchorMax = Current.CollectionEnabled && collectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
-        InteractBtn.RectTransform.anchorMin = Current.CollectionEnabled && collectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
+        InteractBtn.RectTransform.anchorMax = collectionAvailable ? EnabledPlayMaxAnchor : DisabledPlayMaxAnchor;
+        InteractBtn.RectTransform.anchorMin = collectionAvailable ? EnabledPlayMinAnchor : DisabledPlayMinAnchor;
         
-        CollectionBtn.TextField.Alpha = Current.CollectionEnabled && collectionAvailable ? 1 : 0;
+        CollectionBtn.TextField.Alpha = collectionAvailable ? 1 : 0;
+        
+        CollectionBtn.TextField.FontSize = collectionAvailable ? LauncherUI.Instance.LauncherTextGroup.FontSize : 0;
     }
     
     void ProcessLevelsByIndex()
@@ -594,6 +595,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
         LauncherUI.PlayLevelEvent += PlayLevelEvent_Handler;
+        LauncherUI.SelectLevelEvent += SelectLevelEvent_Handler;
+        
+        Account.CollectionAvailable.Changed += CollectionAvailableChanged_Handler;
         
         InteractBtn.OnClick += PlaySelectedLevel;
         CollectionBtn.OnClick += OnCollection;
@@ -608,6 +612,9 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
         LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
         LauncherUI.PlayLevelEvent -= PlayLevelEvent_Handler;
+        LauncherUI.SelectLevelEvent -= SelectLevelEvent_Handler;
+        
+        Account.CollectionAvailable.Changed -= CollectionAvailableChanged_Handler;
 
         InteractBtn.OnClick -= PlaySelectedLevel;
         CollectionBtn.OnClick -= OnCollection;
@@ -676,10 +683,20 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         HideActivePlayer();
     }
 
+    void CollectionAvailableChanged_Handler(bool _)
+    {
+        ProcessIndex();
+    }
+    
     void PlayLevelEvent_Handler(LevelConfig levelConfig)
     {
         Index = Array.IndexOf(Selection, levelConfig);
         PlaySelectedLevel();
+    }
+    
+    void SelectLevelEvent_Handler(LevelConfig levelConfig)
+    {
+        Index = Array.IndexOf(Selection, levelConfig);
     }
     
     #endregion

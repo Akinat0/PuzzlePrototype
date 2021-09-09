@@ -8,9 +8,7 @@ namespace Abu.Tools.UI
 
         protected override void ProcessPhase()
         {
-            Color color = tutorialFade.color;
-            color.a = Phase;
-            tutorialFade.color = color;
+            tutorialFade.Smoothness = 1 - Phase;
         }
 
         public void AddHole(TutorialHole hole)

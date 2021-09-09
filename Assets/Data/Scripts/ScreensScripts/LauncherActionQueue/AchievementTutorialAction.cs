@@ -1,4 +1,5 @@
 using Abu.Tools.UI;
+using ScreensScripts;
 using UnityEngine;
 
 public class AchievementTutorialAction : LauncherAction
@@ -24,11 +25,13 @@ public class AchievementTutorialAction : LauncherAction
         TutorialOverlayView tutorialOverlay = OverlayView.Create<TutorialOverlayView>(AchievementNotification.transform.parent,
             AchievementNotification.transform.GetSiblingIndex(), OverlayView.RaycastTargetMode.Never);
 
+        tutorialOverlay.Color = new Color(0, 0, 0, 0.35f);
+
         tutorialHole = new RectTransformTutorialHole(AchievementNotification.Content);
         
         tutorialOverlay.AddHole(tutorialHole);
         
-        tutorialOverlay.ChangePhase(0.5f, 0.5f);
+        tutorialOverlay.ChangePhase(0.975f, 0.5f);
 
         bool needPause = true;
         
@@ -49,6 +52,10 @@ public class AchievementTutorialAction : LauncherAction
             
             tutorialOverlay.RemoveHole(tutorialHole);
             tutorialOverlay.ChangePhase(0, 0.5f, () => Object.DestroyImmediate(tutorialOverlay.gameObject));
+            
+            LauncherUI.SelectLevel(Account.LevelConfigs[1]);
+
+            Account.CollectionAvailable.Value = true;
             
             Pop();
         }

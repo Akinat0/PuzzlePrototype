@@ -29,14 +29,27 @@ public class RequireTypeAttributeDrawer : PropertyDrawer
 
         if (targetValue == property.objectReferenceValue)
             return;
-        
+
+        if (targetValue == null)
+        {
+            property.objectReferenceValue = null;
+            return;
+        }
+
         Object implementor;
 
-        //if target is GameObject we'll try to find implementor among components
-        if (targetValue is GameObject gameObject)
-            implementor = gameObject.GetComponent(Attribute.Type);
-        else
-            implementor = targetValue;
+        switch (targetValue)
+        {
+            case GameObject gameObject:
+                implementor = gameObject.GetComponent(Attribute.Type);
+                break;
+            case Component component:
+                implementor = component.gameObject.GetComponent(Attribute.Type);
+                break;
+            default:
+                implementor = targetValue;
+                break;
+        }
         
         if (implementor == property.objectReferenceValue)
             return;

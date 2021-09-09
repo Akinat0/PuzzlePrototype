@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Abu.Tools;
 using Abu.Tools.UI;
 using UnityEngine;
@@ -65,7 +64,7 @@ public class FreezeOverlayView : OverlayView
     RenderTexture renderTexture;
     Camera renderCamera;
     
-    protected virtual void Awake()
+    protected override void Awake()
     {
         Background.raycastTarget = false;
         
@@ -74,6 +73,8 @@ public class FreezeOverlayView : OverlayView
         renderCamera.targetTexture = renderTexture;
 
         FreezeImage.texture = renderTexture;
+        
+        base.Awake();
     }
     
     public void Show(Action finished = null)

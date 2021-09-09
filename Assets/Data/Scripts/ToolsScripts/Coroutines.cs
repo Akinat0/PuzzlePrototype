@@ -33,6 +33,12 @@ public static class Coroutines
         
         finished?.Invoke();
     }
+
+    public static IEnumerator WaitUntil(Func<bool> predicate, Action finished)
+    {
+        yield return new WaitUntil(predicate);
+        finished?.Invoke();
+    }
     
     public static IEnumerator Repeat(float delay, [NotNull] Action repeatAction)
     {

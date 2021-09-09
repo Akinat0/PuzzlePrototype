@@ -42,9 +42,14 @@ public class ShopItem : UIComponent
         
         CreateView();
         
-        Button.OnClick += () => Tier.Obtain();
+        Button.OnClick += OnClick;
         Tier.OnAvailableChangedEvent += OnAvailableChangedEvent_Handler;
         Tier.OnTierValueChangedEvent += OnTierValueChangedEvent_Handler;
+    }
+
+    void OnClick()
+    {
+        Tier.Obtain(() => RewardWindow.Create(Tier.Reward));
     }
     
     void CreateView()

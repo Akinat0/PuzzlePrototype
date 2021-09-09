@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2558060153163683118}
   - component: {fileID: 4369578998408240110}
   - component: {fileID: 1986761976692443891}
+  - component: {fileID: 4606282529724803371}
   m_Layer: 5
   m_Name: tutorial_fade
   m_TagString: Untagged
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
   holeSize: 0.01
+--- !u!114 &4606282529724803371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374361420047331038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035081fa5ab544fda287eba17cd8c0aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &7654790835666664491
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +102,7 @@ GameObject:
   - component: {fileID: 7654790835666664493}
   - component: {fileID: 7654790835666664492}
   - component: {fileID: 7654790835666664480}
+  - component: {fileID: 8872460663196297653}
   m_Layer: 5
   m_Name: TutorialOverlayView
   m_TagString: Untagged
@@ -227,3 +242,20 @@ MonoBehaviour:
   phase: 0
   raycastMode: 0
   tutorialFade: {fileID: 1986761976692443891}
+--- !u!114 &8872460663196297653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654790835666664491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0956558429ed40939735c16979a3db19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors:
+  - {r: 0, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  receivers:
+  - {fileID: 4606282529724803371}

@@ -100,6 +100,8 @@ public abstract class Achievement
         
         State = AchievementState.Claimed;
         Reward.Claim();
+        RewardWindow.Create(Reward);
+        
         AchievementClaimedEvent?.Invoke();
         
         new SimpleAnalyticsEvent("achievement_claimed", GetAnalyticsData()).Send();

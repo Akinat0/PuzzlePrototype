@@ -1,4 +1,5 @@
 using System;
+using Abu.Tools.UI;
 using UnityEngine;
 
 namespace Data.Scripts.ScreensScripts
@@ -30,6 +31,16 @@ namespace Data.Scripts.ScreensScripts
             
             collection.Hide(() => SetActive(false));
             return true;
+        }
+
+        public ButtonComponent GetItemButton(CollectionItem item) => collection.GetItemButton(item);
+        
+        public void FocusOn(CollectionItem collectionItem)
+        {
+            bool Predicate(CollectionListView listView) 
+                => listView.CollectionItem == collectionItem;
+            
+            collection.SnapTo(Predicate);
         }
     }
 }

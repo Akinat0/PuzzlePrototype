@@ -21,14 +21,17 @@ namespace ScreensScripts
         public static event Action<Achievement> AchievementReceived;
         public static event Action<Achievement> ShowAchievementsScreenEvent;
         public static event Action<LevelConfig> PlayLevelEvent; 
+        public static event Action<LevelConfig> SelectLevelEvent; 
 
 
         [SerializeField] AsyncLoader asyncLoader;
         [SerializeField] MainMenuUIManager uiManager;
         [SerializeField] MainCameraComponent mainCamera;
+        [SerializeField] LauncherActionQueue launcherActionQueue;
 
         public MainMenuUIManager UiManager => uiManager;
-        public MainCameraComponent MainCamera => mainCamera; 
+        public MainCameraComponent MainCamera => mainCamera;
+        public LauncherActionQueue ActionQueue => launcherActionQueue;
 
         public LevelConfig LevelConfig => levelConfig;
         
@@ -49,6 +52,7 @@ namespace ScreensScripts
         }
 
         public static void PlayLevel(LevelConfig levelConfig) => Instance.InvokePlayLevel(levelConfig); 
+        public static void SelectLevel(LevelConfig levelConfig) => Instance.InvokeSelectLevel(levelConfig); 
         
         
         void LoadLevel(LevelConfig config)
@@ -119,10 +123,16 @@ namespace ScreensScripts
             ShowAchievementsScreenEvent?.Invoke(achievement);
         }
 
-        public void InvokePlayLevel(LevelConfig levelConfig)
+        void InvokePlayLevel(LevelConfig levelConfig)
         {
             Debug.Log($"Play level {levelConfig.Name} Invoked");
-            PlayLevelEvent?.Invoke(this.levelConfig);
+            PlayLevelEvent?.Invoke(levelConfig);
+        }
+
+        void InvokeSelectLevel(LevelConfig levelConfig)
+        {
+            Debug.Log($"Select level {levelConfig.Name} Invoked");
+            SelectLevelEvent?.Invoke(levelConfig);
         }
 
     }

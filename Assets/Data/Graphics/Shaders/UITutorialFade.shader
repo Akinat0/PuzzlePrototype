@@ -4,7 +4,7 @@ Shader "UI/TutorialFade"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Aspect ("Aspect", Float) = 1
-        _HoleSize ("Hole Size", Range(0, 1)) = 0.01
+        _Smoothness ("Smoothness", Range(0, 1)) = 0.01
     }
     SubShader
     {
@@ -45,7 +45,7 @@ Shader "UI/TutorialFade"
  
             int _HolesLength;
             float _Aspect;
-            float _HoleSize;
+            float _Smoothness;
             float4 _Holes[5];
 
             v2f vert (appdata v)
@@ -81,32 +81,25 @@ Shader "UI/TutorialFade"
                 return dx * dx + dy * dy;
             }
             
-            float GetClosestHoleDistance(float2 uv)
+            float4 GetFadeColor(float2 uv, float4 color)
             {
-                float closestDist = GetSqrDistance(uv, _Holes[0]);
+                float alpha = color.a;
                 
-                for (int i = 1; i < _HolesLength; i++)
-                    closestDist = min(GetSqrDistance(uv, _Holes[i]), closestDist);
+                for (int i = 0; i < _HolesLength; i++)
+                    alpha *= smoothstep(GetSqrDistance(uv, _Holes[i]), 0, _Smoothness * _Smoothness);
 
-                return closestDist;
-            }
-
-            float4 GetFadeColor(float distance, float4 color)
-            {
-                float a = smoothstep(distance, 0, _HoleSize * _HoleSize);
-                color.a *= a;
+                color.a = alpha;
+                
                 return color;
             }
-            
+
             fixed4 frag(v2f IN) : SV_Target
             {
                 float4 color = tex2D(_MainTex, IN.uv) * IN.color;
 
                 Discard(IN.uv);
 
-                float distance = GetClosestHoleDistance(IN.uv);
-                
-                color = GetFadeColor(distance, color);
+                color = GetFadeColor(IN.uv, color);
                 
                 return color;
             }

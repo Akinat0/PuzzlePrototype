@@ -82,5 +82,11 @@ namespace Data.Scripts.ScreensScripts
             foreach (CollectionListView view in Elements)
                 view.Hide(0, Finished);
         }
+
+        public ButtonComponent GetItemButton(CollectionItem item)
+        {
+            CollectionListView listView = Selection.FirstOrDefault(view => view.CollectionItem == item);
+            return listView?.View;
+        }
     }
 }

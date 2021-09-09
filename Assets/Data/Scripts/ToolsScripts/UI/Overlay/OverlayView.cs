@@ -10,7 +10,7 @@ namespace Abu.Tools.UI
         {
             Never,
             OnZero,
-            OnOne
+            OnOne,
         }
         
         public static T Create<T>(Transform parent, int siblingIndex, RaycastTargetMode raycastMode = RaycastTargetMode.OnOne) where T : OverlayView
@@ -63,10 +63,21 @@ namespace Abu.Tools.UI
                 ProcessRaycastTarget();
             }
         }
-        
+
+        protected virtual void Awake()
+        {
+            ProcessPhaseInternal();
+        }
+
         protected virtual void OnDestroy()
         {
             StopAllCoroutines();
+        }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            ProcessPhaseInternal();
         }
 
         public virtual void ChangePhase(float targetValue, float duration, Action finished = null)

@@ -9,7 +9,7 @@ public class TutorialFadeImage : Image
     static readonly int HolesID = Shader.PropertyToID("_Holes");
     static readonly int AspectID = Shader.PropertyToID("_Aspect");
     static readonly int HolesLengthID = Shader.PropertyToID("_HolesLength");
-    static readonly int HoleSizeID = Shader.PropertyToID("_HoleSize");
+    static readonly int SmoothnessID = Shader.PropertyToID("_Smoothness");
 
     const int HolesSize = 5;
 
@@ -22,7 +22,20 @@ public class TutorialFadeImage : Image
     
     readonly Vector4[] holesBuffer = new Vector4[HolesSize];
 
-    [SerializeField, Range(0, 1)] float holeSize = 0.01f;
+    [SerializeField, Range(0, 1)] float smoothness = 0.01f;
+
+    public float Smoothness
+    {
+        get => smoothness;
+        set
+        {
+            if (Mathf.Approximately(smoothness, value))
+                return;
+
+            smoothness = value;
+            SetDirtyMaterial();
+        }
+    }
 
     void LateUpdate()
     {
@@ -81,7 +94,7 @@ public class TutorialFadeImage : Image
         Validate();
         
         material.SetInt(HolesLengthID, Holes.Count);
-        material.SetFloat(HoleSizeID, holeSize);
+        material.SetFloat(SmoothnessID, smoothness);
 
         Rect worldRect = rectTransform.TransformRect(rectTransform.rect);
         
@@ -104,10 +117,10 @@ public class TutorialFadeImage : Image
     void Validate()
     {
         if(canvas.rootCanvas.renderMode != RenderMode.ScreenSpaceCamera)
-            throw new Exception($"[TutorialScreen] Tutorial screen supports only screen space camera canvases. {canvas.rootCanvas} has {canvas.rootCanvas.renderMode} render mode");
+            Debug.LogError($"[TutorialScreen] Tutorial screen supports only screen space camera canvases. {canvas.rootCanvas} has {canvas.rootCanvas.renderMode} render mode");
         
         if(Holes.Count > HolesSize)
-            throw new ArgumentOutOfRangeException(nameof(Holes), $"[TutorialScreen] Max holes size is {HolesSize}");
+            Debug.LogError( $"[TutorialScreen] Max holes size is {HolesSize}");
     }
 
     Vector4 GetRectVectorRelative(Rect holeRect, Rect worldRect)
