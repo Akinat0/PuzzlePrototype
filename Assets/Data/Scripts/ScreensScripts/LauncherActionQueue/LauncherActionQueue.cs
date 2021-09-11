@@ -76,8 +76,8 @@ public class LauncherActionQueue : MonoBehaviour
 
     void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
     {
-        if (args.LevelConfig.Name == "Tutorial" && !Account.AchievementsAvailable)
-            AddAction(new AchievementTutorialAction(achievementNotification));
+        if (args.LevelConfig == Account.LevelConfigs[0] && !Account.AchievementsAvailable)
+            AddAction(new AchievementTutorialAction(LauncherUI.Instance.UiManager.Achievements, achievementNotification));
     }
 
     void ChestEpicOnAmountAdded_Handler(int amount)

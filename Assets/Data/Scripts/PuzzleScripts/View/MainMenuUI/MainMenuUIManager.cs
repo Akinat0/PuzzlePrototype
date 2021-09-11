@@ -23,6 +23,10 @@ namespace Puzzle
         [SerializeField] CollectionScreen CollectionScreen;
         [SerializeField] ShopScreen ShopScreen;
 
+        public AchievementsScreen Achievements => AchievementScreen;
+        public CollectionScreen Collection => CollectionScreen;
+        public ShopScreen Shop => ShopScreen;
+
         public RectTransform Root => root;
         public StarsComponent Stars => stars;
 
@@ -74,21 +78,9 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
+            LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEvent_Handler;
             
             Account.CollectionAvailable.Changed += CollectionAvailableChanged_Handler;
-        }
-
-        void CollectionAvailableChanged_Handler(bool available)
-        {
-            if (!available)
-                return;
-
-            ButtonComponent CollectionItemViewGetter(CollectionItem collectionItem)
-                => CollectionScreen.GetItemButton(collectionItem);
-
-            bool CanStartPredicate() => CurrentState.GetType() == typeof(MainMenuIdleScreenState);
-            
-            LauncherUI.Instance.ActionQueue.AddAction(new CollectionTutorialAction(collectionButton, CollectionItemViewGetter, CanStartPredicate));
         }
 
         void OnDisable()
@@ -96,6 +88,9 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
             LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent -= LevelChangedEvent_Handler;
+            LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEvent_Handler;
+            
+            Account.CollectionAvailable.Changed -= CollectionAvailableChanged_Handler;
         }
 
         void ManageButton(bool available, ButtonComponent button) => button.SetActive(available);
@@ -131,6 +126,22 @@ namespace Puzzle
         {
             foreach (MainMenuUIState state in states.Values)
                 state.Dispose();
+        }
+
+        void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
+        {
+            if (args.LevelConfig == Account.LevelConfigs[1] && !Account.ShopAvailable)
+                LauncherUI.Instance.ActionQueue.AddAction(new ShopTutorialAction(ShopScreen, shopButton));
+        }
+        
+        void CollectionAvailableChanged_Handler(bool available)
+        {
+            if (!available)
+                return;
+
+            bool CanStartPredicate() => CurrentState.GetType() == typeof(MainMenuIdleScreenState);
+            
+            LauncherUI.Instance.ActionQueue.AddAction(new CollectionTutorialAction(collectionButton, CollectionScreen, CanStartPredicate));
         }
         
         void LevelChangedEvent_Handler(LevelChangedEventArgs args)

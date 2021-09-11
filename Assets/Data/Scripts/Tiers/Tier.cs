@@ -9,7 +9,8 @@ public abstract class Tier
     public enum TierType
     {
         Booster, 
-        Puzzle
+        Puzzle,
+        Shop
     }
     
     protected Tier()

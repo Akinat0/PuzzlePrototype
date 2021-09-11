@@ -5,40 +5,15 @@ namespace Data.Scripts.ScreensScripts
 {
     public class ShopScreen : ScreenComponent
     {
+        [SerializeField] ShopScrollList shop;
 
-        [SerializeField] ShopItem[] shopItems;
-
-        void Awake()
-        {
-            foreach (ShopItem shopItem in shopItems)
-                shopItem.ScaleComponent.Phase = 0;
-        }
-        
         public override bool Show(Action finished = null)
         {
             if (!base.Show(finished))
                 return false;
             
             SetActive(true);
-            
-            int count = shopItems.Length;
-            
-            void Finished()
-            {
-                count--;
-
-                if (count > 0)
-                    return;
-                
-                finished?.Invoke();
-            }
-
-            const float delay = 0.02f; 
-            const float duration = 0.23f; 
-
-            for (int i = 0; i < shopItems.Length; i++)
-                shopItems[i].Show(i * delay, duration, Finished);
-            
+            shop.Show();
             return true;
         }
 
@@ -47,25 +22,28 @@ namespace Data.Scripts.ScreensScripts
             if (!base.Hide(finished))
                 return false;
 
-            int count = shopItems.Length;
-            
-            void Finished()
-            {
-                count--;
-
-                if (count > 0)
-                    return;
-                
-                finished?.Invoke();
-                SetActive(false);
-            }
-            
-            const float duration = 0.23f; 
-            
-            foreach (ShopItem item in shopItems)
-                item.Hide(0, duration, Finished);
+            shop.Hide(() => SetActive(false));
             
             return true;
+        }
+
+        public ShopItem GetShopItem(Tier tier)
+        {
+            return shop.GetShopItem(tier);
+        }
+        
+        public void FocusOn(Tier tier)
+        {
+            bool Predicate(ShopItem shopItem) 
+                => shopItem.Tier == tier;
+            
+            shop.SnapTo(Predicate);
+        }
+        
+        public bool IsScrollable
+        {
+            get => shop.IsScrollable;
+            set => shop.IsScrollable = value;
         }
     }
 }

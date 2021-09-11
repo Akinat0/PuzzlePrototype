@@ -18,7 +18,7 @@ public class FreeHeartBoosterTier : Tier
     public override string ID => Id;
     public override Reward Reward { get; }
     public override Purchase Purchase => FreePurchase;
-    public override TierType Type => TierType.Booster;
+    public override TierType Type => TierType.Shop;
 
     FreePurchase FreePurchase { get; set; }
 

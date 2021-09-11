@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Abu.Tools;
 using Puzzle.Advertisements;
@@ -138,7 +139,12 @@ public class Account : MonoBehaviour
     {
         return Tiers.FirstOrDefault(tier => tier.ID == id);
     }
-    
+
+    public static IEnumerable<Tier> GetTiersOfType(Tier.TierType type)
+    {
+        return Tiers.Where(tier => tier.Type == type);
+    }
+
     #endregion
     
     #region Achievement

@@ -80,6 +80,12 @@ namespace Data.Scripts.ScreensScripts
             for (int i = 0; i < Elements.Count; i++)
                 Elements[i].Hide(totalDelay - i * delay, Finished);
         }
+        
+        public AchievementViewComponent GetAchievementView(Achievement achievement)
+        {
+            AchievementListView listView = Selection.FirstOrDefault(view => view.achievement == achievement);
+            return listView?.View;
+        }
 
     }
 }

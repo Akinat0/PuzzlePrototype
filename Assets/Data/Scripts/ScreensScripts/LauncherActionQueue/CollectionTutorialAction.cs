@@ -1,12 +1,13 @@
 using System;
 using Abu.Tools.UI;
+using Data.Scripts.ScreensScripts;
 using ScreensScripts;
 using UnityEngine;
 
 public class CollectionTutorialAction : LauncherAction
 {
     ButtonComponent CollectionButton { get; }
-    Func<CollectionItem, ButtonComponent> CollectionItemGetter { get; }
+    CollectionScreen CollectionScreen { get; }
     Func<bool> CanStartPredicate { get; }
 
     TutorialOverlayView overlayView;
@@ -15,10 +16,10 @@ public class CollectionTutorialAction : LauncherAction
 
     RectTransform Root => LauncherUI.Instance.UiManager.Root;
     
-    public CollectionTutorialAction(ButtonComponent collectionButton, Func<CollectionItem, ButtonComponent> collectionItemGetter, Func<bool> canStartPredicate) : base(LauncherActionOrder.Tutorial)
+    public CollectionTutorialAction(ButtonComponent collectionButton, CollectionScreen collectionScreen,  Func<bool> canStartPredicate) : base(LauncherActionOrder.Tutorial)
     {
         CollectionButton = collectionButton;
-        CollectionItemGetter = collectionItemGetter;
+        CollectionScreen = collectionScreen;
         CanStartPredicate = canStartPredicate;
     }
 
@@ -57,14 +58,17 @@ public class CollectionTutorialAction : LauncherAction
 
     void CollectionItemTutorial()
     {
-        ButtonComponent collectionItemButton = CollectionItemGetter(Account.GetCollectionItem("Cool Guy"));
+        CollectionItem target = Account.GetCollectionItem("Cool Guy");
         
+        ButtonComponent collectionItemButton = CollectionScreen.GetItemButton(target);
+
         currentHole = new RectTransformTutorialHole(collectionItemButton.Content);
         overlayView.AddHole(currentHole);
         overlayView.ChangePhase(0.975f, 0.3f);
 
         void CollectionItemClicked()
         {
+            CollectionScreen.IsScrollable = true;
             collectionItemButton.OnClick -= CollectionItemClicked;
             overlayView.ChangePhase(0, 0.25f);
             overlayView.RemoveHole(currentHole);
@@ -72,6 +76,7 @@ public class CollectionTutorialAction : LauncherAction
             Pop();
         }
 
+        CollectionScreen.IsScrollable = false;
         collectionItemButton.OnClick += CollectionItemClicked;
     }
 

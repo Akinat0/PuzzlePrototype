@@ -7,6 +7,12 @@ namespace Data.Scripts.ScreensScripts
     public class CollectionScreen : ScreenComponent
     {
         [SerializeField] CollectionScrollList collection;
+
+        public bool IsScrollable
+        {
+            get => collection.IsScrollable;
+            set => collection.IsScrollable = value;
+        }
         
         public override void CreateContent()
         {

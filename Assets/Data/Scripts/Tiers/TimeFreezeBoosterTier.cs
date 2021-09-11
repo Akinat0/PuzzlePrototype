@@ -11,7 +11,7 @@ public sealed class TimeFreezeBoosterTier : Tier
     public override string ID => "booster_timefreeze";
     public override Reward Reward => new BoosterReward(1, Account.GetBooster<TimeFreezeBooster>());
     public override Purchase Purchase => purchase;
-    public override TierType Type => TierType.Booster;
+    public override TierType Type => TierType.Shop;
     
     public override void Parse(TierInfo tierInfo)
     {

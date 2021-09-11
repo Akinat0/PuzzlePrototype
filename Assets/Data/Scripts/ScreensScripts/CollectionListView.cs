@@ -22,7 +22,7 @@ namespace Data.Scripts.ScreensScripts
 
         CollectionViewComponent entity;
 
-        public void Create(Transform container)
+        public void LinkToList(Transform container)
         {
             entity = CollectionViewComponent.Create(container, collectionItem);
 

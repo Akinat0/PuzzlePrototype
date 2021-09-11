@@ -23,6 +23,7 @@ namespace Data.Scripts.ScreensScripts
         }
 
         public readonly Achievement achievement;
+        public AchievementViewComponent View => entity;
         
         public Vector2 Size => entity.RectTransform.rect.size;
         public Vector3 Position => entity.RectTransform.position;
@@ -44,7 +45,7 @@ namespace Data.Scripts.ScreensScripts
             }        
         }
 
-        public void Create(Transform container)
+        public void LinkToList(Transform container)
         {
             entity = Object.Instantiate(Prefab, container);
             entity.name = achievement.Name + " achievement";

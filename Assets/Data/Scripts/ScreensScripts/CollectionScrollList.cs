@@ -27,7 +27,7 @@ namespace Data.Scripts.ScreensScripts
 
         protected override void AddElement(CollectionListView listElement)
         {
-            listElement.Create(Layout.transform);
+            listElement.LinkToList(Layout.transform);
 
             if (Elements.Count % 3 != 1) return;
             

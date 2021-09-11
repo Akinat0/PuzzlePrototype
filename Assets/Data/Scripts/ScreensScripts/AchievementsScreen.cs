@@ -7,6 +7,12 @@ namespace Data.Scripts.ScreensScripts
     {
         [SerializeField] AchievementScrollList achievements;
 
+        public bool IsScrollable
+        {
+            get => achievements.IsScrollable;
+            set => achievements.IsScrollable = value;
+        }
+
         public void FocusOn(Achievement achievement)
         {
             bool Predicate(AchievementListView listView) 
@@ -14,7 +20,10 @@ namespace Data.Scripts.ScreensScripts
             
             achievements.SnapTo(Predicate);
         }
-        
+
+        public AchievementViewComponent GetAchievementView(Achievement achievement) 
+            => achievements.GetAchievementView(achievement);
+
         public override void CreateContent()
         {
             base.CreateContent();

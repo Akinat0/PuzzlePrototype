@@ -8,7 +8,7 @@ namespace Abu.Tools.UI
 
     public interface IListElement
     {
-        void Create(Transform container);
+        void LinkToList(Transform container);
         Vector2 Size { get; }
         Vector3 Position { get; }
     }
@@ -23,7 +23,13 @@ namespace Abu.Tools.UI
 
         protected readonly List<T> Elements = new List<T>();
 
-        bool isListInitialized = false;
+        bool isListInitialized;
+        
+        public bool IsScrollable
+        {
+            get => ScrollRect.enabled;
+            set => ScrollRect.enabled = value;
+        } 
         
         void Awake()
         {
@@ -37,6 +43,28 @@ namespace Abu.Tools.UI
 
             isListInitialized = true; 
             CreateList();
+        }
+
+        public void SnapTo(Predicate<T> predicate)
+        {
+            int index = Elements.FindIndex(predicate);
+            
+            if (index < 0)
+                return;
+
+            T target = Elements[index];
+            
+            Canvas.ForceUpdateCanvases();
+
+            float contentPanelPosition = RectTransform.InverseTransformPoint(Content.position).y;
+            float targetPosition = RectTransform.InverseTransformPoint(target.Position).y;
+
+            float elementOffset = 
+                contentPanelPosition < targetPosition ? target.Size.y / 2 : - target.Size.y / 2;
+
+            Vector2 anchoredPos = Content.anchoredPosition;
+            anchoredPos.y = contentPanelPosition - targetPosition + elementOffset;
+            Content.anchoredPosition = anchoredPos;
         }
         
         protected virtual void CreateList()
@@ -52,25 +80,8 @@ namespace Abu.Tools.UI
         
         protected virtual void AddElement(T listElement)
         {
-            listElement.Create(Layout.transform);
+            listElement.LinkToList(Layout.transform);
             Content.offsetMin -= new Vector2(0, listElement.Size.y);
-        }
-
-        public void SnapTo(Predicate<T> predicate)
-        {
-            int index = Elements.FindIndex(predicate);
-            
-            if (index < 0)
-                return;
-
-            T target = Elements[index];
-            
-            Canvas.ForceUpdateCanvases();
-
-            Vector2 contentPanelPosition = RectTransform.InverseTransformPoint(Content.position);
-            Vector2 targetPosition = RectTransform.InverseTransformPoint(target.Position);
-            
-            Content.anchoredPosition = contentPanelPosition - targetPosition;
         }
     }
 }

@@ -4,15 +4,23 @@ using Abu.Tools.UI;
 using UnityEngine;
 
 [RequireComponent(typeof(UIScaleComponent))]
-public class ShopItem : UIComponent
+public class ShopItem : UIComponent, IListElement 
 {
-    [SerializeField] string TierID;
+    public static ShopItem Create(Tier tier)
+    {
+        ShopItem shopItem = Instantiate(Resources.Load<ShopItem>("UI/ShopItem"));
+        shopItem.Tier = tier;
+        shopItem.ScaleComponent.Phase = 0;
+        return shopItem;
+    }
 
     [SerializeField] RectTransform RewardContainer;
     [SerializeField] RectTransform PurchaseContainer;
     [SerializeField] ButtonComponent Button;
-    
-    Tier Tier;
+
+    public Tier Tier { get; private set; }
+
+    public ButtonComponent BuyButton => Button; 
 
     GameObject PurchaseView;
     GameObject RewardView;
@@ -28,23 +36,6 @@ public class ShopItem : UIComponent
                 scaleComponent = GetComponent<UIScaleComponent>();
             return scaleComponent;
         }
-    }
-    
-    void Start()
-    {
-        Tier = Account.GetTier(TierID);
-
-        if (Tier == null)
-        {
-            Debug.LogError($"Tier {TierID} doesn't exist");
-            return;
-        }
-        
-        CreateView();
-        
-        Button.OnClick += OnClick;
-        Tier.OnAvailableChangedEvent += OnAvailableChangedEvent_Handler;
-        Tier.OnTierValueChangedEvent += OnTierValueChangedEvent_Handler;
     }
 
     void OnClick()
@@ -71,7 +62,6 @@ public class ShopItem : UIComponent
         
         CreateView();
     }
-
     
     public virtual void Show(float delay, float duration, Action finished = null)
     {
@@ -127,4 +117,17 @@ public class ShopItem : UIComponent
         finished?.Invoke();
     }
 
+    public void LinkToList(Transform container)
+    {
+        transform.parent = container;
+        
+        CreateView();
+        
+        Button.OnClick += OnClick;
+        Tier.OnAvailableChangedEvent += OnAvailableChangedEvent_Handler;
+        Tier.OnTierValueChangedEvent += OnTierValueChangedEvent_Handler;
+    }
+
+    public Vector2 Size => RectTransform.rect.size;
+    public Vector3 Position => RectTransform.position;
 }
