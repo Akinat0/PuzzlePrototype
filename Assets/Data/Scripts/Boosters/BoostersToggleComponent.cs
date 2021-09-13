@@ -35,7 +35,9 @@ public class BoostersToggleComponent : ToggleComponent
         heartBoosterView.Initialize(Account.GetBooster<HeartBooster>());
         //add here other boosters initialization
 
-        Account.BoostersAvailable.Changed += BoosterAvailableChanged_Handler; 
+        Account.BoostersAvailable.Changed += BoosterAvailableChanged_Handler;
+        
+        AddTutorialAction();
             
         SetActive(Account.BoostersAvailable);
     }
@@ -94,5 +96,18 @@ public class BoostersToggleComponent : ToggleComponent
         
         if(fade != null && fade.gameObject != null)
             Destroy(fade.gameObject);
+    }
+
+    void AddTutorialAction()
+    {
+        void AddBoosterTutorialAction() => LauncherUI.Instance.ActionQueue.AddAction(new BoosterTutorialAction(this, heartBoosterView));
+
+        if (!Account.BoostersAvailable)
+        {
+            if (Account.ShopAvailable)
+                AddBoosterTutorialAction();
+            else
+                Account.ShopAvailable.Changed += _ => AddBoosterTutorialAction();
+        }
     }
 }

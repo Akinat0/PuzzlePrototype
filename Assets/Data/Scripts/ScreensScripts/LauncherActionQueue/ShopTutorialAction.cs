@@ -7,14 +7,16 @@ public class ShopTutorialAction : LauncherAction
 {
     ShopScreen ShopScreen { get; }
     public ButtonComponent ShopButton { get; }
+    public ButtonComponent CloseButton { get; }
 
     RectTransformTutorialHole tutorialHole;
     TutorialOverlayView tutorialOverlay;
     
-    public ShopTutorialAction(ShopScreen shopScreen, ButtonComponent shopButton) : base(LauncherActionOrder.Tutorial)
+    public ShopTutorialAction(ShopScreen shopScreen, ButtonComponent shopButton, ButtonComponent closeButton) : base(LauncherActionOrder.Tutorial)
     {
         ShopScreen = shopScreen;
         ShopButton = shopButton;
+        CloseButton = closeButton;
     }
 
     public override void Start()
@@ -45,7 +47,9 @@ public class ShopTutorialAction : LauncherAction
             tutorialOverlay.Phase = 0;
             tutorialOverlay.RemoveHole(tutorialHole);
             tutorialHole = null;
-
+            
+            LauncherUI.SelectLevel(Account.LevelConfigs[2]);
+            
             StartShopScreenTutorial();
         }
 
@@ -59,7 +63,6 @@ public class ShopTutorialAction : LauncherAction
         ShopScreen.IsScrollable = false;
         ShopScreen.FocusOn(targetTier);
         
-        
         ShopItem shopItem = ShopScreen.GetShopItem(targetTier);
         tutorialHole = new RectTransformTutorialHole(shopItem.RectTransform);
         tutorialOverlay.AddHole(tutorialHole);
@@ -70,12 +73,22 @@ public class ShopTutorialAction : LauncherAction
             shopItem.BuyButton.OnClick -= OnShopItemClick;
             ShopScreen.IsScrollable = true;
             tutorialOverlay.ChangePhase(0, 0.5f, () => tutorialOverlay.Destroy());
-            
-            LauncherUI.SelectLevel(Account.LevelConfigs[2]);
-            Pop();
+
+            CompleteTutorial();
         }
 
         shopItem.BuyButton.OnClick += OnShopItemClick;
+    }
+
+    void CompleteTutorial()
+    {
+        void OnCloseButtonClick()
+        {
+            CloseButton.OnClick -= OnCloseButtonClick;
+            Pop();
+        }
+
+        CloseButton.OnClick += OnCloseButtonClick;
     }
 
     public override void Update()

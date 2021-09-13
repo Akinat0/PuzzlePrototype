@@ -131,7 +131,7 @@ namespace Puzzle
         void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
         {
             if (args.LevelConfig == Account.LevelConfigs[1] && !Account.ShopAvailable)
-                LauncherUI.Instance.ActionQueue.AddAction(new ShopTutorialAction(ShopScreen, shopButton));
+                LauncherUI.Instance.ActionQueue.AddAction(new ShopTutorialAction(ShopScreen, shopButton, closeButton));
         }
         
         void CollectionAvailableChanged_Handler(bool available)
