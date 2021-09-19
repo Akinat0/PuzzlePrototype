@@ -29,8 +29,10 @@ public class BoostersToggleComponent : ToggleComponent
         }
     }
 
-    protected virtual void Start()
+    protected override void Start()
     {
+        base.Start();
+        
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
         heartBoosterView.Initialize(Account.GetBooster<HeartBooster>());
         //add here other boosters initialization
@@ -38,7 +40,7 @@ public class BoostersToggleComponent : ToggleComponent
         Account.BoostersAvailable.Changed += BoosterAvailableChanged_Handler;
         
         AddTutorialAction();
-            
+        
         SetActive(Account.BoostersAvailable);
     }
 
