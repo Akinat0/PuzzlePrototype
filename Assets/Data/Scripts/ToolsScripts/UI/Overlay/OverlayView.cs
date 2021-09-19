@@ -11,6 +11,7 @@ namespace Abu.Tools.UI
             Never,
             OnZero,
             OnOne,
+            Always
         }
         
         public static T Create<T>(Transform parent, int siblingIndex, RaycastTargetMode raycastMode = RaycastTargetMode.OnOne) where T : OverlayView
@@ -116,6 +117,9 @@ namespace Abu.Tools.UI
                     RaycastTarget = Phase > Mathf.Epsilon;
                     break;
                 case RaycastTargetMode.Never:
+                    RaycastTarget = false;
+                    break;
+                case RaycastTargetMode.Always:
                     RaycastTarget = false;
                     break;
                 default:

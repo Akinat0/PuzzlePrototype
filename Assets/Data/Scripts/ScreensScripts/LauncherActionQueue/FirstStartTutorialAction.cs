@@ -1,6 +1,7 @@
 using System.Collections;
 using Abu.Tools;
 using Abu.Tools.UI;
+using Data.Scripts.Tools.Input;
 using ScreensScripts;
 using UnityEngine;
 
@@ -22,30 +23,30 @@ public class FirstStartTutorialAction : LauncherAction
     IEnumerator StartTutorial()
     {
         SoundManager.Instance.SetVolume(0);
+        MobileInput.Condition = false;
 
         yield return new WaitForSeconds(0.1f);
         
         OverlayView overlay = OverlayView.Create<BlurOverlayView>(LauncherUI.Instance.UiManager.Root,
-            LauncherUI.Instance.UiManager.Root.childCount, OverlayView.RaycastTargetMode.Never);
+            LauncherUI.Instance.UiManager.Root.childCount, OverlayView.RaycastTargetMode.Always);
         
         overlay.Phase = 0;
         overlay.ChangePhase(1, 0.2f);
         
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
 
-        LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEvent_Handler;
-        LauncherUI.PlayLevel(Account.GetLevel("Tutorial"));
+        MobileInput.Condition = true;
+        SoundManager.Instance.SetVolume(1);
+        
+        LevelConfig level = Account.GetLevel("Tutorial");
+        
+        LauncherUI.SelectLevel(level);
+        LauncherUI.PlayLevel(level);
         
         overlay.ChangePhase(0, 0.2f, () => overlay.Destroy());
         
         yield return new WaitForSeconds(0.2f);
         
-        SoundManager.Instance.SetVolume(1);
-    }
-
-    void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
-    {
-        LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEvent_Handler;
         Pop();
     }
 }
