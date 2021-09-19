@@ -6,7 +6,7 @@ public sealed class TimeFreezeBoosterTier : Tier
         Available = Purchase.Available;
     }
 
-    Purchase purchase = new StarsPurchase(75);
+    Purchase purchase = new VideoPurchase();
     
     public override string ID => "booster_timefreeze";
     public override Reward Reward => new BoosterReward(1, Account.GetBooster<TimeFreezeBooster>());
