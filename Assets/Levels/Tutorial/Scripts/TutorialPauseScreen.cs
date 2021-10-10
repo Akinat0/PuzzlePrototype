@@ -4,7 +4,7 @@ public class TutorialPauseScreen : PauseScreen
 {
     protected override void OnMenuClick()
     {
-        if (Account.TutorialCompleted)
+        if (Tutorials.FirstStartTutorial.IsCompleted)
         {
             base.OnMenuClick();
             return;

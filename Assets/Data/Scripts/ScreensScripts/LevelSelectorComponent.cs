@@ -373,8 +373,8 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         
         float phase = Mathf.Abs(Offset - Index) / 1;
 
-        bool currentCollectionAvailable = Current.CollectionEnabled && Account.CollectionAvailable; 
-        bool nextCollectionAvailable = Selection[nextLevel].CollectionEnabled && Account.CollectionAvailable; 
+        bool currentCollectionAvailable = Current.CollectionEnabled && Tutorials.CollectionTutorial.State == TutorialState.Started; 
+        bool nextCollectionAvailable = Selection[nextLevel].CollectionEnabled && Tutorials.CollectionTutorial.State == TutorialState.Started; 
         
         Vector2 startCollectionBtnMaxAnchor = 
             currentCollectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
@@ -541,7 +541,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
     
     void ProcessButtonsByIndex()
     {
-        bool collectionAvailable = Current.CollectionEnabled && Account.CollectionAvailable;
+        bool collectionAvailable = Current.CollectionEnabled && Tutorials.CollectionTutorial.State == TutorialState.Started;
         
         CollectionBtn.RectTransform.anchorMax = collectionAvailable ? EnabledCollectionMaxAnchor : DisabledCollectionMaxAnchor;
         
@@ -597,7 +597,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.PlayLevelEvent += PlayLevelEvent_Handler;
         LauncherUI.SelectLevelEvent += SelectLevelEvent_Handler;
         
-        Account.CollectionAvailable.Changed += CollectionAvailableChanged_Handler;
+        Tutorials.CollectionTutorial.StateChanged += CollectionTutorialStateChanged_Handler;
         
         InteractBtn.OnClick += PlaySelectedLevel;
         CollectionBtn.OnClick += OnCollection;
@@ -614,7 +614,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         LauncherUI.PlayLevelEvent -= PlayLevelEvent_Handler;
         LauncherUI.SelectLevelEvent -= SelectLevelEvent_Handler;
         
-        Account.CollectionAvailable.Changed -= CollectionAvailableChanged_Handler;
+        Tutorials.CollectionTutorial.StateChanged -= CollectionTutorialStateChanged_Handler;
 
         InteractBtn.OnClick -= PlaySelectedLevel;
         CollectionBtn.OnClick -= OnCollection;
@@ -683,7 +683,7 @@ public class LevelSelectorComponent : SelectorComponent<LevelConfig>
         HideActivePlayer();
     }
 
-    void CollectionAvailableChanged_Handler(bool _)
+    void CollectionTutorialStateChanged_Handler(TutorialState state)
     {
         ProcessIndex();
     }

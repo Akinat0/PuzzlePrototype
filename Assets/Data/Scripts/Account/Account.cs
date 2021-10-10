@@ -44,12 +44,6 @@ public class Account : MonoBehaviour
     public static Wallet EpicShards => epicShards = epicShards ?? new Wallet("epic_shards");
     public static Wallet Stars => stars = stars ?? new Wallet("stars");
 
-    public static Trigger BoostersAvailable => boostersAvailable = boostersAvailable ?? new Trigger("booster_available"); 
-    public static Trigger CollectionAvailable => collectionAvailable = collectionAvailable ?? new Trigger("collection_available"); 
-    public static Trigger AchievementsAvailable => achievementsAvailable = achievementsAvailable ?? new Trigger("achievements_available"); 
-    public static Trigger ShopAvailable => shopAvailable = shopAvailable ?? new Trigger("shop_available");
-    public static Trigger TutorialCompleted => tutorialCompleted = tutorialCompleted ?? new Trigger("tutorial_completed");
-
     static RemoteConfig remoteConfig;
     static PuzzleAnalytics analytics;
     static PuzzleAdvertisement advertisement;

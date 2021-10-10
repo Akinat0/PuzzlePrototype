@@ -160,5 +160,26 @@ public partial class LevelConfig
     }
     
     #endregion
+    
+#if UNITY_EDITOR
+
+    void OnEnable()
+    {
+        UnityEditor.EditorApplication.playModeStateChanged += PlayModeStateChanged_Handler;
+    }
+
+    void OnDisable()
+    {
+        UnityEditor.EditorApplication.playModeStateChanged -= PlayModeStateChanged_Handler;
+    }
+
+    void PlayModeStateChanged_Handler(UnityEditor.PlayModeStateChange state)
+    {
+        isDifficultyLevelLoaded = false;
+        isScoreLoaded = false;
+        isStarsAmountLoaded = false;
+    }
+    
+#endif
 }
 

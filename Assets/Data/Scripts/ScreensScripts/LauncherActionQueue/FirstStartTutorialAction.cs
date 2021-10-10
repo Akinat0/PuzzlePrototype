@@ -5,18 +5,10 @@ using Data.Scripts.Tools.Input;
 using ScreensScripts;
 using UnityEngine;
 
-public class FirstStartTutorialAction : LauncherAction
+public class FirstStartTutorialAction : TutorialAction
 {
-    public FirstStartTutorialAction() : base(LauncherActionOrder.Tutorial) { }
-
     public override void Start()
     {
-        if (Account.TutorialCompleted)
-        {
-            Pop();
-            return;
-        }
-
         CoroutineHelper.StartRoutine(StartTutorial());
     }
 

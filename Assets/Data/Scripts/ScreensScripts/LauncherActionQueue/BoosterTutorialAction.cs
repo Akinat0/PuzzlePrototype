@@ -3,30 +3,21 @@ using Data.Scripts.Boosters;
 using ScreensScripts;
 using UnityEngine;
 
-public class BoosterTutorialAction : LauncherAction
+public class BoosterTutorialAction : TutorialAction
 {
-    public BoostersToggleComponent BoostersToggle { get; }
-    public BoosterView HeartBoosterView { get; }
+    [TutorialProperty("boosters_toggle")]
+    public BoostersToggleComponent BoostersToggle { get; set; }
+    
+    [TutorialProperty("heart_booster_view")]
+    public BoosterView HeartBoosterView { get; set; }
 
     TutorialOverlayView tutorialOverlay;
     RectTransformTutorialHole tutorialHole;
 
-    public BoosterTutorialAction(BoostersToggleComponent boostersToggle, BoosterView heartBoosterView) : base(LauncherActionOrder.Tutorial)
-    {
-        BoostersToggle = boostersToggle;
-        HeartBoosterView = heartBoosterView;
-    }
-
     public override void Start()
     {
-        if (Account.BoostersAvailable)
-        {
-            Pop();
-            return;
-        }
-
-        Account.BoostersAvailable.Value = true;
-
+        BoostersToggle.SetActive(true);
+        
         RectTransform root = LauncherUI.Instance.UiManager.Root;
 
         tutorialOverlay = OverlayView.Create<TutorialOverlayView>(root, root.childCount, OverlayView.RaycastTargetMode.Never);

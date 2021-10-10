@@ -3,30 +3,19 @@ using Data.Scripts.ScreensScripts;
 using ScreensScripts;
 using UnityEngine;
 
-public class AchievementTutorialAction : LauncherAction
+public class AchievementTutorialAction : TutorialAction
 {
-    AchievementNotification AchievementNotification { get; }
-    AchievementsScreen AchievementScreen { get; }
+    [TutorialProperty("achievement_notification")]
+    public AchievementNotification AchievementNotification { get; set; }
+    
+    [TutorialProperty("achievements_screen")]
+    public AchievementsScreen AchievementScreen { get; set; }
     
     RectTransformTutorialHole tutorialHole;
     TutorialOverlayView tutorialOverlay;
 
-    public AchievementTutorialAction(AchievementsScreen achievementsScreen, AchievementNotification achievementNotification) : base(LauncherActionOrder.Tutorial)
-    {
-        AchievementNotification = achievementNotification;
-        AchievementScreen = achievementsScreen;
-    }
-
     public override void Start()
     {
-        if (Account.AchievementsAvailable)
-        {
-            Pop();
-            return;
-        }
-
-        Account.AchievementsAvailable.Value = true;
-
         tutorialOverlay = OverlayView.Create<TutorialOverlayView>(AchievementNotification.transform.parent,
             AchievementNotification.transform.GetSiblingIndex(), OverlayView.RaycastTargetMode.Never);
 
@@ -58,8 +47,6 @@ public class AchievementTutorialAction : LauncherAction
             
             LauncherUI.SelectLevel(Account.LevelConfigs[1]);
 
-            Account.CollectionAvailable.Value = true;
-            
             StartAchievementScreenTutorial();
         }
 

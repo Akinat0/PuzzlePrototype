@@ -51,6 +51,11 @@ namespace ScreensScripts
             LauncherTextGroup = TextGroupComponent.AttachTo(gameObject);
         }
 
+        void Start()
+        {
+            Tutorials.TryStartTutorials();
+        }
+
         public static void PlayLevel(LevelConfig levelConfig) => Instance.InvokePlayLevel(levelConfig); 
         public static void SelectLevel(LevelConfig levelConfig) => Instance.InvokeSelectLevel(levelConfig); 
         

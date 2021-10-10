@@ -23,9 +23,6 @@ namespace Puzzle
         [SerializeField] CollectionScreen CollectionScreen;
         [SerializeField] ShopScreen ShopScreen;
 
-        public AchievementsScreen Achievements => AchievementScreen;
-        public CollectionScreen Collection => CollectionScreen;
-        public ShopScreen Shop => ShopScreen;
 
         public RectTransform Root => root;
         public StarsComponent Stars => stars;
@@ -47,6 +44,7 @@ namespace Puzzle
         void Awake()
         {
             CreateStates();
+            RegisterTutorialValues();
             CurrentState = states[typeof(MainMenuIdleScreenState)];
             CurrentState.Start();
         }
@@ -55,22 +53,22 @@ namespace Puzzle
         {    
             AchievementScreen.CreateContent();
             
-            ManageButton(Account.AchievementsAvailable, achievementButton);
-            ManageButton(Account.CollectionAvailable, collectionButton);
-            ManageButton(Account.ShopAvailable, shopButton);
+            ManageButton(Tutorials.AchievementTutorial.State, achievementButton);
+            ManageButton(Tutorials.CollectionTutorial.State, collectionButton);
+            ManageButton(Tutorials.ShopTutorial.State, shopButton);
 
-            Account.AchievementsAvailable.Changed += AchievementsAvailableChanged_Handler;
-            Account.CollectionAvailable.Changed += CollectionsAvailableChanged_Handler;
-            Account.ShopAvailable.Changed += ShopAvailableChanged_Handler;
+            Tutorials.AchievementTutorial.StateChanged += AchievementsAvailableChanged_Handler;
+            Tutorials.CollectionTutorial.StateChanged += CollectionsAvailableChanged_Handler;
+            Tutorials.ShopTutorial.StateChanged += ShopAvailableChanged_Handler;
         }
 
         void OnDestroy()
         {
             DisposeStates();
             
-            Account.AchievementsAvailable.Changed -= AchievementsAvailableChanged_Handler;
-            Account.CollectionAvailable.Changed -= CollectionsAvailableChanged_Handler;
-            Account.ShopAvailable.Changed -= ShopAvailableChanged_Handler;
+            Tutorials.AchievementTutorial.StateChanged -= AchievementsAvailableChanged_Handler;
+            Tutorials.CollectionTutorial.StateChanged -= CollectionsAvailableChanged_Handler;
+            Tutorials.ShopTutorial.StateChanged -= ShopAvailableChanged_Handler;
         }
         
         void OnEnable()
@@ -78,9 +76,6 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent += ShowCollectionEvent_Handler;
             LauncherUI.CloseCollectionEvent += CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent += LevelChangedEvent_Handler;
-            LauncherUI.GameEnvironmentUnloadedEvent += GameEnvironmentUnloadedEvent_Handler;
-            
-            Account.CollectionAvailable.Changed += CollectionAvailableChanged_Handler;
         }
 
         void OnDisable()
@@ -88,12 +83,10 @@ namespace Puzzle
             LauncherUI.ShowCollectionEvent -= ShowCollectionEvent_Handler;
             LauncherUI.CloseCollectionEvent -= CloseCollectionEvent_Handler;
             LauncherUI.LevelChangedEvent -= LevelChangedEvent_Handler;
-            LauncherUI.GameEnvironmentUnloadedEvent -= GameEnvironmentUnloadedEvent_Handler;
-            
-            Account.CollectionAvailable.Changed -= CollectionAvailableChanged_Handler;
         }
 
-        void ManageButton(bool available, ButtonComponent button) => button.SetActive(available);
+        void ManageButton(TutorialState state, ButtonComponent button) 
+            => button.SetActive(state == TutorialState.Started || state == TutorialState.Completed);
 
         void CreateStates()
         {
@@ -128,22 +121,6 @@ namespace Puzzle
                 state.Dispose();
         }
 
-        void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
-        {
-            if (args.LevelConfig == Account.LevelConfigs[1] && !Account.ShopAvailable)
-                LauncherUI.Instance.ActionQueue.AddAction(new ShopTutorialAction(ShopScreen, shopButton, closeButton));
-        }
-        
-        void CollectionAvailableChanged_Handler(bool available)
-        {
-            if (!available)
-                return;
-
-            bool CanStartPredicate() => CurrentState.GetType() == typeof(MainMenuIdleScreenState);
-            
-            LauncherUI.Instance.ActionQueue.AddAction(new CollectionTutorialAction(collectionButton, CollectionScreen, CanStartPredicate));
-        }
-        
         void LevelChangedEvent_Handler(LevelChangedEventArgs args)
         {
             args.LevelConfig.ColorScheme.SetButtonColor(closeButton);
@@ -161,13 +138,32 @@ namespace Puzzle
                 wallet.Hide();
         }
 
-        void CollectionsAvailableChanged_Handler(bool available)
-            => ManageButton(available, collectionButton);
+        void CollectionsAvailableChanged_Handler(TutorialState state)
+            => ManageButton(state, collectionButton);
         
-        void AchievementsAvailableChanged_Handler(bool available)
-            => ManageButton(available, achievementButton);
+        void AchievementsAvailableChanged_Handler(TutorialState state)
+            => ManageButton(state, achievementButton);
         
-        void ShopAvailableChanged_Handler(bool available)
-            => ManageButton(available, shopButton);
+        void ShopAvailableChanged_Handler(TutorialState state)
+            => ManageButton(state, shopButton);
+
+
+        void RegisterTutorialValues()
+        {
+            Tutorials.Register("achievements_screen", AchievementScreen);
+            Tutorials.Register("collection_screen", CollectionScreen);
+            Tutorials.Register("shop_screen", ShopScreen);
+
+            Tutorials.Register("achievements_button", achievementButton);
+            Tutorials.Register("collection_button", collectionButton);
+            Tutorials.Register("shop_button", shopButton);
+            
+            Tutorials.Register("main_menu_close_button", closeButton);
+            
+            bool CanStartCollectionTutorial() => CurrentState.GetType() == typeof(MainMenuIdleScreenState);
+            
+            Tutorials.Register("can_start_collection_tutorial",  (Func<bool>) CanStartCollectionTutorial );
+            
+        }
     }
 }

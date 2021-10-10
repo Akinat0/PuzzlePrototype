@@ -3,32 +3,49 @@ using Data.Scripts.ScreensScripts;
 using ScreensScripts;
 using UnityEngine;
 
-public class ShopTutorialAction : LauncherAction
+public class ShopTutorialAction : TutorialAction
 {
-    ShopScreen ShopScreen { get; }
-    public ButtonComponent ShopButton { get; }
-    public ButtonComponent CloseButton { get; }
+    [TutorialProperty("shop_screen")]
+    public ShopScreen ShopScreen { get; set; }
+    
+    [TutorialProperty("shop_button")]
+    public ButtonComponent ShopButton { get; set; }
+    
+    [TutorialProperty("main_menu_close_button")]
+    public ButtonComponent CloseButton { get; set; }
 
     RectTransformTutorialHole tutorialHole;
     TutorialOverlayView tutorialOverlay;
     
-    public ShopTutorialAction(ShopScreen shopScreen, ButtonComponent shopButton, ButtonComponent closeButton) : base(LauncherActionOrder.Tutorial)
-    {
-        ShopScreen = shopScreen;
-        ShopButton = shopButton;
-        CloseButton = closeButton;
-    }
-
     public override void Start()
     {
-        if (Account.ShopAvailable)
+        if (Tutorials.ShopTutorial.State == TutorialState.Started)
         {
-            Pop();
-            return;
+            StartShopButtonTutorial();
         }
+        else
+        {
+            bool secondLevelClosed = false;
+        
+            void TryStartTutorial(GameSceneUnloadedArgs args)
+            {
+                if (args.LevelConfig != Account.LevelConfigs[1])
+                    return;
+            
+                secondLevelClosed = true;
+                LauncherUI.GameEnvironmentUnloadedEvent -= TryStartTutorial;
+            }
+        
+            LauncherUI.GameEnvironmentUnloadedEvent += TryStartTutorial;
+            
+            bool CanStartPredicate() => secondLevelClosed; 
+        
+            StartCoroutine(Coroutines.WaitUntil(CanStartPredicate, StartShopButtonTutorial));
+        }
+    }
 
-        Account.ShopAvailable.Value = true;
-
+    void StartShopButtonTutorial()
+    {
         Transform root = LauncherUI.Instance.UiManager.Root;
         
         tutorialOverlay = OverlayView.Create<TutorialOverlayView>(root,
@@ -82,13 +99,15 @@ public class ShopTutorialAction : LauncherAction
 
     void CompleteTutorial()
     {
-        void OnCloseButtonClick()
+        void OnCloseClick()
         {
-            CloseButton.OnClick -= OnCloseButtonClick;
+            CloseButton.OnClick -= OnCloseClick;
+            ShopScreen.OnOverlayClick -= OnCloseClick;
             Pop();
         }
 
-        CloseButton.OnClick += OnCloseButtonClick;
+        CloseButton.OnClick += OnCloseClick;
+        ShopScreen.OnOverlayClick += OnCloseClick;
     }
 
     public override void Update()

@@ -4,25 +4,22 @@ using Data.Scripts.ScreensScripts;
 using ScreensScripts;
 using UnityEngine;
 
-public class CollectionTutorialAction : LauncherAction
+public class CollectionTutorialAction : TutorialAction
 {
-    ButtonComponent CollectionButton { get; }
-    CollectionScreen CollectionScreen { get; }
-    Func<bool> CanStartPredicate { get; }
-
+    [TutorialProperty("collection_button")]
+    public ButtonComponent CollectionButton { get; set; }
+    
+    [TutorialProperty("collection_screen")]
+    public CollectionScreen CollectionScreen { get; set; }
+    
+    [TutorialProperty("can_start_collection_tutorial")]
+    public Func<bool> CanStartPredicate { get; set; }
+    
     TutorialOverlayView overlayView;
-
     RectTransformTutorialHole currentHole;
 
     RectTransform Root => LauncherUI.Instance.UiManager.Root;
     
-    public CollectionTutorialAction(ButtonComponent collectionButton, CollectionScreen collectionScreen,  Func<bool> canStartPredicate) : base(LauncherActionOrder.Tutorial)
-    {
-        CollectionButton = collectionButton;
-        CollectionScreen = collectionScreen;
-        CanStartPredicate = canStartPredicate;
-    }
-
     public override void Start()
     {
         StartCoroutine(Coroutines.WaitUntil(CanStartPredicate, CollectionButtonTutorial));

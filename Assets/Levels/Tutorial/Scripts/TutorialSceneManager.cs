@@ -87,7 +87,6 @@ public class TutorialSceneManager : GameSceneManager
     {
         LevelConfig.ObtainThirdStar();
         VignetteAnimator.FadeOut(VFXManager.Instance.Vignette);
-        Account.TutorialCompleted.Value = true;
     }
     
     public void InvokeEnemyNotSolved(EnemyBase enemy)

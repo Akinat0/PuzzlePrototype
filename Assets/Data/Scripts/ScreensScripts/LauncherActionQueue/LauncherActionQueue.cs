@@ -7,7 +7,14 @@ public class LauncherActionQueue : MonoBehaviour
     [SerializeField] AchievementNotification achievementNotification;
     
     SortedActionQueue actionQueue;
-    
+
+    void Awake()
+    {
+        actionQueue = gameObject.AddComponent<SortedActionQueue>();
+        RegisterTutorialValues();
+        AddChestActions();
+    }
+
     void OnEnable()
     {
         LauncherUI.GameEnvironmentLoadedEvent   += GameEnvironmentLoadedEvent_Handler;
@@ -30,23 +37,11 @@ public class LauncherActionQueue : MonoBehaviour
         Account.CommonChest.OnAmountAdded -= ChestCommonOnAmountAdded_Handler;
     }
 
-    void Start()
-    {
-        actionQueue = gameObject.AddComponent<SortedActionQueue>();
-        AddTutorialActions();
-        AddChestActions();
-    }
-
     public void AddAction(LauncherAction launcherAction)
     {
         actionQueue.Add(launcherAction);
     }
 
-    void AddTutorialActions()
-    {
-        AddAction(new FirstStartTutorialAction());
-    }
-    
     void AddChestActions()
     {
         int commonChestsCount = Account.CommonChest.Count;
@@ -65,7 +60,7 @@ public class LauncherActionQueue : MonoBehaviour
 
     void AchievementReceived_Handler(Achievement achievement)
     {
-        if (Account.AchievementsAvailable)
+        if (Tutorials.AchievementTutorial.IsCompleted)
             AddAction(new LauncherAchievementAction(achievement, achievementNotification));
     }
 
@@ -76,8 +71,6 @@ public class LauncherActionQueue : MonoBehaviour
 
     void GameEnvironmentUnloadedEvent_Handler(GameSceneUnloadedArgs args)
     {
-        if (args.LevelConfig == Account.LevelConfigs[0] && !Account.AchievementsAvailable)
-            AddAction(new AchievementTutorialAction(LauncherUI.Instance.UiManager.Achievements, achievementNotification));
     }
 
     void ChestEpicOnAmountAdded_Handler(int amount)
@@ -96,5 +89,10 @@ public class LauncherActionQueue : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
             AddAction(new LauncherOpenChestAction(Rarity.Common));
+    }
+
+    void RegisterTutorialValues()
+    {
+        Tutorials.Register("achievement_notification", achievementNotification);
     }
 }

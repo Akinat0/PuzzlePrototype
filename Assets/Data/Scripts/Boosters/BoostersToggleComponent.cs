@@ -13,7 +13,7 @@ public class BoostersToggleComponent : ToggleComponent
     [SerializeField] BoosterView heartBoosterView; 
 
     BlurOverlayView fade;
-
+    
     public BlurOverlayView Fade
     {
         get
@@ -32,16 +32,18 @@ public class BoostersToggleComponent : ToggleComponent
     protected override void Start()
     {
         base.Start();
+
+        if (!Application.isPlaying)
+            return;
         
         timeFreezeBoosterView.Initialize(Account.GetBooster<TimeFreezeBooster>());
         heartBoosterView.Initialize(Account.GetBooster<HeartBooster>());
         //add here other boosters initialization
 
-        Account.BoostersAvailable.Changed += BoosterAvailableChanged_Handler;
-        
-        AddTutorialAction();
-        
-        SetActive(Account.BoostersAvailable);
+        RegisterTutorialValues();
+
+        SetActive(Tutorials.BoosterTutorial.State == TutorialState.Started 
+                  || Tutorials.BoosterTutorial.State == TutorialState.Completed);
     }
 
     void OnEnable()
@@ -87,29 +89,15 @@ public class BoostersToggleComponent : ToggleComponent
         RectTransform.DOAnchorPos(Vector2.zero, AnimationDuration);
     }
 
-    void BoosterAvailableChanged_Handler(bool available)
-    {
-        SetActive(available);
-    }
-    
     protected virtual void OnDestroy()
-    {
-        Account.BoostersAvailable.Changed -= BoosterAvailableChanged_Handler;
-        
+    {   
         if(fade != null && fade.gameObject != null)
             Destroy(fade.gameObject);
     }
 
-    void AddTutorialAction()
+    void RegisterTutorialValues()
     {
-        void AddBoosterTutorialAction() => LauncherUI.Instance.ActionQueue.AddAction(new BoosterTutorialAction(this, heartBoosterView));
-
-        if (!Account.BoostersAvailable)
-        {
-            if (Account.ShopAvailable)
-                AddBoosterTutorialAction();
-            else
-                Account.ShopAvailable.Changed += _ => AddBoosterTutorialAction();
-        }
+        Tutorials.Register("boosters_toggle", this);
+        Tutorials.Register("heart_booster_view", heartBoosterView);
     }
 }
